@@ -1,0 +1,13 @@
+Oracle API 4.x CHANGELOG
+====================
+
+2013-07-12
+  Added ability to email someone on errors, as well as API ability to
+  kill the script on errors (set by a GLOBALS variable; see README.txt for details)
+
+2013-07-08
+  Initial release of module (as beta1)
+
+
+2013-05-02
+  Initial creation of module.

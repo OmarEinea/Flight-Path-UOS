@@ -16,6 +16,9 @@ function user_menu() {
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin-tools/admin",
     "weight" => 100,
+    "page_settings" => array(
+      "menu_icon" => fp_theme_location() . "/images/users.png",
+    ),
   );      
 
   
@@ -76,6 +79,7 @@ function user_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/roles.png",
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",
@@ -216,6 +220,7 @@ function user_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/permission.png",
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",
@@ -1163,11 +1168,16 @@ function user_display_student_users() {
     "N" => array("N", "NZZZ"),
     "O" => array("O", "OZZZ"),    
     "P" => array("P", "PZZZ"),
-    "Q-R" => array("Q", "RZZZZ"),
+    "Q" => array("Q", "QZZZ"),
+    "R" => array("R", "RZZZ"),
     "S" => array("S", "SZZZ"),
     "T" => array("T", "TZZZZ"),
     "U" => array("U", "UZZZ"),
-    "V-Z" => array("V", "ZZZZ"),        
+    "V" => array("V", "VZZZ"),
+    "W" => array("W", "WZZZ"),
+    "X" => array("X", "XZZZ"),
+    "Y" => array("Y", "YZZZ"),
+    "Z" => array("Z", "ZZZZ"),        
   );
 
 
@@ -1213,24 +1223,24 @@ function user_display_student_users() {
     $rtn .= "<input type='hidden' name='q' value='admin/users/students'>";
   }                        
   $rtn .= "
-                         " . t("Search:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
-                        <input type='submit' name='searchsubmit' class='smallinput' value=' -> '>
+                         " . t("Search : ") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
+                        <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
                        
-                        &nbsp; &nbsp; " . t("or") . " &nbsp; &nbsp;
+                        &nbsp; &nbsp; " . t("Major : ") . " 
                        <select name='major_code' class='smallinput'>
                         <option value=''>" . t("Select a major code...") . "</option>
                         <option value=''>--------------------------</option>
                     <!--MAJORCODESEARCH-->
                        </select>
-                       <input type='submit' name='major_code_submit' class='smallinput' value=' -> '>
+                       <input type='submit' name='major_code_submit' class='smallinput' value='Go'>
                        
-                       &nbsp; &nbsp; " . t("Set disp:") . "
+                       &nbsp; &nbsp; " . t("Status : ") . "
                        <select name='set_disp'>
                         <option value='only_active' $sel_only_active>" . t("only active") . "</option>                        
                         <option value='only_inactive' $sel_only_inactive>" . t("only inactive") . "</option>
                         <option value='both' $sel_both>" . t("show both") . "</option>
                        </select>
-                       <input type='submit' name='show_inactive_submit' class='smallinput' value=' -> '>                                              
+                       <input type='submit' name='show_inactive_submit' class='smallinput' value='Go'>                                              
                        
                        </form>
                        </div>
@@ -1360,8 +1370,8 @@ function user_display_student_users() {
                           u.is_student = 1
                         AND u.cwid = s.cwid
                         $in_active_query_line
-                        AND l_name BETWEEN '?' AND '?'
-                        ORDER BY l_name, f_name ", $ur, $lr);
+                        AND f_name BETWEEN '?' AND '?'
+                        ORDER BY f_name, l_name ", $ur, $lr);
     $displaying = $ur;
   }
   $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("Displaying:") . "</b> $displaying</div>
@@ -1476,7 +1486,7 @@ function user_display_users() {
 
 
   $letter_ranges = array(
-    "A" => array("A", "AZZZZ"),
+   "A" => array("A", "AZZZZ"),
     "B" => array("B", "BZZZZ"),
     "C" => array("C", "CZZZ"),
     "D" => array("D", "DZZZZ"),
@@ -1492,11 +1502,16 @@ function user_display_users() {
     "N" => array("N", "NZZZ"),
     "O" => array("O", "OZZZ"),    
     "P" => array("P", "PZZZ"),
-    "Q-R" => array("Q", "RZZZZ"),
+    "Q" => array("Q", "QZZZ"),
+    "R" => array("R", "RZZZ"),
     "S" => array("S", "SZZZ"),
     "T" => array("T", "TZZZZ"),
     "U" => array("U", "UZZZ"),
-    "V-Z" => array("V", "ZZZZ"),        
+    "V" => array("V", "VZZZ"),
+    "W" => array("W", "WZZZ"),
+    "X" => array("X", "XZZZ"),
+    "Y" => array("Y", "YZZZ"),
+    "Z" => array("Z", "ZZZZ"),        
   );
 
 
@@ -1518,18 +1533,18 @@ function user_display_users() {
                         
   $rtn .= "                        
                         <input type='hidden' name='performAction' value='editUsers'>
-                         " . t("Search:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
-                        <input type='submit' name='searchsubmit' class='smallinput' value=' -> '>
+                         " . t("Search : ") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
+                        <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
                        
-                        &nbsp;&nbsp;" . t("or") . "&nbsp;&nbsp;
+                        &nbsp;&nbsp;" . t("Department : ") . "
                        <select name='department' class='smallinput'>
                         <option value=''>" . t("Select a department:") . "</option>
                         <option value=''>--------------------------</option>
                     <!--DEPTSEARCH-->
                        </select>
-                       <input type='submit' name='deptsubmit' class='smallinput' value=' -> '>
+                       <input type='submit' name='deptsubmit' class='smallinput' value='Go'>
                        
-                       &nbsp;&nbsp;" . t("or") . "&nbsp;&nbsp;
+                       &nbsp;&nbsp;" . t("Role : ") . "
                        <select name='role' class='smallinput'>
                        <option value=''>" . t("Select a role:") . "</option>
                        <option value=''>--------------------------</option>
@@ -1557,7 +1572,7 @@ function user_display_users() {
   }
   $rtn .= "</select>
                        
-                       <input type='submit' name='rolesubmit' class='smallinput' value=' -> '>
+                       <input type='submit' name='rolesubmit' class='smallinput' value='Go'>
                        
                        </form>
                        </div>
@@ -1700,8 +1715,8 @@ function user_display_users() {
                         WHERE
                           u.is_faculty = 1
                         AND u.cwid = f.cwid
-                        AND l_name BETWEEN '?' AND '?'
-                        ORDER BY l_name, f_name ", $ur, $lr);
+                        AND f_name BETWEEN '?' AND '?'
+                        ORDER BY f_name, l_name ", $ur, $lr);
     $displaying = $ur;
   }
   $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("Displaying:") . "</b> $displaying</div>

@@ -1,0 +1,4 @@
+name = Sample Data
+description = This module will create sample data in your database for experimentation and demonstration purposes.  Once enabled, visit admin/config/sample-data to install the data.
+core = 4.x
+version = 4.x-1.0-beta1

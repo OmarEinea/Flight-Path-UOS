@@ -1,0 +1,4 @@
+name = LDAP
+description = Allows logging into FlightPath using an LDAP server.
+core = 4.x
+version = 4.x-1.0-beta6

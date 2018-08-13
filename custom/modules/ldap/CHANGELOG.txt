@@ -1,0 +1,42 @@
+Changelog for LDAP module (4.x)
+===============================
+
+---------------------------
+RELEASED VERSION 1.0-beta6
+---------------------------
+
+2015-06-09
+  Fixed bug in LDAP login procedure, as well as allowed for my diverse types of LDAP setups.
+
+  Removed constraint that CWIDs must be numeric.
+  
+2015-05-21
+  Added ability to test for LDAP attributes, even if they do not follow the field[0] structure.
+  In practical terms, this means you can test for "dn" as a field, when testing if a user is student or faculty.
+
+2014-02-07
+  Added is_active flag to the student's table, when a student logs in.
+
+2014-02-06
+  Added additional operators to the settings field, where we destermine if a user is
+  a student or a faculty member.  Added "is numeric" and "is blank".
+  
+  Added ability to hook in for the user type determination.  See README.txt file for
+  more details on how the hook works.
+  
+  Added extra documentation to the settings form, to make it obvious that users may need
+  to make all their fieldnames lowercase, regardless of how it appears in LDAP.  This
+  is a limitation in PHP.
+
+
+2013-12-03
+  Added ability to specify more than one LDAP server, for the purposes of a simple
+  load balancer.  The module will select one of the addresses at random, if a second
+  address is specified.
+
+
+2013-03-13
+
+  Added some extra verbage to the settings form, to make options clearer.
+  
+  Added README.txt file.

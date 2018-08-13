@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * @file
+ * This is a sample routine, to show how one might set up a script which
+ * is meant to run once every night.
+ *
+ * COPY THIS FILE TO:
+ *    /custom/routines/your_routine_name.php
+ *
+ *
+ * USE THIS FILE:
+ * Set a nightly cron job that first cd's into the routines directory:
+ *    cd /var/www/whatever/flightpath/custom/routines
+ * Then executes the following command:
+ *    php your_routine_name.php secret_passcode345  (or whatever your passcode is, defined below)
+ *
+ * FOR SECURITY REASONS it is vital that you change the $SECRET_PASSCODE variable to something
+ * other than its default, set below, or malicious web visitors could possibly run your routines
+ * without your knowledge.  It would also be wise to restrict this routine to only be readable
+ * by the appropriate users on your system.
+ *
+ */
+
+// The secret passcode is used to help prevent web users from running this nightly routine.
+// Change this code to something new and unique.
+// ONLY letters, numbers, and underscores.  No *spaces*, dashes, symbols, etc.
+
+$SECRET_PASSCODE = "jpazhai";
+
+// Check to make sure this script was run with the secret passcode
+if ($argv[1] != $SECRET_PASSCODE) {
+  print "\n\n Sorry, you must specify the correct passcode in order to run this script.";
+  print "\n USAGE:  php scriptname.php PASSCODE\n\n";
+  die;
+}
+
+
+
+
+// Keep the script from timing out prematurely...
+set_time_limit(9999);  // around 2 hours, 45 minutes.  Feel free to change if necessary.
+
+
+// Include the FlightPath bootstrap file, which will load the minimum files and modules
+// to run FlightPath from the command line.
+$levels_deep = "../../";  // needed by bootstrap.inc
+require_once("../../bootstrap.inc");
+
+// Include the banner_integration routines include file.
+require_once("../modules/banner_integration/banner_integration.routines.inc");
+
+// By setting the following GLOBALS variable, FP will stop executing if we encounter
+// a MySQL error.  This is optional, but it helps with debugging.
+$GLOBALS["fp_die_mysql_errors"] = TRUE;
+// We also want to die if there are Oracle errors
+$GLOBALS["fp_oracleapi_die_oracle_errors"] = TRUE;
+
+print "\n\n ---- Beginning Routine ---- \n\n";
+print date("d-m-Y") . "--" . date("H:i:s");
+print "\n";
+
+
+// Set maintenance mode on FP
+variable_set("maintenance_mode", TRUE);
+
+//////////////////////////////////
+//////////////////////////////////
+
+// Specify your functions to run after this point.
+/* --*/
+
+
+// Import "local" courses into our database.  Should be run before transfer credit routines.
+// Uncomment to run, but be aware
+// that this can overwrite any existing course data (titles, descriptions, hours, etc)
+// that you may have already added!
+// IMPORTANT: Use the admin config form to adjust settings BEFORE running!
+//
+//banner_integration_routines_import_local_courses();
+
+// Run the transfer_institutions import
+//banner_integration_routines_import_transfer_institutions();
+
+// Run the advisor_student import
+banner_integration_routines_import_advisor_student();
+
+// Import & refresh students table
+// banner_integration_routines_import_students(TRUE, TRUE, FALSE);
+
+// Import & refresh the faculty table
+//banner_integration_routines_import_faculty_staff(TRUE, FALSE, TRUE);
+
+
+// Import & refresh student transfer courses & eqvs
+//banner_integration_routines_import_student_transfer_courses();
+
+// Import student courses
+// banner_integration_routines_import_student_courses();
+
+
+//Import Subjects
+//banner_integration_routines_import_subjects();
+
+//Import colleges
+//banner_integration_routines_import_colleges();
+
+//Import Student Test scores
+//banner_integration_routines_import_test_courses();
+
+
+//////////////////////////////////
+//////////////////////////////////
+
+// Clear maintenance mode on FP  -- we're all done!
+variable_set("maintenance_mode", FALSE);
+
+
+
+// All done!
+print "\n\n ---- Routine Finished ---- \n\n";
+print date("d-m-Y") . "--" . date("H:i:s");

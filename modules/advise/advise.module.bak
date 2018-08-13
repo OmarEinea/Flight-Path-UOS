@@ -784,7 +784,8 @@ function advise_display_view($view = "view") {
     // Figure out what the page's sub-tabs should be, and set them.
   
     $tab_array = array();
-//CODE-DELETE-START -20170810 "Display by Year","Display by Type" buttons dissappear from the View and What-If screens
+//CODE-DELETE-START
+//MAKE "Display by Year","Display by Type" buttons dissappear from the View and What-If screens
   // $tab_array[0]["title"] = "Display by Year";
   //  $tab_array[0]["active"] = ($screen->view != "type");
   //  $tab_array[0]["on_click"] = "changeView(\"year\");";
@@ -792,7 +793,7 @@ function advise_display_view($view = "view") {
   //  $tab_array[1]["title"] = "Display by Type";
   //  $tab_array[1]["active"] = ($screen->view == "type");
   //  $tab_array[1]["on_click"] = "changeView(\"type\");";
-
+        
     //if (!fp_screen_is_mobile()) {
     //  $tab_array[2]["title"] = "Print";
     //  $tab_array[2]["type"] = "link";    
@@ -801,7 +802,7 @@ function advise_display_view($view = "view") {
     //}
 //CODE-DELETE-END
 
-//CODE-ADD-START -20170810 Same code as above for "Print", with changed array index
+//CODE-ADD-START
 
     if (!fp_screen_is_mobile()) {
       $tab_array[0]["title"] = "Print";
@@ -1335,7 +1336,8 @@ function advise_init_screen() {
 
   }
 
-  //CODE-ADD-START - //To display the Advising Screen by Type, by default.
+  //CODE-ADD-START
+  //TO DISPLAY BY TYPE FIRST
   $GLOBALS["fp_advising"]["advising_view"] = "type";
   //CODE-ADD-END
   // Is the user trying to view "by type" or by year?

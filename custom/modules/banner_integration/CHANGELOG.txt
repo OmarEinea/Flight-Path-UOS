@@ -1,0 +1,185 @@
+Banner Integration 4.x CHANGELOG
+--------------------------------
+
+------------------
+RELEASED 1.0-beta9
+------------------
+
+
+2015-05-15
+  Added simple caching to two functions, which might help speed up routines.
+  
+
+2015-03-12
+  Added support for "level code", requires FlightPath version 4.7.1 or higher.
+  
+
+------------------
+RELEASED 1.0-beta8
+------------------
+
+
+2014-06-24
+  Adjusted the transfer_eqv_global routine to look for other sources of transfer_hours if it reads
+  zero, which might indicate an error.
+  
+
+------------------
+RELEASED 1.0-beta7
+------------------
+
+2014-06-20
+  Added routine to populate transfer_eqv_global table which comes with the transfer_search module.
+  
+
+------------------
+RELEASED 1.0-beta6
+------------------
+
+2014-03-19
+  Added extra code to hook_student_load, to re-run the calculate_cumulative_hours_and_gpa function,
+  if that option is set in the system settings.
+  
+  This module now requires at least version 4.4.1 of FlightPath.
+
+
+------------------
+RELEASED 1.0-beta5
+------------------
+
+2014-03-17
+  Added ability to set what the "enrolled grade" is, when loading local courses from Banner.
+  It had previously been hard-coded to "E".
+
+
+------------------
+RELEASED 1.0-beta4
+------------------
+
+
+2014-03-13
+  Changed the way the transfer courses routine works, so that if an eqv is specified (but the local
+  course doesn't exist), the row isn't skipped.  Instead it gets saved normally, just missing its eqv.
+
+
+------------------
+RELEASED 1.0-beta3
+------------------
+
+
+2013-11-20
+  Added a field to the query for student transfer courses, to also look for academic renewal
+  codes which means it should be skipped. This is an "E" by default, but is configurable on the settings
+  page.
+
+
+------------------
+RELEASED 1.0-beta2
+------------------
+  
+
+
+2013-11-05
+  Made the shrtckn_repeat_course_ind code a setting the user can change (or not use), 
+  instead of permanently set to "E".
+  
+
+2013-10-23
+  Added "shrtckn_repeat_course_ind" to the fields that get returned from our historical query of student's
+  courses.  If the field is "E" (for "exclude") then the course will be skipped.
+  
+
+2013-08-07
+  Modified import_student_transfer_courses routine to combine "split up" transfer credits into
+  a single record in the student_transfer_courses table, as is required by FP.  This is to fix a bug.
+
+
+2013-07-26
+  Fixed bug in import_students routine, where for new students the correct row wasn't necessarily being
+  pulled from Banner.
+  
+
+------------------
+RELEASED 1.0-beta1
+------------------
+  
+
+2013-07-25
+  Fixed a bug in the import_students routine, where students were not being updated if they already
+  existed in the users table.
+  
+  Added an import_faculty_staff routine.
+  
+  Added a simple change to the routines functions for import_students and import_faculty_staff
+  where you can say if you want to populate/truncate the goremal scratch able.  That's because
+  they both use that scratch table, so if you are running both routines, you don't want to
+  needlessly re-populate the table.
+  
+
+2013-07-24
+  Updated ...import_students routine again, as well as the scratch table, to look at the
+  stst_code (should be AS) to determine if a student is 'active' or not.
+  
+
+2013-07-22
+  Modified the ...import_students routine to look at term_code_admit, as well as registered_ind
+  and enrolled_ind, in determining if a student was "active" or not.  Modified the scratch table
+  to include that field as well.
+  
+  Modified hook_update to just always recreate scratch tables every time we update.
+  
+  
+
+2013-07-19
+  In the interest of speeding up the import_students routine, I am creating a new scratch table,
+  goremal, for keeping up with email addresses.
+  
+  Added lots of watchdog logging entries to the routines.
+  
+  Modified the transfer courses routine, to write to temp tables first, then copy to real tables
+  at the end, as its safer to do that, should Banner die in the middle of that long function.
+  
+
+2013-07-18
+  Added the ...import_local_courses routine, which will import university courses (subject_id,
+  course_num, hours, titles) from Banner into FP's database.  Be sure before running that
+  you configure the settings on the admin config form!
+  
+
+2013-07-17
+  Added the ...import_student_transfer_courses routine, which loads all students' transfer
+  credits and eqv's from Banner, and adds them to the MySQL database.  It is meant to be run
+  nightly, along with the other routines.
+  
+  Added a new hook, to allow modification to a record being read from the transfer routine.
+
+
+2013-07-13
+  Changed function ...current_term()  to ...get_current_term_details, to better reflect the
+  fact that it returns an array of details about the current term, not just the term code itself.
+  
+  Updated the ..get_student_local_courses to fix bug associated with getting the current term.
+  
+  Added ...import_student_users function to the routines.inc file.
+  
+  Create scratch table in .install file.
+  
+  Updated .info file to use new schema.
+    
+
+2013-07-12
+  Updated routines queries not to die on oracle errors, but instead to allow the latest
+  version of oracleapi module handle that for us.
+
+
+2013-07-09
+  Now loads local student courses automatically.  Make sure to enable that on this module's settings
+  page.  Does this by implementing hook_student_load.
+
+  Added import_advisor_student() function to the routines.inc file, and updated the sample_routine.php.txt
+  file to reflect that.
+  
+
+2013-07-08
+  Initial release of module, in very alpha stage.
+

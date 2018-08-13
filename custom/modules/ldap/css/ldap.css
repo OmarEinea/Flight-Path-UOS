@@ -1,0 +1,30 @@
+
+#element-wrapper-ldap_is_student_field,
+#element-wrapper-ldap_is_student_field label {
+  display: inline;
+}
+
+#element-wrapper-ldap_is_student_op , 
+#element-wrapper-ldap_is_student_op label {
+  display: inline;
+}
+
+#element-wrapper-ldap_is_student_op_value,
+#element-wrapper-ldap_is_student_op_value label {
+  display: inline;
+}
+
+#element-wrapper-ldap_is_faculty_field,
+#element-wrapper-ldap_is_faculty_field label {
+  display: inline;
+}
+
+#element-wrapper-ldap_is_faculty_op , 
+#element-wrapper-ldap_is_faculty_op label {
+  display: inline;
+}
+
+#element-wrapper-ldap_is_faculty_op_value,
+#element-wrapper-ldap_is_faculty_op_value label {
+  display: inline;
+}

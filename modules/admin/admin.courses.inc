@@ -29,15 +29,17 @@ function admin_display_courses() {
   $lr = trim($_GET["lr"]);
   if ($ur == "") { 
     // meaning, no range was set.  Use A - AZZZZZ, so, all of the A's.
-    $ur = $_SESSION["dec_ur"];
-    $lr = $_SESSION["dec_lr"];
-    if ($ur == "") { 
-      // if still blank, assign it..
-      $ur = "A";
-      $lr = "AZZZZ";
-    }
-
+    $ur = "0%";
+    $lr = "9%";
   }
+      // if still blank, assign it..
+//CODE-DELETE-START -2017XXXX -For showing clickable headers in the course list     
+	// $ur = "A";
+    //  $lr = "AZZZZ";
+//CODE-DELETE-END
+//CODE-ADD-START -2017XXXX -For ensuring appropriate  sorting in the database query     
+	
+//CODE-ADD-END
   $_SESSION["dec_ur"] = $ur;
   $_SESSION["dec_lr"] = $lr;
 
@@ -46,8 +48,10 @@ function admin_display_courses() {
 
   $rtn .= "<h2 class='title'>" . t("Courses for @year", array("@year" => $de_catalog_year)) . "</h2>";
 
-  $letter_ranges = array(
-    "A" => array("A", "AZZZZ"),
+//CODE-DELETE-START -2017XXXX -For removing old clickable headers in the course list     
+/*
+$letter_ranges = array(  
+  "A" => array("A", "AZZZZ"),
     "B" => array("B", "BZZZZ"),
     "C-CN" => array("C", "CNZZZ"),
     "CO-CZ" => array("CO", "CZZZZ"),
@@ -64,8 +68,31 @@ function admin_display_courses() {
     "Q-R" => array("Q", "RZZZZ"),
     "S-SO" => array("S", "SOZZZ"),
     "SP-SZ" => array("SP", "SZZZZ"),
-    "T-Z" => array("T", "ZZZZZ"),
-  );
+    "T-Z" => array("T", "ZZZZZ"), */
+//);
+//CODE-DELETE-END  
+  
+  //CODE-ADD-START -2017XXXX To display the first 2 characters of the subject code (id) instead of the alphabetical codes displayed earlier 
+  $letter_ranges = array(
+ 	"00" => array("00", "0099"),
+	"01" => array("01", "0199"),
+	"02" => array("02", "0299"),
+	"03" => array("03", "0399"),
+ 	"04" => array("04", "0499"),
+	"05" => array("05", "0599"),
+	"06" => array("06", "0699"),
+	"07" => array("07", "0799"),
+	"08" => array("08", "0899"),
+	"09" => array("09", "0999"),
+	"10" => array("10", "1099"),
+	"11" => array("11", "1199"),
+	"12" => array("12", "1399"),
+	"14" => array("14", "1799"),
+	"18" => array("18", "1899"),
+	"19-99" => array("19", "9999"),
+	"A-Z" => array("A", "ZZZZ"),
+ );
+ //CODE-ADD-END
 
 
   $rtn .= "<div class='admin-courses-select-letter-bar'>
@@ -270,22 +297,22 @@ function admin_edit_course_form() {
   
   $form["course_names"] = array(
     "type" => "textfield",
-    "label" => t("Course names(s):"),
+    "label" => t("Course code(s):"),
     "required" => TRUE,
     "value" => $all_names,
     "popup_description" => t("These are the possible display names for this course. Typically,
-                              there will be only one name. Ex: ACCT 110. You must place a space
+                              there will be only one name. Ex: 1101 110. You must place a space
                               between the subject ID and course number.
                               
-                              If this course is known by another name (has an eqv course)
+                              If this course is known by another name (has an equivalent course)
                               then enter it as well using a comma.
-                              Ex: ACCT 110, MATH 110A
+                              Ex: 1101 110, 1101 101
                               
                               Add the word 'exclude' to prevent it from showing in course
                               selection windows in FlightPath.
-                              Ex: ACCT 110, MATH 110A exclude
+                              Ex: 1101 110, 1101 101 exclude
                               
-                              IMPORTANT: Course names are updated for ALL YEARS of a course."),
+                              IMPORTANT: Course codes are updated for ALL YEARS of a course."),
   );  
   
   $form["title"] = array(
@@ -481,10 +508,10 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
 
     ////////////
     ///  Error conditions...
+    $flag = 0;
     if (strtolower($course_num) == "exclude" || $course_num == "") {
-      form_error("course_names", t("It appears you specified an excluded course
-            without a course number.  You entered %course.
-            Notice there is no course number. Please re-enter.", array("%course" => "$subject_id $course_num")));            
+      form_error("course_names", t("Please enter the course code in the required format (xxxx xxx) E.g. 1101 101 ", array("%course" => "$subject_id $course_num")));  
+      $flag = 1;          
       continue;
     }
 
@@ -638,7 +665,8 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
   // Clean up.  Delete the temporary course_id...
   $res = db_query("DELETE FROM draft_courses WHERE course_id = '-12345'  ");
 
-  fp_add_message("Course updated successfully.");  
+  if ($flag == 0)
+    fp_add_message("Course updated successfully.");  
   
   
 }

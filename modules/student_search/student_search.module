@@ -14,7 +14,8 @@ function student_search_menu() {
     "page_settings" => array(
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
-      "page_hide_report_error" => TRUE,      
+      "page_hide_report_error" => TRUE,    
+      "menu_icon" => fp_theme_location() . "/images/student_search.png",   
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",
@@ -199,9 +200,10 @@ function student_search_render_small_search() {
   
   $rtn .= "<form action='" . $url . "' method='post' id='small-search-form'
               style='padding:0; margin:0; padding-bottom: 5px;'>
-                     <input type='text' class='smallinput' size='30' name='search_for' id='search_bar_value'                       
-                        placeholder = '" . t("Search by name or CWID") . "'>
-                     <input type='submit' name='submit' value='=>' class='smallinput'>
+                     
+                     <input type='text' class='smallinput' size='12' name='search_for' id='search_bar_value'                       
+                        placeholder = '" . t("Student ID") . "'>
+                     <input type='submit' name='submit' value='Go' class='smallinput'>
                      <input type='hidden' name='current_student_id' value='$current_student_id'>   
                      <input type='hidden' name='did_search' value='true'>                  
                     </form>
@@ -226,8 +228,8 @@ function student_search_display_my_advisees() {
   
   $faculty_cwid = mysql_real_escape_string($user->cwid);
         
-  
-  $query = "SELECT u.user_id, f_name, u.cwid, l_name, major_code, rank_code, a.catalog_year
+
+ $query = "SELECT u.user_id, f_name, u.cwid, l_name, major_code, rank_code, a.catalog_year, a.gpa
               FROM users u, students a, advisor_student c
               WHERE 
                  c.faculty_id = '$faculty_cwid'
@@ -240,6 +242,8 @@ function student_search_display_my_advisees() {
               ORDER BY %ORDERBY%
               ";
 
+
+	  
   $adv_array = student_search_query_advisees($query);
   $s = (count($adv_array) == 1) ? "" : "s"; 
   $rtn .= student_search_render_advisees($adv_array, t("My Advisees Results") . " &nbsp; ( " . count($adv_array) . " " . t("student$s") . " )");
@@ -375,7 +379,8 @@ function student_search_display_majors_search() {
   */
   // Update the query to search for exact major code.
   $major_code = mysql_real_escape_string($major_code);
-  $query = "SELECT u.user_id, f_name, l_name, u.cwid, major_code, rank_code, a.catalog_year
+ 
+ $query = "SELECT u.user_id, f_name, l_name, u.cwid, major_code, rank_code, a.catalog_year, a.gpa
               FROM users u, students a
               WHERE 
                  major_code = '$major_code'
@@ -386,8 +391,6 @@ function student_search_display_majors_search() {
               %EXTRA_STUDENTSEARCH_CONDITIONS%
               ORDER BY %ORDERBY%
               ";
-  
-  
   
   $adv_array = student_search_query_advisees($query);
   $s = (count($adv_array) == 1) ? "" : "s"; 
@@ -418,7 +421,7 @@ function student_search_display_my_majors() {
   $db = get_global_database_handler();
   $faculty_user_major_code = $db->get_faculty_major_code($user->cwid);
     
-  $query = "SELECT u.user_id, f_name, l_name, u.cwid, major_code, rank_code, a.catalog_year
+  $query = "SELECT u.user_id, f_name, l_name, u.cwid, major_code, rank_code, a.catalog_year, a.gpa
               FROM users u, students a
               WHERE 
                  substring_index(major_code, '|', 1) = '$faculty_user_major_code'
@@ -427,7 +430,7 @@ function student_search_display_my_majors() {
                  AND u.is_disabled = 0                 
               AND rank_code IN %RANKIN%
               %EXTRA_STUDENTSEARCH_CONDITIONS%
-              ORDER BY %ORDERBY%
+              ORDER BY 
               ";
 
   $adv_array = student_search_query_advisees($query);
@@ -488,7 +491,7 @@ function student_search_display_search() {
     border='0' cellpadding='0' cellspacing='0'>
       <tr>
       <td width='30%' align='right'><font size='2'><b>" . t("Search for advisees:") . "&nbsp;&nbsp;</b></td> 
-      <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for'></font>
+      <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for' placeholder='Student ID'></font>
               <input type='hidden' name='did_search' id='input_did_search' value='true'></td>
       <td class='tenpt'>";
   $rtn .= fp_render_button("Search","jQuery(\"#mainform\").submit();");
@@ -542,7 +545,7 @@ function student_search_display_search() {
     // you search for "info=production" on the Advisees search tab...
     if (md5(strtolower($temp[1]))=="fd89784e59c72499525556f80289b2c7"){$rtn .= base64_decode("DQo8cD4NCjxiPlRoZSBvcmlnaW5hbCBGbGlnaHRQYXRoIFByb2R1Y3Rpb24gVGVhbSwgY2lyY2EgMjAwNywgYXQgVGhlIFVuaXZlcnNpdHkgb2YgTG91aXNpYW5hIGF0IE1vbnJvZTo8L2I+DQo8dWw+DQo8bGk+UmljaGFyZCBQZWFjb2NrIC0gUHJvamVjdCBsZWFkIGFuZCBwcmltYXJ5IGxvZ2ljIHByb2dyYW1tZXIuPC9saT4NCjxsaT5Kb2UgTWFuc291ciAtIERhdGFiYXNlIGFkbWluaXN0cmF0b3IgYW5kIG1haW5mcmFtZS9CYW5uZXIgZGF0YSBjb29yZGluYXRvci48L2xpPg0KPGxpPkpvYW5uIFBlcnJlciAtIERhdGEgZW50cnksIHRlc3RpbmcgYW5kIHNvZnR3YXJlIGNvb3JkaW5hdG9yLjwvbGk+DQo8bGk+UGF1bCBHdWxsZXR0ZSAtIENsYXNzaWMgdGhlbWUgZGVzaWduZXIuPC9saT4NCjxsaT48Yj5PdGhlciBjb250cmlidXRpbmcgcHJvZ3JhbW1lcnM8L2I+OiBDaGFybGVzIEZyb3N0LCBCcmlhbiBUYXlsb3IuPC9saT4NCjwvdWw+DQpUbyBldmVyeW9uZSB3aG8gaGVscGVkIG1ha2UgRmxpZ2h0UGF0aCBwb3NzaWJsZTogVGhhbmsgWW91Lg0KPC9wPg==");}
 
-    $query = "SELECT u.user_id, f_name, l_name, u.cwid, a.major_code, rank_code, a.catalog_year
+    $query = "SELECT u.user_id, f_name, l_name, u.cwid, a.major_code, rank_code, a.catalog_year, a.gpa
               FROM users u, students a $other_table
               WHERE 
                  u.cwid = a.cwid
@@ -658,6 +661,7 @@ function student_search_render_advisees($adv_array, $title) {
       <td width='15%' valign='top' class='tenpt'><b>" . t("Major Code") . "</b></td>
       <td width='10%' valign='top' class='tenpt'><b>" . t("Rank") . "</b></td>
       <td width='15%' valign='top' class='tenpt'><b>" . t("Catalog Year") . "</b></td>
+      <td width='15%' valign='top' class='tenpt'><b>" . t("GPA") . "</b></td>
       ";
   } 
   
@@ -676,6 +680,7 @@ function student_search_render_advisees($adv_array, $title) {
     $degree_id = $adv_array[$t]["degree_id"];
     $rank = $adv_array[$t]["rank"];
     $catalog_year = $adv_array[$t]["catalog_year"];
+    $gpa = $adv_array[$t]["gpa"];
     if ($screen->page_is_mobile) {
       $catalog_year = get_shorter_catalog_year_range($catalog_year, false, true);
     }
@@ -704,15 +709,18 @@ function student_search_render_advisees($adv_array, $title) {
 
     // old onCLick:
     //<!-- onClick='selectStudent(\"$student_id\",\"$major\",\"$what_if_major_code\",\"$what_if_track_code\")' -->
-    
+    if ($gpa > 2.2) $colour = '#000000';
+    else if ($gpa > 2) $colour = '#ffa500';
+    else $colour = '#ff0000';
+
     $rtn .= "
       <tr height='19'>
-          <td colspan='7'>
+          <td colspan='8'>
           <table border='0' 
                   $on_mouse  
                   onClick='showUpdate(true); window.location=\"$url\"; '                 
                    width='100%' >
-                  <tr height='20'>
+                  <tr height='20' style='color:$colour' >
                     <td width='5%' class='hand'>$advised_image</td>  
                 <td width='12%' class='hand'><font size='2'>$student_id</font></td>
                   <td width='15%' class='hand'><font size='2'>$first_name </font></td>
@@ -720,11 +728,13 @@ function student_search_render_advisees($adv_array, $title) {
               <td width='15%' class='hand'><font size='2'>$major</td>
                 <td width='10%' class='hand'><font size='2'>$rank</td>
                 <td width='15%' class='hand'><font size='2'>$catalog_year</td>
+                 <td width='10%' class='hand'><font size='2'>$gpa</td>
                  </tr>
                   </table>   
             </td> 
          </tr>
          ";
+
   }
 
 
@@ -774,7 +784,7 @@ function student_search_query_advisees($sql) {
   
   $rank_in = "( '" . join("', '", csv_to_array($GLOBALS["fp_system_settings"]["allowed_student_ranks"])) . "' )";
     
-  $order_by = " major_code, l_name, f_name ";
+  $order_by = " a.gpa, major_code, l_name, f_name ";
   
   // Replace the replacement portion with our derrived variables.
   $sql = str_replace("%RANKIN%", $rank_in, $sql);
@@ -802,6 +812,7 @@ function student_search_query_advisees($sql) {
     $rtn_array[$r]["rank"] = $cur["rank_code"];
     $rtn_array[$r]["catalog_year"] = $cur["catalog_year"];
     $rtn_array[$r]["major"] = $cur["major_code"];
+    $rtn_array[$r]["gpa"] = $cur["gpa"];
     
 
     // We should also mark if the student has been advised for this semester

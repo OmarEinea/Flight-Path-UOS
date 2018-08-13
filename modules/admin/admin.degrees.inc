@@ -43,7 +43,9 @@ function admin_display_degrees_popup_add_group() {
       Hrs: <input type='text' name='hours' id='hours' size='2'>
       Min Grade: <select name='min_grade' id='min_grade'>
               <option value=''>--</option>
-              <option value='C'>C</option>
+		// Added D as a grade on 20170702
+              <option value='D'>D</option>
+			  <option value='C'>C</option>
               <option value='B'>B</option>
               <option value='A'>A</option>
               
@@ -601,12 +603,19 @@ function admin_display_degrees() {
              <a name='degree_$db_degree_id'></a>";
     $rtn .= "<div class='list-degree-row $extra_class'>
             $outside
-            " . l("$db_degree_type $db_title $db_major_code", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => "degree-$db_degree_class")) . "
-            </div>
+" . l("$db_degree_type $db_title $db_major_code", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => "degree-$db_degree_class")) . "
+
+			</div>
             </div>";
 
+//CODE-DELETE-START -2017XXXX replaced code above to only display the degree title
+ //" . l("$db_degree_type $db_title $db_major_code", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => //"degree-$db_degree_class")) . "
 
+ 
+             //" . l(" $db_title ", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => "degree-$db_degree_class")) . "
 
+ 
+ ///-------//CODE-DELETE-END
   }    
   
   return $rtn;

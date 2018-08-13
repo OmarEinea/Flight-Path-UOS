@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * This is the install file for the Banner Integration module.
+ * 
+ * The primary thing we want to do is create any local tables we will need
+ * when this script is installed or updated.
+ */
+
+
+function banner_integration_install() {
+
+  // When we install, create our scratch tables.
+  banner_integration_create_scratch_table_sgvstd1();
+  banner_integration_create_scratch_table_goremal();
+
+  
+  
+}
+
+
+function banner_integration_update($old_schema, $new_schema) {
+
+  // No matter what happens, when we update, just rebuild the scratch tables, regardless
+  // if they already exist or not.  This should catch changes to the tables that may occur.
+  
+  // Create the table.
+  banner_integration_create_scratch_table_sgvstd1();
+  
+  // Create the table.
+  banner_integration_create_scratch_table_goremal();
+
+  
+
+
+   
+  
+}
+
+
+
+/**
+ * Creates the scratch table goremal, which keeps up with email addresses
+ *
+ */
+function banner_integration_create_scratch_table_goremal() {
+  
+  db_query("DROP TABLE IF EXISTS banner_integration_scratch_goremal");
+  
+  db_query("
+      CREATE TABLE `banner_integration_scratch_goremal` (
+        `goremal_pidm` varchar(20) NOT NULL,
+        `goremal_email_address` varchar(100) NOT NULL,
+        `goremal_emal_code` varchar(5) NOT NULL,
+        PRIMARY KEY (`goremal_pidm`,`goremal_email_address`),
+        KEY `goremal_pidm` (`goremal_pidm`),
+        KEY `goremal_email_address` (`goremal_email_address`),
+        KEY `goremal_emal_code` (`goremal_emal_code`)
+      ) ");
+  
+}
+
+
+/**
+ * Create the scratch table sgvstd1, dropping any existing table if we need to.
+ *
+ */
+function banner_integration_create_scratch_table_sgvstd1() {
+
+  db_query("DROP TABLE IF EXISTS banner_integration_scratch_sgvstd1");
+  
+  db_query("
+  
+    CREATE TABLE `banner_integration_scratch_sgvstd1` (
+      `pidm_key` varchar(20) NOT NULL,
+      `term_code_key` varchar(10) NOT NULL,
+      `term_code_admit` varchar(10) NOT NULL,
+      `enrolled_ind` varchar(5) NOT NULL,
+      `registered_ind` varchar(5) NOT NULL,
+      `stst_code` varchar(5) NOT NULL,
+      `id` varchar(20) NOT NULL,
+      `last_name` varchar(60) NOT NULL,
+      `first_name` varchar(60) NOT NULL,
+      `clas_code` varchar(5) NOT NULL,
+      `majr_code` varchar(10) NOT NULL,
+      `majr_code_concentration_1` varchar(10) NOT NULL,
+      `levl_gpa_hours_earned1` varchar(10) NOT NULL,
+      `levl_gpa1` varchar(10) NOT NULL,
+      PRIMARY KEY (`pidm_key`,`term_code_key`),
+      KEY `term_code_key` (`term_code_key`),
+      KEY `id` (`id`),
+      KEY `enrolled_ind` (`enrolled_ind`),
+      KEY `registered_ind` (`registered_ind`)
+    )
+    
+  ");
+   
+}

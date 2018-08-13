@@ -403,27 +403,25 @@ function course_search_display_edit_courses()
 
 	
 	
-  $letter_ranges = array(
-    "A" => array("A", "AZZZZ"),
-    "B" => array("B", "BZZZZ"),
-    "C-CN" => array("C", "CNZZZ"),
-    "CO-CZ" => array("CO", "CZZZZ"),
-    "D" => array("D", "DZZZZ"),
-    "E" => array("E", "EZZZZ"),
-    "F" => array("F", "FZZZZ"),
-    "G" => array("G", "GZZZZ"),
-    "H" => array("H", "HZZZZ"),
-    "I-L" => array("I", "LZZZZ"),
-    "M-MR" => array("M", "MRZZZ"),
-    "MS-MZ" => array("MS", "MZZZZ"),
-    "N-O" => array("N", "OZZZZ"),
-    "P" => array("P", "PZZZZ"),
-    "Q-R" => array("Q", "RZZZZ"),
-    "S-SO" => array("S", "SOZZZ"),
-    "SP-SZ" => array("SP", "SZZZZ"),
-    "T-Z" => array("T", "ZZZZZ"),
-  );
-
+    $letter_ranges = array(
+  "00" => array("00", "0099"),
+  "01" => array("01", "0199"),
+  "02" => array("02", "0299"),
+  "03" => array("03", "0399"),
+  "04" => array("04", "0499"),
+  "05" => array("05", "0599"),
+  "06" => array("06", "0699"),
+  "07" => array("07", "0799"),
+  "08" => array("08", "0899"),
+  "09" => array("09", "0999"),
+  "10" => array("10", "1099"),
+  "11" => array("11", "1199"),
+  "12" => array("12", "1399"),
+  "14" => array("14", "1799"),
+  "18" => array("18", "1899"),
+  "19-99" => array("19", "9999"),
+  "A-Z" => array("A", "ZZZZ"),
+ );
 
   $rtn .= "<div class='admin-courses-select-letter-bar'>
           ";

@@ -1,0 +1,708 @@
+<?php
+
+/**
+ * @file
+ * This module facilitates logging in using LDAP instead of FlightPath's regular login method.
+ */
+
+
+
+function ldap_menu() {
+  $items = array();
+  
+  $items["admin/config/ldap"] = array(
+    "title" => "LDAP settings",
+    "page_callback" => "fp_render_form",
+    "page_arguments" => array("ldap_settings_form", "system_settings"),
+    "access_arguments" => array("administer_ldap"),
+    "page_settings" => array(
+      "page_has_search" => FALSE,
+      "page_banner_is_link" => TRUE,
+      "page_hide_report_error" => TRUE,
+      "menu_links" => array(         
+        0 => array(
+          "text" => "Back to main menu",
+          "path" => "admin-tools/admin",
+        ),
+      ),
+    ),    
+    "type" => MENU_TYPE_NORMAL_ITEM,
+    "tab_parent" => "admin-tools/admin",    
+  );     
+  
+  return $items;
+  
+}
+
+
+function ldap_perm() {
+  return array(
+    "administer_ldap" => array(
+      "title" => t("Administer LDAP"),
+      "description" => t("Configure LDAP settings."),
+    ),
+  );
+}
+ 
+
+
+
+/**
+ * Authenticate the user with the ldap server.
+ * 
+ * Checks the username and password in the ldap server, and returns
+ * back the result.
+ * 
+ */
+function ldap_auth_connect($username, $password) {
+  $rtn = FALSE;
+  
+	// First, connect to the LDAP server and see that this is
+	// a valid login.
+  $server = variable_get("ldap_server_ip", "");
+  $server2 = variable_get("ldap_server_ip2", "");
+  
+  // If we have a second server specified, then try to randomly select between the two, for
+  // load balancing purposes.
+  if (trim($server2) != "") {
+    $r = rand(1, 2);
+    if ($r == 2) {
+      $server = $server2;
+    }
+  }
+  
+    
+	$port = variable_get("ldap_server_port", "389");
+	if (in_array("yes", variable_get("ldap_connect_secure", array()))) {
+	  // This should be a secure connection.
+	  $server = "ldaps://" . $server;
+	}
+  
+	
+	$ldapconn = ldap_connect($server, $port);
+	if (!$ldapconn) {
+	  fp_add_message(t("Could not connect to ldap server at %server.  Please
+	                    consult with your system administrator.", array("%server" => "$server:$port")));
+	  return FALSE;
+	}
+
+	
+	$uid_attr = variable_get("ldap_uid_attr", "uid");
+
+  // First, let's try to connect using the search dn, to try and find the user and get our results.	
+  $search_dn = variable_get("ldap_search_dn", "");
+  $search_password = variable_get("ldap_search_password", "");
+    
+  
+  // Attempt the non-anonymous search bind first.
+	$x = ldap_bind($ldapconn, $search_dn, $search_password);
+	if (!$x) {
+	  watchdog("ldap", "Could not bind to search DN, using the search DN and password.");
+	  fp_add_message(t("Could not authenticate to LDAP server for a non-anonymous search.  Please inform your
+	                     technical support, as this may indicate a configuration error."), "error");
+	  return FALSE;
+	}	
+
+	$bind_successful = FALSE;
+	
+	$base_dns = variable_get("ldap_base_dns", "");
+	$lines = explode("\n", $base_dns);	
+	foreach($lines as $base_dn) {
+	  // Try out all of our base_dns
+	  $base_dn = trim($base_dn);	
+	
+  	$r = ldap_search($ldapconn, $base_dn, "$uid_attr=$username");
+  	if ($r) {	
+  	  
+  		$result = ldap_get_entries($ldapconn, $r);
+  		if (is_array($result) && intval($result["count"]) > 0) {
+  		  $result = $result[0];
+        
+  		  // Okay, it was successful!  Let's store the results about this user.
+  		  $rtn = $result;
+
+
+  		  // Okay, now we need this individual user's DN, so we can authenticate.
+  		  $user_dn_field = variable_get("ldap_user_dn_field_name", "dn");
+  		  
+  		  $user_base_dn = ldap_get_field_value_from_result($user_dn_field, $result);
+  		
+  		  // Continuing, let's now bind for the individual user, using their full DN and supplied password.
+  		  // Attempt to authenticate...    	
+      	$bind_successful = FALSE;
+    	  $bind_successful = @ldap_bind($ldapconn, $user_base_dn, $password);
+    	  if ($bind_successful) break;    	
+  		  
+  		}		
+  	}  	
+  	
+	} //foreach 
+	
+
+	// Tidy up...
+	ldap_close($ldapconn);  
+	
+	
+	if ($bind_successful) {	
+	 return $rtn;	
+	}
+	else {
+	  return FALSE;
+	}
+	
+	
+}
+
+
+
+
+
+
+
+function z__old__ldap_auth_connect($username, $password) {
+  $rtn = FALSE;
+  
+	// First, connect to the LDAP server and see that this is
+	// a valid login.
+  $server = variable_get("ldap_server_ip", "");
+  $server2 = variable_get("ldap_server_ip2", "");
+  
+  // If we have a second server specified, then try to randomly select between the two, for
+  // load balancing purposes.
+  if (trim($server2) != "") {
+    $r = rand(1, 2);
+    if ($r == 2) {
+      $server = $server2;
+    }
+  }
+  
+    
+	$port = variable_get("ldap_server_port", "389");
+	if (in_array("yes", variable_get("ldap_connect_secure", array()))) {
+	  // This should be a secure connection.
+	  $server = "ldaps://" . $server;
+	}
+  
+	
+	$ldapconn = ldap_connect($server, $port);
+	if (!$ldapconn) {
+	  fp_add_message(t("Could not connect to ldap server at %server.  Please
+	                    consult with your system administrator.", array("%server" => "$server:$port")));
+	  return;
+	}
+
+	// Attempt to authenticate...
+	$uid_attr = variable_get("ldap_uid_attr", "uid");
+	$base_dns = variable_get("ldap_base_dns", "");
+	$lines = explode("\n", $base_dns);
+	$bind_successful = FALSE;
+	foreach($lines as $base_dn) {
+	  // Try out all of our base_dns
+	  $base_dn = trim($base_dn);	  
+	  $bind_successful = @ldap_bind($ldapconn, "$uid_attr=$username,$base_dn", $password);
+	  if ($bind_successful) break;
+	}
+
+	// If the bind was successful, it means we got a valid username and password
+	// from the user.  Now, let's bind with our search DN and search password
+	// to get more information about the user.
+	if ($bind_successful)
+	{
+	  
+	  $search_dn = variable_get("ldap_search_dn", "");
+	  $search_password = variable_get("ldap_search_password", "");
+	  
+		$x = ldap_bind($ldapconn, $search_dn, $search_password);
+		$r = ldap_search($ldapconn, $base_dn, "$uid_attr=$username");
+		if ($r)
+		{
+			$result = ldap_get_entries($ldapconn, $r);
+			if (is_array($result)) {
+			  $result = $result[0];
+        
+			  // Okay, it was successful!  We can now return a success
+			  // message with our result.
+			  $rtn = $result;
+			  			  
+			}
+			
+		}
+	}
+
+	
+	ldap_close($ldapconn);  
+	
+	return $rtn;	
+	
+}
+
+
+
+
+
+
+
+/**
+ * This is the config form for the ldap module.
+ *
+ */
+function ldap_settings_form() {
+  $form = array();
+  
+  fp_add_css(fp_get_module_path("ldap") . "/css/ldap.css");
+  
+  $form["ldap_server_ip"] = array(
+    "label" => t("Primary LDAP server name or IP address:"),
+    "type" => "text",
+    "value" => variable_get("ldap_server_ip", ""),
+    "description" => t("Ex: 192.168.5.73 or ldap.example.com"),
+  );
+  
+  $form["ldap_server_ip2"] = array(
+    "label" => t("(Optional) Secondary LDAP server name or IP address:"),
+    "type" => "text",
+    "value" => variable_get("ldap_server_ip2", ""),
+    "description" => t("This is for the purposes of load balancing ONLY!  If you have enter a second
+                        LDAP server address, this module will randomly select between your two
+                        addresses when a user logs on.  If you do not have a second LDAP
+                        server, or are unsure what to do, then LEAVE THIS FIELD BLANK."),
+  );
+  
+  
+  $form["ldap_server_port"] = array(
+    "label" => t("LDAP server port:"),
+    "type" => "text",
+    "size" => 10,
+    "value" => variable_get("ldap_server_port", "389"),
+    "description" => t("Ex: 389"),
+  );
+  
+  $form["ldap_connect_secure"] = array(
+    "label" => t("Security:"),
+    "type" => "checkboxes",
+    "options" => array("yes" => t("Connect to LDAP server securely")),
+    "value" => variable_get("ldap_connect_secure", array()),
+    "description" => t("If checked, the LDAP connection will
+                        be conducted securely, using the ldaps:// protocol.
+                        If your LDAP server does not use a security certificate,
+                        or if you have problems, leave this unchecked."),
+  );
+  
+
+  $form["ldap_search_dn"] = array(
+    "label" => t("DN for non-anonymous search:"),
+    "type" => "text",
+    "value" => variable_get("ldap_search_dn", ""),
+    "description" => t("Ex: cn=ldapFPuser,ou=profile,dc=example,dc=edu"),
+  );
+  
+
+  $form["ldap_search_password"] = array(
+    "label" => t("Password for non-anonymous search:"),
+    "type" => "password",
+    "value" => variable_get("ldap_search_password", ""),    
+  );
+  
+  $form["ldap_base_dns"] = array(
+    "label" => t("Base DNs for LDAP user entries:"),
+    "type" => "textarea",
+    "value" => variable_get("ldap_base_dns", ""),
+    "description" => t("Enter one DN per line.<br>Ex: ou=Students,ou=People,dc=example,dc=edu<br>&nbsp; ou=Employees,ou=People,dc=example,dc=edu"),
+  );
+
+
+  $form["ldap_uid_attr"] = array(
+    "label" => t("Username attribute:"),
+    "type" => "text",
+    "size" => 20,
+    "value" => variable_get("ldap_uid_attr", "uid"),
+    "description" => t("Ex: uid or cn, etc.") . "<br><b>
+                      " . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );
+
+  
+  
+  $form["ldap_user_dn_field"] = array(
+    "label" => t("User base DN field name in LDAP entry:"),
+    "type" => "text",
+    "size" => 20,
+    "value" => variable_get("ldap_user_dn_field_name", "dn"),
+    "description" => t("Ex: dn.  This is the field name, returned by LDAP, which contains the user's full DN.  In most cases,
+                        it is simply <em>dn</em>, though it might be <em>name</em> or something similar, depending on your set up.  If you
+                        are not sure what to do, leave this as <em>dn</em>.") . "<br><b>
+                      " . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );
+  
+
+  $form["ldap_no_cwid_msg"] = array(
+    "label" => t("Message to display if the CWID cannot be found:"),
+    "type" => "textarea",
+    "rows" => 2,
+    "value" => variable_get("ldap_no_cwid_msg", t("The user's CWID cannot be found in the LDAP result.  Please consult the system administrator.")),
+    "description" => t("Ex: This user's CWID cannot be found in the LDAP result.  Please consult the system administrator."),
+  );
+
+  
+  
+  ///////////////////
+  
+  
+  $form["ldap_cwid_field"] = array(
+    "label" => t("User CWID field:"),
+    "type" => "text",
+    "size" => 30,
+    "prefix" => "<hr>",
+    "value" => variable_get("ldap_cwid_field", "employeenumber"),
+    "description" => t("In the result set of a user's lookup in LDAP, what field 
+                        contains the user's CWID?  Ex: employeenumber, userid, etc.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );  
+  
+  
+  $form["ldap_f_name_field"] = array(
+    "label" => t("User first name field:"),
+    "type" => "text",
+    "size" => 30,    
+    "value" => variable_get("ldap_f_name_field", ""),
+    "description" => t("In the result set of a user's lookup in LDAP, what field 
+                        contains the user's first name? Leave blank if not set.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );  
+  
+  $form["ldap_l_name_field"] = array(
+    "label" => t("User last name field:"),
+    "type" => "text",
+    "size" => 30,    
+    "value" => variable_get("ldap_l_name_field", ""),
+    "description" => t("In the result set of a user's lookup in LDAP, what field 
+                        contains the user's last name? Leave blank if not set.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );  
+  
+  
+  
+  $op_options = array(
+    "contains" => t("contains"),
+    "does not contain" => t("does not contain"),
+    "is numeric" => t("is numeric (value field ignored)"),
+    "is not numeric" => t("is not numeric (value field ignored)"),
+    "is blank" => t("is blank (value field ignored)"),
+    "is not blank" => t("is not blank (value field ignored)"),
+    "invoke hook" => t("invoke hook (for developers, see README.txt)"),
+  );
+    
+  
+  $form["ldap_is_student_field"] = array(
+    "type" => "text",
+    "size" => 10,
+    "value" => variable_get("ldap_is_student_field", "usertype"),
+    "prefix" => "<p><b>" . t("How to determine if the user is a student:") . "</b></p>" . t("If field name:") . " ",
+  );
+  
+  $form["ldap_is_student_op"] = array(
+    "type" => "select",
+    "options" => $op_options,
+    "no_please_select" => TRUE,
+    "value" => variable_get("ldap_is_student_op", array()),
+  );
+
+  $form["ldap_is_student_op_value"] = array(
+    "type" => "text",
+    "size" => 15,
+    "value" => variable_get("ldap_is_student_op_value", "student"),
+    "prefix" => " " . t("value:"),
+    "description" => t("This will determine if the user logging in should have their is_student
+                        flag set in the database.<br>Ex: if <em>usertype</em> contains <em>student</em>. Case insensitive.
+                        You may also use the user's <em>dn</em> as a field name.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b>",
+  );
+  
+
+  
+  $form["ldap_is_faculty_field"] = array(
+    "type" => "text",
+    "size" => 10,
+    "value" => variable_get("ldap_is_faculty_field", "usertype"),
+    "prefix" => "<p><b>" . t("How to determine if the user is a faculty:") . "</b></p>" . t("If field name:") . " ",
+  );
+  
+  $form["ldap_is_faculty_op"] = array(
+    "type" => "select",
+    "options" => $op_options,
+    "no_please_select" => TRUE,
+    "value" => variable_get("ldap_is_faculty_op", array()),
+  );
+
+  $form["ldap_is_faculty_op_value"] = array(
+    "type" => "text",
+    "size" => 15,
+    "value" => variable_get("ldap_is_faculty_op_value", "faculty"),
+    "prefix" => " " . t("value:"),
+    "description" => t("This will determine if the user logging in should have their is_faculty
+                        flag set in the database.<br>Ex: if <em>usertype</em> contains <em>faculty</em>. Case insensitive.
+                        You may also use the user's <em>dn</em> as a field name.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless
+                        of how it is represented in LDAP.") . "</b><br><br>",
+  );
+  
+  
+  $form["ldap_user_type_binary"] = array(
+    "label" => t("Limit user type options?"),
+    "type" => "radios",
+    "options" => array("only_one" => t("User may be either student or faculty, not both. (Select for best compatibility)"), 
+                       "both" => t("User may be both student and faculty. (Experimental support)")),
+    "value" => variable_get("ldap_user_type_binary", "only_one"),
+  );
+  
+  
+  
+  $form["mark" . $m++] = array(
+    "value" => "<hr>",
+  );
+  
+  return $form;
+}
+
+
+/**
+ * Implementation of hook_form_alter
+ *
+ * @param unknown_type $form
+ * @param unknown_type $form_id
+ */
+function ldap_form_alter(&$form, $form_id) {
+  
+  // The primary thing we want to do here is add OUR validate handler
+  // to the login form.  We want to overwrite the default one that's there.
+  if ($form_id == "system_login_form") {    
+    $form["#validate_handlers"] = array("ldap_login_form_validate");
+  }
+  
+  
+}
+
+
+/**
+ * Custom validate handler for the login form.
+ * 
+ * We will check in both FlightPath's regular user table, as well as establish
+ * our LDAP connection and try to authenticate there.
+ *
+ * @param unknown_type $form
+ * @param unknown_type $form_state
+ */
+function ldap_login_form_validate(&$form, &$form_state) {
+
+  $username = $form_state["values"]["user"];
+  $password = $form_state["values"]["password"];
+  
+  // If the GRANT_FULL_ACCESS is turned on, skip trying to validate
+  if ($GLOBALS["fp_system_settings"]["GRANT_FULL_ACCESS"] == TRUE) {
+    $username = "admin";
+    $form_state["passed_authentication"] = TRUE;
+    $form_state["db_row"]["user_id"] = 1;
+    $form_state["db_row"]["user_name"] = "FULL ACCESS USER";
+    return;
+  }    
+  
+  // Let's check in the usual way first:
+  $res = db_query("SELECT * FROM users WHERE user_name = '?' AND password = '?' AND is_disabled = '0' ", $username, md5($password));
+  if (db_num_rows($res) > 0) {
+    // Okay, we found a match.  Let's just use that.
+    $cur = db_fetch_array($res);
+    $form_state["db_row"] = $cur;
+    $form_state["passed_authentication"] = TRUE;
+    return;
+  }
+  
+
+  // Okay, we made it here.  Let's connect to LDAP and check there.
+  $result = ldap_auth_connect($username, $password);
+  
+  if ($result) {
+    // Save in the form_state for other users.
+    $form_state["ldap_result"] = $result;
+    $cwid_field = trim(variable_get("ldap_cwid_field", "employeenumber"));
+    $cwid = $result[$cwid_field][0];    
+    
+    if (!$cwid || $cwid == "") {
+      fp_add_message(variable_get("ldap_no_cwid_msg", ""));
+      return;
+    }
+
+    $f_name_field = trim(variable_get("ldap_f_name_field", ""));
+    $l_name_field = trim(variable_get("ldap_l_name_field", ""));
+    $f_name = ucwords(strtolower($result[$f_name_field][0]));
+    $l_name = ucwords(strtolower($result[$l_name_field][0]));
+        
+    $is_student = ldap_get_user_is_type_from_result("student", $result);
+    $is_faculty = ldap_get_user_is_type_from_result("faculty", $result);
+
+    // Can the user be only one type?  Either student or faculty?
+    if (variable_get("ldap_user_type_binary", "only_one") == "only_one") {
+      // If this is the case, we want to give precidence to faculty
+      if ($if_faculty) $is_student = FALSE;
+    }
+    
+    // Let's update the users table with this new information for this user.
+    
+    //$user_id = db_get_user_id($username);
+    if ($is_student) $test_type = "student";
+    if ($is_faculty) $test_type = "faculty";
+    $user_id = db_get_user_id_from_cwid($cwid, $test_type);
+    
+    if ($user_id) {    
+      $res = db_query("UPDATE users 
+              SET password = 'LDAP user',
+                  is_student = '?',
+                  is_faculty = '?',
+                  f_name = '?',
+                  l_name = '?',
+                  cwid = '?',
+                  user_name = '?'                
+              WHERE user_id = '?'
+              ", intval($is_student), intval($is_faculty), $f_name, $l_name, $cwid, $username, $user_id);
+    }
+    else {
+      // Add this as a new user to the table.
+      
+      db_query("INSERT INTO users (cwid, user_name, password, is_student, is_faculty, f_name, l_name)
+                VALUES ('?', '?', 'LDAP user', '?', '?', '?', '?')
+                ", $cwid, $username, intval($is_student), intval($is_faculty), $f_name, $l_name);
+      $user_id = db_get_user_id($username);
+      
+      // Also, add this user to either the students and/or faculty table.
+      if ($is_student) {
+        db_query("INSERT INTO students (cwid, is_active) VALUES ('?', '1') ", $cwid);
+      }
+      if ($is_faculty) {
+        db_query("INSERT INTO faculty (cwid) VALUES ('?') ", $cwid);
+      }
+      
+    }
+                  
+    // Okay, so that this user may be logged in correctly,
+    // we need to add values to $form_state["db_row"]
+    $res = db_query("SELECT * FROM users WHERE user_id = '?' ", $user_id);
+    $cur = db_fetch_array($res);
+    $form_state["db_row"] = $cur;
+    $form_state["passed_authentication"] = TRUE;
+    return;
+       
+  }
+
+  
+   
+  // If we are here, then we couldn't log in.  Let's display a form_error.
+  form_error("password", t("Sorry, but that username and password combination could not
+                            be found.  Please check your spelling and try again."));
+  
+}
+
+
+
+/**
+ * This will find the field value in the ldap result set, whether it is at $result["field_name"]
+ * or $result["field_name"][0].
+ *
+ * @param unknown_type $field
+ * @param unknown_type $result
+ */
+function ldap_get_field_value_from_result($field, $result) {
+  
+  $res = FALSE;
+  if (isset($result[$field]) && !is_array($result[$field])) {
+    $res = $result[$field];
+  }
+  else if (isset($result[$field][0])) {
+    $res = $result[$field][0];
+  }
+    
+  return $res;
+  
+}
+
+
+
+
+
+
+/**
+ * Looks at the ldap result to determine if this person's is_{type} flag should be set in the db.
+ *
+ * @param unknown_type $type
+ * @param unknown_type $result
+ */
+function ldap_get_user_is_type_from_result($type, $result) {
+
+  $field = variable_get("ldap_is_{$type}_field", "");
+  $op = variable_get("ldap_is_{$type}_op", "");
+  $op_value = variable_get("ldap_is_{$type}_op_value", "");
+  
+  
+  // Get the field's value, if it is set, at either the field, or field[0], as is more often the case.
+  $res = ldap_get_field_value_from_result($field, $result);
+    
+    
+  if ($op == "contains") {
+    if (stristr($res, $op_value)) {
+      return TRUE;
+    }
+  }  
+  
+  if ($op == "does not contain") {
+    if (!stristr($res, $op_value)) {
+      return TRUE;
+    }
+  }  
+  
+  if ($op == "is numeric") {
+    if (is_numeric($res)) {
+      return TRUE;
+    }
+  }
+  
+  if ($op == "is not numeric") {
+    if (!is_numeric($res)) {
+      return TRUE;
+    }
+  }
+
+  if ($op == "is blank") {
+    if ($res == "") {
+      return TRUE;
+    }
+  }
+  
+  if ($op == "is not blank") {
+    if ($res != "") {
+      return TRUE;
+    }
+  }
+
+  
+  if ($op == "invoke hook") {    
+    // We should check to see if any other modules use the hook_ldap_determine_user_type, 
+    // and if so, invoke them.
+    $arr = invoke_hook("ldap_determine_user_type", array($type, $result));
+    if (count($arr) > 0) {      
+      // use the last result.
+      $r = FALSE;
+      foreach ($arr as $k => $v) {
+        $r = $v;
+      }
+      return $r;
+    }    
+  }
+    
+  return FALSE;  
+  
+}
+
+

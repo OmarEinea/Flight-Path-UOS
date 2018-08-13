@@ -66,6 +66,7 @@ function tinymce_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/tiny.png",
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",

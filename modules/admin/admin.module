@@ -42,6 +42,7 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/urgent.png",
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",
@@ -66,6 +67,7 @@ function admin_menu() {
       "page_show_title" => TRUE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/log.png",
       "menu_links" => array(         
         0 => array(
           "text" => "Back to main menu",
@@ -1310,7 +1312,7 @@ function admin_display_watchdog() {
   
   
   
-  $rtn .= "<input type='submit' value='-&gt;'>";
+  $rtn .= "<input type='submit' value='Go'>";
   // Hack if clean URLs are not enabled:
   $rtn .= "<input type='hidden' name='q' value='admin/config/watchdog'>";
   

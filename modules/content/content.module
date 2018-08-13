@@ -18,6 +18,7 @@ function content_menu() {
       "page_show_title" => TRUE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
+      "menu_icon" => fp_theme_location() . "/images/content.png",
       "menu_links" => array(          
         0 => array(
           "text" => "Back to main menu",
@@ -535,15 +536,21 @@ function content_display_content_admin_list() {
   // Show a table of current content in the system.
   $rtn .= "<b>" . t("Existing content:") . "</b>";
   $filter = $_GET["filter"];
-  
-  $rtn .= "<form action='" . fp_url("admin/config/content") . "' method='GET'>
+  $rtn .= "<form class='filters' action='" . fp_url("admin/config/content") . "' method='GET'>
               " . t("Display type:") . " &nbsp; <select name='filter'>
                   <option value=''>" . t(" -- Any --") . "</option>";
+
   foreach ($types as $type => $details) {
     $sel = ($type == $filter) ? "selected" : "";
     $rtn .= "<option value='$type' $sel>" . $details["title"] . "</option>";
   }
-  $rtn .= "</select><input type='submit' value='-&gt;'> </form>";
+  $rtn .= "</select>";
+  $clean_urls = variable_get("clean_urls", FALSE);
+  if (!$clean_urls) {
+    // Hack to support non-clean URL sites
+    $rtn .= "<input type='hidden' name='q' value='admin/users/students'>";
+  }
+  $rtn .="<input type='submit' value='Go'> </form>";
           
   
   
@@ -668,11 +675,11 @@ function hook_content_register_content_type() {
 function content_render_content($bool_show_delete = FALSE) {
   $rtn = "";
   
-  $res = db_query("SELECT * FROM content WHERE delete_flag = 0
+  $res = db_query("SELECT * FROM content WHERE type = 'content_block'
                     ORDER BY posted DESC");
   while ($cur = db_fetch_array($res)) {
     $rtn .= "<div class='content'>
-                <div class='content-text'>" . filter_markup($cur["content"], "full") . "</div>
+                <div class='content-text'>" . filter_markup($cur["body"], "full") . "</div>
                 <div class='content-posted'>" . t("Posted") . " " . date("D, M jS Y - g:ia", $cur["posted"]) . "</div>";
     if ($bool_show_delete) {
       $delete_link = "";
@@ -749,7 +756,7 @@ function content_render_block($delta) {
       
     fp_add_css(fp_get_module_path("content") . "/css/content.css");
     
-    $rtn["title"] = t("content");       
+    $rtn["title"] = t("Content");       
     $rtn["body"] = content_render_content();
   }
   

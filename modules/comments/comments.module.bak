@@ -155,32 +155,28 @@ function comments_comment_form_submit($form, $form_state) {
 		$rtn[$cur["id"]] = $cur;
   }
 */
-		//CODE-ADD-START - 2017-10-09 To send email on student advising
-		
-		$email_list = "jpazhai.sharjah@gmail.com";
-		//$email_list = $current_student_id . "@sharjah.ac.ae";
-		//watchdog("EMAIL LIST-1",$email_list);
-		try {
-	 $res1 = db_query("SELECT email FROM users
-                   WHERE cwid = '?'", $faculty_cwid);
-					$facarr = db_fetch_array($res1);
-					$email_list = $email_list . "," . $facarr["email"];
-					//watchdog("EMAIL LIST-2",$email_list);
-					//watchdog("CURRENT STUDENT",$current_student_id);
-	 
-	 //Added code to get emails for chair on 30 October 2017
-	 $res2 = db_query("SELECT dept_chair_email FROM dept_chair
-                   WHERE major_code = (select major_code from students where cwid = '?')", $current_student_id);
-					$facarr1 = db_fetch_array($res2);
-					$email_list = $email_list . "," . $facarr1["dept_chair_email"];					
 
-					//watchdog("EMAIL LIST-3",$email_list);;
-	//Added code to get emails for chair on 30 October 2017-end			
-				/*if isset($res1["email"])
-				{
-					
-				}*/
-			mail($email_list, "Advising comments for $current_student_id by $user->f_name $user->l_name", $comment);
+		//CODE-ADD-START - 2017-10-09 To send email on student advising
+/*
+		$email_list = "jpazhai@sharjah.ac.ae";
+		try
+		{
+		
+			//$dbc = new DatabaseHandler();
+			//$res1 = $dbc->get_user_cwid($faculty_cwid);
+			$res1["email"]="jpazhai@sharjah.ac.ae";
+			watchdog("Advising mailer", "get_user_cwid call completed");
+		}
+		catch(Exception $e)
+		{
+			watchdog("Advising mailer", $e->getMessage());
+		}
+		if  isset($res1["email"])
+		{
+			$email_list = $email_list . "," . $res1["email"];
+		}
+		try {
+		mail($email_list, "Advising comments for $current_student_id by ", $comment);
 		}
 		catch (Exception $e)
 		{
@@ -193,6 +189,7 @@ function comments_comment_form_submit($form, $form_state) {
   watchdog("save_comment", "Comment saved");  
   
 }
+*/
 
 
 /**

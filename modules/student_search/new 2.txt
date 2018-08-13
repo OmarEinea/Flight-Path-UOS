@@ -1,0 +1,1 @@
+SELECT * FROM `students` where cwid in (SELECT student_id FROM `advisor_student` where faculty_id = 10021)

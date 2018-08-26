@@ -979,8 +979,6 @@ class _FlightPath
 			$advising_session_id_array[$term_id] = $advising_session_id;
 			$advising_session_id_array_count[$term_id] = 0;
 		}
-        
-    
 		$wi = "";
 		if ($is_what_if == "1"){$wi = "_whatif";}
 

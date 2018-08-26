@@ -12,7 +12,7 @@ class _AdvisingScreen
 	public $theme_location, $page_content, $page_has_search, $page_tabs, $page_on_load;
 	public $page_hide_report_error, $page_scroll_top, $page_is_popup, $page_is_mobile;
 	public $page_title, $page_extra_css_files, $page_body_classes;
-  	//
+  
 
 
 	/**
@@ -2521,7 +2521,6 @@ function draw_menu_items($menu_array) {
 	 * @param string $str
 	 * @return string
 	 */
-	
 	function fix_institution_name($str)
 	{	 
 	   
@@ -3018,18 +3017,13 @@ function draw_menu_items($menu_array) {
 			$icon_link = "";
 		}
 
-//CODE-DELETE-START -20170813 non subject row in advising screen, alignment with the subject row, changed code below
-//CODE-REPLACED-BELOW
-//      		<td width='$w1_1' align='left'>&nbsp;</td>
-//      		<td width='$w1_2' align='left' onClick='$js_code'>$icon_link</td>
-//CODE-DELETE-END
 
 		$pC .= "
    		<table border='0' cellpadding='0' width='100%' cellspacing='0' align='left'>
      	<tr height='20' class='$hand_class'
       		$on_mouse_over title='$group->title'>
-      		<td width='$w1_1' align='left'></td>
-      		<td width='$w1_2' align='left' onClick='$js_code'></td>
+      		<td width='$w1_1' align='left'>&nbsp;</td>
+      		<td width='$w1_2' align='left' onClick='$js_code'>$icon_link</td>
       		<td width='$w1_3' align='left' onClick='$js_code'>$select_icon</td>
       		<td align='left' colspan='5' class='tenpt underline' onClick='$js_code'>
       		$row_msg
@@ -3239,13 +3233,11 @@ function draw_menu_items($menu_array) {
 			$course->load_descriptive_data();
 		}
 
-		
+
 		$subject_id = $course->subject_id;
-		$course_num = $course->course_num;
-		//CODE-ADD-START -20170813 Display Title on Advising Screen - 
-		$crs_title = $course->title;
-		$o_crs_title = $crs_title;
-		//CODE-ADD-END
+		$course_num = $course->course_num; 
+		//PLACEHOLDER
+		
 
 		$o_subject_id = $subject_id;
 		$o_course_num = $course_num;
@@ -3513,8 +3505,7 @@ function draw_menu_items($menu_array) {
 				$course_num = "&nbsp;";
 			}
 
- //CODE-ADD-START -20170813 - Display course title by changes to original line below
- //$course_num$footnote </td>
+ 
 			$pC .= "
    		<table border='0' cellpadding='0' width='100%' cellspacing='0' align='left'>
      	<tr height='20' class='$hand_class $display_status'
@@ -3526,14 +3517,13 @@ function draw_menu_items($menu_array) {
        				$subject_id</td>
        		<td class='tenpt underline' style='width:$w3; white-space:nowrap;' align='left' 
        			onClick='$js_code'>
-        			$course_num$footnote  &nbsp" . substr($crs_title,0,26) . "</td>
+        			$course_num$footnote </td>
 			
 	       <td class='tenpt underline' style='width:$w4; max-width:36px; white-space:nowrap;' onClick='$js_code'>$hours$var_hour_icon</td>
        	   <td class='tenpt underline'  style='width:$w5; max-width:35px; white-space:nowrap;' onClick='$js_code'>$dispgrade&nbsp;</td>
        	   <td class='tenpt underline' style='width:$w6; max-width:31px; white-space:nowrap;' onClick='$js_code'>$pts&nbsp;</td>
      	</tr>
      	</table>";
-//CODE-ADD-END		
 
 		} else {
 			// These are the leftover hours from a partial substitution.
@@ -3548,7 +3538,7 @@ function draw_menu_items($menu_array) {
       		<td align='left' class='tenpt underline' onClick='$js_code'
       			colspan='4'>
        				&nbsp; &nbsp; $subject_id &nbsp;
-        			$course_num$footnote  &nbsp" . substr($crs_title,0,26) . "</td>
+        			$course_num$footnote
 	       			&nbsp; ($hours " . t("hrs left") . ")
        	   	</td>
      	</tr>
@@ -3639,7 +3629,6 @@ function draw_menu_items($menu_array) {
 
 		$subject_id = $course->subject_id;
 		$course_num = $course->course_num;
-		$crs_title = $course->title;
 		$hours = $course->get_catalog_hours();
 		$display_status = $course->display_status;
 		$db_group_requirement_id = $course->db_group_requirement_id;
@@ -3714,7 +3703,7 @@ function draw_menu_items($menu_array) {
        				$subject_id</td>
        		<td class='tenpt underline' $extra_style width='$w3' align='left' 
        			onClick='$js_code'>
-        			$course_num&nbsp" . substr($crs_title,0,26) ."</td>
+        			$course_num</td>
         	";
 		if ($repeats > 0)
 		{
@@ -3888,7 +3877,6 @@ function draw_menu_items($menu_array) {
 				$subject_id = $c->subject_id;
 				$course_num = $c->course_num;
 				$tcourse_id = $c->course_id;
-				$crs_title = $c->title;
 
 				if ($bool_transferTest == false)
 				{
@@ -3900,7 +3888,6 @@ function draw_menu_items($menu_array) {
 						$subject_id = $c->course_transfer->subject_id;
 						$course_num = $c->course_transfer->course_num;
 						$tcourse_id = $c->course_transfer->course_id;
-						
 						$t_flag = 1;
 					}
 				}
@@ -3948,8 +3935,7 @@ function draw_menu_items($menu_array) {
 					if ($disabled_msg) {
 					  $pC .= fp_get_js_alert_link(fp_reduce_whitespace(str_replace("\n", " ", $disabled_msg)), "?");
 					}
-					//CODE-ADD-BELOW fr c$-crs_title
-
+					
 					$pC .= "
 						</td>
 						<td valign='top' class='tenpt underline' width='13%'>
@@ -3959,9 +3945,7 @@ function draw_menu_items($menu_array) {
 							$course_num
 						</td>
 						
-						<td valign='top' class='tenpt underline' width='15%'>
-							$crs_title  
-						</td>
+
 						<td valign='top' class='tenpt underline' width='10%'>
 							$h
 						</td>

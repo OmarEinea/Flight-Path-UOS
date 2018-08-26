@@ -193,6 +193,7 @@ class _Student
 
 	function init_semester_courses_added()
 	{
+		/*
 		// The "Add a Course" box on screen is really just a
 		// semester, with the number -88, with a single group,
 		// also numbered -88.
@@ -211,7 +212,7 @@ class _Student
 		$g->title = "Add an Additional Course";
 
 		$this->semester_courses_added->list_groups->add($g);
-
+*/
 	}
 
 
@@ -519,13 +520,44 @@ class _Student
 	 */
 	function get_rank_description($rank_code = "") {
 	  // TODO:  Maybe this should be a setting somewhere instead of hard-coded?
+//CODE-DELETE-START -201708XX -Removed hard codedd class/rank labels 
+//    $rank_array = array(
+//      "FR"=>t("Freshman"), 
+//      "SO"=>t("Sophomore"),
+//      "JR"=>t("Junior"), 
+//      "SR"=>t("Senior"), 
+//      "PR"=>t("Professional"),
+//    );
+//CODE-DELETE-END
+//
+//CODE-ADD-START -201708XX -This was added since UoS rank codes Are completely different.
+//Hence UoS tank codes have been added to the variables table key 'allowed_student_ranks'
     $rank_array = array(
-      "FR"=>t("Freshman"), 
-      "SO"=>t("Sophomore"),
-      "JR"=>t("Junior"), 
-      "SR"=>t("Senior"), 
-      "PR"=>t("Professional"),
-    );	  
+		"C1"=>t("First Year"),
+		"C2"=>t("Second Year"),
+		"C3"=>t("Third Year"),
+		"DR"=>t("Doctorate Class"),
+		"FY"=>t("Foundation Year"),
+		"GR"=>t("Graduate Class"),
+		"H1"=>t("First Year HS Diploma"),
+		"H2"=>t("Second Year HS Diploma"),
+		"IE"=>t("IE Program"),
+		"IS"=>t("Internship Year"),
+		"M1"=>t("Medical- Phase2- Year1"),
+		"M2"=>t("Medical- Phase2- Year2"),
+		"M3"=>t("Medical- Phase2- Year3"),
+		"M4"=>t("Medical- Phase3- Year4"),
+		"M5"=>t("Medical- Phase3- Year5"),
+		"Y1"=>t("First Year"),
+		"Y2"=>t("Second Year"),
+		"Y3"=>t("Third Year"),
+		"Y4"=>t("Fourth Year"),
+		"Y5"=>t("Fifth Year"),
+		"Y6"=>t("Sixth Year"),
+    );
+
+//CODE-ADD-END
+	
     
     return $rank_array[$rank_code];
         
@@ -644,6 +676,9 @@ class _Student
 			$new_course->grade = $cur["grade"];
 			$new_course->term_id = $cur["term_id"];
 			$new_course->level_code = $cur["level_code"];
+			//CODE-ADD-START - to check whether Course title is set
+			//watchdog("Course3", $new_course->title, array(), WATCHDOG_DEBUG); 
+			//CODE-ADD-END - to check whether Course title is set
 			
 			// Is this grade supposed to be hidden from students (and this user is probably
 			// a student)
@@ -709,6 +744,7 @@ class _Student
 			$t_course = new Course();
 			$t_course->subject_id = $cur['subject_id'];
 			$t_course->course_num = $cur['course_num'];
+			$t_course->title = $cur['title'];
 			$t_course->level_code = $cur['level_code'];
 			$t_course->course_id = $transfer_course_id;
 			$t_course->bool_transfer = true;

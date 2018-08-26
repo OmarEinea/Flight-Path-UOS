@@ -169,18 +169,21 @@ class _DatabaseHandler
 	}
 
 	//CODE-ADD-START - 20171011 - Added method to get user details on basis of cwid
-	function get_user_cwid($p_cwid)
+	/*
+	function get_user_cwid($cw_id)
 	{
-		// return an array of this user's details.
-		$cur = array();
+		// return an array of this user's current settings.
+
 		$res = $this->db_query("SELECT * FROM users
 									WHERE 
-									cwid = '?' ", $p_cwid);
-		$cur = $this->db_fetch_array($res);
+									cwid = '?' ", $cw_id);
+		$cur = $this->db_fetch_array($res)
     return $cur;
     
 	}
+	*/
 	//CODE-ADD-END - 20171011
+	
 	
 	
 	function get_developmental_requirements($student_cwid)

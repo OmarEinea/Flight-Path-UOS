@@ -86,8 +86,9 @@ if ($page_is_popup) {
             if ($page_banner_is_link == TRUE) {
               print "<a href='{$GLOBALS["fp_system_settings"]["self_url"]}' target='_blank'>";
             }
-            ?><img src='<?php print "$theme_location/images/"; ?>fp_banner_default.png' border='0'><?php
-            if ($page_banner_is_link == TRUE) {
+            ?>//<img src='<?php print "$theme_location/images/"; ?>fp_banner_default1.png' border='0'><?php
+						/* <img src='<?php print "$theme_location/images/"; ?>fp_banner_default.png' border='0'><?php */ 
+						if ($page_banner_is_link == TRUE) {
               print "</a>";
             }    
             

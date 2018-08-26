@@ -339,7 +339,7 @@ function hook_render_block($delta) {
   }
   
   if ($delta == "login_form") {
-    $block["title"] = t("Please log in below...");
+    $block["title"] = t("Login");
     $block["body"] = fp_render_form("system_login_form");
   }
   

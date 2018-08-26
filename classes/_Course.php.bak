@@ -40,7 +40,7 @@ class _Course
   //public $bool_has_been_assignedToBareDegreePlan;
 
   // Display related:
-  public $display_status, $icon_filename, $description, $title;
+  public $display_status, $icon_filename, $description, $title, $crs_title;
   public $title_text, $temp_flag, $bool_has_been_displayed;
   public $bool_unselectable;
   public $bool_hide_grade, $bool_ghost_hour, $bool_ghost_min_hour;
@@ -94,7 +94,7 @@ class _Course
     $this->course_list_fulfilled_by = new CourseList();
     $this->group_list_unassigned = new ObjList();
     $this->bool_use_draft = $bool_use_draft;
-	
+	$this->crs_title = "";
 
     // Always override if the global variable is set.
     if ($GLOBALS["fp_advising"]["bool_use_draft"] == true) {
@@ -1079,15 +1079,12 @@ class _Course
 
 
       $this->title = $this->fix_title($cur["title"]);
-			//CODE-ADD-START -WATCHDOG CALL TO TEST FOR COURSE1 PULL IN COURSE CLASS LOAD_DESCRIPTIVE_DATA METHOD
-			//watchdog("Course1", $this->title, array(), WATCHDOG_DEBUG);    
-			$this->crs_title = $this->title;
-			//watchdog("Course2",  $this->crs_title, array(), WATCHDOG_DEBUG);    
-      //CODE-ADD-END
-			$this->description = trim($cur["description"]);
+	 // watchdog("Course", $this->title, array(), WATCHDOG_DEBUG);    
+	  //$this->crs_title = $this->title;
+	 // watchdog("Course",  $this->crs_title, array(), WATCHDOG_DEBUG);    
+      $this->description = trim($cur["description"]);
       $this->subject_id = trim(strtoupper($cur["subject_id"]));
       $this->course_num = trim(strtoupper($cur["course_num"]));
-			
 
 
       $this->min_hours = $cur["min_hours"] * 1;  //*1 will trim extra zeros from end of decimals
@@ -1149,10 +1146,7 @@ class _Course
 
         $this->subject_id = $this->course_transfer->subject_id;
         $this->course_num = $this->course_transfer->course_num;
-		//CODE-ADD-START 2017-10-09
-		$this->crs_title = $this->course_transfer->crs_title;
-        //CODE-ADD-END 2017-10-09
-		if ($this->course_transfer->hours_awarded > 0)
+        if ($this->course_transfer->hours_awarded > 0)
         {
           $this->hours_awarded = $this->course_transfer->hours_awarded;
         }
@@ -1169,7 +1163,7 @@ class _Course
 
     if ($this->title == "")
     {
-    //  $this->title = "$this->subject_id $this->course_num";
+      $this->title = "$this->subject_id $this->course_num";
     }
 
 

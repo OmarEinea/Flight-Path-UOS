@@ -99,7 +99,7 @@ function student_search_menu() {
     "title" => t("Search"),
     "page_callback" => "student_search_display_search",
     "access_arguments" => array("display_search_subtab"),
-    "type" => MENU_TYPE_SUB_TAB,
+//  "type" => MENU_TYPE_SUB_TAB,
     "tab_family" => "student_search",
     "tab_parent" => "student-search",
     "page_settings" => array (
@@ -201,8 +201,8 @@ function student_search_render_small_search() {
   $rtn .= "<form action='" . $url . "' method='post' id='small-search-form'
               style='padding:0; margin:0; padding-bottom: 5px;'>
                      
-                     <input type='text' class='smallinput' size='12' name='search_for' id='search_bar_value'                       
-                        placeholder = '" . t("Student ID") . "'>
+                     <input type='text' class='smallinput' size='20' name='search_for' id='search_bar_value'                       
+                        placeholder = '" . t("Enter CWID or Name") . "'>
                      <input type='submit' name='submit' value='Go' class='smallinput'>
                      <input type='hidden' name='current_student_id' value='$current_student_id'>   
                      <input type='hidden' name='did_search' value='true'>                  
@@ -445,7 +445,9 @@ function student_search_display_my_majors() {
 
 function student_search_display_search() {
   $rtn = "";
-  
+  global $user;
+  $faculty_cwid = mysql_real_escape_string($user->cwid);
+
   $_SESSION["student_search_last_tab"] = "search";
 
   $url = fp_url("student-search/search");
@@ -461,12 +463,14 @@ function student_search_display_search() {
   // Get search results from POST -or- past search attempts
   // from the session.
   $search_for = trim($_REQUEST["search_for"]);
-  if ($search_for == "") {
+ 
+
+/*  if ($search_for == "") {
     $search_for = trim($_SESSION["student_search_for"]);
   }
-  
+  */
   $o_search_for = $search_for;
-  
+
 
   // If the user entered an asterisk with their search, we will
   // skip the extra search conditions (and show more results).
@@ -491,7 +495,7 @@ function student_search_display_search() {
     border='0' cellpadding='0' cellspacing='0'>
       <tr>
       <td width='30%' align='right'><font size='2'><b>" . t("Search for advisees:") . "&nbsp;&nbsp;</b></td> 
-      <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for' placeholder='Student ID'></font>
+      <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for' placeholder='Enter CWID or Name'></font>
               <input type='hidden' name='did_search' id='input_did_search' value='true'></td>
       <td class='tenpt'>";
   $rtn .= fp_render_button("Search","jQuery(\"#mainform\").submit();");
@@ -506,8 +510,8 @@ function student_search_display_search() {
   //Get my list of advisees...
   // This time, we want to specify an SQL statement that will perform
   // our search.
-
-  if($search_for != "" && strlen($search_for) > 2)
+  $search_action = "";
+  if($search_for != "" && strlen($search_for) >= 1)
   { // If they typed something greater than 2 chars...
     
     $search_action = " AND (u.cwid LIKE '%$search_for%' 
@@ -528,6 +532,7 @@ function student_search_display_search() {
       
     }
 
+
     $temp = explode("=",$search_for);
     if (trim(strtolower($temp[0])) == "major")
     {      
@@ -544,16 +549,16 @@ function student_search_display_search() {
     // I'm no cryptographic genius, but it looks like it is set to display a message when
     // you search for "info=production" on the Advisees search tab...
     if (md5(strtolower($temp[1]))=="fd89784e59c72499525556f80289b2c7"){$rtn .= base64_decode("DQo8cD4NCjxiPlRoZSBvcmlnaW5hbCBGbGlnaHRQYXRoIFByb2R1Y3Rpb24gVGVhbSwgY2lyY2EgMjAwNywgYXQgVGhlIFVuaXZlcnNpdHkgb2YgTG91aXNpYW5hIGF0IE1vbnJvZTo8L2I+DQo8dWw+DQo8bGk+UmljaGFyZCBQZWFjb2NrIC0gUHJvamVjdCBsZWFkIGFuZCBwcmltYXJ5IGxvZ2ljIHByb2dyYW1tZXIuPC9saT4NCjxsaT5Kb2UgTWFuc291ciAtIERhdGFiYXNlIGFkbWluaXN0cmF0b3IgYW5kIG1haW5mcmFtZS9CYW5uZXIgZGF0YSBjb29yZGluYXRvci48L2xpPg0KPGxpPkpvYW5uIFBlcnJlciAtIERhdGEgZW50cnksIHRlc3RpbmcgYW5kIHNvZnR3YXJlIGNvb3JkaW5hdG9yLjwvbGk+DQo8bGk+UGF1bCBHdWxsZXR0ZSAtIENsYXNzaWMgdGhlbWUgZGVzaWduZXIuPC9saT4NCjxsaT48Yj5PdGhlciBjb250cmlidXRpbmcgcHJvZ3JhbW1lcnM8L2I+OiBDaGFybGVzIEZyb3N0LCBCcmlhbiBUYXlsb3IuPC9saT4NCjwvdWw+DQpUbyBldmVyeW9uZSB3aG8gaGVscGVkIG1ha2UgRmxpZ2h0UGF0aCBwb3NzaWJsZTogVGhhbmsgWW91Lg0KPC9wPg==");}
-
-    $query = "SELECT u.user_id, f_name, l_name, u.cwid, a.major_code, rank_code, a.catalog_year, a.gpa
-              FROM users u, students a $other_table
+   }
+    $query = "SELECT u.user_id, f_name, u.cwid, l_name, major_code, rank_code, a.catalog_year, a.gpa
+              FROM users u, students a, advisor_student c
               WHERE 
-                 u.cwid = a.cwid
+                 c.faculty_id = '$faculty_cwid'
+                 AND c.student_id = a.cwid
+                 AND u.cwid = a.cwid
                  AND u.is_student = 1
-                 AND u.is_disabled = 0                 
+                 AND u.is_disabled = 0                           
                  $search_action
-              
-                 $major_search
         ";
     if (!$bool_bypass_extra_search_conditions) {
       $query .= "
@@ -569,7 +574,7 @@ function student_search_display_search() {
               ";
 
     $adv_array = student_search_query_advisees($query);
-  }
+  
 
   $s = (count($adv_array) == 1) ? "" : "s"; 
 
@@ -605,11 +610,7 @@ function student_search_get_advanced_search_tips() {
               <li>" . t("To search for inactive students, as well as active, add an asterisk (*)
                   after your search.
                   <br>&nbsp; &nbsp; &nbsp; 
-                        Ex:  <em>smith*</em> &nbsp; &nbsp; or &nbsp; &nbsp; <em>10035744*</em>") . "
-              </li>
-              <li>" . t("Search by major by typing major=CODE in the search box.
-                  <br>&nbsp; &nbsp; &nbsp; 
-                        Ex:  <em>major=ENGL</em>  &nbsp; &nbsp; or &nbsp; &nbsp;  <em>major=ENGL*</em>") . "
+                        Ex:  <em>Smith*</em> &nbsp; &nbsp; or &nbsp; &nbsp; <em>67814*</em>") . "
               </li>
             </ul>
           </div>";
@@ -784,7 +785,7 @@ function student_search_query_advisees($sql) {
   
   $rank_in = "( '" . join("', '", csv_to_array($GLOBALS["fp_system_settings"]["allowed_student_ranks"])) . "' )";
     
-  $order_by = " a.gpa, major_code, l_name, f_name ";
+  $order_by = " a.gpa, major_code, f_name, l_name ";
   
   // Replace the replacement portion with our derrived variables.
   $sql = str_replace("%RANKIN%", $rank_in, $sql);

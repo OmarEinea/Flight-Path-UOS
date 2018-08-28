@@ -33,8 +33,8 @@ function sample_data_menu() {
 
 function sample_data_perm() {
   return array("administer_sample_data" => array(
-    "title" => t("trarabic_10511"),
-    "description" => t("trarabic_20109"),
+    "title" => t("إدارة عينة البيانات"),
+    "description" => t(".يسمح بتثبيت بيانات العينة ، وحذف البيانات الحالية! يجب أن يكون لدى المسؤولين فقط هذا الإذن القوي"),
   ));
 }
 
@@ -42,20 +42,20 @@ function sample_data_install_form() {
   $form = array();
 
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("trarabic_20110") . "</p>",
+    "value" => "<p>" . t("لذا يرجى نسخ قاعدة البيانات احتياطيا قبل المتابعة <b>ستقوم بالمسح أو الكتابة فوق البيانات الحالية</b> سيقوم هذا بتثبيت بيانات نموذجية في قاعدة البيانات الخاصة بك للمساقات والمجموعات والدرجات") . "</p>",
   );
   
   $form["passcode"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10512"),
+    "label" => t("هل أنت متأكد من أنك تريد تثبيت عينة بيانات؟"),
     "description" => "Enter YES (all caps) to proceed.",
     
   );  
   
   $form["submit_btn"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10513"),
-    "suffix" => "<p>" . t("trarabic_10514") . "</p>",
+    "value" => t("تسليم"),
+    "suffix" => "<p>" . t("انقر تسليم مرة واحدة فقط. قد يستغرق عدة ثوان للتشغيل") . "</p>",
   );
   
   return $form;
@@ -65,7 +65,7 @@ function sample_data_install_form() {
 
 function sample_data_install_form_validate($form, $form_state) {
   if ($form_state["values"]["passcode"] != "YES") {
-    form_error("passcode", t("trarabic_10515"));
+    form_error("passcode", t("لم تدخل نعم في المربع. لم يتم تحميل البيانات"));
     return;
   }
 }
@@ -91,7 +91,7 @@ function sample_data_install_form_submit($form, $form_state) {
   // Clear our cache
   fp_clear_cache(); 
      
-  fp_add_message(t("trarabic_20111"));
+  fp_add_message(t(" محفوظ في كتالوج 2012-2013. أيضا تم ضبط بعض الإعدادات الخاصة بك. من علامة التبويب الرئيسية, يمكنك البحث عن الطالب بالاسم لتحميل مخطط دراسته ACCT ودرجة ACCT بالإضافة إلى عدد قليل من مساقات Sample Studentتم تحميل بيانات نموذجية في قاعدة البيانات! لديك الآن طالب عينة يدعى"));
 }
 
 

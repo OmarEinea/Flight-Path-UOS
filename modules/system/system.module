@@ -17,44 +17,44 @@ function system_perm() {
   
   $perms = array (
     "access_logged_in_content" => array(
-      "title" => t("trarabic_10798"),
-      "description" => t("trarabic_20163"),
+      "title" => t("Access logged-in content"),
+      "description" => t("ينبغي منح هذا لجميع المستخدمين المصادقين. إنه يعني ببساطة أن المستخدم مسموح له بمشاهدة منطقة تسجيل الدخول في FlightPath."),
     ),  
     
     "administer_modules" => array(
-      "title" => t("trarabic_10799"),
-      "description" => t("trarabic_10800"),
+      "title" => t("وحدات المسؤول"),
+      "description" => t("هذا سيسمح للمستخدم بتثبيت, تمكين, تعطيل و إلغاء اتثبيت الوحدات"),
     ),    
     
     "run_cron" => array(
-      "title" => t("trarabic_10801"),
-      "description" => t("trarabic_20164"),
+      "title" => t("Run Cron"),
+      "description" => t("يمكن للمستخدم تشغيل وظائف hook_cron في الإرادة. يتسبب في ارتباط قائمة جديد للظهور على صفحة الإدارة."),
     ),    
         
     "de_can_administer_system_settings" => array(
-      "title" => t("trarabic_10802"),
-      "description" => t("trarabic_20165"),
+      "title" => t("يمكن إدارة إعدادات النظام"),
+      "description" => t("هذا يسمح للمستخدم بتحرير أي من إعدادات نظام FlightPath."),
     ),
     
     "de_can_administer_school_data" => array(
-      "title" => t("trarabic_10803"),
-      "description" => t("trarabic_20166"),
+      "title" => t("يمكن إدارة بيانات الجامعة"),
+      "description" => t("يسمح ذلك للمستخدم بتحرير إعدادات بيانات المدرسة لبرنامج FlightPath. على سبيل المثال ، وصف أكواد الكلية والموضوع."),
     ),
     
     
     "view_fpm_debug" => array(
-      "title" => t("trarabic_10804"),
-      "description" => t("trarabic_20167"),
+      "title" => t("View debug output from the fpm() function"),
+      "description" => t("يمكن للمستخدم عرض إخراج التصحيح من الدالة fpm (). مفيدة للمطورين."),
     ),
     
     "view_system_status" => array(
-      "title" => t("trarabic_10805"),
-      "description" => t("trarabic_10806"),
+      "title" => t("عرض حالة النظام"),
+      "description" => t("يمكن لهذا المستخدم بعرض حالة التحديث و المتطلبات الأخرى للنظام."),
     ),
     
     "execute_php" => array(
-      "title" => t("trarabic_10807"),
-      "description" => t("trarabic_20168"),
+      "title" => t("تنفيذ PHP code"),
+      "description" => t("تحذير: هذا إذن قوي جدا وخطير. قم بإعطائها للمطورين فقط. سيظهر رابط "تنفيذ PHP" في قائمة الإدارة ، مما يتيح للمستخدم تنفيذ أي شفرة PHP عشوائية."),
     ),
                             
        
@@ -86,10 +86,10 @@ function system_get_roles_for_user($user_id) {
   
   $res2 = db_query("SELECT user_id FROM users WHERE user_id = '?' AND user_id <> '0' ", $user_id);
   if (db_num_rows($res2) > 0) {
-    $rtn[2] = t("trarabic_10808");
+    $rtn[2] = t("مستخدم موثق");
   }
   else {
-    $rtn[1] = t("trarabic_10809");
+    $rtn[1] = t("مستخدم مجهول");
   }
   
   return $rtn;
@@ -152,10 +152,10 @@ function system_check_clean_urls() {
  * The array looks like this:
  * return array(
  *   "system_main" => array(
- *     "title" => t("trarabic_10810"),
+ *     "title" => t("علامة التبويب الرئيسية"),
  *     "regions" => array (
- *       "left_col" => array("title" => t("trarabic_10811")),
- *       "right_col" => array("title" => t("trarabic_10812")),
+ *       "left_col" => array("title" => t("عمود الإيسر")),
+ *       "right_col" => array("title" => t("عمودالأيمن")),
  *      ),
  *   ),
  * );
@@ -166,19 +166,19 @@ function system_check_clean_urls() {
 function system_block_regions() {
   return array(
     "system_main" => array(
-      "title" => t("trarabic_10813"),
+      "title" => t("علامة التبويب الرئيسية"),
       "regions" => array (
-        "left_col" => array("title" => t("trarabic_10814")),
-        "right_col" => array("title" => t("trarabic_10815")),
+        "left_col" => array("title" => t("عمود الإيسر")),
+        "right_col" => array("title" => t("عمودالأيمن")),
        ),       
     ),
     "system_login" => array(
-      "title" => t("trarabic_10816"),
+      "title" => t("صفحة تسجيل الدخول"),
       "regions" => array (
-        "top" => array("title" => t("trarabic_10817")),
-        "left_col" => array("title" => t("trarabic_10818")),
-        "right_col" => array("title" => t("trarabic_10819")),
-        "bottom" => array("title" => t("trarabic_10820")),
+        "top" => array("title" => t("أعلى")),
+        "left_col" => array("title" => t("عمود الإيسر")),
+        "right_col" => array("title" => t("عمودالأيمن")),
+        "bottom" => array("title" => t("أسفل")),
        ),       
     ),    
   );
@@ -446,12 +446,12 @@ function system_execute_php_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_20169"),    
+    "value" => t("استخدم هذا النموذج لتنفيذ كود PHP العشوائي. <b>لا</b> تكتب php tags (&amp;lt;php ?&amp;gt;). كن حذرا! قد يؤدي إدخال رمز غير صالح هنا إلى الإضرار بموقعك. استخدم فقط إذا كنت تعرف ما تقوم به."),    
   );
 
   $form["system_execute_php"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10821"),
+    "label" => t("أدخل PHP code هنا:"),
     "value" => variable_get("system_execute_php", ""),
     "rows" => 20,
   );
@@ -478,21 +478,21 @@ function system_confirm_db_updates_form() {
   $form = array();
 
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_20170") . "
+    "value" => t("هل أنت متأكد من رغبتك في تشغيل تحديثات قاعدة البيانات؟ هذا سوف يجد الوحدات التي تم تحديثها ، والآن بحاجة إلى إجراء تغييرات قاعدة البيانات.") . "
                 <br><br>
-                " . t("trarabic_20171"),
+                " . t("يجب عمل نسخة احتياطية من قاعدة البيانات بأكملها أولاً ، فقط في حالة حدوث مشكلة!"),
   );
   
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10822"),
+    "value" => t("متابعة"),
     "prefix" => "<hr>",
-    "suffix" => "&nbsp; &nbsp; <a href='javascript: history.go(-1);'>" . t("trarabic_10823") . "</a>",    
+    "suffix" => "&nbsp; &nbsp; <a href='javascript: history.go(-1);'>" . t("إلغاء") . "</a>",    
   );
   
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_10824"),
+    "value" => t("إضغط مرة واحدة, فهذا قد يأخذ عدة لحظات للتشغيل."),
   );
   
   
@@ -513,8 +513,8 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
   // is different than what's in the database.
   
   $module_dirs = array();
-  $module_dirs[] = array("start" => "modules", "type" => t("trarabic_10825"));
-  $module_dirs[] = array("start" => "custom/modules", "type" => t("trarabic_10826"));
+  $module_dirs[] = array("start" => "modules", "type" => t("Core"));
+  $module_dirs[] = array("start" => "custom/modules", "type" => t("Custom"));
     
   foreach ($module_dirs as $module_dir) {
     $start_dir = $module_dir["start"];
@@ -572,7 +572,7 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
                                 WHERE path = '?' LIMIT 1 ", $info_details_array["schema"], $path);
                                        
               
-              fp_add_message(t("trarabic_10827", array("%module" => $module)));              
+              fp_add_message(t("The module %module has run its DB updates.", array("%module" => $module)));              
 
               
               
@@ -599,13 +599,13 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
 function system_display_completed_db_updates() {
   $rtn = "";
   
-  $rtn .= t("trarabic_20172");
+  $rtn .= t("اكتملت تحديثات قاعدة البيانات. إذا كنت لا ترى أي أخطاء ، فهذا يعني أنه تم تشغيل كل شيء بشكل صحيح.");
   
   $rtn .= "<br><br>
               <ul>";
   
-  $rtn .= "<li>" . l(t("trarabic_10828"), "admin-tools/admin") . "</li>
-          <li>" . l(t("trarabic_10829"), "admin/config/modules") . "</li>
+  $rtn .= "<li>" . l(t("العودة إلى المشرف"), "admin-tools/admin") . "</li>
+          <li>" . l(t("العودة إلى صفحة الوحدات"), "admin/config/modules") . "</li>
            
           </ul>";
   
@@ -629,9 +629,9 @@ function system_display_install_finished_page() {
 
   fp_show_title(TRUE);
   
-  $rtn .= t("trarabic_20173") . "<br><br>";
+  $rtn .= t("اكتمل الآن تثبيتك الجديد لـ FlightPath. <br/><br/> كإجراء احترازي ، يجب عليك: <ul> <li>تغيير الأذونات على custom. settings.php بحيث لا يمكن قراءتها أو كتابتها من قبل مستخدمين غير مصرح لهم.</li> <li>يجب عليك أيضًا إعادة تسمية أو إزالة install.php حتى لا يتمكن زائرو الويب من الوصول إليه.</li> </ul> If you need to re-install FlightPath, delete custom/settings.php, and drop all of the tables in the database, then re-access install.php.") . "<br><br>";
 
-  $rtn .= l(t("trarabic_10830"), "<front>");
+  $rtn .= l(t("الوصول إلى موقع FlightPath الجديد الآن."), "<front>");
   
   
   return $rtn;
@@ -644,9 +644,9 @@ function system_display_install_finished_page() {
 function system_popup_report_contact_thank_you() {
   $rtn = "";
   
-  $rtn .= fp_render_curved_line(t("trarabic_10831"));
-  $rtn .= t("trarabic_20174") . "<br><br>";
-  $rtn .= t("trarabic_10832");
+  $rtn .= fp_render_curved_line(t("اتص بفريق انتاج @FlightPath"));
+  $rtn .= t("شكرا لتقديمك لفريق الإنتاج FlightPath. لقد تلقوا تعليقك وسنقوم بمراجعته بعد قليل.") . "<br><br>";
+  $rtn .= t("يمكنك الان إغلاق هذه النافذة.");
   
   return $rtn;
 }
@@ -662,41 +662,41 @@ function system_popup_report_contact_form() {
   fp_set_title("");
   
   $form["mark" . $m++] = array(
-    "value" => fp_render_curved_line(t("trarabic_10833")),
+    "value" => fp_render_curved_line(t("اتص بفريق انتاج @FlightPath")),
   );
   
   if (!user_has_permission("access_logged_in_content")) {
     $form["mark" . $m++] = array(
-      "value" => t("trarabic_20175"),
+      "value" => t("عذرًا ، ولكن لأسباب أمنية ، لا يجوز لك الوصول إلى هذا النموذج إلا إذا سجلت الدخول إلى FlightPath."),
     );
     return $form;
   }
   
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_20176"),
+    "value" => t("إذا كنت قد لاحظت وجود خطأ أو لديك اقتراح ، فاستخدم هذا النموذج للاتصال بفريق إنتاج FlightPath."),
   );  
   
   $form["category"] = array(
     "type" => "select",
-    "label" => t("trarabic_10834"),
+    "label" => t("الرجاء قم بتجديد فئة:"),
     "options" => array(
-                     t("trarabic_10835") => t("trarabic_10836"),
-                     t("trarabic_10837") => t("trarabic_10838"),
-                     t("trarabic_10839") => t("trarabic_10840"),
-                     t("trarabic_10841") => t("trarabic_10842"),
-                     t("trarabic_10843") => t("trarabic_10844"),
-                     t("trarabic_10845") => t("trarabic_10846"),
+                     t("Advising") => t("Advising"),
+                     t("خطة الدرجةالتعليمية") => t("خطة الدرجةالتعليمية"),
+                     t("ماذا لو؟") => t("ماذا لو؟"),
+                     t("بحث") => t("بحث"),
+                     t("تعليقات") => t("تعليقات"),
+                     t("أخرى") => t("أخرى"),
                       ),
   );
 
   $form["comment"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10847"),    
+    "label" => t("تعليق:"),    
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10848"),    
+    "value" => t("أرسل إيميل"),    
   );  
   
   $form["#redirect"] = array("path" => "popup-contact-form/thank-you");    
@@ -718,13 +718,13 @@ function system_popup_report_contact_form_submit($form, $form_state) {
   $datetime = date("Y-m-d H:i:s", strtotime("now"));
 
   //$headers = "From: FlightPath-noreply@noreply.com\n";
-  $subject = t("trarabic_10849") . " - $category ";
+  $subject = t("تقرير FLIGHTPATH ​​CONTACT") . " - $category ";
   $msg = "";
-  $msg .= t("trarabic_10850") . " $datetime.\n";
-  $msg .= t("trarabic_10851") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t("trarabic_10852") . " $user_roles \n\n";
-  $msg .= t("trarabic_10853") . " $category  \n";
-  $msg .= t("trarabic_10854") . " $possible_student  \n";
-  $msg .= t("trarabic_10855") . " \n $comment \n\n";
+  $msg .= t("لقد تلقيت تقريرًا / جهة اتصال جديدة في") . " $datetime.\n";
+  $msg .= t(":الاسم") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t(":دور المستخدم") . " $user_roles \n\n";
+  $msg .= t(":فئة") . " $category  \n";
+  $msg .= t(":الطالب المحتمل") . " $possible_student  \n";
+  $msg .= t(":تعليق") . " \n $comment \n\n";
   $msg .= "------------------------------------------------ \n";
 
   $themd5 = md5($user->name . $user->cwid . $comment . $user_roles . $category);
@@ -757,12 +757,12 @@ function system_school_data_form() {
   
   $form["course_repeat_policy"] = array(
     "type" => "select",
-    "label" => t("trarabic_10856"),
-    "options" => array("most_recent_exclude_previous" => t("trarabic_10857"),
-                       "most_recent_do_not_exclude" => t("trarabic_10858")),
+    "label" => t(":سايسة تكرار المساق"),
+    "options" => array("most_recent_exclude_previous" => t("الأحدث, اسنتثناء المحاولات السابقة"),
+                       "most_recent_do_not_exclude" => t("الأحدث, عدم استثناء المحاولات السابقة - (ميزة جديدة)")),
     "value" => variable_get("course_repeat_policy", "most_recent_exclude_previous"),
     "hide_please_select" => TRUE,
-    "description" => t("trarabic_20177"),
+    "description" => t("يؤثر هذا الإعداد على سياسة تكرار المقررات لـ FlightPath للمقررات العادية. <br/><b>إذا كنت غير متأكد ما يجب تحديده</b>,اختر "الأحدث ، استبعد المحاولات السابقة". <br/>يرجى الاطلاع على <b><a href='http://getflightpath.com/node/1085' target='_blank'> وثائق FlightPath </a></b> حول كيفية إعداد هذا الحقل."),
                                               
                         
   );
@@ -770,19 +770,19 @@ function system_school_data_form() {
   
   $form["ignore_courses_from_hour_counts"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10859"),
+    "label" => t("تجاهل الصفوف من عدد الساعات (CSV):"),
     "value" => variable_get("ignore_courses_from_hour_counts", ""),
-    "description" => t("trarabic_20178"),    
+    "description" => t("قائمة المقررات ، مفصولة بفاصلة ، والتي ينبغي تجاهلها في عدد الساعات. يساعد ذلك في تصحيح المقررات من أن تطبق عدد الساعات <br/><b>سيتم تعيين هذه المقررات تلقائياً لرمز النوع المتطلب 'x'.</b> <br/> مثال: MATH 093, ENGL 090, UNIV 1001"),    
   );
 
 
 
   $form["term_id_structure"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10860"),
+    "label" => t("Structure of term ID's:"),
     "value" => variable_get("term_id_structure", ""),
-    "description" => t("trarabic_20179") . "
-                <br>" . t("trarabic_10861") . " 
+    "description" => t("استخدم هذه المساحة لتحديد هياكل termID ، واحدة لكل سطر. الرجاء مراجعة <b><a href='http://getflightpath.com/node/1085' target='_blank'>وثائق FlightPath</a></b> حول كيفية إعداد هذا الحقل.") . "
+                <br>" . t(":مثال") . " 
                 <br>[Y4]60, Spring, Spring of [Y4], Spr '[Y2]
                 <br>[Y4]40, Fall, Fall of [Y4-1], Fall '[Y2-1]",    
   );
@@ -814,11 +814,11 @@ function system_school_data_form() {
   
   $form["subjects"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10862"),
+    "label" => t(":المواضيع"),
     "value" => $subjects,
     "rows" => 15,
-    "description" => t("trarabic_20180") . "<br>SUBJ ~ COLLEGE ~ Title<br>" . t("trarabic_10863") . "
-                        <br>&nbsp; ACCT ~ BA ~ Accounting<br>&nbsp; BIOL ~ AS ~ Biology<br>" . t("trarabic_20181"),
+    "description" => t("أدخل المواضيع المعروفة لـ FlightPath (للاستخدام في النوافذ المنبثقة وبحث للمقررات، على سبيل المثال) ، واحدة لكل سطر بهذا التنسيق:") . "<br>SUBJ ~ COLLEGE ~ Title<br>" . t(":على سبيل المثال") . "
+                        <br>&nbsp; ACCT ~ BA ~ Accounting<br>&nbsp; BIOL ~ AS ~ Biology<br>" . t("لاحظ الفاصل بين الرمز ، الكلية ، والعنوان هو 1 التلدة (~). يتم تجاهل Whitespace. <br/><b>مهم:</b> لا يمكن إعداد هذا الحقل حتى يتم إدخال المقررات بالكامل. بمجرد حدوث ذلك ، ستظهر مواضيع المقررات تلقائيًا في هذا المربع ، حيث يمكنك عندئذٍ تعيين رمز الكلية وعنوان الموضوع."),
   );  
   
   
@@ -831,11 +831,11 @@ function system_school_data_form() {
   
   $form["colleges"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10864"),
+    "label" => t(": لكليات"),
     "value" => $colleges,
-    "description" => t("trarabic_20182") . "<br>COLLEGE_CODE ~ Title<br>" . t("trarabic_10865") . "
+    "description" => t("أدخل الكليات المعروفة بـ FlightPath ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>COLLEGE_CODE ~ Title<br>" . t(":على سبيل المثال") . "
                        <br>&nbsp; AE ~ College of Arts, Science, and Education
-                       <br>&nbsp; PY ~ College of Pharmacy<br>" . t("trarabic_20183"),
+                       <br>&nbsp; PY ~ College of Pharmacy<br>" . t("لاحظ الفاصل بين الرمز والعنوان هو 1 التلدة (~). يتم تجاهل Whitespace."),
   );
   
   
@@ -860,12 +860,12 @@ function system_school_data_form() {
 
   $form["degree_college"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10866"),
+    "label" => t(":الدرجة العلمية للكليات"),
     "value" => $degree_college,
     "rows" => 15,
-    "description" => t("trarabic_20184") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t("trarabic_10867") . "
+    "description" => t("أدخل كلية الشهادة الجامعية ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t(":على سبيل المثال") . "
                        <br>&nbsp; ACCT ~ AE
-                       <br>&nbsp; BUSN ~ SB<br>" . t("trarabic_20185"),
+                       <br>&nbsp; BUSN ~ SB<br>" . t("لاحظ أن الفاصل بين الرموز هو 1 tilde (~). يتم تجاهل Whitespace. <br/><b>مهم:</b> لا يمكن إعداد هذا الحقل حتى يتم إدخال شهادتك الجامعية. بمجرد حدوث ذلك ، ستظهر رموز الشهادة الرئيسية تلقائيًا في هذا المربع ، حيث يمكنك عندئذٍ تعيين رمز الكلية. "),
   );
   
   
@@ -874,129 +874,129 @@ function system_school_data_form() {
   
   $form["sub_hours_decimals_allowed"] = array(
     "type" => "select",
-    "label" => t("trarabic_10868"),
-    "options" => array(1 => t("trarabic_10869"), 2 => t("trarabic_10870"), 3 => t("trarabic_10871"), 4 => t("trarabic_10872")),
+    "label" => t("ساعات استبدال المنازل العشرية المسموح بها:"),
+    "options" => array(1 => t("1 (مثال: 1.1 ساعة)"), 2 => t("2 (مثال: 1.15 ساعة)"), 3 => t("3 (مثال: 1.155 ساعة)"), 4 => t("4 (مثال: 1.1556 ساعة)")),
     "value" => variable_get("sub_hours_decimals_allowed", 2),
     "no_please_select" => TRUE,
-    "description" => t("trarabic_20186"),
+    "description" => t("لساعات مع الكسور العشرية (مثل 2.25 ساعة) ، كم عدد الأرقام بعد المكان العشري سيتم السماح به؟ يؤثر على المستخدمين الذ \"\" بدائل. على سبيل المثال ، إذا حددت \ "2 \" هنا ، فسيتم رفض قيمة 1.2555 ، وسيُطلب من المستخدم إعادة إدخالها. 1.25 ، سيتم قبوله ، نظرًا لأنه يحتوي على منزلين عشريين. <br/>إذا لم تكن متأكدًا مما يجب تحديده ، فاضبطه على 2."),
   );
   
   
   // Auto-correct course titles?
   $form["autocapitalize_course_titles"] = array(
     "type" => "select",
-    "label" => t("trarabic_10873"),
+    "label" => t("Auto-capitalize course titles?"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("autocapitalize_course_titles", "yes"),
-    "description" => t("trarabic_20187"),
+    "description" => t("إذا تم تعيينها على نعم ، فسيتم تشغيل عناوين المقررات في FlightPath من خلال مرشح الكتابة بالأحرف الكبيرة ، بحيث يصبح "INTRO TO ACCOUNTING" "مقدمة إلى المحاسبة". بشكل عام ، هذا يجعل أسماء المساق أكثر جاذبية ، ولكن يمكن أن يستفيد بشكل غير صحيح من الحروف الأولى والأحرف الأولى. قم بتعطيله إذا كنت تريد التحكم الكامل في الكتابة بالأحرف الكبيرة. <br/>إذا لم تكن متأكدًا ، فاضبط على نعم."),
   );
   
 
   // Auto-correct institution names?
   $form["autocapitalize_institution_names"] = array(
     "type" => "select",
-    "label" => t("trarabic_10874"),
+    "label" => t("Auto-capitalize institution names?"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("autocapitalize_institution_names", "yes"),
-    "description" => t("trarabic_20188"),
+    "description" => t("إذا تم تعيينه على نعم ، فسيتم تشغيل أسماء المؤسسات نقل في FlightPath من خلال عامل تصفية الأحرف الكبيرة ، بحيث يصبح 'UNIVERSITY OF LOUISIANA AT MONROE' 'University of Louisiana at Monroe'. مثل إعداد عنوان المقررات أعلاه ، وهذا هو جعل أجمل غير متناسقة أو غير جذابة.قم بتعطيله إذا كنت تريد التحكم الكامل في الكتابة بالأحرف الكبيرة. <br/>إذا لم تكن متأكدًا ، فاضبط على نعم."),
   );
 
   
   // Only allow ghost subs for fellow ghost hours?
   $form["restrict_ghost_subs_to_ghost_hours"] = array(
     "type" => "select",
-    "label" => t("trarabic_10875"),
+    "label" => t("Restrict ghost substitutions to courses with zero hours only?"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("restrict_ghost_subs_to_ghost_hours", "yes"),
-    "description" => t("trarabic_20189"),
+    "description" => t("إذا تم تعيينها على نعم ، يمكن استبدال المقررات التي تتضمن ساعات \ "ghost \" فقط بمقررات أخرى باستخدام ساعات \ "ghost \". ما يعنيه هذا هو أنه إذا كانت المقررات تساوي صفر ساعة ، فقد تكون فرعية فقط لمتطلبات تبلغ قيمتها صفر ، ولن تظهر كخيار لبدائل للمقررات تزيد قيمتها على 0 ساعة. هذا لن يؤثر على subs القديمة  فقط الجديدة. <br/>إذا لم تكن متأكدًا ، فاضبط على نعم."),
   );
 
   
   $form["initial_student_course_sort_policy"] = array(
     "type" => "select",
-    "label" => t("trarabic_10877"),
+    "label" => t("Initial student course sort policy:"),
     "options" => array("alpha" => "Alphabetical sort [default]", "grade" => "Best grade first (beta)"),
     "hide_please_select" => TRUE,
     "value" => variable_get("initial_student_course_sort_policy", "alpha"),
-    "description" => t("trarabic_20190"),
+    "description" => t("يتم تصنيف المقررات للطلاب أكثر من مرة حيث يتم تقييمهم من قبل FlightPath. بشكل افتراضي ، يتم فرزها أبجديًا أولاً. إذا قمت بتغيير هذا إلى أفضل درجة أولاً ، فسيتم تصنيف المقررات بشكل دوري وفقًا للتقدير الذي حصلت عليه  بالترتيب المحدد في "ترتيب الصف CSV" أدناه. أي درجات دراسية غير محددة أدناه سيتم اعتبارها أدنى درجة ممكنة"),
   );
   
   $form["grade_order"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10878"),
+    "label" => t("(CSV): ترتيب الدرجات"),
     "value" => variable_get("grade_order", ""),
-    "description" => t("trarabic_20191"),
+    "description" => t("سرد جميع الدرجات الممكنة ، مفصولة بفاصلة ، من الأعلى إلى الأدنى. هذا مطلوب فقط إذا قمت بتحديد سياسة الفرز "أفضل درجة أولاً" أعلاه. <br/>مثال: AMID,BMID,CMID,DMID,FMID,A,B,C,D,F,W,I"),
   );
   
   
 
   $form["retake_grades"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10879"),
+    "label" => t("(CSV): إستعادة الدرجات"),
     "value" => variable_get("retake_grades", ""),
-    "description" => t("trarabic_20192"),    
+    "description" => t("تدرج الدرجات ، مفصولة بفاصلة ، مما يعني 'يجب على الطالب إعادة هذا المقرر. لم يكسب رصيد'. مثال: F,W,I"),    
   );
          
   $form["withdrew_grades"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10880"),
+    "label" => t("Withdrew grades (CSV):"),
     "value" => variable_get("withdrew_grades", "W"),
-    "description" => t("trarabic_20193"),    
+    "description" => t("سرد الدرجات ، مفصولة بفاصلة ، مما يعني 'انسحب الطالب من هذا المقرر. لم يكسب رصيد'. مثال: W,WD,WF. إذا لم تكن متأكدًا مما يجب إدخاله هنا ، فقط أدخل "W"."),    
   );  
   
   $form["enrolled_grades"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10881"),
+    "label" => t("(CSV): درجات مسجلة"),
     "value" => variable_get("enrolled_grades", ""),
-    "description" => t("trarabic_20194"),    
+    "description" => t("تدرج الدرجات ، مفصولة بفواصل ، مما يعني "الطالب مسجل حاليًا في هذا المقرر". مثال: E,AMID,BMID "),    
   );
 
   $form["b_or_better"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10882"),
+    "label" => t("(CSV):أو أفضل B  درجات "),
     "value" => variable_get("b_or_better", ""),
-    "description" => t("trarabic_10883"),    
+    "description" => t("أو أفضل B سرد الدرجات ، مفصولة بفاصلة ، والتي تكون إما "),    
   );
 
   $form["c_or_better"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10884"),
+    "label" => t("(CSV): أو أفضل C درجات"),
     "value" => variable_get("c_or_better", ""),
-    "description" => t("trarabic_10885"),    
+    "description" => t(" أو أفضل C سرد الدرجات ، مفصولة بفاصلة ، والتي تكون إما"),    
   );
 
   $form["d_or_better"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10886"),
+    "label" => t("(CSV): أفضل أو D درجات "),
     "value" => variable_get("d_or_better", ""),
-    "description" => t("trarabic_10887"),    
+    "description" => t("أو أفضل D سردالدرجات ، مفصولة بفاصلة ، والتي تكون إما "),    
   );
 
   $form["minimum_substitutable_grade"] = array(
     "type" => "textfield",
     "size" => 3,
-    "label" => t("trarabic_10888"),
+    "label" => t(":الحد الأدنى من درجة الاستبدال"),
     "value" => variable_get("minimum_substitutable_grade", "D"),
-    "description" => t("trarabic_20195"),    
+    "description" => t("أدخل تقديرًا هو الحد الأدنى من الدرجات الذي يجب أن يحصل عليه الطالب للمقرر المسموح بها في الاستبدال. هذا سوف يؤثر على البدائل الجديدة ، وليس القديمة. إذا لم تكن متأكدًا ، فأدخل D."),    
   );
   
   
 
   $form["calculate_cumulative_hours_and_gpa"] = array(
-    "label" => t("trarabic_10889"),
+    "label" => t("حساب الساعات و الدرجات التراكمية للطلاب؟ "),
     "type" => "checkbox",
     "value" => variable_get("calculate_cumulative_hours_and_gpa", FALSE),
-    "description" => t("trarabic_20196"),    
+    "description" => t("في حالة تحديده ، لن تتم قراءة الساعات التراكمية للطلاب ومعدل GPA من جدول قاعدة بيانات "الطلاب" ، ولكن سيتم حسابها بدلاً من ذلك في كل مرة يتم فيها تحميل الطالب. إذا لم تكن متأكدًا مما يجب فعله ، فحدد هذا المربع."),    
   );
   
   $form["quality_points_grades"] = array(
-    "label" => t("trarabic_10890"),
+    "label" => t(":نقاط الجودة والدرجات"),
     "type" => "textarea",
     "value" => variable_get("quality_points_grades", "A ~ 4\nB ~ 3\nC ~ 2\nD ~ 1\nF ~ 0\nI ~ 0"),
-    "description" => t("trarabic_20197") . "
+    "description" => t("أدخل تقديرًا ، وعدد نقاط الجودة التي تستحقها ، مفصولة برمز التلدة (~) ، واحدة لكل سطر. يجب عليك تضمين كل درجة يجب أن تحتسب (أو ضد) حساب المعدل التراكمي (GPA) ، حتى إذا كانت تساوي صفر نقطة. على سبيل المثال ، إذا كان 'F' يجب أن يؤدي إلى انخفاض GPA (وهو ما سيحدث عادة) ، فيجب أن يتم سرده هنا. إذا كان ينبغي ببساطة تجاهل درجة 'W' ، فلا تدرجها هنا. سيتم تجاهل أي درجة لا تدرجها هنا في جميع حسابات GPA.") . "
                         <br>
                         Ex:<blockquote style='margin-top:0; font-family: Courier New, monospace;'>                        
                         A ~ 4<br>B ~ 3<br>C ~ 2<br>D ~ 1<br>F ~ 0<br>I ~ 0</blockquote>",
@@ -1004,10 +1004,10 @@ function system_school_data_form() {
   
   
   $form["requirement_types"] = array(
-    "label" => t("trarabic_10891"),
+    "label" => t(":أنواع المتطلبات والرموز"),
     "type" => "textarea",
     "value" => variable_get("requirement_types", "g ~ General Requirements\nc ~ Core Requirements\ne ~ Electives\nm ~ Major Requirements\ns ~ Supporting Requirements\nx ~ Additional Requirements"),
-    "description" => t("trarabic_20198") . "
+    "description" => t("أدخل أكواد وأوصاف نوع المتطلبات ، مفصولة بعلامة التلدة (~) ، واحدة لكل سطر. <b>لا يجوز لك استخدام الكود "u"</b> لأن هذا مخصص ل FlightPath. <b>يجب عليك تعريف معنى 'x'</b>, لكن كن على علم بأن الرمز 'x' سيعين دائمًا مقرر يجب تجاهل ساعاتها من حسابات GPA. <b>يجب عليك تحديد ما تعني 'm'</b>, لأن هذا هو الرمز الافتراضي المطبق على المتطلب إذا لم يتم إدخال واحد. <b>يجب عليك تحديد ما تعني  'e'</b>, لأن هذا هو أيضًا الرمز المعطى إلى المقررات التي لا نستطيع تحديد أنواعها ، ربما بسبب خطأ مطبعي أو عن قصد. مثال: Electives. تحدد هذه القائمة أيضًا الترتيب الذي تظهر به على الشاشة في Type View. حسب الاصطلاح ، يجب أن تكون الرموز أحرف مفردة أحادية.") . "
                         <br>Ex:
                         <div style='padding-left: 20px; font-family: Courier New, monospace'>
                          g ~ General Requirements<br>
@@ -1029,16 +1029,16 @@ function system_school_data_form() {
   // the pie charts...
   if (!extension_loaded('gd') && !extension_loaded('gd2')) {
     $form["mark" . $m++] = array(
-      "value" => "<p class='hypo'><b>" . t("trarabic_20199") . "</b></p>",
+      "value" => "<p class='hypo'><b>" . t("ملاحظة: يبدو أن خادم الويب الخاص بك لا يحتوي على مكتبة "GD" الممكّنة لـ PHP. هذا مطلوب لجعل التخطيطات الدائرية تظهر بشكل صحيح. اتصل بمسؤول الخادم حول تمكين مكتبة "GD".") . "</b></p>",
     );
   }
   
   
   $form["pie_chart_config"] = array(
-    "label" => t("trarabic_10892"),
+    "label" => t(":تكوين الرسم البياني الدائري"),
     "type" => "textarea",
     "value" => variable_get("pie_chart_config", "c ~ Core Requirements\nm ~ Major Requirements\ndegree ~ Degree Progress"),
-    "description" => t("trarabic_20200") . "
+    "description" => t("أدخل بيانات التكوين للمخططات الدائرية التي ترسم تقدم الطالب خلال شهادته. أدخل رمز نوع المتطلبات ، تسمية المخطط الدائري ، والألوان الاختيارية مفصولة بواسطة التلدة (~). سيتم تخطي أنواع المتطلبات غير الموجودة للطالب ولن يتم رسم المخطط. <b>أدخل 'degree' للتقدم الإجمالي.</b>") . "
                         <br>Ex:  CODE ~ LABEL ~ [optional: UNFINISHED COLOR ~ PROGRESS COLOR ]
                         <div style='padding-left: 20px; font-family: Courier New, monospace'>                          
                           c ~ Core Requirements ~ 660000 ~ FFCC33<br>
@@ -1050,63 +1050,63 @@ function system_school_data_form() {
 
   
   $form["developmentals_title"] = array(
-    "label" => t("trarabic_10893"),
+    "label" => t(":عنوان block للفصل الدراسي التطوري"),
     "type" => "textfield",
-    "value" => variable_get("developmentals_title", t("trarabic_10894")),
-    "description" => t("trarabic_20201"),
+    "value" => variable_get("developmentals_title", t("متطلبات التطوير")),
+    "description" => t("هذا عنوان كتلة الفصل الدراسي لمتطلبات التطوير ، والتي تظهر في خطة درجة الطالب ، بالقرب من الجزء السفلي ، عندما يكون لديهم دورات تصحيحية يجب عليهم اتخاذها. إذا لم تكن متأكدًا مما يجب إدخاله ، فاستخدم 'المتطلبات التنموية'."),
   );
   
   $form["developmentals_notice"] = array(
-    "label" => t("trarabic_10895"),
+    "label" => t(":نص إشعار التطوير"),
     "type" => "textarea",
-    "value" => variable_get("developmentals_notice", t("trarabic_10896")),
-    "description" => t("trarabic_20202"),
+    "value" => variable_get("developmentals_notice", t("وفقًا لسجلاتنا ، يُطلب منك إكمال الدورة (الدورات) المذكورة أعلاه. بالنسبة لبعض طلاب النقل ، قد لا يكون السجل الخاص بك مكتملاً. إذا كان لديك أي أسئلة ، يرجى سؤال المرشد الخاص بك.")),
+    "description" => t("سيتم عرض النص الذي تقوم بإدخاله هنا أسفل كتلة فصول التطوير، موضحًا للطالب ما هذه المقررات. على سبيل المثال: 'وفقًا لسجلاتنا ، يجب عليك إكمال المقرر(ات) المذكورة أعلاه'."),
   );
 
   
 
   $form["graduate_level_codes"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10897"),
+    "label" => t("رمز مستوى المساق للدراسات العليا (CSV):"),
     "value" => variable_get("graduate_level_codes", "GR"),
-    "description" => t("trarabic_20203"),    
+    "description" => t("قائمة رموز المستوى ، مفصولة بفاصلة ، والتي ينبغي اعتبارها ائتمانات الدراسات العليا. إذا لم تكن بحاجة إلى التمييز بين الائتمان الجامعي والدراسات العليا ، فاترك هذا الحقل فارغًا.<br/>إذا لم تكن متأكدًا ، فاضبط على GR."),    
   );
   
   
   
   $form["disallow_graduate_credits"] = array(
     "type" => "select",
-    "label" => t("trarabic_10898"),
+    "label" => t("عدم السماح باستخدام تلقائي لرصيد الدراسات العليا؟"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("disallow_graduate_credits", "yes"),
-    "description" => t("trarabic_20204"),
+    "description" => t("إذا تم تعيينه على نعم ، فلن يستخدم FlightPath تلقائيًا أرصدة الخريجين (استنادًا إلى رمز المستوى الذي يمنحه رصيد الطالب في قاعدة البيانات) لملء المجموعات الاختيارية أو خطة الدرجة. ومع ذلك ، يمكن استبدالها باستخدام نظام الاستبدال. لكي يعمل هذا الإعداد ، يجب تعيين الحقل 'رموز مستوى دورة الدراسات العليا' أعلاه. <br/>إذا لم تكن متأكدًا ، فاضبط على نعم."),
   );
   
 
   $form["display_graduate_credits_block"] = array(
     "type" => "select",
-    "label" => t("trarabic_10899"),
+    "label" => t("عرض الاعتمادات التخرج في  بلوك الفصل الدراسي الخاصة بهم؟"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("display_graduate_credits_block", "yes"),
-    "description" => t("trarabic_20205"),
+    "description" => t("إذا تم تعيينه على نعم ، فسيقوم FlightPath بعرض أرصدة الخريجين في كتلته الخاصة ، وليس في الائتمانات الزائدة. يتم تعيين تفاصيل كتلة الدراسات العليا أدناه. <br/>إذا لم تكن متأكدًا ، فاضبط على نعم."),
   );
   
   
   $form["graduate_credits_block_title"] = array(
-    "label" => t("trarabic_10900"),
+    "label" => t("Graduate Credits block title:"),
     "type" => "textfield",
-    "value" => variable_get("graduate_credits_block_title", t("trarabic_10901")),
-    "description" => t("trarabic_20206"),
+    "value" => variable_get("graduate_credits_block_title", t("ائتمانات الدراسات العليا")),
+    "description" => t("هذا عنوان كتلة الفصل الدراسي لائتمان الدراسات العليا (الإعداد أعلاه) ، والذي يظهر في خطة درجة الطالب ، بالقرب من الجزء السفلي ، عندما يكون لديهم شهادات عليا في تاريخهم (استنادًا إلى رمز مستوى الائتمان). إذا لم تكن متأكدًا مما يجب إدخاله ، فاستخدم 'اعتمادات الدراسات العليا'."),
   );
   
 
   $form["graduate_credits_block_notice"] = array(
-    "label" => t("trarabic_10902"),
+    "label" => t("Graduate Credits block notice text:"),
     "type" => "textarea",
-    "value" => variable_get("graduate_credits_block_notice", t("trarabic_10903")),
-    "description" => t("trarabic_20207"),
+    "value" => variable_get("graduate_credits_block_notice", t("لا يمكن استخدام هذه المساقات لطلبة البكالوريوس")),
+    "description" => t("سيتم عرض النص الذي تقوم بإدخاله هنا أسفل كتلة الفصل الدراسي لائتمانات الدراسات العليا، موضحًا للطالب ما هذه المقررات. على سبيل المثال: 'لا يجوز استخدام هذه المقررات  للحصول على الائتمان الجامعي'."),
   );
   
   
@@ -1196,29 +1196,29 @@ function system_settings_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_20208"),
+    "value" => t("استخدم هذا النموذج لتغيير إعدادات النظام المختلفة في FlightPath. قبل إجراء التغييرات ، من الجيد دائمًا إنشاء نسخة احتياطية من قاعدة البيانات أولاً."),
                   
   );
   
   $form["mark" . $m++] = array(
-    "value" => "<p><div style='font-size:0.8em;'>" . t("trarabic_20209") . "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
-                        <br>" . t("trarabic_10904") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i></div></p>",
+    "value" => "<p><div style='font-size:0.8em;'>" . t("موقعك يتطلب مهمة كرون(cron job) لأداء المهام الروتينية. ويتم تحقيق ذلك من خلال وصول الخادم الخاص بك إلى عنوان URL التالي كل مرة (مثل مرة واحدة كل ساعة):") . "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
+                        <br>" . t("Example linux cron command:") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i></div></p>",
   );
   
   
   $form["maintenance_mode"] = array(
-    "label" => t("trarabic_10905"),
+    "label" => t("ضبط وضع الصيانة؟"),
     "type" => "checkbox",
     "value" => variable_get("maintenance_mode", FALSE),
-    "description" => t("trarabic_20210"),    
+    "description" => t("في حالة تحديده ، سيتم عرض رسالة في كل صفحة تفيد بأن النظام يخضع حاليًا لصيانة روتينية."),    
   );
   
   
   $form["contact_email_address"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10906"),
+    "label" => t("عنوان البريد الإلكتروني للاتصال:"),
     "value" => variable_get("contact_email_address", ""),
-    "description" => t("trarabic_20211"),
+    "description" => t("أدخل عنوان البريد الإلكتروني للبريد عندما يصل مستخدم إلى النافذة المنبثقة للتواصل مع فريق إنتاج FlightPath. "),
     
   );
 
@@ -1234,9 +1234,9 @@ function system_settings_form() {
     // Give the option to change ONLY if we can support clean URLs
     $form["clean_urls"] = array(
       "type" => "checkbox",
-      "label" => t("trarabic_10907"),
+      "label" => t(" تمكين "عناوين URL النظيفة؟""),
       "value" => variable_get("clean_urls", FALSE),
-      "description" => t("trarabic_20212"), 
+      "description" => t("يدعم الخادم الخاص بك 'عناوين URL النظيف' ، مما يلغي 'index.php؟ q =' من عناوين URL الخاصة بك ، مما يجعلها أكثر قابلية للقراءة. من المستحسن ترك هذه الميزة ممكنة. لمزيد من المعلومات، راجع: http://getflightpath.com/node/5."), 
     );
   }
   else {
@@ -1251,82 +1251,82 @@ function system_settings_form() {
     
   $form["theme"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10908"),
+    "label" => t("Theme location:"),
     "value" => variable_get("theme", "themes/classic"),
-    "description" => t("trarabic_10909"),    
+    "description" => t("Enter the file location for your theme. Do not put preceeding or trailing slashes.  Ex: themes/classic"),    
   );
     
 
   $form["school_initials"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("trarabic_10910"),
+    "label" => t("الأحرف الأولى في المدرسة:"),
     "value" => variable_get("school_initials", "DEMO"),
-    "description" => t("trarabic_10911"),    
+    "description" => t("مثال: ULM or BPCC"),    
   );
                   
 
   $form["earliest_catalog_year"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("trarabic_10912"),
+    "label" => t("أقدم كتالوج سنة:"),
     "value" => variable_get("earliest_catalog_year", "2006"),
-    "description" => t("trarabic_20213"),    
+    "description" => t("هذه أقرب سنة كتالوج ممكن FlightPath قد تبدو فيها. عادةً ما يكون هذا هو العام الأقدم الذي تتوفر لديك بيانات (على سبيل المثال ، عندما تم تشغيل FlightPath عبر الإنترنت). إذا لم يتمكن FlightPath من معرفة سنة كتالوج لاستخدامها ، فسيتم افتراضها بشكل افتراضي لهذا العام. مثال: 2006"),    
   );
   
 
   $form["graduate_level_course_num"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("trarabic_10913"),
+    "label" => t("رقم المساق للدراسات العليا:"),
     "value" => variable_get("graduate_level_course_num", "5000"),
-    "description" => t("trarabic_20214"),    
+    "description" => t("هذا رقم المقرر الذي يعني "مستوى الدراسات العليا" ، أي أن أي شيء فوقه يعتبر مسارًا على مستوى الدراسات العليا. مثال: 5000"),    
   );
   
 
   $form["allowed_student_ranks"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10914"),
+    "label" => t("صفوف الطلاب المسموح بها (CSV):"),
     "value" => variable_get("allowed_student_ranks", ""),
-    "description" => t("trarabic_20215"),
+    "description" => t("هذه قائمة من مراتب الطلاب المسموح بها في FlightPath. يجب فصلها بفواصل. يؤثر هذا أيضًا على الطلاب الذين قد يبحثون عنه في علامة التبويب الطلبة المشرف عليهم. مثال: FR, SO, JR, SR"),
   );
 
 
   $form["not_allowed_student_message"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10915"),
+    "label" => t("رسالة الطالب غير المسموح بها:"),
     "value" => variable_get("not_allowed_student_message", ""),
-    "description" => t("trarabic_20216"),    
+    "description" => t("عندما لا يُسمح للطالب بالدخول إلى FlightPath نظرًا لرتبته ، سيتم عرض هذه الرسالة."),    
   );
     
 
   $form["hiding_grades_message"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10916"),
+    "label" => t("رسالة إخفاء الدرجات:"),
     "value" => variable_get("hiding_grades_message", ""),
-    "description" => t("trarabic_20217"),    
+    "description" => t("سيتم عرض هذه الرسالة عند تعيين bool_hide_grade على TRUE. إذا كنت لا تستخدم هذه الوظيفة ، يمكنك ترك هذا فارغًا."),    
   );
 
 
   $form["notify_apply_draft_changes_email_address"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10917"),
+    "label" => t("أبلغ تطبيق التغييرات على عنوان البريد الإلكتروني:"),
     "value" => variable_get("notify_apply_draft_changes_email_address", ""),
-    "description" => t("trarabic_20218"),    
+    "description" => t("أدخل عنوان بريد إلكتروني واحدًا أو أكثر (مفصولة بفواصل) للإشعار عند تطبيق تغييرات المسودة من وحدة تحكم المشرف. اتركه فارغًا لتعطيله."),    
   );
 
   $form["notify_mysql_error_email_address"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10918"),
+    "label" => t("عنوان البريد الإلكتروني لإبلاغ خطأ MySQL "),
     "value" => variable_get("notify_mysql_error_email_address", ""),
-    "description" => t("trarabic_20219"),    
+    "description" => t(" أدخل 1 أو أكثر من عناوين البريد الإلكتروني (مفصولة بفواصل) للإشعار عند حدوث خطأ في mysql. اتركه فارغًا لتعطيله."),    
   );
     
   $form["admin_transfer_passcode"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10919"),
+    "label" => t("كلمة مرور للمشرف لتطبيق مسودة:"),
     "value" => variable_get("admin_transfer_passcode", "changeMe"),
-    "description" => t("trarabic_20220"),    
+    "description" => t("أدخل كلمة مرور يجب على المستخدم الإداري إدخالها لتطبيق تغييرات المسودة على FlightPath. هذا إجراء أمني إضافي. مثال: p@ssWord569w"),    
   );
     
 
@@ -1337,18 +1337,18 @@ function system_settings_form() {
               "548" => "1.5 years (548 days)",
               "730" => "2 years (730 days)",
               "912" => "2.5 years (912 days)",
-              "never" => t("trarabic_10920"),
+              "never" => t("أبدا - لا تقليم جدول السجل"),
               );
               
               
   
   $form["max_watchdog_age"] = array(
     "type" => "select",
-    "label" => t("trarabic_10921"),
+    "label" => t("Max watchdog (log) entry age:"),
     "hide_please_select" => TRUE,
     "options" => $options,
     "value" => variable_get("max_watchdog_age", "548"),
-    "description" => t("trarabic_20221"),
+    "description" => t("حافظ على الإدخالات في جداول سجل المراقبة (watchlog) حتى تكون قديمة. سيتم حذف المدخلات الأقدم من هذا في كل تشغيل cron. على سبيل المثال ، إذا كنت تريد فقط الاحتفاظ بإدخالات السجل لمدة عام واحد ، فاضبط هذا على سنة واحدة. <b>تحذير:</b> تستخدم وحدة Stats البيانات الموجودة في هذا الجدول لإنشاء إحصائيات وتقارير حول استخدام FlightPath. بمجرد إزالة البيانات من جدول المراقبة (watchlog)، لا يمكن استعادتها مرة أخرى.<br/>إذا لم تكن متأكدًا مما يجب وضعه هنا ، فحدد 1.5 عامًا"),
   );
   
                                   
@@ -1397,7 +1397,7 @@ function system_cron() {
     db_query("DELETE FROM watchdog WHERE `timestamp` < '?' ", $max_timestamp);
     $rows = db_affected_rows();
     if ($rows > 0) {
-      watchdog("system", t("trarabic_10922", array("@rows" => $rows, "@max" => $max_age_days)));
+      watchdog("system", t("@rows old rows (older than @max days) trimmed from watchdog table on system cron run.", array("@rows" => $rows, "@max" => $max_age_days)));
     }
     
   }
@@ -1421,7 +1421,7 @@ function system_handle_form_submit() {
   $form_token = $_REQUEST["form_token"];
   // Make sure the form_token is valid!
   if ($form_token != md5($callback . fp_token())) {
-    die(t("trarabic_20222"));
+    die(t("عذرًا ، ولكنك واجهت خطأً. تم الإبلاغ عن إرسال النموذج على أنه ربما يكون إرسالًا غير صالح أو مزور. قد يشكل هذا خطأ في النظام. الرجاء الإبلاغ عن هذا الخطأ إلى مسؤول النظام لديك."));
   }
   
   if ($form_include != "") {
@@ -1439,7 +1439,7 @@ function system_handle_form_submit() {
     if (!menu_check_user_access($router_item)) {
       // The user does NOT have access to submit this form!  The fact that
       // it has made it this far means this may be some sort of hacking attempt.
-      die(t("trarabic_20223"));
+      die(t("عذرًا ، ولكنك واجهت خطأً. تم الإبلاغ عن إرسال النموذج على أنه ربما يكون غير صالح أو ليس لديه أذونات كافية لإرساله. قد يشكل هذا خطأ في النظام. الرجاء الإبلاغ عن هذا الخطأ إلى مسؤول النظام لديك"));
       
     }
   }  
@@ -1557,7 +1557,7 @@ function system_handle_form_submit() {
   }
   else if (isset($_SESSION["fp_batch_id"]) && !function_exists("batch_menu")) {
     // We requested a batch action, but the batch module is not installed.
-    fp_add_message(t("trarabic_10923"), "error");
+    fp_add_message(t("A batch process was attempted, but it appears that the Batch module is not enabled.  Please contact your FlightPath administrator."), "error");
     unset($_SESSION["fp_batch_id"]);
   }
   
@@ -1588,7 +1588,7 @@ function system_handle_logout() {
   
   watchdog("logout", "@user has logged out", array("@user" => "$name ($uid)"));
   
-  fp_add_message(t("trarabic_10924"));
+  fp_add_message(t("لقد تم تسجيل خروجك من FlightPath."));
   fp_goto("<front>");
   
 }
@@ -1611,7 +1611,7 @@ function system_perform_clear_cache() {
  */
 function system_perform_run_cron() {
   invoke_hook("cron");
-  fp_add_message(t("trarabic_10925"));
+  fp_add_message(t("Cron run completed successfully."));
   variable_set("cron_last_run", time());
   fp_goto("admin-tools/admin");
 }
@@ -1627,12 +1627,12 @@ function system_display_status_page() {
   
   $status_array = invoke_hook("status");  // get everyone's hook_status.
   
-  $rtn .= "<p>" . t("trarabic_20224") . "</p>";
+  $rtn .= "<p>" . t("ستعرض لك هذه الصفحة رسائل الحالة المهمة حول FlightPath. على سبيل المثال ، ما هي الوحدات النمطية (إن وجدت) التي تحتوي على تحديث متوفر.") . "</p>";
 
   $rtn .= "<table width='100%' border='1' class='status-table' cellpadding='4'>
             <tr class='header-row'>
-              <th width='10%' class='package-header'>" . t("trarabic_10926") . "</th>
-              <th>" . t("trarabic_10927") . "</th>
+              <th width='10%' class='package-header'>" . t("Package") . "</th>
+              <th>" . t("الحالة") . "</th>
             </tr>";
   foreach ($status_array as $module => $details) {
     $pol = ($pol == "even") ? "odd" : "even";
@@ -1670,19 +1670,19 @@ function system_status() {
   $last_run = variable_get("cron_last_run", 0);
   
   // Report on current details about FlightPath.
-  $rtn["status"] .= "<p>" . t("trarabic_10928") . " " . FLIGHTPATH_CORE . "-" . FLIGHTPATH_VERSION . "</p>";
+  $rtn["status"] .= "<p>" . t("إصدار FlightPath:") . " " . FLIGHTPATH_CORE . "-" . FLIGHTPATH_VERSION . "</p>";
   
   if ($last_run < strtotime("-2 DAY")) {
     $rtn["severity"] = "alert";
-    $rtn["status"] .= t("trarabic_20225");    
+    $rtn["status"] .= t("لم يعمل Cron في أكثر من يومين. من أجل تثبيت FlightPath بشكل صحيح ، يجب الوصول إلى cron.php بشكل روتيني. يوصى مرة واحدة على الأقل يوميًا.");    
   }
   else {
-    $rtn["status"] .= t("trarabic_10929", array("%date" => format_date($last_run)));
+    $rtn["status"] .= t("Cron was last run on %date", array("%date" => format_date($last_run)));
   } 
   
-  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("trarabic_10930");
+  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("Your site's cron URL is:");
   $rtn["status"] .= "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
-                        <br>" . t("trarabic_10931") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
+                        <br>" . t("Example linux cron command:") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
   $rtn["status"] .= "</p>";
   
   
@@ -1759,7 +1759,7 @@ function system_display_login_page() {
   
   $rtn .= "<noscript>
             <div style='padding: 5px; background-color: red; color: white; font-size: 12pt; font-weight: bold;'>
-            " . t("trarabic_20226") . "</div>
+            " . t("يتطلب FlightPath تمكين JavaScript ليعمل بشكل صحيح. يرجى تمكين JavaScript على متصفحك قبل المتابعة.") . "</div>
           </noscript>";
   
   
@@ -1809,14 +1809,14 @@ function system_login_form() {
   fp_set_title("");
   
   $form["user"] = array(
-    "label" => t("trarabic_10932"),
+    "label" => t("المستخدم:"),
     "type" => "textfield",
     "size" => 30,
     "required" => TRUE,
   );
   
   $form["password"] = array(
-    "label" => t("trarabic_10933"),
+    "label" => t("كلمة المرور:"),
     "type" => "password",
     "size" => 30,
     "required" => TRUE,
@@ -1824,7 +1824,7 @@ function system_login_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10934"),
+    "value" => t("تسجيل الدخول"),
   );
     
   $form["#attributes"] = array("onSubmit" => "showUpdate(true);");    
@@ -1860,7 +1860,7 @@ function system_login_form_validate($form, &$form_state) {
   // Check the user's password is valid.
   $res = db_query("SELECT * FROM users WHERE user_name = '?' AND password = '?' AND is_disabled = '0' ", $user, md5($password));
   if (db_num_rows($res) == 0) {
-    form_error("password", t("trarabic_20227"));
+    form_error("password", t("عذرًا ، ولكن لم يتم العثور على هذا الجمع بين اسم المستخدم وكلمة المرور. يرجى التحقق من التهجئة والمحاولة مرة أخرى."));
     return;    
   }
   
@@ -1890,7 +1890,7 @@ function system_login_form_submit($form, &$form_state) {
   $db_row = $form_state["db_row"];
   
   if (!$passed) {
-    fp_add_message(t("trarabic_10935"));
+    fp_add_message(t("عذرًا ، حدث خطأ أثناء محاولة مصادقة المستخدم."));
     return;
   }
 
@@ -2001,9 +2001,9 @@ function system_display_main_page() {
 
 function system_blocks() {
   return array(
-    "tools" => t("trarabic_10936"),
-    "admin_tools" => t("trarabic_10937"),
-    "login_form" => t("trarabic_10938"),
+    "tools" => t("قائمة الأدوات"),
+    "admin_tools" => t("قائمة أدوات المسؤول"),
+    "login_form" => t("نموذج تسجيل الدخول"),
   );
 }
 
@@ -2012,17 +2012,17 @@ function system_render_block($delta) {
   $block = array();
 
   if ($delta == "tools") {
-    $block["title"] = t("trarabic_10939");
+    $block["title"] = t("الأدوات");
     $block["body"] = fp_render_menu_block("", "tools");
   }
   
   if ($delta == "admin_tools") {
-    $block["title"] = t("trarabic_10940");
+    $block["title"] = t("الأدوات الإدارية");
     $block["body"] = fp_render_menu_block("", "admin-tools");
   }
   
   if ($delta == "login_form") {
-    $block["title"] = t("trarabic_10941");
+    $block["title"] = t("الرجاء تسجيل الدخول أدناه ...");
     $block["body"] = fp_render_form("system_login_form");
   }
   
@@ -2070,13 +2070,13 @@ function system_init() {
   
   // Are we in maintenance mode?  If so, display a message.
   if (variable_get("maintenance_mode", FALSE)) {
-    fp_add_message(t("trarabic_20228"), "status", TRUE);
+    fp_add_message(t("يخضع FlightPath حاليًا للصيانة الروتينية. خلال هذا الوقت ، قد تظهر بعض البيانات غير كاملة. نعتذر عن الإزعاج ونقدّر سعة صدرك."), "status", TRUE);
   }
    
   // Is there an urgent message to display?  
   $urgent_msg = variable_get("urgent_msg", "");
   if ($urgent_msg) {
-    fp_add_message("<b>" . t("trarabic_10942") . "</b> " . $urgent_msg, "status", TRUE);
+    fp_add_message("<b>" . t("رسالة مهمة:") . "</b> " . $urgent_msg, "status", TRUE);
   }
   
   
@@ -2099,16 +2099,16 @@ function system_modules_form() {
   fp_add_css(fp_get_module_path("system") . "/css/style.css");
   
   $form["mark" . $m++] = array(
-    "value" => t("trarabic_20229") . " 
-                  " . l(t("trarabic_10943"), "admin/db-updates") . "<br><br>",
+    "value" => t("استخدم هذا النموذج لتمكين أو تعطيل الوحدات.هذا يفحص مجلد modules ثم مجلد custom -> modules.") . " 
+                  " . l(t("Run DB updates?"), "admin/db-updates") . "<br><br>",
   );
   
   
   // Begin by scanning the /modules/ directory.  Anything in there
   // cannot be disabled.
   $module_dirs = array();
-  $module_dirs[] = array("start" => "modules", "type" => t("trarabic_10944"));
-  $module_dirs[] = array("start" => "custom/modules", "type" => t("trarabic_10945"));
+  $module_dirs[] = array("start" => "modules", "type" => t("Core"));
+  $module_dirs[] = array("start" => "custom/modules", "type" => t("Custom"));
     
   foreach ($module_dirs as $module_dir) {
     $start_dir = $module_dir["start"];
@@ -2172,21 +2172,21 @@ function system_modules_form() {
               $default_value = array($module => $module);              
             }
             else if ($cur["enabled"] == "") {
-              $installation_status = t("trarabic_10946");
+              $installation_status = t("غير مثبت");
             }
             else if ($cur["enabled"] == "0") {
-              $installation_status = fp_get_js_confirm_link(t("trarabic_10947", array("@module" => $module)), 
-                                                            ' window.location="' . fp_url("system/uninstall-module", "module=$module&path=" . urlencode($path) . "") . '"; ', t("trarabic_10948")); 
+              $installation_status = fp_get_js_confirm_link(t("Are you sure you wish to uninstall @module?\\nThis may remove saved data belonging to the module.", array("@module" => $module)), 
+                                                            ' window.location="' . fp_url("system/uninstall-module", "module=$module&path=" . urlencode($path) . "") . '"; ', t("إلغاء التثبيت?")); 
             }
             
             
             // Does this module need to run db updates?
             if ($cur["enabled"] == "1" && $cur["schema"] != $info_details_array["schema"] && $info_details_array["schema"] != "") {
-              $installation_status = "<b>" . l(t("trarabic_10949"), "admin/db-updates") . "</b>";
+              $installation_status = "<b>" . l(t("Run db updates"), "admin/db-updates") . "</b>";
               
               // Let's also make sure to enable a message at the top of the screen, letting the user
               // know that there are needed updates.
-              fp_add_message("<b>" . t("trarabic_10950") . "</b> " . t("trarabic_20230"), "error", TRUE); 
+              fp_add_message("<b>" . t("ملاحظة:") . "</b> " . t("هناك وحدات التي تم تحديثها. يرجى عمل نسخة احتياطية من قاعدة البيانات الخاصة بك ، ثم تشغيل وظيفة "تحديثات قواعد البيانات" أدناه بأسرع ما يمكن"), "error", TRUE); 
             }
             
             
@@ -2215,7 +2215,7 @@ function system_modules_form() {
               if (version_compare(FLIGHTPATH_VERSION, $info_details_array["requires core version"], "<")) {
                 // No, it's LESS than the required version!  We shouldn't be able to use this module!
                 $attributes["disabled"] = "disabled";
-                $requires .= "<div style='color: red;'>" . t("trarabic_20231", array('%fpv' => $info_details_array["requires core version"],
+                $requires .= "<div style='color: red;'>" . t("تتطلب هذه الوحدة النمطية تشغيل FlightPath الإصدار٪ fpv أو أعلى. أنت تعمل بدلاً من ذلك الإصدار٪ fpov. يرجى تحديث نسختك الأساسية من FlightPath قبل محاولة تثبيت هذه الوحدة.", array('%fpv' => $info_details_array["requires core version"],
                                                           '%fpov' => FLIGHTPATH_VERSION)) . "</div>";
               }
             }
@@ -2243,7 +2243,7 @@ function system_modules_form() {
             // Version & descr.            
             if ($info_details_array["requires"] != "") {
               $requires .= "<div class='fp-system-modules-requires hypo'>
-                            <b>" . t("trarabic_10951") . "</b> {$info_details_array["requires"]}
+                            <b>" . t("يتطلب:") . "</b> {$info_details_array["requires"]}
                            </div>";
               
             }
@@ -2251,10 +2251,10 @@ function system_modules_form() {
             // if we are overriding a module, then display something special.
             if ($bool_overriding) {
               $form["mark" . $m++] = array(
-                "value" => "<em>" . t("trarabic_10952") . "<br>{$info_details_array["name"]}</em>
+                "value" => "<em>" . t("Overriding core module:") . "<br>{$info_details_array["name"]}</em>
                             <div class='fp-system-modules-machine-name'>$file</div>
                             <div class='fp-system-modules-installation-status'>
-                            " . t("trarabic_10953") . "
+                            " . t("Use checkbox in Core section above to manage module") . "
                             </div>",
               );
             }
@@ -2284,7 +2284,7 @@ function system_modules_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10954"),
+    "value" => t("تسليم"),
     "prefix" => "<hr>",
   );  
   
@@ -2355,7 +2355,7 @@ function system_handle_uninstall_module() {
   $cur = db_fetch_array($res);
   // Make sure it is not currently enabled.
   if ($cur["enabled"] == "1") {
-    fp_add_message(t("trarabic_10955", array("%module" => $module)));
+    fp_add_message(t("Module %module not yet disabled.  Disable first, then try to uninstall.", array("%module" => $module)));
     return;
   }
   
@@ -2372,7 +2372,7 @@ function system_handle_uninstall_module() {
   $res = db_query("DELETE FROM modules WHERE name = '?' ", $module);
   
   
-  fp_add_message(t("trarabic_10956", array("%module" => $module)));
+  fp_add_message(t("غير مثبت %module.", array("%module" => $module)));
   
   fp_goto("admin/config/modules");
 }
@@ -2403,7 +2403,7 @@ function system_enable_module($module_details) {
     
     $bool_call_hook_install = TRUE;
     
-    fp_add_message(t("trarabic_10957", array("%module" => $module)));
+    fp_add_message(t("%module تم تركيب الوحدة", array("%module" => $module)));
          
   }
 
@@ -2433,7 +2433,7 @@ function system_enable_module($module_details) {
   // Update our table.
   $res = db_query("UPDATE modules SET enabled = '1' WHERE name = '?' ", $module);    
 
-  fp_add_message(t("trarabic_10958", array("%module" => $module)));
+  fp_add_message(t("%module تم تمكين الوحدة", array("%module" => $module)));
 
  
   
@@ -2463,7 +2463,7 @@ function system_disable_module($module_details) {
                    SET enabled = '0'
                    WHERE name = '?' ", $module);
 
-  fp_add_message(t("trarabic_10959", array("%module" => $module)));  
+  fp_add_message(t("%module تم تعطيل الوحدة", array("%module" => $module)));  
   
 }
 

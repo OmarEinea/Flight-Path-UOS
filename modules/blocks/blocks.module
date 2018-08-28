@@ -9,8 +9,8 @@
 function blocks_perm() {
   return array(
     "administer_blocks" => array(
-      "title" => t("trarabic_10623"),
-      "description" => t("trarabic_10624"),
+      "title" => t("Blocks إدارة ال"),
+      "description" => t("blocksالسماح للمستخدم بإدارة موقع ال"),
     ),
   );
 }
@@ -103,18 +103,18 @@ function blocks_manage_blocks_form() {
   // Tell the user how they can use the content module, if it is enabled.
   if (function_exists("content_menu")) {
     $form["mark" . $m++] = array(
-      "value" => t("trarabic_20142") . "<br>" . l(t("trarabic_10625"), "admin/config/content"),      
+      "value" => t("لإضافة مجموعة مخصصة خاصة بك من المحتوى العام، استخدم وحدة المحتوى ") . "<br>" . l(t("blocksإضافة أو تحرير محتوى ال"), "admin/config/content"),      
     );    
   }
   else {
     $form["mark" . $m++] = array(
-      "value" => t("trarabic_20143")
+      "value" => t(".لإضافة مجموعة مخصصة خاصة بك من المحتوى العام، استخدم وحدة المحتوى. اطلب من المسؤول الخاص بك يفعلها من البدء في استخدامه")
     );
   }
   
   // Build the available region options.
   $region_options = array();
-  $region_options[""] = t("trarabic_10626");
+  $region_options[""] = t("- تم التعطيل -");
   foreach ($regions[$selected_module][$selected_section]["regions"] as $region => $rtitle) {
     $region_options[$region] = $rtitle["title"];
   }
@@ -136,9 +136,9 @@ function blocks_manage_blocks_form() {
                     <td colspan='10' class='block-module-name'>$module</td>
                 </tr>
                 <tr>
-                  <th>" . t("trarabic_10627") . "</th>
-                  <th>" . t("trarabic_10628") . "</th>
-                  <th>" . t("trarabic_10629") . "</th>
+                  <th>" . t("Block") . "</th>
+                  <th>" . t("منطقة") . "</th>
+                  <th>" . t("وزن") . "</th>
                 </tr>",
     );
     
@@ -188,7 +188,7 @@ function blocks_manage_blocks_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10630"),
+    "value" => t("Blockحفظ موقع ال"),
     "prefix" => "<hr>",
   );
       
@@ -205,8 +205,8 @@ function blocks_manage_blocks_form() {
 function blocks_content_register_content_type() {
   $arr = array(
     "content_block" => array(
-      "title" => t("trarabic_10631"),
-      "description" => t("trarabic_10632"),
+      "title" => t("Blockمحتوى ال"),
+      "description" => t("Blocks هذا جزء من المحتوى يمكن استخدامه كBlock من صفحة ال"),
       "settings" => array(),
     ),    
   );
@@ -216,9 +216,9 @@ function blocks_content_register_content_type() {
   // when we display.
   $arr["content_block"]["settings"]["mobile_display_mode"] = array(
     "type" => "select",
-    "label" => t("trarabic_10633"),
-    "options" => array("show" => t("trarabic_10634"), "hide" => t("trarabic_10635"), "collapse" => t("trarabic_10636")),
-    "description" => t("trarabic_20144"),
+    "label" => t("وضع عرض الجوال"),
+    "options" => array("show" => t("عرض"), "hide" => t("عدم العرض"), "collapse" => t(" fieldset تصغير في")),
+    "description" => t("عند المشاهدة على جهاز محمول ، كيف يجب أن تظهر هذه الكتلة؟ إذا لم تكن متأكدًا من اختيارك ، فاتركه مضبوطًا على عرض"),
     "no_please_select" => TRUE,
   );
   
@@ -276,7 +276,7 @@ function blocks_render_block($delta) {
     }
     else if ($content["settings"]["mobile_display_mode"] == "collapse") {
       // Place the content in a collapsible fieldset.
-      $block["body"] = fp_render_c_fieldset($block["body"], t("trarabic_10637") . " " . $content["title"], TRUE);
+      $block["body"] = fp_render_c_fieldset($block["body"], t("إضغط للقراءة") . " " . $content["title"], TRUE);
     }
   }
   
@@ -301,9 +301,9 @@ function blocks_render_block($delta) {
  */
 function hook_blocks() {
   return array(
-    "b1" => t("trarabic_10638"),
-    "admin_tools" => t("trarabic_10639"),
-    "login_form" => t("trarabic_10640"),
+    "b1" => t("قائمة الأدوات"),
+    "admin_tools" => t("قائمة أدوات المسؤول"),
+    "login_form" => t("نموذج تسجيل الدخول"),
   );  
 }
 
@@ -325,17 +325,17 @@ function hook_render_block($delta) {
   $block = array();
 
   if ($delta == "tools") {
-    $block["title"] = t("trarabic_10641");
+    $block["title"] = t("أدوات");
     $block["body"] = fp_render_menu_block("", "tools");
   }
   
   if ($delta == "admin_tools") {
-    $block["title"] = t("trarabic_10642");
+    $block["title"] = t("الأدوات الإدارية");
     $block["body"] = fp_render_menu_block("", "admin-tools");
   }
   
   if ($delta == "login_form") {
-    $block["title"] = t("trarabic_10643");
+    $block["title"] = t("الرجاء تسجيل الدخول أدناه...");
     $block["body"] = fp_render_form("system_login_form");
   }
   
@@ -385,7 +385,7 @@ function blocks_manage_blocks_form_submit($form, $form_state) {
     }
   }
     
-  fp_add_message(t("trarabic_10644"));
+  fp_add_message(t("بنجاح Blocks تم تحديث ال"));
     
 }
 

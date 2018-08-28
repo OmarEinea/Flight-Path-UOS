@@ -48,7 +48,7 @@ function banner_integration_menu() {
 function banner_integration_perm() {
   return array(
     "administer_banner_integration" => array(
-      "title" => t("trarabic_10450"),
+      "title" => t("إعدادات بانر الإدارة"),
     ),
   );
 }
@@ -64,57 +64,57 @@ function banner_integration_settings_form() {
 
   $form["banner_integration_load_student_local_courses"] = array(
     "type" => "checkboxes",
-    "label" => t("trarabic_10451"),
-    "description" => t("trarabic_20081"),
-    "options" => array("yes" => t("trarabic_10452")),
+    "label" => t("تحميل المساقات المحلية من البانر لكل طالب؟"),
+    "description" => t(".في حال تحديده, ستحاول هذه الوحدة تحميل المساقات الخاصة بالطالب المسجل فيها حاليا, بالإضافة إلى المساقات السابقة من التاريخ عند اختيار الطالب لتقديم المشورة"),
+    "options" => array("yes" => t(".نعم, حمل المساقات المحلية من الانر لكل طالب")),
     "value" => variable_get("banner_integration_load_student_local_courses", array()),
   ); 
   
   
   $form["banner_integration_enrolled_grade"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10453"),
+    "label" => t(":درجة المساقات المحلية المسجل بها"),
     "size" => 10,
-    "description" => t("trarabic_20082"),
+    "description" => t("'E' الموجود في صفحة إعدادات النظام. على سبيل المثال, يمكنك استخدام درجة مسجلة حالية أو إنشاء واحدة جديدة. إذا لم تكن متأكدا مما يجب وضعه هنا فاستخدم 'Enrolled grades (CSV)' في حال تحميل المساقات من البانر (انظر الخيار أعلاه). سيتم منح المساقات المسجلة حاليا هذه العلامة. يجب أن يكون هذا التصنيف مدرجا في إعداد"),
     "value" => variable_get("banner_integration_enrolled_grade", "E"),
   );
   
   
   $form["banner_integration_exclude_historical_courses_code"] = array(
-    "label" => t("trarabic_10454"),
+    "label" => t("SHRTCKN_REPEAT_COURSE_IND code لاستبعاد الدورات التدريبية من طلب البحث التاريخي:"),
     "type" => "textfield",
     "size" => 10,
     "value" => variable_get("banner_integration_exclude_historical_courses_code", "E"),
-    "description" => t("trarabic_20083"),
+    "description" => t("'NOT_USED' إذا كنت لا ترغب في استخدام هذا, فلا تقم بتعيينه فارغا بدلا من ذلك اضبطه على رمز غير مستخدم. على سبيل المثال <b>:هام</b>الذي يتم تحديده عند تحميل الدورات المساقات التاريخية للطالب من البانر. يستخدم هذا عادة للإشارة إلى التجديد الأكاديمي عند استبعاد الدورة التدريبية <b>shrtckn_repeat_course_ind</b> هذا يشير إلى الحقل "),
   );
   
   $form["banner_integration_exclude_transfer_courses_code"] = array(
-    "label" => t("trarabic_10455"),
+    "label" => t("SHRTRCE_REPEAT_COURSE code لاستبعاد الدورات التدريبية من طلب النقل:"),
     "type" => "textfield",
     "size" => 10,
     "value" => variable_get("banner_integration_exclude_transfer_courses_code", "E"),
-    "description" => t("trarabic_20084"),
+    "description" => t("'NOT_USED' إذا كنت لا ترغب في استخدامه, فلا تقم بتركه فارغا. بدلا من ذلك, اضبطه على رمز غير مستخدم. على سبيل المثال: <b>:هام</b> الذي يتم فحصه عندما نمر خلال روتين المساقات المنقولة للطالب. يستخدم هذا عادة للإشارة إلى التجديد الأكاديمي, عند استبعاد مساق<b>shrtrce_repeat_course</b> مثل الإعداد أعلاه, يشير هذا إلى الحقل"),
   );
     
   
   
   
   $form["mark" . $m++] = array(
-    "value" => "<hr><h3>" . t("trarabic_10456") . "</h3>
-                <p style='font-size:0.8em;'>" . t("trarabic_20085") . "</p>",
+    "value" => "<hr><h3>" . t("الإعدادات الروتينية") . "</h3>
+                <p style='font-size:0.8em;'>" . t("للحصول على إرشادات حول إعداد روتين ليلي README.txt راجع ملف banner_integration.routines.inc هذه الإعدادات تؤثر على الروتينات الليلية الموجودة في ملف") . "</p>",
   );
 
   
   // import local courses...
   $options = array(
-    "skip_if_exists" => t("trarabic_10457") . "
+    "skip_if_exists" => t("FlightPath تخط-لا تقم بالتعديل- المساقات المحلية إذا كانت متواجدة في قاعجة بيانات") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
                          If NOT checked, we will overwrite whatever is in our MySQL database with
                          what is in Banner.  We will look for the course's subject_id and course_num only, with
                          no concern for hour counts or catalog year.
                          <br>
                          If unsure what to select, leave this CHECKED.</div>",  
-    "update_prod_and_draft" => t("trarabic_10458") . "
+    "update_prod_and_draft" => t("تحديث البيانات والمسودة") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
                          If NOT checked, then all modifications will happen to FlightPath's draft_courses
                          table, and not the production courses table.  After running the routine, you

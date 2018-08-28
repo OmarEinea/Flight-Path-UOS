@@ -37,7 +37,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
                 WHERE group_id = '?' 
                 AND catalog_year = '?'
                 ", $group_id, $de_catalog_year);
-    fp_add_message(t("trarabic_10124", array("@title" => $title, "%name" => $group_name, "@year" => $de_catalog_year)));
+    fp_add_message(t("تم حذف مجموعة @title (%name) بنجاح ل @year", array("@title" => $title, "%name" => $group_name, "@year" => $de_catalog_year)));
     fp_goto("admin/groups", "de_catalog_year=$de_catalog_year");
     return;
   }
@@ -178,7 +178,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
         else {
           // The course_id could not be found!
           
-          form_error("courses", t("trarabic_20023", array("%course" => "$subject_id $course_num")));
+          form_error("courses", t(".كمتطلب, لكن لم يتم إيجاد المساق في الكتالوج. لقد تم حذفه من قائمة المتطلبات. هل أنت متأكد من أنك قمت بكتابته بشكل صحيح؟ الرجاء التحقق من التهجئة و إضافة المساق مرة أخرى <b>%course</b> لم يتم إيجاد المساق! لقد حددت المساق", array("%course" => "$subject_id $course_num")));
 
         }
 
@@ -224,7 +224,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
       } 
       else {
         // The course_id could not be found!
-        form_error("courses", t("trarabic_20024", array("%course" => "$subject_id $course_num")));
+        form_error("courses", t(".كمتطلب, لكن لم يتم إيجاد المساق في الكتالوج. لقد تم حذفه من قائمة المتطلبات. هل أنت متأكد من أنك قمت بكتابته بشكل صحيح؟ الرجاء التحقق من التهجئة و إضافة المساق مرة أخرى <b>%course</b> لم يتم إيجاد المساق! لقد حددت المساق", array("%course" => "$subject_id $course_num")));
 
       }
 
@@ -279,7 +279,7 @@ function admin_edit_group_form() {
   //print_pre($group->to_string());
   $group->load_descriptive_data();
 
-  fp_set_title(t("trarabic_10125") . " $group->title ($de_catalog_year)");
+  fp_set_title(t(":عدل المجموعة") . " $group->title ($de_catalog_year)");
 
   $form["perform_action2"] = array(
     "type" => "hidden",
@@ -310,34 +310,34 @@ function admin_edit_group_form() {
   // Actually draw the form out.
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10126"),
+    "label" => t(":عنوان المجموعة:"),
     "value" => $group->title,
     "maxlength" => 100,
-    "popup_description" => t("trarabic_20025"),
+    "popup_description" => t(".للإشارة إلى هذه المجموعة في الشاشات. مثال: مواد اختيارية حرة, مواد اختيارية فنية, العلوم الفنية الأساسية, إلخ FlightPath هذا ما يستخدمه"),
   );
 
   $form["group_name"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10127"),
+    "label" => t(":الاسم الداخلي للمجموعة"),
     "value" => $group->group_name,
     "maxlength" => 100,
-    "popup_description" => t("trarabic_20026"),
+    "popup_description" => t(".يمكن اعتبار هذا الحقل اختياريا, ولكن ينصح بشدة إدخال شيء ما هنا ليناسبك في وقت لاحق. لا بأس من الحصول على نفس اسم المجموعة واسمها. .major_electives_sr and major_electives_jr :ولا يمكن إظهاره من قبل المستخدم العادي. يمكنك استخدامه للتمييز بين المجموعات التي تحمل نفس العنوان. مثال: ,FlightPath اسم المجموعة) داخلي ل) "),
   );
 
 
   $form["priority"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10129"),
+    "label" => t(":الأولوية"),
     "value" => $group->priority,
     "maxlength" => 10,
     "size" => 10,
-    "popup_description" => t("trarabic_20027"),
+    "popup_description" => t(".تملأ الأرقام الأعلى أولا! لذلك مجموعة بأولوية رقم 100 تملأ قبل مجموعة بأولوية رقم 30 .FlightPath يجب أن يكون رقما, و هو مهم لأنه يحدد ترتيب المساقات التي تم تعيينها إلى المجموعات في"),
   );
 
 
   $form["icon_filename"] = array(
     "type" => "hidden",
-    "label" => t("trarabic_10130"),
+    "label" => t(":الأيقونة"),
     "value" => $group->icon_filename,
     "suffix" => "
                 <img src='" . fp_theme_location() . "/images/icons/$group->icon_filename' width='19'>
@@ -350,11 +350,11 @@ function admin_edit_group_form() {
     
   $form["definition"] = array(
     "type" => "markup",
-    "label" => t("trarabic_10131"),
-    "value" => "<label>" . t("trarabic_10132") . "</label><i>" . nl2br($group->definition) . "</i>",
+    "label" => t(":التعريف"),
+    "value" => "<label>" . t(":التعريف") . "</label><i>" . nl2br($group->definition) . "</i>",
     "prefix" => "<div style='overflow: auto; max-height: 150px;' class='admin-groups-show-definition'>",
     "suffix" => "</div><a href='javascript: adminPopupWindow(\"" . fp_url("admin/groups/popup-edit-definition", "de_catalog_year=$de_catalog_year&group_id=$group_id") . "\");'
-                            >[" . t("trarabic_10133") . "]</a>",
+                            >[" . t("عدل التعريف") . "]</a>",
   );
  
 
@@ -367,7 +367,7 @@ function admin_edit_group_form() {
   $courses = admin_get_group_courses($group);
   $form["courses"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10134"),
+    "label" => t(":المساقات المطلوبة"),
     "rows" => 17,
     "cols" => 80,
     "value" => $courses,
@@ -376,7 +376,7 @@ function admin_edit_group_form() {
   if (trim($group->definition)) {
     $form["courses"]["attributes"] = "readonly=readonly style='background-color: #ccc;' ";
     $form["courses"]["prefix"] = "<div class='admin-groups-courses-disabled'>
-                                 " . t("trarabic_20028") . "</div>";
+                                 " . t(".ملاحظة: لأنه تم تحديد تعريف, لا يمكنك إضافة تعديل المساقات المطلوبة مباشرة. قم بإدارة هذه المساقات مستخدما نافذة تعديل الوصف") . "</div>";
                                  
   }
   
@@ -384,7 +384,7 @@ function admin_edit_group_form() {
 
   $form["data_entry_comment"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10135"),
+    "label" => t(":(FlightPath تعليق اختياري (يظهر فقط للمشرفين في"),
     "rows" => 3,
     "cols" => 80,
     "value" => $group->data_entry_comment,
@@ -400,7 +400,7 @@ function admin_edit_group_form() {
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<div align='right'>
-                      " . t("trarabic_10136") . " <input type='button' value='X'
+                      " . t("احذف هذه المجموعة؟") . " <input type='button' value='X'
                       onClick='adminDeleteGroup(\"$group_id\");'>
                     </div>", 
   );
@@ -434,15 +434,15 @@ function admin_display_groups_popup_edit_definition() {
 
   
   // This text will be used to describe how the definition works in a javascript alert box:
-  $tdef .= t("trarabic_10137") . "\n";
+  $tdef .= t(":أدخل,CSCI توفر التعريفات طريقة سريعة جدا لإضافة أو إزالة العديد من المساقات من مجموعة. على لى سبيل المثال, لإضافة جميع دورات ") . "\n";
   $tdef .= "       add CSCI.*\n";
-  $tdef .= t("trarabic_10138");
-  $tdef .= t("trarabic_10139") . "\n";
+  $tdef .= t("ال. تستخدم للفصل بين الاسم ورقم المساق. ال* تعني أي قيمة. يمكنك أيضاً استخدامها في الاسم. على سبيل المثال, ");
+  $tdef .= t(": أدخل ,A وأي مساق يبدأ ب  CSCI  لإضافة كل ال ") . "\n";
   $tdef .= "       add CSCI.*\n       add A*.*\n";
-  $tdef .= t("trarabic_10140") . "\n";
+  $tdef .= t("تتم إزالة المساقات بنفس الطريقة. على سبيل المثال ، يمكنك إضافة جميع المساقات ، ثم إزالة أي مساق برقم أقل من 400:") . "\n";
   $tdef .= "       add *.*\n       rem *.1*\n       rem *.2*\n       rem *.3*\n";
-  $tdef .= "\n\n" . t("trarabic_10141") . " ";
-  $tdef .= t("trarabic_10142");
+  $tdef .= "\n\n" . t("يجب الإشارة إلى أن إضافة عبارات تتضمن المساقات التي تم تعليمها بالاستبعاد. وهذا عادي. تلك المساقات لن") . " ";
+  $tdef .= t("تظهر في شاشات اختيار المجموعة ، ولكن سيتم إضافتها إلى مجموعة إذا كان الطالب قد أكمل هذه الدورة في الماضي.");
   
   
   
@@ -468,7 +468,7 @@ function admin_display_groups_popup_edit_definition() {
       </tr>
       </table>
       </form>
-      " . t("trarabic_20029") . "
+      " . t(".إذا كنت راضيا عن نتائج هذا التعريف, انقر فوق زر حفظ إلى المجموعة. خلاف ذلك, ببساطة أغلق هذه النافذة ") . "
       
       
       <input type='button' value='Save to Group' onClick='adminPopupSaveDefinition(\"\");'>
@@ -876,24 +876,24 @@ function admin_display_groups() {
   
   $db2 = new DatabaseHandler();
 
-  fp_set_title(t("trarabic_10143") . " $de_catalog_year");
+  fp_set_title(t("تحرير المجموعات ل") . " $de_catalog_year");
 
   $rtn .= "
-      <h2 class='title'>" . t("trarabic_10144", array("@de_catalog_year" => $de_catalog_year)) . "</h2>
+      <h2 class='title'>" . t("تحرير المجموعات ل @de_catalog_year", array("@de_catalog_year" => $de_catalog_year)) . "</h2>
         Options:
         <ul style='margin-top: 5px;'>          
-          <li>" . l(t("trarabic_10145"), "admin/groups/edit-group", "de_catalog_year=$de_catalog_year&group_id=new") . "</li>
-          <li>" . l(t("trarabic_10146"), "admin/groups/process-all-definitions", "de_catalog_year=$de_catalog_year") . "</li>
+          <li>" . l(t("أضف مجموعة جديدة لهذا العام"), "admin/groups/edit-group", "de_catalog_year=$de_catalog_year&group_id=new") . "</li>
+          <li>" . l(t(" معالجة جميع تعريفات المجموعة لهذا العام"), "admin/groups/process-all-definitions", "de_catalog_year=$de_catalog_year") . "</li>
           </li>
         </ul>
-          <div align='center'>" . t("trarabic_10147") . "</div>
+          <div align='center'>" . t("تلميح: استخدم CTRL-F للبحث عن المجموعات بسرعة") . "</div>
         <table border='0' cellpadding='2' width='100%' class='admin-groups-list'>
         <tr>
-          <th>" . t("trarabic_10148") . "</th>
-          <th>" . t("trarabic_10149") . "</th>
+          <th>" . t(":العنوان") . "</th>
+          <th>" . t("الاسم الداخلي") . "</th>
           <th align='center'>Pri</th>
           <th align='center'>i</th>
-          <th align='center'>" . t("trarabic_10150") . "</th>
+          <th align='center'>" . t("مستخدم") . "</th>
         </tr>
       ";
 
@@ -923,7 +923,7 @@ function admin_display_groups() {
     }
 
     if ($db_title == "") {
-      $db_title = "[" . t("trarabic_10151") . "]";
+      $db_title = "[" . t("لا يوجد عنوان محدد") . "]";
     }
 
     $rtn .= "<tr $on_mouse_over>
@@ -961,11 +961,11 @@ function admin_process_all_definitions_form() {
   $form = array();
   $de_catalog_year = admin_get_de_catalog_year();
 
-  fp_set_title(t("trarabic_10152", array("@year" => $de_catalog_year)));
+  fp_set_title(t("@year معالجة كل التعاريف لعام", array("@year" => $de_catalog_year)));
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("trarabic_20030"), 
+    "value" => t(".سيؤدي ذلك إلى إزالة جميع المجموعات ذات التعريفات وتعديل تعريفاتها. يمكن أن تستغرق هذه العملية عدة دقائق ، اعتمادًا على عدد المجموعات التي تحتوي على تعريفات لديك"), 
   );  
       
 
@@ -976,8 +976,8 @@ function admin_process_all_definitions_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10153"),
-    "description" => t("trarabic_10154"),
+    "value" => t("معالجة التعاريف"),
+    "description" => t("!يمكن أن يستغرق دقائق معدودة لعميل! اضغط مرة واحدة فقط"),
   );
      
 
@@ -1013,7 +1013,7 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
     $courses = trim($temp["text"]);
     $ccount = 0;
 
-    fp_add_message(t("trarabic_10155", array("%name" => $group_name)));
+    fp_add_message(t("%name يتم العمل على", array("%name" => $group_name)));
 
     // Remove all the existing group requirements for this group first.
     $res2 = db_query("DELETE FROM draft_group_requirements
@@ -1072,18 +1072,18 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
         else {
           // The course_id could not be found!
 
-          fp_add_message(t("trarabic_20031", array("%course" => "$subject_id $course_num", "%gname" => $group_name)), "error");
+          fp_add_message(t(".لكن تعذر العثور على هذا المساق في الكتالوج. تمت إزالته من قائمة المتطلبات. هل أنت متأكد من أنك قمت بكتابته بشكل صحيح؟ يرجى التحقق من التهجئة, وإضافة المساق مرة أخرى ,%gname كمتطلب في %course لم يتم إيجاد المساق! لقد حددت", array("%course" => "$subject_id $course_num", "%gname" => $group_name)), "error");
 
         }
       }
     }
 
-    fp_add_message(t("trarabic_10156", array("%name" => $group_name, "%count" => $ccount)));    
+    fp_add_message(t("%name مساقات. تم معالجة تعريف ال %count تم إضافة", array("%name" => $group_name, "%count" => $ccount)));    
 
   }
   
     
-  fp_add_message(t("trarabic_10157", array("@year" => $de_catalog_year)));
+  fp_add_message(t(" @year تم إعادة تشغيل تعريفات المجموعة لـ", array("@year" => $de_catalog_year)));
 }
 
 
@@ -1103,14 +1103,14 @@ function admin_display_groups_popup_show_group_use() {
   $group->load_descriptive_data();
 
 
-  $rtn .= "<b>" . t("trarabic_10158", array("@group_title"=>$group->title, "%group_name" => $group->group_name)) . "</b>
+  $rtn .= "<b>" . t("شهادات جامعية استخدام @group_title (%group_name):", array("@group_title"=>$group->title, "%group_name" => $group->group_name)) . "</b>
     <br><br>
     <table border='0' cellspacing='5'>
     <tr>
-      <th>" . t("trarabic_10159") . "</th>
-      <th>" . t("trarabic_10160") . "</th>
-      <th>" . t("trarabic_10161") . "</th>
-      <th>" . t("trarabic_10162") . "</th>
+      <th>" . t("الشهادة") . "</th>
+      <th>" . t("الرمز") . "</th>
+      <th>" . t("الفصل الدراسي") . "</th>
+      <th>" . t("العام الدراسي") . "</th>
     </tr>
     ";
 

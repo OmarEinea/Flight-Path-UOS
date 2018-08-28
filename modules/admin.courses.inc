@@ -273,7 +273,7 @@ function admin_edit_course_form() {
     "label" => t("trarabic_10052"),
     "required" => TRUE,
     "value" => $all_names,
-    "popup_description" => t("trarabic_20003"),
+    "popup_description" => t(".ملاحظة مهمة: يتم تحديث أسماء المساقات لكل الأعوام الدراسية لمساق معين .ACCT 110, MATH 110A exclude :مثال .FlightPath لمنع الاسم الثاني من الظهور في قائمة المساقات في 'exclude' أضف كلمة  .ACCT 110, MATH 110A :يجب عليك وضع رمز المادة ورقم المساق. إذا كان المساق معروف باسم آخر -مساوي له- أدخله مع فاصلة بين الاسمين؟ مثال .ACCT 110 :هذه أسماء عرض محتملة بهذا المساق. عادة يوجد اسم واحد, مثال"),
   );  
   
   $form["title"] = array(
@@ -288,7 +288,7 @@ function admin_edit_course_form() {
     "label" => t("trarabic_10055"),
     "size" => 10,
     "value" => $course->min_hours,
-    "popup_description" => t("trarabic_20004"),
+    "popup_description" => t(".عادة يكون عدد الساعات الأدنى و الأقصى لمساق معين هو نفس الرقم. مثال: 3. إذا حصل اختلاف, فإن ذلك يعني أن للمساق ساعات متغيرة. على سبيل المثال, إذا كان لديك مساق قيمته 1-6 ساعات, أدخل 1 للأدنى و 6 للأقصى"),
   );  
    
 
@@ -297,7 +297,7 @@ function admin_edit_course_form() {
     "label" => t("trarabic_10056"),
     "size" => 10,
     "value" => $course->max_hours,
-    "popup_description" => t("trarabic_20005"),
+    "popup_description" => t(".عادة يكون عدد الساعات الأدنى و الأقصى لمساق معين هو نفس الرقم. مثال: 3. إذا حصل اختلاف, فإن ذلك يعني أن للمساق ساعات متغيرة. على سبيل المثال, إذا كان لديك مساق قيمته 1-6 ساعات, أدخل 1 للأدنى و 6 للأقصى"),
   );  
 
   $form["repeat_hours"] = array(
@@ -305,7 +305,7 @@ function admin_edit_course_form() {
     "label" => t("trarabic_10057"),
     "size" => 10,
     "value" => $course->repeat_hours,
-    "popup_description" => t("trarabic_20006"),
+    "popup_description" => t(".عدد الساعات لمساق قد يكون متكررا لرصيد. على سبيل المثال, إذا كانت قيمة المساق 3 ساعات, لكن يمكن أن يتكرر إلى 9 ساعات من الرصيد, أدخل 9 في هذا الفراغ. إن كان ليس بالإمكان إعادة المساق للرصيد, يمكن أن يكون الرقم نفس عدد الساعات الأدنى والأقصى, أو اتركه فارغا. اذا لست متأكد مما تريد إدخاله, اتركه فارغا"),
   );  
    
     
@@ -320,14 +320,14 @@ function admin_edit_course_form() {
   $form["all_years"] = array(
     "type" => "checkboxes",
     "label" => t("trarabic_10059"),
-    "options" => array("yes" => t("trarabic_10060")),    
-    "popup_description" => t("trarabic_20007"),
+    "options" => array("yes" => t(" تحديث العنوان, الوصف, والمعلومات الساعات لكل الأعوام الدراسية لهذا المساق")),    
+    "popup_description" => t(".حدد هذا المربع واضغط على تسليم لتحديث العنوان, الوصف ومعلومات الساعات لكل الأعوام المتوفرة لهذا المساق. لاحظ بأن اسم المساق يتم تحديثه لكل الأعوام بغض النظر إذا قمت بتحديد هذا المربع أم لا"),
   );   
      
   
   $form["data_entry_comment"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10061"),
+    "label" => t(" :(FlightPath تعليق اختياري (يظهر فقط للمشرفين في"),
     "rows" => 3,
     "cols" => 80,
     "value" => $course->data_entry_comment,
@@ -451,7 +451,7 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
     ////////////
     ///  Error conditions...
     if (strtolower($course_num) == "exclude" || $course_num == "") {
-      form_error("course_names", t("trarabic_20008", array("%course" => "$subject_id $course_num")));            
+      form_error("course_names", t(".لاحظ أنه لا يوجد رقم مساق. رجاء أعد الإدخال..%course يبدو أنك حددت مساق مستبعد بدون رقم المساق. لقد أدخلت", array("%course" => "$subject_id $course_num")));            
       continue;
     }
 

@@ -38,8 +38,8 @@ function ldap_menu() {
 function ldap_perm() {
   return array(
     "administer_ldap" => array(
-      "title" => t("trarabic_10460"),
-      "description" => t("trarabic_10461"),
+      "title" => t("إدارة LDAP"),
+      "description" => t("تكوين إعدادات LDAP."),
     ),
   );
 }
@@ -81,7 +81,7 @@ function ldap_auth_connect($username, $password) {
 	
 	$ldapconn = ldap_connect($server, $port);
 	if (!$ldapconn) {
-	  fp_add_message(t("trarabic_20086", array("%server" => "$server:$port")));
+	  fp_add_message(t("يرجى مراجعة مسؤول النظام الخاص بك %server على ldap تعذر الاتصال بخادم ", array("%server" => "$server:$port")));
 	  return FALSE;
 	}
 
@@ -97,7 +97,7 @@ function ldap_auth_connect($username, $password) {
 	$x = ldap_bind($ldapconn, $search_dn, $search_password);
 	if (!$x) {
 	  watchdog("ldap", "Could not bind to search DN, using the search DN and password.");
-	  fp_add_message(t("trarabic_20087"), "error");
+	  fp_add_message(t("للبحث غير المجهول. يرجى إبلاغ الدعم الفني الخاص بك، لأن هذا قد يشير إلى خطأ في الترتيب LDAP تعذر المصادقة مع خادم ."), "error");
 	  return FALSE;
 	}	
 
@@ -184,7 +184,7 @@ function z__old__ldap_auth_connect($username, $password) {
 	
 	$ldapconn = ldap_connect($server, $port);
 	if (!$ldapconn) {
-	  fp_add_message(t("trarabic_20088", array("%server" => "$server:$port")));
+	  fp_add_message(t("يرجى مراجعة مسؤول النظام الخاص بك %server على ldap تعذر الاتصال بخادم ", array("%server" => "$server:$port")));
 	  return;
 	}
 
@@ -249,86 +249,86 @@ function ldap_settings_form() {
   fp_add_css(fp_get_module_path("ldap") . "/css/ldap.css");
   
   $form["ldap_server_ip"] = array(
-    "label" => t("trarabic_10462"),
+    "label" => t("اسم خادم LDAP الأساسي أو عنوان IP:"),
     "type" => "text",
     "value" => variable_get("ldap_server_ip", ""),
-    "description" => t("trarabic_10463"),
+    "description" => t("مثال: 192.168.5.73 or ldap.example.com"),
   );
   
   $form["ldap_server_ip2"] = array(
-    "label" => t("trarabic_10464"),
+    "label" => t("(اختياري) اسم خادم LDAP الثانوي أو عنوان IP:"),
     "type" => "text",
     "value" => variable_get("ldap_server_ip2", ""),
-    "description" => t("trarabic_20089"),
+    "description" => t(".ثانٍ, أو لم تكن متأكدا مما يجب فعله فاترك هذا الحقل فارغاً LDAP ثاني, فستقوم هذه الوحدة النمطية باختيار عشوائي بين العنصرين الخاصين بك عندما يقوم المستخدم بتسجيل الدخول. إذا لك يكن لديك خادم  LDAP هذا لأغراض الموازنة فقط! إذا قمت بإدخال عنوان خادم "),
   );
   
   
   $form["ldap_server_port"] = array(
-    "label" => t("trarabic_10465"),
+    "label" => t("منفذ خادم LDAP:"),
     "type" => "text",
     "size" => 10,
     "value" => variable_get("ldap_server_port", "389"),
-    "description" => t("trarabic_10466"),
+    "description" => t("مثال: 389"),
   );
   
   $form["ldap_connect_secure"] = array(
-    "label" => t("trarabic_10467"),
+    "label" => t("الأمان:"),
     "type" => "checkboxes",
-    "options" => array("yes" => t("trarabic_10468")),
+    "options" => array("yes" => t("بأمان LDAPالاتصال بخادم")),
     "value" => variable_get("ldap_connect_secure", array()),
-    "description" => t("trarabic_20090"),
+    "description" => t("لا يستخدم شهادة أمان، أو إذا كانت لديك مشكلات، فاترك هذا غير محدد LDAP إذا كان خادم ldaps:// protocol بشكل آمن، باستخدام LDAP في حال تحديده، سيتم إجراء اتصال "),
   );
   
 
   $form["ldap_search_dn"] = array(
-    "label" => t("trarabic_10469"),
+    "label" => t(":DN للبحث غير المجهول"),
     "type" => "text",
     "value" => variable_get("ldap_search_dn", ""),
-    "description" => t("trarabic_10470"),
+    "description" => t(" cn=ldapFPuser,ou=profile,dc=example,dc=edu> :مثال"),
   );
   
 
   $form["ldap_search_password"] = array(
-    "label" => t("trarabic_10471"),
+    "label" => t(":كلمة المرور للبحث غير المجهول"),
     "type" => "password",
     "value" => variable_get("ldap_search_password", ""),    
   );
   
   $form["ldap_base_dns"] = array(
-    "label" => t("trarabic_10472"),
+    "label" => t(" DNs الأساسية لإدخالات مستخدم LDAP:"),
     "type" => "textarea",
     "value" => variable_get("ldap_base_dns", ""),
-    "description" => t("trarabic_10473"),
+    "description" => t("ادخل DN واحد لكل سطر<br>مثال: ou=Students,ou=People,dc=example,dc=edu<br>&nbsp; ou=Employees,ou=People,dc=example,dc=edu"),
   );
 
 
   $form["ldap_uid_attr"] = array(
-    "label" => t("trarabic_10474"),
+    "label" => t(":صفة اسم المستخدم:"),
     "type" => "text",
     "size" => 20,
     "value" => variable_get("ldap_uid_attr", "uid"),
-    "description" => t("trarabic_10475") . "<br><b>
-                      " . t("trarabic_20091") . "</b>",
+    "description" => t("مثال: uid or cn, etc.") . "<br><b>
+                      " . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );
 
   
   
   $form["ldap_user_dn_field"] = array(
-    "label" => t("trarabic_10476"),
+    "label" => t("اسم مجال DN لقاعدة بيانات المستخدم في إدخال LDAP:"),
     "type" => "text",
     "size" => 20,
     "value" => variable_get("ldap_user_dn_field_name", "dn"),
-    "description" => t("trarabic_20092") . "<br><b>
-                      " . t("trarabic_20093") . "</b>",
+    "description" => t("Ex: dn. This is the field name, returned by LDAP, which contains the user's full DN. In most cases, it is simply <em>dn</em>, though it might be <em>name</em> or something similar, depending on your set up. If you are not sure what to do, leave this as <em>dn</em>.") . "<br><b>
+                      " . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );
   
 
   $form["ldap_no_cwid_msg"] = array(
-    "label" => t("trarabic_10477"),
+    "label" => t(":رسالة للعرض إذا تعذر إيجاد رمز المستخدم<"),
     "type" => "textarea",
     "rows" => 2,
-    "value" => variable_get("ldap_no_cwid_msg", t("trarabic_10478")),
-    "description" => t("trarabic_10479"),
+    "value" => variable_get("ldap_no_cwid_msg", t("لا يمكن العثور على CWID الخاص بالمستخدم في نتيجة LDAP. يرجى الرجوع إلى مسؤول النظام.")),
+    "description" => t("مثال: لا يمكن العثور على CWID لهذا المستخدم في نتيجة LDAP. يرجى الرجوع إلى مسؤول النظام."),
   );
 
   
@@ -337,44 +337,44 @@ function ldap_settings_form() {
   
   
   $form["ldap_cwid_field"] = array(
-    "label" => t("trarabic_10480"),
+    "label" => t("حقل CWID المستخدم:"),
     "type" => "text",
     "size" => 30,
     "prefix" => "<hr>",
     "value" => variable_get("ldap_cwid_field", "employeenumber"),
-    "description" => t("trarabic_20094") . "
-                        <br><b>" . t("trarabic_20095") . "</b>",
+    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's CWID? Ex: employeenumber, userid, etc.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );  
   
   
   $form["ldap_f_name_field"] = array(
-    "label" => t("trarabic_10481"),
+    "label" => t(":الاسم الاول للمستخدم"),
     "type" => "text",
     "size" => 30,    
     "value" => variable_get("ldap_f_name_field", ""),
-    "description" => t("trarabic_20096") . "
-                        <br><b>" . t("trarabic_20097") . "</b>",
+    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's first name? Leave blank if not set.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );  
   
   $form["ldap_l_name_field"] = array(
-    "label" => t("trarabic_10482"),
+    "label" => t(":الاسم الأخير للمستخدم"),
     "type" => "text",
     "size" => 30,    
     "value" => variable_get("ldap_l_name_field", ""),
-    "description" => t("trarabic_20098") . "
-                        <br><b>" . t("trarabic_20099") . "</b>",
+    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's last name? Leave blank if not set.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );  
   
   
   
   $op_options = array(
-    "contains" => t("trarabic_10483"),
-    "does not contain" => t("trarabic_10484"),
-    "is numeric" => t("trarabic_10485"),
-    "is not numeric" => t("trarabic_10486"),
-    "is blank" => t("trarabic_10487"),
-    "is not blank" => t("trarabic_10488"),
-    "invoke hook" => t("trarabic_10489"),
+    "contains" => t("يحتوي"),
+    "does not contain" => t("لا يحتوي"),
+    "is numeric" => t("is numeric (value field ignored)"),
+    "is not numeric" => t("is not numeric (value field ignored)"),
+    "is blank" => t("is blank (value field ignored)"),
+    "is not blank" => t("is not blank (value field ignored)"),
+    "invoke hook" => t("invoke hook (for developers, see README.txt)"),
   );
     
   
@@ -382,7 +382,7 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 10,
     "value" => variable_get("ldap_is_student_field", "usertype"),
-    "prefix" => "<p><b>" . t("trarabic_10490") . "</b></p>" . t("trarabic_10491") . " ",
+    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم طالب") . "</b></p>" . t("If field name:") . " ",
   );
   
   $form["ldap_is_student_op"] = array(
@@ -396,9 +396,9 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 15,
     "value" => variable_get("ldap_is_student_op_value", "student"),
-    "prefix" => " " . t("trarabic_10492"),
-    "description" => t("trarabic_20100") . "
-                        <br><b>" . t("trarabic_20101") . "</b>",
+    "prefix" => " " . t(":القيمة"),
+    "description" => t("This will determine if the user logging in should have their is_student flag set in the database.<br/>Ex: if <em>usertype</em> contains <em>student</em>. Case insensitive. You may also use the user's <em>dn</em> as a field name.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
   );
   
 
@@ -407,7 +407,7 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 10,
     "value" => variable_get("ldap_is_faculty_field", "usertype"),
-    "prefix" => "<p><b>" . t("trarabic_10493") . "</b></p>" . t("trarabic_10494") . " ",
+    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم من هيئة التدريس") . "</b></p>" . t("If field name:") . " ",
   );
   
   $form["ldap_is_faculty_op"] = array(
@@ -421,17 +421,17 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 15,
     "value" => variable_get("ldap_is_faculty_op_value", "faculty"),
-    "prefix" => " " . t("trarabic_10495"),
-    "description" => t("trarabic_20102") . "
-                        <br><b>" . t("trarabic_20103") . "</b><br><br>",
+    "prefix" => " " . t(":القيمة"),
+    "description" => t("This will determine if the user logging in should have their is_faculty flag set in the database.<br/>Ex: if <em>usertype</em> contains <em>faculty</em>. Case insensitive. You may also use the user's <em>dn</em> as a field name.") . "
+                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b><br><br>",
   );
   
   
   $form["ldap_user_type_binary"] = array(
-    "label" => t("trarabic_10496"),
+    "label" => t("الحد من خيارات المستخدم؟"),
     "type" => "radios",
-    "options" => array("only_one" => t("trarabic_10497"), 
-                       "both" => t("trarabic_10498")),
+    "options" => array("only_one" => t("المستخدم قد يكون طالبا أو من هيئة التدريس, ليس كليهما. اختر الخيار الأنسب"), 
+                       "both" => t("(Experimental support) يمكن أن يكون المستخدم طالبا و من هيئة التدريس")),
     "value" => variable_get("ldap_user_type_binary", "only_one"),
   );
   
@@ -575,7 +575,7 @@ function ldap_login_form_validate(&$form, &$form_state) {
   
    
   // If we are here, then we couldn't log in.  Let's display a form_error.
-  form_error("password", t("trarabic_20104"));
+  form_error("password", t(".عذرًا، ولكن لم يتم العثور على تطابق في اسم المستخدم وكلمة المرور مع سجلاتنا. يرجى التحقق من التهجئة والمحاولة مرة أخرى"));
   
 }
 

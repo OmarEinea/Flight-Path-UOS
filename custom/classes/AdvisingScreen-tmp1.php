@@ -166,8 +166,8 @@ class AdvisingScreen extends _AdvisingScreen
 		  // has been completed, we should only use the hours_awarded.
 		  
 			$var_hour_icon = "<img src='" . fp_theme_location() . "/images/var_hour.gif'
-								title='" . t("trarabic_10430") . "'
-								alt='" . t("trarabic_10431") . "'>";
+								title='" . t("لدى ها المساق ساعات متغيرة") . "'
+								alt='" . t("لذى هذا المساق ساعات متغيرة") . "'>";
 			$hours = $course->get_advised_hours();
 
 		}
@@ -183,7 +183,7 @@ class AdvisingScreen extends _AdvisingScreen
 
 		$dispgrade = $grade;
 		// If there is a MID, then this is a midterm grade.
-		$dispgrade = str_replace("MID","<span class='superscript'>" . t("trarabic_10432") . "</span>",$dispgrade);
+		$dispgrade = str_replace("MID","<span class='superscript'>" . t("mid") . "</span>",$dispgrade);
 
 		if (strtoupper($grade) == "E")
 		{ // Currently enrolled.  Show no grade.
@@ -301,7 +301,7 @@ class AdvisingScreen extends _AdvisingScreen
 		// If the course has a 'u' in it, it is a 'University Capstone' course.
 		if (strstr($course->requirement_type, "u")) {
 			$icon_filename = "ucap.gif";
-			$title_text = t("trarabic_10433");
+			$title_text = t("This course is a University Capstone.");
 		}
 
 		if ($icon_filename != "") {
@@ -370,7 +370,7 @@ class AdvisingScreen extends _AdvisingScreen
       			colspan='4'>
        				&nbsp; &nbsp; $subject_id &nbsp;
         			$course_num$footnote
-	       			&nbsp; ($hours " . t("trarabic_10434") . ")
+	       			&nbsp; ($hours " . t("الساعات المتبقية") . ")
        	   	</td>
      	</tr>
      	</table>";		
@@ -427,10 +427,10 @@ class AdvisingScreen extends _AdvisingScreen
 		$headers = array();
 		if ($hideheaders != true)
 		{
-			$headers[0] = t("trarabic_10435");
-			$headers[1] = t("trarabic_10436");
-			$headers[2] = t("trarabic_10437");
-			$headers[3] = t("trarabic_10438");
+			$headers[0] = t("المساق");
+			$headers[1] = t("الساعات");
+			$headers[2] = t("الدرجة");
+			$headers[3] = t("النقاط");
 		}
 
 

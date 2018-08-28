@@ -205,7 +205,7 @@ if ($page_is_popup) {
 		<div class='fp-bottom-message'>
     <?php
       if ($page_hide_report_error != TRUE) {
-        print "<a class='nounderline' href='javascript: popupreportcontact()'>" . t("trarabic_10449") . "</a>";
+        print "<a class='nounderline' href='javascript: popupreportcontact()'>" . t("FlightPath تواصل مع فريق") . "</a>";
       }
     ?>
     <!-- Optional copyright message could go here.

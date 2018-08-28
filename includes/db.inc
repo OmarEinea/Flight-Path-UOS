@@ -71,7 +71,7 @@ function watchdog($type, $message, $variables = array(), $severity = WATCHDOG_NO
 function fp_get_faculty_name($cwid) {
   $db = get_global_database_handler();
   $name = $db->get_faculty_name($cwid);
-  if (!$name) $name = t("trarabic_10001");
+  if (!$name) $name = t("مرشد مجهول");
   return $name;
 }
 
@@ -90,7 +90,7 @@ function fp_load_user($user_id) {
   if ($user_id == 0) {
     // Return the anonymous user.
     $rtn->id = 0;
-    $rtn->name = t("trarabic_10002");
+    $rtn->name = t("مجهول");
     $rtn->roles = array(1 => "anonymous user");
     $rtn->permissions = fp_get_permissions_for_role(1);
     return $rtn;        
@@ -176,11 +176,11 @@ function db_get_user_id_from_cwid($cwid, $type = "faculty") {
 
 function fp_get_student_name($cwid) {
   if ($cwid == 0) {
-    return t("trarabic_10003");
+    return t("مجهول");
   }
   $db = get_global_database_handler();
   $name = $db->get_student_name($cwid);
-  if (!$name) $name = t("trarabic_10004");
+  if (!$name) $name = t("طالب مجهول");
   return $name;
 }
 

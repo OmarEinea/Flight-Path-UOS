@@ -491,37 +491,37 @@ function admin_duplicate_year_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("trarabic_20112") . "</p><hr>",
+    "value" => "<p>" . t("يفضل عمل نسخة احتياطية من قاعدة البيانات الخاصة بك قبل المتابعة<br/><br/>حتى يتم تطبيق تغييرات المسودة FlightPath سيتم وضع العام الجديد في مسودة ولن يكون مرئيا في<br/>استخدمها بعناية<b>ستحذف بيانات السنة الوجهة بالكامل، إذا كانت موجودة بالفعل</b>سيسمح لك هذا النموذج بتكرار بيانات سنة كاملة (مساقات، درجات، مجموعات) إلى سنة جديدة. يستخدم هذا لإنشاء سنة جديدة من البيانات، على أساس السنة السابقة، على سبيل المثال") . "</p><hr>",
   );
   
   $form["source_year"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10516"),
+    "label" => t(": من"),
     "size" => 10,
     "required" => TRUE,
-    "description" => t("trarabic_20113"),
+    "description" => t(".أدخل سنة المصدر المكونة من أربعة أرقام التي تقوم النسخ منها. على سبيل المثال: 2007, إذا كنت تقوم بالنسخ من 2007-2008, أدخل فقط 2007"),
   );
   
   $form["destination_year"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10517"),
+    "label" => t(": إلى"),
     "size" => 10,
     "required" => TRUE,
-    "description" => t("trarabic_20114"),
+    "description" => t("إذا كنت تنسخ إلى 2009-2010, فقم فقط بإدخال 2009<b><u>.إذا كان هذا العام جاهزا بالكامل في النظام. فسيتم حذف البيانات لهذا العام</u></b>أدخل سنة المصدر المكونة من أربعة أرقام التي تنسخ إليها."),
   );  
   
  $form["passcode"] = array(
     "type" => "password",
-    "label" => t("trarabic_10518"),
+    "label" => t(":للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة"),
     "required" => TRUE,
-    "description" => t("trarabic_20115"),
+    "description" => t(".لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي. لن تكون مشاريع التعديلات مطبقة بالفعل ، يتم استخدامها ببساطة كطبقة أمان إضافية FlightPath هذه كلمة مرور تم إعدادها في إعدادات"),
         
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10519"),
-    "description" => t("trarabic_10520"),
+    "value" => t("تسليم"),
+    "description" => t("!قد يستغرق هذا الإجراء عدة دقائق للاستكمال! اضغط مرة واحدة فقط"),
     "prefix" => "<hr>",
   );  
   
@@ -545,7 +545,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
-    form_error("passcode", t("trarabic_20116"));
+    form_error("passcode", t("أو تحقق من صفحات إعدادات المسؤول) لمعرفة كلمة المرور)FlightPath خطأ! كلمة المرور التي أدخلتها غير صحيحة. تحقق مع مسؤول "));
     return;
     
   }
@@ -754,7 +754,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   }  
     
      
-  fp_add_message(t("trarabic_20117"));
+  fp_add_message(t("FlightPath اكتملت عملية النسخ الآن. يمكنك عرض السنة الجديدة باستخدام ارتباطات إدخال البيانات في القائمة الرئيسية للمشرف. تذكر ، يجب عليك تطبيق تغييرات المسودة قبل أن تكون مرئية في"));
   
   
 }
@@ -789,47 +789,47 @@ function admin_advising_settings_form() {
     
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("trarabic_10521") . $mark,
+    "value" => t(":المرجع السريع لرمز الفصل") . $mark,
   );
   */
   
   $form["available_advising_term_ids"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10522"),
+    "label" => t("رموز فصل الإرشاد المتاحة"),
     "value" => variable_get("available_advising_term_ids", ""),
-    "description" => t("trarabic_20118"),
+    "description" => t(".FlightPath هذه هي الشروط التي يمكن للمرشدين الأكاديميين نصح الطلاب فيها بأخذ مساق. يجب أن يتبعوا الهيكل المحدد في صفحة إعدادات بيانات المدرسة. افصل معرف الفصل الدراسي بواسطة الفواصل. مثال: 200940, 200941, 200960. تأكد من الإدخال حسب ترتيب ظهورها في"),
   );  
 
   $form["advising_term_id"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10523"),
+    "label" => t("رمز فصل الإرشاد الأساسي"),
     "value" => variable_get("advising_term_id", ""),
-    "description" => t("trarabic_20119"),
+    "description" => t("Of the available term ids above, this is the default that FlightPath is set to when an advisor logs in. Ex: 200940."),
   );  
 
 
   $form["current_catalog_year"] = array(
     "type" => "textfield",
     "size" => 10,
-    "label" => t("trarabic_10524"),
+    "label" => t("كتالوج العام الدراسي الحالي"),
     "value" => variable_get("current_catalog_year", ""),
-    "description" => t("trarabic_20120"),
+    "description" => t("هذا هو العام الذي يحمل فيها ماذا لو درجات، بالإضافة إلى وظائف أخرى مهمة. بمجرد تغيير هذا فقط سيتم تحميل كتالوج سنة جديد"),
   );  
 
   $form["current_draft_catalog_year"] = array(
     "type" => "textfield",
     "size" => 10,
-    "label" => t("trarabic_10525"),
+    "label" => t("المسودة الحالية لكتالوج العام"),
     "value" => variable_get("current_draft_catalog_year", ""),
-    "description" => t("trarabic_20121"),
+    "description" => t("While in Draft mode, this is the year which Blank Degree Search loads degrees from. What If mode will always use the Current catalog year, set above. You may change this while working on a new catalog. It will not affect any other users of the system. While not working on a new catalog, set this to the same as the Current catalog year."),
   );  
 
 
   $form["not_released_grades_terms"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10526"),
+    "label" => t("العلامات التي لم يتم إصدارها لهذا الفصل"),
     "value" => variable_get("not_released_grades_terms", ""),
-    "description" => t("trarabic_20122") . "<br>" . t("trarabic_20123"),
+    "description" => t("201240, 201240:S1 :أدخل رمز الفصل, مفصول بفواصل والذي لم يتم إصداره ويجب ألا يكون مرئيا لأي من المرشدين الأكاديميين أو الطلاب. المساقات في هذه الفصول سوف تظهر درجات منتصف الفصل فقط أو لا درجات على الإطلاق. على سبيل المثال") . "<br>" . t(".إذا تُركت فارغة ، فستكون الدرجات مرئية للطلاب والمستشارين بمجرد ظهورها في قاعدة البيانات"),
   );  
 
 
@@ -851,11 +851,11 @@ function admin_get_semester_name($semester_num) {
   
     
   /**
-  $ar = array(t("trarabic_10527"), t("trarabic_10528"), t("trarabic_10529"), t("trarabic_10530"));
+  $ar = array(t("السنة الدراسية الأولى"), t("السنة الدراسية الثانية"), t("trarabic_10529"), t("السنة الدراسية الرابعة"));
   $s = $ar[$semester_num];
   if ($s == "")
   {
-    $s = t("trarabic_10531") . " " . ($semester_num + 1);
+    $s = t("السنة الدراسية") . " " . ($semester_num + 1);
   }
   */
   
@@ -872,21 +872,21 @@ function admin_apply_draft_changes_form() {
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("trarabic_20124"),
+    "value" => t("يمكنك استخدام هذا النموذج لتطبيق تغييرات المسودة على قاعدة بيانات الإنتاج ، وإجراء تغييرات على الدرجات والمساقات والمجموعات مرئية لجميع مستخدمي النظام"),
   );
   
   $form["passcode"] = array(
     "type" => "password",
-    "label" => t("trarabic_10532"),
+    "label" => t(":للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة"),
     "required" => TRUE,
-    "description" => t("trarabic_20125"),
+    "description" => t("لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي FlightPath هذه كلمة مرور تم إعدادها في إعدادات"),
         
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10533"),
-    "description" => t("trarabic_10534"),
+    "value" => t("تسليم"),
+    "description" => t("!قد يستغرق هذا الاجراء عدة ثوان ليكتمل! انقر مرة واحدة"),
     "prefix" => "<hr>",
   );
   
@@ -909,7 +909,7 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
     
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
-    form_error("passcode", t("trarabic_20126"));
+    form_error("passcode", t("أو تحقق من صفحات إعدادات المسؤول) لمعرفة كلمة المرور) FlightPath خطأ! كلمة المرور التي أدخلتها غير صحيحة. تحقق مع مسؤول"));
     return;
     
   }
@@ -973,7 +973,7 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
     mail($notify, "FlightPath Apply Draft Changes", "Someone has applied draft changes to FlightPath, which updated degree plans, groups, and courses.");
   }
   
-  fp_add_message(t("trarabic_10535"));
+  fp_add_message(t(".تم بنجاح تحديث قاعدة بيانات الإنتاج مع تغييرات المسودة. أصبحت التغييرات الآن مرئية لكل المستخدمين"));
 
   watchdog("admin", "Draft changes applied.");
  
@@ -1038,36 +1038,36 @@ function admin_menu_handle_replacement_pattern($str) {
 function admin_perm() {
   return array(
     "can_access_admin" => array(
-      "title" => t("trarabic_10536"),
-      "description" => t("trarabic_20127"),
+      "title" => t("الدخول إلى وحدة التحكم"),
+      "description" => t("FlightPath هذا هو إذن قوي! يتيح ذلك للمستخدم الوصول إلى وحدة تحكم المشرف في"),
     ),
     "can_edit_urgent_message" => array(
-      "title" => t("trarabic_10537"),
-      "description" => t("trarabic_10538"),
+      "title" => t("عدل رسالة عاجلة"),
+      "description" => t("يمكن للمستخدم تعديل الرسالة العاجلة التي تظهر في أعلى الصفحات"),
     ),    
     "can_access_data_entry" => array(
-      "title" => t("trarabic_10539"),
-      "description" => t("trarabic_10540"),
+      "title" => t("بيانات الدخول"),
+      "description" => t("The user can access (view) the data-entry portion of the admin console. Degree plans, groups, and courses."),
     ),
     "can_edit_data_entry" => array(
-      "title" => t("trarabic_10541"),
-      "description" => t("trarabic_10542"),
+      "title" => t("تعديل إدخال البيانات"),
+      "description" => t(".هذه صلاحية قوية. يمكن للمستخدم تعديل الخطط الدراسية, المجموعات, والمساقات"),
     ),
     "can_view_advanced" => array(
-      "title" => t("trarabic_10543"),
-      "description" => t("trarabic_10544"),
+      "title" => t("عرض متقدم"),
+      "description" => t("قد يرى المستخدم معلومات متقدمة على الشاشة ، على سبيل المثال ، أرقام الهوية الداخلية للشهادات الجامعية و المساقات."),
     ),   
     "can_apply_draft_changes" => array(
-      "title" => t("trarabic_10545"),
-      "description" => t("trarabic_10546"),
+      "title" => t("تطبيق تغييرات المسودة"),
+      "description" => t("يمكن للمستخدم نقل مسودة التغييرات إلى الإنتاج."),
     ),   
     "can_edit_advising_settings" => array(
-      "title" => t("trarabic_10547"),
-      "description" => t("trarabic_10548"),
+      "title" => t("تحرير إعدادات الإرشاد"),
+      "description" => t("يجوز للمستخدم تعديل إعدادات الإرشاد ، مثل معرّفات المصطلحات المتاحة وسنة الكتالوج الحالية."),
     ),   
     "display_watchdog" => array(
-      "title" => t("trarabic_10549"),
-      "description" => t("trarabic_10550"),
+      "title" => t("عرض إدخالات سجل المراقبة"),
+      "description" => t("يمكن للمستخدم عرض إدخالات سجل المراقبة الأخيرة. وهذا يمثل مشكلة أمنية ، لذا لا تعطيه إلا للمستخدمين الموثوق بهم."),
     ),   
 
     
@@ -1087,8 +1087,8 @@ function admin_urgent_message_form() {
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => "<p>" . t("trarabic_20128") . "</p>
-                  <p>" . t("trarabic_10551") . "</p>",
+    "value" => "<p>" . t("سيتم عرض أي رسالة تقوم بإدخالها في أعلى كل صفحة في النظام. يستخدم هذا لتنبيه المستخدمين بأن النظام على وشك أن يتم قطعه عن الاتصال، أو أي معلومات أخرى مطلوبة بشكل عاجل") . "</p>
+                  <p>" . t("لحذف هذه الرسالة ، قم ببساطة بحذف كل النص الموجود في المربع وحفظه.") . "</p>",
   );
   
   $form["urgent_msg"] = array(
@@ -1435,9 +1435,9 @@ function admin_display_main() {
   $cron_last_run = variable_get("cron_last_run", 0);    
   if ($cron_last_run < strtotime("-7 DAY")) {
     // Warn admin that they need to have cron set up!  It's been over a week!
-    fpm(t("trarabic_20129", 
-            array("@status_link" => l(t("trarabic_10552"), "admin/config/status"),
-                  "@run_link" => l(t("trarabic_10553"), "admin/config/run-cron"))));
+    fpm(t(" .للحصول على الإرشادات @status_link أو الاطلاع على صفحة @run_link كثيرا. يمكنك  cron في العمل بشكل صحيح ، يتم تكوين عملية  FlightPath الخاصة بالنظام خلال أكثر من أسبوع لكي يستمر cron لم يتم تشغيل عملية", 
+            array("@status_link" => l(t("حالة النظام"), "admin/config/status"),
+                  "@run_link" => l(t("run cron now"), "admin/config/run-cron"))));
   }
   
   
@@ -1446,11 +1446,11 @@ function admin_display_main() {
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
 
-  $rtn .= "<h2>" . t("trarabic_10554") . "</h2>";
+  $rtn .= "<h2>" . t("وحدة تحكم المشرف FlightPath - القائمة الرئيسية") . "</h2>";
   $rtn .= "<table class='fp-semester-table' cellpadding='5'>
            <tr>
             <td valign='top' width='50%'>
-              " . fp_render_menu_block(t("trarabic_10555"), "admin/config") . "
+              " . fp_render_menu_block(t("أعدادات النظام"), "admin/config") . "
             </td>
             <td valign='top' width='50%'>
               ";
@@ -1461,16 +1461,16 @@ function admin_display_main() {
   $rtn .= "<div class='admin-advising-settings'>
              
        <ul>
-        <li>" . t("trarabic_10556", array("%v" => variable_get("available_advising_term_ids", ""))) . "</li>
-        <li>" . t("trarabic_10557", array("%v" => variable_get("advising_term_id", ""))) . "</li>          
-        <li>" . t("trarabic_10558", array("%v" => variable_get("current_catalog_year", ""))) . "</li>       
-        <li>" . t("trarabic_10559", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>             
-        <li>" . t("trarabic_10560", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>             
+        <li>" . t("الفصول المتاحة لتقديم الإرشاد: %v", array("%v" => variable_get("available_advising_term_ids", ""))) . "</li>
+        <li>" . t("التقديم الإرشادي للفصل الدراسي الإفتراضي: %v", array("%v" => variable_get("advising_term_id", ""))) . "</li>          
+        <li>" . t("سنة كاتلوج الحالية: %v", array("%v" => variable_get("current_catalog_year", ""))) . "</li>       
+        <li>" . t("مسودة سنة كاتلوج الحالي: %v", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>             
+        <li>" . t("الدرجات التي لم تصدر للفصل الدراسي: %v", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>             
         
       </ul>";
   
   if (user_has_permission("can_edit_advising_settings")) {
-    $rtn .= l(t("trarabic_10561"), "admin/edit-advising-settings");
+    $rtn .= l(t("تحرير إعدادات الإرشاد"), "admin/edit-advising-settings");
   }
   
   $rtn .= "</div>";
@@ -1496,7 +1496,7 @@ function admin_display_main() {
     $rtn .= "<div class='data-entry-cats'>";
 
     // Have a pulldown here of years, then use javascript to hide/show relavant groups.
-    $rtn .= "&nbsp; &nbsp; &nbsp; " . t("trarabic_10562") . ": <select id='data-entry-select-cats' onChange='adminHideDECats();'>";
+    $rtn .= "&nbsp; &nbsp; &nbsp; " . t("اختر سنة كاتلوج") . ": <select id='data-entry-select-cats' onChange='adminHideDECats();'>";
     $selected_cat = ($de_catalog_year != "") ? $de_catalog_year : $current_catalog_year;
     
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
@@ -1507,15 +1507,15 @@ function admin_display_main() {
     
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
       $rtn .= "<ul class='data-entry-for-cat data-entry-for-cat-$t'>";
-      $rtn .= "<li>" . l(t("trarabic_10563", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("trarabic_10564", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("trarabic_10565", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("خطط شهادة جامعية لسنة @year", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("@yearمجموعات ل ", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("@yearمساقات ل", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
       $rtn .= "</ul>";
     }
         
     if (user_has_permission("can_edit_data_entry")) {
-      $rtn .= "<b>" . t("trarabic_10566") . "</b><ul>
-              <li>" . l(t("trarabic_10567"), "admin/duplicate-year") . "</li>
+      $rtn .= "<b>" . t(":وظيفة المسؤول") . "</b><ul>
+              <li>" . l(t("تكرار سنة كاملة من البيانات إلى السنة الجديدة"), "admin/duplicate-year") . "</li>
                 </ul>";
     }
     
@@ -1526,10 +1526,10 @@ function admin_display_main() {
     $res = db_query("SELECT * FROM draft_instructions");
     if (db_num_rows($res) > 0) {
       $rtn .= "<div class='draft-changes-waiting-msg'>
-                      " . t("trarabic_20130") . "</div>";
+                      " . t(".تم إجراء تغييرات مسودة لم يتم تطبيقها بعد. عندما تكون جاهزًا لتظهر تغييراتك في الإنتاج، انقر فوق الرابط أدناه") . "</div>";
     }
     $rtn .= "<ul class='data-entry-draft-waiting'>
-              <li>" . l(t("trarabic_10568"), "admin/apply-draft-changes") . "</li>
+              <li>" . l(t("تطبيق تغييرات المسودة"), "admin/apply-draft-changes") . "</li>
            </ul>";
         
   }

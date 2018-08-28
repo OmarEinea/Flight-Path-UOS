@@ -369,8 +369,8 @@ function stats_perm() {
   
   $perms = array (
     "can_access_stats" => array(
-      "title" => t("trarabic_10717"),
-      "description" => t("trarabic_20155"),
+      "title" => t("يمكن الوصول / عرض الإحصاءات"),
+      "description" => t(".يسمح ذلك للمستخدم بالوصول إلى وحدة الإحصائيات ، مما يتيح له تشغيل تقارير حول الاستخدام"),
     ),    
   );
 
@@ -398,7 +398,7 @@ function stats_draw_catalog_year_pulldown($selected = "", $display_submit = FALS
           <td valign='middle'>
           
           <select name='catalog_year' id='catalog_year'><option value=''>
-                " . t("trarabic_10718") . "</option>
+                " . t("يرجى تحديد سنة كتالوج") . "</option>
           <option value=''>-----------------------------------</option>";
   
   
@@ -417,7 +417,7 @@ function stats_draw_catalog_year_pulldown($selected = "", $display_submit = FALS
   $rtn .= "                </select> </td>";
   if ($display_submit == true)
   {
-    $rtn .= "<td valign='middle'><input type='submit' value='" . t("trarabic_10719") . "'></td>";
+    $rtn .= "<td valign='middle'><input type='submit' value='" . t("تحديد") . "'></td>";
   }
 
   $rtn .= "</table>";
@@ -564,7 +564,7 @@ function stats_report_selected_degree_options() {
   $major = trim($_GET["major"]);
 
   $rtn .= "<form action='" . fp_url("stats/reports/selected-degree-options") . "' method='GET' >";
-  $rtn .= stats_draw_majors_pulldown($major, TRUE, TRUE, t("trarabic_10720"));
+  $rtn .= stats_draw_majors_pulldown($major, TRUE, TRUE, t("يرجى تحديد التخصص مع خيارات الشهادة الدراسية"));
   $rtn .= "</form>";
 
   $db = get_global_database_handler();
@@ -602,7 +602,7 @@ function stats_report_selected_degree_options() {
 
       if ($track == "")
       {
-        $track = t("trarabic_10721");
+        $track = t("غير محدد");
       }
 
       // Init if not already...
@@ -615,9 +615,9 @@ function stats_report_selected_degree_options() {
 
     $rtn .= "<table border='1'>
         <tr>
-          <th>" . t("trarabic_10722") . "</th>
-          <th>" . t("trarabic_10723") . "</th>
-          <th>" . t("trarabic_10724") . "</th>
+          <th>" . t("إختيارات المنج الدراسي") . "</th>
+          <th>" . t("إحصاء") . "</th>
+          <th>" . t("وصف") . "</th>
         </tr>";
 
     foreach($degree_option_count as $d_option => $value)
@@ -647,7 +647,7 @@ function stats_report_selected_degree_options() {
           </tr>";
     }
 
-    $rtn .= "</table>" . t("trarabic_10725") . " $count_in_major.";
+    $rtn .= "</table>" . t(":الرقم الإجمالي للطلبة") . " $count_in_major.";
 
   }
   
@@ -758,7 +758,7 @@ function stats_draw_majors_pulldown($smajor = "", $display_submit = FALSE, $bool
   $rtn .= "                </select> </td>";
   if ($display_submit == true)
   {
-    $rtn .= "<td valign='middle'><input type='submit' value='" . t("trarabic_10726") . "'></td>";
+    $rtn .= "<td valign='middle'><input type='submit' value='" . t("تحديد") . "'></td>";
   }
 
   $rtn .= "</table>";
@@ -787,11 +787,11 @@ function stats_draw_student_cwid_form($path, $student_cwid = "") {
   $rtn = "";
   
   $rtn .= "<form action='" . fp_url($path) . "' method='GET' >
-            " . t("trarabic_10727") . "
+            " . t("أدخل CWID للطالب لمشاهدة المساقات الخاصة به") . "
             <br>
             <input type='textfield' value='$student_cwid' name='student_cwid'>
             <br>
-            <input type='submit' value='" . t("trarabic_10728") . "'>
+            <input type='submit' value='" . t("تسليم") . "'>
           </form> <hr>
           ";  
   
@@ -813,9 +813,9 @@ function stats_report_major_counts() {
 
   $rtn .= "<table border='1'>
         <tr>
-          <th>" . t("trarabic_10729") . "</th>
-          <th>" . t("trarabic_10730") . "</th>
-          <th colspan='2'>" . t("trarabic_10731") . "</th>          
+          <th>" . t("تخصص") . "</th>
+          <th>" . t("إحصاء") . "</th>
+          <th colspan='2'>" . t("وصف") . "</th>          
         </tr>";
   
 
@@ -867,7 +867,7 @@ function stats_report_major_counts() {
   }
 
   $rtn .= "</table>
-      " . t("trarabic_10732") . " $total.";
+      " . t(":مجموع سجلات الطلاب") . " $total.";
 
   
   
@@ -1096,13 +1096,13 @@ function stats_draw_date_range_form($path, $start_date = "", $end_date = "") {
   $rtn = "";
   
   $rtn .= "<form action='" . fp_url($path) . "' method='GET' >
-            " . t("trarabic_10733") . "
+            " . t("أدخل التواريخ بالتنسيق YYYY-MM-DD (مثل: 01-01-2012)") . "
             <br>
-            " . t("trarabic_10734") . " <input type='text' name='start_date' value='$start_date' id='start_date'>
+            " . t(":تاريخ البدء") . " <input type='text' name='start_date' value='$start_date' id='start_date'>
             &nbsp; &nbsp;
-            " . t("trarabic_10735") . " <input type='text' name='end_date' value='$end_date' id='end_date'>
+            " . t(":تاريخ الإنتهاء") . " <input type='text' name='end_date' value='$end_date' id='end_date'>
             &nbsp; &nbsp;
-            <input type='submit' value='" . t("trarabic_10736") . "'>
+            <input type='submit' value='" . t("تسليم") . "'>
           </form> <hr>
           <script type='text/javascript'>
             $(function() {
@@ -1183,8 +1183,8 @@ function stats_report_advisor_use() {
   $rtn .= "
       <table border='1' width='650'>
         <tr>
-          <th>" . t("trarabic_10737") . "</th>
-          <th>" . t("trarabic_10738") . "</th>
+          <th>" . t("اسم") . "</th>
+          <th>" . t("قسم") . "</th>
           <th>#</th>
       </tr>";
   foreach($f_array as $faculty_id => $value)
@@ -1229,15 +1229,15 @@ function stats_report_access_stats() {
 
   $rtn .= "
       <form action='" . fp_url("stats/reports/access") . "' method='GET'>
-      " . t("trarabic_10739") . " 
+      " . t("النشاط على مدى") . " 
       <input type='text' name='min' value='$min' size='2'>
       ";
 
 
 
-  $rtn .= t("trarabic_10740") . ": <input type='submit' value='->'>
+  $rtn .= t("دقائق") . ": <input type='submit' value='->'>
       </form>
-      " . t("trarabic_10741") . ": <!--STUDENTS-->. " . t("trarabic_10742") . ": <!--STAFF--> <br>";
+      " . t("الطلبة الفريدين في الإيطار الزمني") . ": <!--STUDENTS-->. " . t("Unique faculty/staff in time frame") . ": <!--STAFF--> <br>";
 
   $rtn .= "<table border='1' width='700'>";
 
@@ -1274,10 +1274,10 @@ function stats_report_access_stats() {
     
     $user_type = "";
     if ($account->is_student) {
-      $user_type .= "<div>" . t("trarabic_10743") . "</div>";
+      $user_type .= "<div>" . t("طالب") . "</div>";
     }
     if ($account->is_faculty) {
-      $user_type .= "<div>" . t("trarabic_10744") . "</div>";      
+      $user_type .= "<div>" . t("أعضاء هيئة التدريس") . "</div>";      
     }
     
     $rtn .= "<tr style='background-color:$bgcol'>
@@ -1288,7 +1288,7 @@ function stats_report_access_stats() {
           <td valign='top' class='tenpt'>$user_type</td>
           <td valign='top' class='tenpt'>$db_type</td>
           <td valign='top' class='tenpt'>" . t($db_message, unserialize($db_variables)) . "</td>
-          <td valign='top' class='tenpt'>$minago " . t("trarabic_10745") . " &nbsp; <font size='1'>$pretty_date</font></td>
+          <td valign='top' class='tenpt'>$minago " . t("دقائق مضت") . " &nbsp; <font size='1'>$pretty_date</font></td>
         </tr>";
 
     // Let's increase our counters, if this is a new CWID.
@@ -1482,35 +1482,35 @@ function stats_display_main() {
   /*
   $rtn .= "<ul>";
 
-  $rtn .= "<li>" . l(t("trarabic_10746"), "stats/access") . "
+  $rtn .= "<li>" . l(t("إحصائيات الوصول"), "stats/access") . "
               <br>
-              " . t("trarabic_10747") . "
+              " . t("انظر للوصول الأخير داحل النظام. قد يكون هذا مفيدًا لمعرفة ما إذا كان أي شخص يستخدم النظام حاليًا") . "
             </li>";
   
-  $rtn .= "<li>" . l(t("trarabic_10748"), "stats/major-counts") . "
+  $rtn .= "<li>" . l(t("Major Counts"), "stats/major-counts") . "
               <br>
-              " . t("trarabic_10749") . "
+              " . t("يعرض عدد الطلاب داخل كل تخصص أو major/concentration.") . "
             </li>";
   
-  $rtn .= "<li>" . l(t("trarabic_10750"), "stats/selected-degree-options") . "
+  $rtn .= "<li>" . l(t("خيارات الشهادة الجامعية المختارة."), "stats/selected-degree-options") . "
               <br>
-              " . t("trarabic_20156") . "
+              " . t("(سيعرض هذا التقرير معلومات عن الخيارات التي يحددها الطلاب / المرشدون الأكاديميون للاختبارات الخاصة (على سبيل المثال: الدراسات العامة") . "
             </li>";
  
-  $rtn .= "<li>" . l(t("trarabic_10751"), "stats/advisor-use") . "
+  $rtn .= "<li>" . l(t("استخدام التقرير للمرشد الأكاديمي"), "stats/advisor-use") . "
               <br>
-              " . t("trarabic_10752") . "
+              " . t("عدد الطلاب الذي نصهم المرشد خلال نطاق زمني محدد.") . "
             </li>";
 
-  $rtn .= "<li>" . l(t("trarabic_10753"), "stats/student-course-list") . "
+  $rtn .= "<li>" . l(t("قائمية المساقات للطلاب"), "stats/student-course-list") . "
               <br>
-              " . t("trarabic_10754") . "
+              " . t("سرد المساقات التي قام بها الطالب، والتي يعرفها FlightPath.") . "
             </li>";
   
   
-  $rtn .= "<li>" . l(t("trarabic_10755"), "stats/flightpath-use-summary") . "
+  $rtn .= "<li>" . l(t("FlightPath ملخص استخدام "), "stats/flightpath-use-summary") . "
               <br>
-              " . t("trarabic_10756") . "
+              " . t("خلال نطاق زمني محدد FlightPath تقرير مفصل عن كيفية استخدام") . "
             </li>";
 
   

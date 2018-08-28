@@ -49,7 +49,7 @@ function oracleapi_menu() {
 function oracleapi_perm() {
   return array(
     "administer_oracleapi" => array(
-      "title" => t("trarabic_10499"),
+      "title" => t("Administer Oracle API settings"),
     ),
   );
 }
@@ -79,12 +79,12 @@ function oracleapi_settings_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("trarabic_20105") . "</p>",
+    "value" => "<p>" . t(" FlightPath فإن إجراء التغييرات على هذه الشاشة لن يكون له أي تأثير على Oracle الافتراضي وإعدادات موقعك. يرجى تذكر أن هذه الوحدة تهدف إلى توفير وظائف للوحدات الأخرى. إذا لم يكن لديك وحدات نمطية مثبتة أخرى تستخدم واجهة برمجة تطبيقات Oracle استخدم هذا النموذج لإعداد اتصال") . "</p>",
   );
 
   $form["oracleapi_username"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10500"),
+    "label" => t(":اسم المستخدم الأساسي"),
     "value" => variable_get("oracleapi_username", ""),
   );
   
@@ -96,40 +96,40 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_enc_password"] = array(
     "type" => "password",
-    "label" => t("trarabic_10501"),
+    "label" => t(":كلمة السر الأساسية"),
     "value" => $password,
-    "description" => t("trarabic_20106"),
+    "description" => t("أيضا MySQL الخاص بك، وتأكد من تقييد قاعدة بيانات Oracle هذا فقط للحفاظ على كلمة المرور من اكتشاف المتطفلين لكلمة المرور في نص عادي. تأكد من أن المستخدم لديه مستوى وصول مقيد بشكل مناسب إلى خادم <b>هذا ليس آمن</b> base64 ملاحظة الأمان: سيتم حفظ كلمة المرور في قاعدة البيانات في نظام ترميز بسيط"),
   );
 
   
   $form["oracleapi_server"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10502"),
+    "label" => t(":الخادم الاساسي"),
     "value" => variable_get("oracleapi_server", ""),
-    "description" => t("trarabic_10503") . " bb1.example.edu",
+    "description" => t(":مثال") . " bb1.example.edu",
   );
 
   $form["oracleapi_port"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10504"),
+    "label" => t(":المنفذ الأساسي"),
     "value" => variable_get("oracleapi_port", "1521"),
-    "description" => t("trarabic_10505") . " 1521",
+    "description" => t(":مثال") . " 1521",
   );
   
   
   $form["oracleapi_sid"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10506"),
+    "label" => t(":رمز المستخدم الأساسي"),
     "value" => variable_get("oracleapi_sid", ""),
-    "description" => t("trarabic_10507") . " PROD",
+    "description" => t(":مثال") . " PROD",
   );
 
   
   $form["oracleapi_email_error"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10508"),
+    "label" => t(":أرسل رسالة إلكترونية عند حدوث خطأ"),
     "value" => variable_get("oracleapi_email_error", ""),
-    "description" => t("trarabic_20107"),
+    "description" => t(" فسيتم إرسال بريد إلكتروني إلى هذا العنوان. يمكنك إدخال أكثر من عنوان واحد مفصولة بفاصلة. اتركه فارغًا لتعطيله oracle إذا كان هناك خطأ في"),
   );
   
   
@@ -194,7 +194,7 @@ function oracleapi_connect($username = "", $password = "", $server = "", $sid = 
   
   if ($username == "") {
     // If it STILL is blank, then it hasn't been set up yet.
-    fp_add_message(t("trarabic_20108"), "error");
+    fp_add_message(t("الافتراضية غير متوفرة. يرجى التأكد من إعدادها بشكل صحيح Oracle API إعدادات"), "error");
     return FALSE;
   }
   
@@ -298,10 +298,10 @@ function oracleapi_query($sql_query = "") {
   if ($err = oracleapi_error($result)) {
     $msg = "";
     
-    $msg .= t("trarabic_10509") . " " . $err;
+    $msg .= t("An Oracle error has occured:") . " " . $err;
     $arr = debug_backtrace();
 
-    fpm($msg . "<br><br>" . t("trarabic_10510"));
+    fpm($msg . "<br><br>" . t(":تقفّي"));
     fpm($arr);
        
     // Should we email anyone?

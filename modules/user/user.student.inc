@@ -21,11 +21,11 @@ function user_student_edit_student_courses_form() {
 
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("trarabic_10216");
+  $tab_array[0]["title"] = t("تعديل الطالب");
   $tab_array[0]["active"] = FALSE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("trarabic_10217");
+  $tab_array[1]["title"] = t("تعديل مساقات الطالب");
   $tab_array[1]["active"] = TRUE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user/courses", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -37,14 +37,14 @@ function user_student_edit_student_courses_form() {
   
   if ($student_cwid != "new") {  
     $name = fp_get_student_name($student_cwid);  
-    fp_set_title(t("trarabic_10218", array("@name" => $name, "@id" => $student_cwid)));
+    fp_set_title(t(" @name (@id) تعديل مساقات الطالب", array("@name" => $name, "@id" => $student_cwid)));
   }
   else {
     // A new student!  We can't create a new student until a CWID is assigned.
-    fp_set_title(t("trarabic_10219"));
+    fp_set_title(t("إضافة حساب طالب جديد"));
     $form["mark_sorry"] = array(
       "type" => "markup",
-      "value" => "<p>" . t("trarabic_20043") . "</p>",
+      "value" => "<p>" . t(".عذرًا، ولكن لا يمكنك إضافة مقررات الطالب حتى يتم إنشاء الطالب بشكل كامل (ويعطى رمز المستخدم). استخدم زر تعديل الطالب أعلاه للرجوع إلى تلك الشاشة") . "</p>",
     );
     return $form;
   }
@@ -71,19 +71,19 @@ function user_student_edit_student_courses_form() {
     "value" => "<p>
                   " . ("Enter the student's local (non-transfer) courses they have enrolled in at your institution.") . "
                   <ul>
-                    <li>" . t("trarabic_10220") . "</li>
-                    <li>" . t("trarabic_10221") . "</li>
-                    <li>" . t("trarabic_10222") . "</li>
-                    <li>" . t("trarabic_10223") . "</li>
-                    <li>" . t("trarabic_10224") . "</li>
+                    <li>" . t("ACCT 101 :المساق: أدخل رمز المساق ورقمه مفصول بمسافة. مثال") . "</li>
+                    <li>" . t("201540 :أدخل رمز الفصل الذي سجل فيه هذا الطالب في هذا المساق. مثال") . "</li>
+                    <li>" . t("B :العلامة: أدخل العلامة التي استحقها الطالب. مثال") . "</li>
+                    <li>" . t(" 3 :الساعات: أدخل العدد الساعات المستحقة. مثال") . "</li>
+                    <li>" . t("UG :الدرجة -اختياري- أدخل الدرجة لهذا المساق. مثال") . "</li>
                   </ul>
-                  " . t("trarabic_20044") . "
+                  " . t("فسيتم تجاهل هذه البيانات أو حذفها (student_courses إذا كان لديك أي إجراءات قد تستبدل هذه البيانات (في جدول<b>:ملاحظة</b>") . "
                 </p>",
   );
   
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("trarabic_10225"),    
+    "label" => t("حذرني إذا قمت بإدخال دورة غير موجودة في draft_courses (جيد للقبض على الأخطاء المطبعية)"),    
     "value" => "yes",
   );
   
@@ -92,11 +92,11 @@ function user_student_edit_student_courses_form() {
     "value" => "
                 <table border='0' width='100%' cellpadding='3' cellspacing='0'>
                   <tr>
-                    <th>" . t("trarabic_10226") . "</th>
-                    <th>" . t("trarabic_10227") . "</th>
-                    <th>" . t("trarabic_10228") . "</th>
-                    <th>" . t("trarabic_10229") . "</th>
-                    <th>" . t("trarabic_10230") . "</th>
+                    <th>" . t("المساق") . "</th>
+                    <th>" . t("الفصل") . "</th>
+                    <th>" . t("العلامة") . "</th>
+                    <th>" . t("الساعات") . "</th>
+                    <th>" . t("المرحلة") . "</th>
                   </tr>",
   );
   
@@ -196,7 +196,7 @@ function user_student_edit_student_courses_form() {
   // close table.
   $form["mark" . $m++] = array(
     "value" => "</table>
-                <p>" . t("trarabic_20045") . "</p>",
+                <p>" . t(".سيتم خطي الصفوف التي لا تحتوي على مساقات. لإضافة المزيد من الصفوف الفارغة, احفظ عملك. عند إعادة تحميل الصفحة, يكون هناك صفوف إضافية فارغة لإضافة مساقات جديدة") . "</p>",
   );
   
 
@@ -230,7 +230,7 @@ function user_student_edit_student_courses_form_validate($form, $form_state) {
                        AND course_num = '?' ", $subject_id, $course_num);
       $cur = db_fetch_array($res);
       if ($cur["subject_id"] != $subject_id) {
-        form_error("course_$t", t("trarabic_10231", 
+        form_error("course_$t", t("لم يتم حفظ بياناتك .draft_courses في جدول ال %subject_id %course_num لم بتم العثور على المساق", 
                                                   array("%subject_id" => $subject_id, "%course_num" => $course_num)));
       }                       
                 
@@ -272,7 +272,7 @@ function user_student_edit_student_courses_form_submit($form, $form_state) {
    
   }  
 
-  fp_add_message(t("trarabic_10232"));
+  fp_add_message(t("تم تحديث مساقات الطالب"));
   
     
 } // student_courses_form_submit
@@ -297,11 +297,11 @@ function user_edit_student_user_form() {
 
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("trarabic_10233");
+  $tab_array[0]["title"] = t("عدل الطالب");
   $tab_array[0]["active"] = TRUE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("trarabic_10234");
+  $tab_array[1]["title"] = t("عدل مساقات الطالب");
   $tab_array[1]["active"] = FALSE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user/courses", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -314,11 +314,11 @@ function user_edit_student_user_form() {
   
   if ($student_cwid != "new") {  
     $name = fp_get_student_name($student_cwid);  
-    fp_set_title(t("trarabic_10235", array("@name" => $name, "@id" => $student_cwid)));
+    fp_set_title(t("@name (@id) عدل المستخدم الطالب", array("@name" => $name, "@id" => $student_cwid)));
   }
   else {
     // A new student!
-    fp_set_title(t("trarabic_10236"));
+    fp_set_title(t("إضافة حساب طالب جديد"));
   }
 
   $form["user_id"] = array(
@@ -365,7 +365,7 @@ function user_edit_student_user_form() {
   }  
 //fpm($default_values);
   $form["roles"] = array(
-    "label" => t("trarabic_10237"),
+    "label" => t("تحقق من الأدوار التي يجب أن يمتلكها هذا المستخدم"),
     "type" => "checkboxes",
     "options" => $options,
     "value" => $default_values,
@@ -378,19 +378,19 @@ function user_edit_student_user_form() {
   // Only if we are making a new student...
   if ($student_cwid == "new") {
     $form["new_student_cwid"] = array(
-      "label" => t("trarabic_10238"),
+      "label" => t(": أدخل رمز مستخدم جديد, مميز للطلبة"),
       "type" => "textfield",
       "size" => 20,
       "required" => TRUE,     
-      "description" => t("trarabic_20046"),
+      "description" => t("أدخل هوية لهذا الطالب. قد يكون هو نفسه عضو في هيئة التدريس, ولكن قد لا يكون مثل أي طالب متواجد حاليا. عند حفظ القيمة لن تكون قادرا على تعديلها"),
     );
     
     $form["new_user_name"] = array(
-      "label" => t("trarabic_10239"),
+      "label" => t(":أدخل اسم مستخدم جديد, مميز لجميع المستخدمين"),
       "type" => "textfield",
       "size" => 20,     
       "required" => TRUE,
-      "description" => t("trarabic_20047"),
+      "description" => t(".أدخل اسم مستخدم لهذا المستخدم. هذا ما سيستخدمه المستخدم لتسجيل الدخول. يجب أن يكون مميزا ا لجميع المستخدمين (لا يمكن أن لعضو من هيئة التدريس وطالب الحصول على نفس اسم المستخدم).بعد حفظ هذه القيمة لن تكون قادرًا على تعديلها"),
     );
         
     
@@ -414,88 +414,88 @@ function user_edit_student_user_form() {
   }
   
   $form["new_password"] = array(
-    "label" => t("trarabic_10240"),
+    "label" => t(": أدخل كلمة سر جديدة لهذا المستخدم"),
     "type" => "textfield",
     "size" => 20,
     "required" => ($student_cwid == "new") ? TRUE : FALSE,
-    "description" => t("trarabic_20048"),    
+    "description" => t(".LDAP فلن تتأثر كلمة مرور LDAP إذا كنت تستخدم وحدة  ,FlightPath إذا قمت بإدخال أي قيمة هنا، فإنه سيتم تغيير كلمة مرور المستخدم في "),    
   );
 
   $form["email"] = array(
-    "label" => t("trarabic_10241"),
+    "label" => t(": البريد الإلكتروني"),
     "type" => "textfield",
     "value" => $cur["email"],
   );  
 
   $form["f_name"] = array(
-    "label" => t("trarabic_10242"),
+    "label" => t(": الاسم الأول"),
     "type" => "textfield",
     "value" => $cur["f_name"],
   );  
 
   $form["l_name"] = array(
-    "label" => t("trarabic_10243"),
+    "label" => t(": الاسم الأخير"),
     "type" => "textfield",
     "value" => $cur["l_name"],
   );  
 
   $form["is_disabled"] = array(
-    "label" => t("trarabic_10244"),
+    "label" => t(":معطل"),
     "type" => "textfield",
     "value" => $cur["is_disabled"],
     "size" => 5,
-    "description" => t("trarabic_20049"),
+    "description" => t("ولن يتمكن من تسجيل الدخول أو البحث عنه. من الآمن تعطيل أحد المستخدمين بدلاً من حذفه FlightPath أدخل 1 أو 0 فقط (رقم واحد لـ نعم ، أو الرقم صفر لـ لا). هذا الإعداد يعني أنه سيتم تجاهل المستخدم من قبل "),
   );  
   
   
   // Unique to students...
   $form["cumulative_hours"] = array(
-    "label" => t("trarabic_10245"),
+    "label" => t(":الساعات التراكمية"),
     "type" => "textfield",
     "value" => $cur["cumulative_hours"],
     "size" => 5,
-    "description" => t("trarabic_20050"),
+    "description" => t("لحسابها بدلا من القراءة من قاعدة البيانات، سيتم تجاهل كل ما تقوم بإدخاله هنا, وبدلا من ذلك سيتم حساب هذه القيمة عن تحميل الطالب FlightPath كم عدد الساعات التي استحقها الطالب؟ ملاحظة: إذا تم تعيين "),
   );  
     
   $form["gpa"] = array(
-    "label" => t("trarabic_10246"),
+    "label" => t(":المعدل التراكمي"),
     "type" => "textfield",
     "value" => $cur["gpa"],
     "size" => 5,
-    "description" => t("trarabic_20051"),    
+    "description" => t(".لحسابه بدلا من القراء من قاعدة البيانات، سيتم تجاهل كل ما تقوم بإدخاله هنا, وبدلا من ذلك سيتم حسبا هذه القيمة عند تحميل الطالبFlightPath ما هو المعدل التراكمي للطالب؟ ملاحظة: إذا تم تعيين "),    
   );  
     
   $form["rank_code"] = array(
-    "label" => t("trarabic_10247"),
+    "label" => t(": التصنيف أو المرتبة"),
     "type" => "textfield",
     "value" => $cur["rank_code"],
     "size" => 5,
-    "description" => t("trarabic_10248") . "
-                      <br><b>" . t("trarabic_10249") . "</b> " . t("trarabic_20052") . "<br>&nbsp; &nbsp; &nbsp;" . t("trarabic_10250") . " 
+    "description" => t(".للسنة الأولى, السنة الثانية, السنة الثالثة, السنة الرابعة, تخرج GR, SR, JR, SO, FR على سبيل المثال ") . "
+                      <br><b>" . t(":مهم") . "</b> " . t(".FlightPath إذا لم تقم بذلك فلن تتمكن من البحث عن هذا الطالب في, FR يجب عليك إدخال رمز حقل (تصنيف الطلاب المسموح بهم) في نموذج (إعدادات النظام). على سبيل المثال ") . "<br>&nbsp; &nbsp; &nbsp;" . t(":القيمة الحالية لرتب الطلاب المسموح بها") . " 
                       <i>" . variable_get("allowed_student_ranks", "") . "</i>",
   );  
 
   $form["major_code"] = array(
-    "label" => t("trarabic_10251"),
+    "label" => t(": رمز التخصص"),
     "type" => "textfield",
     "value" => $cur["major_code"],
     "size" => 10,
   );  
     
   $form["catalog_year"] = array(
-    "label" => t("trarabic_10252"),
+    "label" => t(": كتالوج العام"),
     "type" => "textfield",
     "value" => $cur["catalog_year"],
     "size" => 10,
-    "description" => t("trarabic_20053"),
+    "description" => t(".يتم استخدام السنة الرائدة فقط. على سبيل المثال ، بالنسبة إلى كتالوج العام 2008-2009 ، ما عليك سوى إدخال 2008"),
   );  
 
   $form["is_active"] = array(
-    "label" => t("trarabic_10253"),
+    "label" => t(": نشط"),
     "type" => "textfield",
     "value" => $cur["is_active"],
     "size" => 5,
-    "description" => t("trarabic_20054"),
+    "description" => t(".أدخل 1 أو 0 فقط (رقم واحد لـ نعم ، أو الرقم صفر لـ لا). يعني هذا الإعداد أن الطالب لن يظهر في عمليات البحث تلقائيًا، ما لم يحدد المرشد الأكاديمي للبحث عن الطلاب غير النشطين"),
   );  
         
       
@@ -513,7 +513,7 @@ function user_edit_student_user_form() {
     $form["mark" . $m++] = array(
       "type" => "markup",
       "value" => "<div align='right'>
-                        " . t("trarabic_10254") . " <input type='button' value='X'
+                        " . t("حذف هذا الطالب؟") . " <input type='button' value='X'
                         onClick='userDeleteStudent();'>
                       </div>", 
     );  
@@ -538,7 +538,7 @@ function user_edit_student_user_form_validate($form, $form_state) {
   // If a password was given, make sure it is appropriate.
   if (trim($values["new_password"]) != "") {
     if (strlen(trim($values["new_password"])) < 5) {
-      form_error("new_password", t("trarabic_10255"));
+      form_error("new_password", t(" الرجاء إدخال كلمة سر لا تقل عن 5 رموز"));
       return;
     }
   }
@@ -552,14 +552,14 @@ function user_edit_student_user_form_validate($form, $form_state) {
     /*  // CWIDS are no longer required to be numeric.
     // Check that cwid is numeric.
     if (!is_numeric($new_cwid)) {
-      form_error("new_student_cwid", t("trarabic_20055"));
+      form_error("new_student_cwid", t(".رمز المستخدم الذي أدخلته ليس رقميا. يجب أن يحتوي على أرقام فقط. يرجى اختيار رمز مستخدم مختلف"));
       return;
     }
     */
 
     // Check that username is at least 4 characters
     if (strlen($new_user_name) < 4) {
-      form_error("new_user_name", t("trarabic_20056"));
+      form_error("new_user_name", t(".اسم المستخدم الذي أدخلته قصير جدًا. يجب أن يكون على الأقل 4 أحرف. يرجى تحديد اسم مستخدم مختلف"));
       return;
       
     }
@@ -568,14 +568,14 @@ function user_edit_student_user_form_validate($form, $form_state) {
     // Check cwid isn't already in use.
     $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_student = '1'", $new_cwid));    
     if ($test == $new_cwid) {
-      form_error("new_student_cwid", t("trarabic_10256"));
+      form_error("new_student_cwid", t("رمز المستخدم الذي أدخلته مستخدم حاليا, الرجاء إدخال رمز مستخدم آخر"));
       return;
     }
    
     // Check user_name isn't already in use.
     $test = db_result(db_query("SELECT user_name FROM users WHERE user_name = '?' ", $new_user_name));    
     if ($test == $new_user_name) {
-      form_error("new_user_name", t("trarabic_10257"));
+      form_error("new_user_name", t("اسم المستخدم الذي أدخلته مستخدم حاليا, الرجاء إدخال اسم مستخدم آخر"));
       return;
     }
       
@@ -609,7 +609,7 @@ function user_edit_student_user_form_submit($form, $form_state) {
     db_query("DELETE FROM students WHERE cwid = '?' ", $student_cwid);
     db_query("DELETE FROM users WHERE cwid = '?' AND is_student = '1' ", $student_cwid);      
     
-    fp_add_message(t("trarabic_10258"));
+    fp_add_message(t("تم حذف المستخدم."));
     fp_goto("admin/users/students");
     return;
   }
@@ -662,13 +662,13 @@ function user_edit_student_user_form_submit($form, $form_state) {
              ", $values["new_student_cwid"], $values["cumulative_hours"], $values["gpa"], $values["rank_code"],
                 $values["major_code"], $values["catalog_year"], $values["is_active"]);
                                   
-    fp_add_message(t("trarabic_10259"));
+    fp_add_message(t("تم إضافة المستخدم بنجاج"));
     fp_goto("admin/users/edit-student-user", "student_cwid=" . $values["new_student_cwid"]);
   }
   
   
       
-  fp_add_message(t("trarabic_10260"));
+  fp_add_message(t("تم تحديث المستخدم بنجاح"));
   
   
 }

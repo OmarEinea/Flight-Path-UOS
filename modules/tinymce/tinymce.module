@@ -88,10 +88,10 @@ function tinymce_config_form() {
   $form = array();
   
   $form["tinymce_include_on_paths"] = array(
-    "label" => t("trarabic_10960"),
+    "label" => t("Include on paths:"),
     "type" => "textarea",
     "value" => variable_get("tinymce_include_on_paths", ""),
-    "description" => t("trarabic_20232"),
+    "description" => t("أدخل مسارات FlightPath ، واحدة لكل سطر ، حيث يجب تضمين المكون الإضافي TinyMCE. مثال: التعليقات<br/>أحرف البدل مسموح بها أيضًا في نهاية المسار فقط. مثال: Content / * "),
   );
 
   
@@ -104,8 +104,8 @@ function tinymce_config_form() {
 function tinymce_perm() {
   return array(
     "administer_tinymce" => array(
-      "title" => t("trarabic_10961"),
-      "description" => t("trarabic_10962"),
+      "title" => t(" TinyMCE إدارة"),
+      "description" => t("Configure the TinyMCE module."),
     ),
   );
 }
@@ -124,7 +124,7 @@ function tinymce_form_alter(&$form, $form_id) {
     foreach($form as $key=>$val) {
       if ($form[$key]["type"] == "textarea") {
         $form[$key]["description"] .= "<div class='tinymce-extra-instructions'>
-                                        " . t("trarabic_20233") . "</div>";
+                                        " . t("مشكلة مع نسخ او لصق؟ جرّب اختصارات لوحة المفاتيح CTRL-C و CTRL-V. لمساحة واحدة ، اضغط على CTRL-ENTER.") . "</div>";
       }
     }
   }

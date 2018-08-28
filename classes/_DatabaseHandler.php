@@ -335,7 +335,7 @@ class _DatabaseHandler
     if ($GLOBALS["fp_system_settings"]["notify_mysql_error_email_address"] != "")
     {
       $server = $_SERVER["SERVER_NAME"];
-    	$email_msg = t("trarabic_10417") . "  
+    	$email_msg = t(" :MYSQL في FlightPath لقد حدث خطأ") . "  
     	Server: $server
     	
     	Timestamp: $when_ts ($when_english)
@@ -352,7 +352,7 @@ class _DatabaseHandler
     	mail($GLOBALS["fp_system_settings"]["notify_mysql_error_email_address"], "FlightPath MYSQL Error Reported on $server", $email_msg);
     }
     
-    fpm(t("trarabic_10418") . " $mysql_err<br><br>" . t("trarabic_10419"));
+    fpm(t(":MySQL حدث خطأ في") . " $mysql_err<br><br>" . t(":التقفي"));
     fpm($arr);
 
     if ($GLOBALS["fp_die_mysql_errors"] == TRUE) {

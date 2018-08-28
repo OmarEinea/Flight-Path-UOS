@@ -274,19 +274,19 @@ function advise_toggle_draft_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("trarabic_20131") . "</p>",
+    "value" => "<p>" . t(".من خلال تشغيل وضع المسودة، ستتمكن من عرض خطط الدرجة التي لا تزال في وضع المسودة في كل من علامة التبويب العرض العادية ، بالإضافة إلى الوحدة النمطية للدرجات الفارغة ، في حالة تمكينها") . "</p>",
   );
   
   $form["draft"] = array(
     "type" => "radios",
-    "label" => t("trarabic_10569"),
-    "options" => array("yes" => t("trarabic_10570"), "no" => t("trarabic_10571")),
+    "label" => t("هل تريد تمكين وضع المسودة؟"),
+    "options" => array("yes" => t("نعم"), "no" => t("لا")),
     "value" => $_SESSION["fp_draft_mode"],
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10572"),
+    "value" => t("تسليم"),
     "prefix" => "<hr>",
   );
   
@@ -300,7 +300,7 @@ function advise_toggle_draft_form() {
 
 
 function advise_toggle_draft_form_submit($form, $form_state) {
-  fp_add_message(t("trarabic_10573"));  
+  fp_add_message(t("تم تحديث وضع المسودة بنجاح."));  
   $_SESSION["fp_draft_mode"] = $form_state["values"]["draft"];
 }
 
@@ -319,19 +319,19 @@ function advise_display_popup_change_track() {
   
 
   $degree_plan->load_descriptive_data();
-  $rtn .= fp_render_curved_line(t("trarabic_10574"));
+  $rtn .= fp_render_curved_line(t("حدد خيار الشهادة الجامعية"));
   $rtn .= "<div class='tenpt'>
-      " . t("trarabic_20132") . "
+      " . t(" لدى هذا التخصص واحد أو أكثر من خيارات الدرجة العلمية، مما يؤثر على الدورات المطلوبة. يرجى تحديد خيار درجة علمية (أو مسار) من القائمة أدناه") . "
       <br><br>
-      " . t("trarabic_10575");
+      " . t("إذا لم تكن متأكدًا مما يجب فعله ، فقم ببساطة بإغلاق هذه النافذة.");
 
-  $rtn .= "<br><br><b>" . $degree_plan->title . "</b> " . t("trarabic_10576") . "</div><!--DEFAULT-->
+  $rtn .= "<br><br><b>" . $degree_plan->title . "</b> " . t("اختيارات الشهادة الجامعية:") . "</div><!--DEFAULT-->
       <ul>";
 
   // Get the list of available tracks for this student.
   if (!$tracks = $degree_plan->get_available_tracks())
   {
-    $rtn .= "<li>" . t("trarabic_10577") . "</li>";
+    $rtn .= "<li>" . t("هذا التخصص لا يوجد لديه خيارات شهادة جامعية.") . "</li>";
   }
 
   // Is there a "default" message for all tracks, which will override
@@ -372,7 +372,7 @@ function advise_display_popup_change_track() {
     if ($student->array_settings["track_code"] == $track_code
     && $student->array_settings["major_code"] == $degree_plan->major_code)
     {
-      $track_title .= " <b>(" . t("trarabic_10578") . ")</b>";
+      $track_title .= " <b>(" . t("حالي") . ")</b>";
     }
 
     if ($bool_default_description == false)
@@ -391,10 +391,10 @@ function advise_display_popup_change_track() {
     }
 
 
-    $link = fp_get_js_confirm_link(t("trarabic_10579"), "opener.changeTrack(\"$temp_tc\"); window.close(); ", $track_title);
+    $link = fp_get_js_confirm_link(t("هل أنت متأكد من رغبتك في تغيير خيارات الشهادة الجامعية؟"), "opener.changeTrack(\"$temp_tc\"); window.close(); ", $track_title);
     
     if ($GLOBALS["fp_advising"]["advising_what_if"] == "yes") {
-      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("trarabic_10580") . "\");'>$track_title</a>";      
+      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("هل أنت متأكد من رغبتك في تغيير خيارات الشهادة الجامعية؟") . "\");'>$track_title</a>";      
     }
 
     $rtn .= "<li class='tenpt' style='padding:3px;'>
@@ -423,9 +423,9 @@ function advise_display_popup_change_term() {
   $current_term = get_term_description($current_term_id);
   
 
-  $rtn .= fp_render_curved_line(t("trarabic_10581"));
+  $rtn .= fp_render_curved_line(t("اختر الفصل الدراسي الإرشادي"));
   $rtn .= "<div>
-      " . t("trarabic_20133", array("%current_term" => $current_term)) . "
+      " . t("%current_term قد تنصح هذا الطالب للفصول الدراسية القادمة. يرجى تحديد مدة تقديم المشورة التي ترغب في تقديم المشورة بشأنها من القائمة أدناه. إذا لم تكن متأكدًا، فقم ببساطة بإغلاق هذه النافذة واستمر في تقديم النصيحة للمدة الحالية", array("%current_term" => $current_term)) . "
       </div>";
 
   $rtn .= "<ul>";
@@ -437,10 +437,10 @@ function advise_display_popup_change_term() {
     
     $term_desc = get_term_description($term_id);
     if ($term_id == $current_term_id) {
-      $term_desc = "<b>$term_desc</b> - " . t("trarabic_10582");
+      $term_desc = "<b>$term_desc</b> - " . t("حالي");
     }
 
-    $link = fp_get_js_confirm_link(t("trarabic_10583"), "opener.changeTerm(\"$term_id\"); window.close(); ", $term_desc);
+    $link = fp_get_js_confirm_link(t("هل أنت متأكد من أنك ترغب في تغيير الفصول الدراسية الإرشادية؟"), "opener.changeTerm(\"$term_id\"); window.close(); ", $term_desc);
 
     $rtn .= "<li class='tenpt' style='padding:3px;'>$link</li>";
 
@@ -678,31 +678,31 @@ function advise_perm() {
   $perms = array();
   
   $perms["view_any_advising_session"] = array(
-    "title" => t("trarabic_10584"),
-    "description" => t("trarabic_20134"),
+    "title" => t("عرض أي جلسة تقديم إرشاد"),
+    "description" => t("يُسمح للمستخدم بمشاهدة أي جلسات إرشادية لأي مستخدم. على سبيل المثال، المستخدم هو مرشد أكاديمي"),
   );
 
   $perms["view_own_advising_session"] = array(
-    "title" => t("trarabic_10585"),
-    "description" => t("trarabic_20135"),
+    "title" => t("View own advising session"),
+    "description" => t(".يسمح للمستخدم لعرض جلسات المشورة الخاصة بهم. على سبيل المثال ، المستخدم هو طالب"),
   );
   
 
   
   $perms["can_advise_students"] = array(
-    "title" => t("trarabic_10586"),
-    "description" => t("trarabic_20136"),
+    "title" => t("يمكنه إرشاد الطلاب"),
+    "description" => t(".يُسمح للمستخدم بنصح الطلاب الآخرين، عن طريق النقر على مربع اختيار بجوار مساق، أو عن طريق اختيار مساق من مجموعة اختيارية"),
   );
 
   $perms["can_substitute"] = array(
-    "title" => t("trarabic_10587"),
-    "description" => t("trarabic_20137"),
+    "title" => t("يمكن أن يحل محل"),
+    "description" => t(".يسمح للمستخدم استبدال المساقات على خطة درجة الطالب"),
   );
 
 
   $perms["toggle_draft"] = array(
-    "title" => t("trarabic_10588"),
-    "description" => t("trarabic_20138"),
+    "title" => t("تبديل وضع المسودة"),
+    "description" => t("FlightPath يمكن للمستخدم تبديل وضع المسودة، حتى يتمكن من عرض خطط درجة المسودة في"),
   );
 
   
@@ -1160,7 +1160,7 @@ function advise_init() {
     
   // Is draft mode enabled?
   if ($_SESSION["fp_draft_mode"] == "yes") {
-    fp_add_message("<b>" . t("trarabic_10589") . "</b> " . t("trarabic_20139"), "status", TRUE);
+    fp_add_message("<b>" . t("وضع مسودة") . "</b> " . t("تم تمكينه حاليًا ، ومع ذلك ، فسيتم حفظ البدائل والاستشارات بشكل طبيعي"), "status", TRUE);
   }
           
 }
@@ -1178,7 +1178,7 @@ function advise_clear_cache() {
     }
   }
       
-  fp_add_message(t("trarabic_10590"));
+  fp_add_message(t("تم مسح ذاكرة التخزين المؤقت للإرشاد."));
   
 }
 
@@ -1274,7 +1274,7 @@ function advise_init_screen() {
   // Should we update the USER settings for anything?
   if ($GLOBALS["fp_advising"]["fp_update_user_settings_flag"] != "") {
     if (!$db->update_user_settings_from_post($user->id)) {
-      fp_add_message(t("trarabic_10591"));
+      fp_add_message(t("غير قادر على تجديد إعدادات المستخدم. يرجى إعادة المحاولة لاحقاً."));
     }
   }
 
@@ -1284,7 +1284,7 @@ function advise_init_screen() {
   $form_token = md5("advise_display_view" . fp_token());
   if ($perform_action == "save_draft") {
     if ($_REQUEST["form_token"] != $form_token) {
-      die(t("trarabic_20140"));
+      die(t(".عذرًا، ولكنك واجهت خطأً. تم الإبلاغ عن إرسال النموذج على أنه قد يكون إرسالًا غير صالح أو مزور. قد يشكل هذا خطأ في النظام. الرجاء الإبلاغ عن هذا الخطأ إلى مسؤول النظام لديك"));
     }
     
     // Save, then reload the student.
@@ -1299,7 +1299,7 @@ function advise_init_screen() {
   }
   if ($perform_action == "save_active") {
     if ($_REQUEST["form_token"] != $form_token) {
-      die(t("trarabic_20141"));
+      die(t(".عذرًا، ولكنك واجهت خطأً. تم الإبلاغ عن إرسال النموذج على أنه قد يكون إرسالًا غير صالح أو مزور. قد يشكل هذا خطأ في النظام. الرجاء الإبلاغ عن هذا الخطأ إلى مسؤول النظام لديك"));
     }
     
     // Save, then go to the history screen.

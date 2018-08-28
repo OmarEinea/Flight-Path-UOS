@@ -61,7 +61,7 @@ function update_status_perform_check() {
   // Response must contain the text "FLIGHTPATH_SUCCESS" for us to believe it is successful.
   if (!strstr($response, "FLIGHTPATH_SUCCESS")) {
     watchdog("update_status", "Checking update status failed.", array(), WATCHDOG_ERROR);
-    fp_add_message(t("trarabic_10963"));
+    fp_add_message(t("فشل التحقق من حالة التحديث. ربما لا يستطيع FlightPath الوصول إلى المواقع الخارجية؟"));
     return;    
   }
   
@@ -78,7 +78,7 @@ function update_status_perform_check() {
   
     
   variable_set("update_status_last_run", time());
-  fp_add_message(t("trarabic_10964"));  
+  fp_add_message(t("تحقق من حالة التحديث ناجحة."));  
   
   
 }
@@ -133,13 +133,13 @@ function update_status_status() {
   ksort($updates);
   
   if (count($updates)) {
-    $status .= t("trarabic_10965");
+    $status .= t(":لحزم التالية لديها تحديثات متوفرة");
     $status .= "<table border='0' cellpadding='3' width='100%' class='update-status-status-table'>
                   <tr>
-                    <th>" . t("trarabic_10966") . "</th>
-                    <th>" . t("trarabic_10967") . "</th>
-                    <th>" . t("trarabic_10968") . "</th>
-                    <th>" . t("trarabic_10969") . "</th>
+                    <th>" . t("حزمة") . "</th>
+                    <th>" . t("الإصدار الخاص بك") . "</th>
+                    <th>" . t("احدث اصدار") . "</th>
+                    <th>" . t("نوع الإصدار") . "</th>
                   </tr>";
     foreach ($updates as $module => $version) {
       $release_type = fp_get_machine_readable($releases[$module]);
@@ -165,22 +165,22 @@ function update_status_status() {
     $status .= "</table>";  
   }
   else {
-    $status .= t("trarabic_10970");
+    $status .= t("All modules are up to date.");
   }
 
   $check_link = "";
   if (user_has_permission("run_cron")) {
-    $check_link = l(t("trarabic_10971"), "update-status-check-now");
+    $check_link = l(t("تأكد الان؟"), "update-status-check-now");
   }
   
   
   $last_run = variable_get("update_status_last_run", 0);
   if ($last_run > 0) {  
-    $status .= "<p>" . t("trarabic_10972", array("%date" => format_date($last_run))) . "  $check_link</p>";
+    $status .= "<p>" . t("اخر فحص في %date.", array("%date" => format_date($last_run))) . "  $check_link</p>";
   }
   else {
     $status .= "<p><b><span style='color:red;'>*</span>
-                </b>" . t("trarabic_10973") . "  $check_link</p>";
+                </b>" . t("Module status has never been checked.  Please make sure you have a correctly configured cron job.") . "  $check_link</p>";
   }
   
   

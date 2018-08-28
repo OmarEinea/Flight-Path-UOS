@@ -61,15 +61,15 @@ function hook_status() {
   
   if ($last_run < strtotime("-2 DAY")) {
     $rtn["severity"] = "alert";
-    $rtn["status"] .= t("trarabic_20076");    
+    $rtn["status"] .= t("Cron hasn't run in over 2 days. For your installation of FlightPath to function properly, cron.php must be accessed routinely. At least once per day is recommended.");    
   }
   else {
-    $rtn["status"] .= t("trarabic_10439", array("%date" => format_date($last_run)));
+    $rtn["status"] .= t("تم تشغيل اخر Cron في %date", array("%date" => format_date($last_run)));
   } 
   
-  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("trarabic_10440");
+  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("Your site's cron URL is:");
   $rtn["status"] .= "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
-                        <br>" . t("trarabic_10441") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
+                        <br>" . t("Example linux cron command:") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
   $rtn["status"] .= "</p>";
   
   
@@ -327,28 +327,28 @@ function hook_perm() {
   
   $perms = array (
     "access_logged_in_content" => array(
-      "title" => t("trarabic_10442"),
-      "description" => t("trarabic_20077"),
+      "title" => t("Access logged-in content"),
+      "description" => t(".FlightPath ينبغي منحه لجميع المستخدمين المصدقين. هذا يعني أن المستخدم مسموح له بإظهار منطقة تسجيل الدخول في"),
     ),  
     
     "administer_modules" => array(
-      "title" => t("trarabic_10443"),
-      "description" => t("trarabic_10444"),
+      "title" => t("وحدات الإدارة"),
+      "description" => t("هذا سيسمح للمستخدم بتثبيت و تمكين وتعطيل وإلغاء تثبيت الوحدات"),
     ),    
     
     "run_cron" => array(
-      "title" => t("trarabic_10445"),
-      "description" => t("trarabic_20078"),
+      "title" => t("Run Cron"),
+      "description" => t(".حسب رغبته. سيتسبب ذلك في إظهار رابط قائمة جديدة على صفحة الإدارة run hook_cron يمكن للمستخدم تشغيل وظائف"),
     ),    
         
     "de_can_administer_system_settings" => array(
-      "title" => t("trarabic_10446"),
-      "description" => t("trarabic_20079"),
+      "title" => t("يمكن إدارة إعدادات النظام"),
+      "description" => t("FlightPath هذا يسمح للمستخدم بتحرير أي من إعدادات نظام"),
     ),
     
     "view_fpm_debug" => array(
-      "title" => t("trarabic_10447"),
-      "description" => t("trarabic_20080"),
+      "title" => t("عرض إخراج التصحيح من fpm() function"),
+      "description" => t("The user may view debug output from the fpm() function. Useful for developers."),
     ),                      
        
   );

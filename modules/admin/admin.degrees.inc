@@ -10,8 +10,8 @@ function admin_display_degrees_popup_add_group() {
   
   $rtn = "";
 
-  $rtn .= "<b>" . t("trarabic_10087", array("@semester_num" => $semester_num, "@de_catalog_year" => $de_catalog_year)) . "</b><br>
-        <span class='tenpt'>" . t("trarabic_10088") . "</span>
+  $rtn .= "<b>" . t("إضافة مجموعة اختيارية للفصل الدراسي: @semester_num في @de_catalog_year", array("@semester_num" => $semester_num, "@de_catalog_year" => $de_catalog_year)) . "</b><br>
+        <span class='tenpt'>" . t(".استخدم اختصار لوحة المفاتيح CTRL-F للعثور على المجموعات بسرعة") . "</span>
         <br><br>
         First, select a group (from $de_catalog_year):
         <div class='tenpt' 
@@ -37,7 +37,7 @@ function admin_display_degrees_popup_add_group() {
 
 
   $rtn .= "</table></div>
-      " . t("trarabic_10089") . "
+      " . t("بعد ذلك ، حدد خصائص لهذه المجموعة:") . "
       <a href='javascript: adminPopupAlertHelp(\"group_properties\");'>?</a>
       <div class='tenpt' style='padding-top: 5px;'>
       Hrs: <input type='text' name='hours' id='hours' size='2'>
@@ -73,13 +73,13 @@ function admin_display_degrees_popup_add_group() {
 function admin_copy_degree_form() {
   $de_catalog_year = admin_get_de_catalog_year();
   
-  fp_set_title(t("trarabic_10090") . " $de_catalog_year");
+  fp_set_title(t("نسخ الشهادة الجامعية ل") . " $de_catalog_year");
   
   $form = array();
 
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("trarabic_20014", array("@year" => $de_catalog_year)),
+    "value" => t(" @year<b> سيتم حذف كل المسارات والتركيزات لعام</b> إذا حددت وجهة رمز التخصص المتواجد <b>:مهم</b>.استخدم هذا النموذج لتكرار الدرجة العلمية في كتالوج العام", array("@year" => $de_catalog_year)),
   );
 
 
@@ -92,24 +92,24 @@ function admin_copy_degree_form() {
   $form["source_major_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("trarabic_10091"),
+    "label" => t("أدخل رمز SOURCE الرئيسي الذي ترغب في نسخه:"),
     "required" => TRUE,
-    "description" => t("trarabic_10092"),
+    "description" => t("Ex: ART or GBUS. لا تدخل أي رموز مسار أو تركيز هنا."),
   );
 
   $form["include_tracks"] = array(
     "type" => "checkboxes",
-    "label" => t("trarabic_10093"),
+    "label" => t("تضمين المسارات والتركيزات؟"),
     "options" => array("yes" => "Include tracks and concentrations."),
-    "description" => t("trarabic_20015"),
+    "description" => t(".قم بتحديد هذا المربع إذا ترغب بنسخ أي مسارات و تركيزات متعلقة برمز التخصص. إذا كنت لا ترغب بتحديد هذا المربع, سيتم نسخ الدرجة الأساسية فقط. إذا لم يكن للتخصص أي مسارات أو تركيزات, اترك المربع غير محدد"),
   );
 
   $form["destination_major_code"] = array(
     "type" => "textfield",
     "size" => 15,    
-    "label" => t("trarabic_10094"),
+    "label" => t(" أدخل رمز DESTINATION الرئيسي الذي تريد إنشاء / استبدال:"),
     "required" => TRUE,
-    "description" => t("trarabic_20016"),
+    "description" => t(".لا تدخل رموز أي مسارات أو تركيزات هنا. إذا كان تخصص الوجهة موجودا سيتم حذفه مع كل مساراته وتركيزاته لكتالوج هذا العام CHEM أو XYZ :مثال"),
   );
   
   
@@ -150,7 +150,7 @@ function admin_copy_degree_form_submit($form, $form_submit) {
   if (db_num_rows($res) == 0) {
     // Meaning, it could not be found.
     
-    form_error("source_major_code", t("trarabic_10095", array("%source" => $source_major_code, "%year" => $de_catalog_year)));
+    form_error("source_major_code", t("%yearل %source لم يتم إيجاد المصدر الرئيسي ", array("%source" => $source_major_code, "%year" => $de_catalog_year)));
     return;
   }
 
@@ -289,7 +289,7 @@ function admin_copy_degree_form_submit($form, $form_submit) {
   $res = db_query("INSERT INTO draft_instructions
                         (instruction) VALUES ('-') ");
   
-  fp_add_message(t("trarabic_10096",
+  fp_add_message(t("%year ل %dest إلى %source تم نسخ الدرجة العلمية ",
                   array("%source" => $source_major_code, "%dest" => $destination_major_code, "%year" => $de_catalog_year)));
                    
                     
@@ -303,13 +303,13 @@ function admin_copy_degree_form_submit($form, $form_submit) {
 function admin_add_degree_form() {  
   $de_catalog_year = admin_get_de_catalog_year();
   
-  fp_set_title(t("trarabic_10097") . " " . $de_catalog_year);
+  fp_set_title(t("اضف شهادة جامعية ل") . " " . $de_catalog_year);
   
   $form = array();
   
   $form["markup" . $m++] = array(
     "type" => "markup",
-    "value" => t("trarabic_20017"),
+    "value" => t(".يمكنك استخدام هذه الشاشة لإضافة درجة علمية جديد, عبر إدخال تخصص جديد, تركيزات, أو مسار"),
   );
   
 
@@ -320,10 +320,10 @@ function admin_add_degree_form() {
 
   $form["new_major"] = array(
     "type" => "radios",
-    "label" => t("trarabic_20018"),
+    "label" => t("الرجاء الاختيار: هل تدخل رمز تخصص جديد أو رمز تخصص موجود لتدخل مسارا جديدا؟"),
     "options" => array(
-      "new" => t("trarabic_10098"),
-      "existing" => t("trarabic_10099"),
+      "new" => t("إدخال رمز رئيسي <b>جديد</b> [والتركيز] "),
+      "existing" => t("إدخال رمز رئيسي <b>حالي</b> [و التركيز] (فقط إضافة مسار جديد)"),
     ),
     "required" => TRUE,
   );
@@ -332,18 +332,18 @@ function admin_add_degree_form() {
   $form["major_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("trarabic_10100"),
-    "description" => t("trarabic_20019"),
+    "label" => t("Major|Conc code:"),
+    "description" => t(".إذا تم إضافة تركيز جديد لتخصص متواجد, يجب عليك وضعه كرمز تخصص جديد. لا تدخل أي مسافة في هذا الفراغ. رمز التركيز اختياري. إذا لم يكن لدى التخصص أي تركيزات, أدخل رمز التخصص نفسه .MAJOR|CONC لإدخال رمز التركيز استخدم"),
     "required" => TRUE,
   );
 
 
   $form["new_track"] = array(
     "type" => "radios",
-    "label" => t("trarabic_10101"),
+    "label" => t("يرجى تحديد: هل تدخل رمز مسار جديد؟"),
     "options" => array(
-      "new" => t("trarabic_10102"),
-      "none" => t("trarabic_10103"),
+      "new" => t("إدخال رمز مسار <b>جديد</b> "),
+      "none" => t("بلا - عدم إضافة مسار. اتركه فارغا"),
     ),
     "required" => TRUE,
   );
@@ -352,8 +352,8 @@ function admin_add_degree_form() {
   $form["track_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("trarabic_10104"),
-    "description" => t("trarabic_10105"),
+    "label" => t(":رمز المسار"),
+    "description" => t("اتركه فارغاً إذا قمت باختيار لا شيء مما أعلاه"),
   );
 
 
@@ -389,14 +389,14 @@ function admin_add_degree_form_submit($form, $form_submit) {
   //////////////////////////////////////////////
 
   if ($new_track == "new" && $track_code == "") {   
-    form_error("track_code", t("trarabic_10106")); 
+    form_error("track_code", t(".لقد اخترت أضافة مسار, لكنك لم تحدد رمز المسار.")); 
   }
 
   // Make sure user did not enter an underscore (_) in either
   // the track or major code!
   if (strstr($track_code, "_") || strstr($major_code, "_")) {
         
-    form_error("major_code", t("trarabic_20020")); 
+    form_error("major_code", t("(_) بإضافته لك. رجاء, أعد إدخال الدرجة العلمية الجديدة بدون استخدام FlightPath سيقوم  .(_) underscore غير مسموح لك استخدام رمز ال")); 
 
   }
 
@@ -419,7 +419,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
   if (db_num_rows($res) > 0 && $new_major == "new") { 
     // Meaning, it already exists, yet we are trying to add it as a new
     // major.  This is an error!
-    fp_add_message(t("trarabic_10107", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
+    fp_add_message(t(">لا يمكنك إضافته كتخصص جديد.%year متواجد مسبقا لعام %major_code رمز التخصص", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
     return;
     
   }
@@ -427,7 +427,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
     // This is another error.  We are trying to add a track to an existing
     // major code, but none was found.
     
-    fp_add_message(t("trarabic_10108", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");    
+    fp_add_message(t("ربما تحتاج إلى إضافته أولا؟ .%year في النظام لعام %major_code لم يتم أيجاد رمز التخصص ", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");    
     return;
   }
   if (db_num_rows($res) == 0 && $new_major == "new") {
@@ -452,7 +452,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
     if (db_num_rows($res) > 0) {
       // Meaning, it already existed, so we can't create it.      
-      fp_add_message(t("trarabic_10109", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)), "error");
+      fp_add_message(t("لا يمكنك إضافته كتخصص جديد.%year متواجد مسبقا لعام %major_code ر", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)), "error");
       return;      
       
     } 
@@ -485,7 +485,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
 
   // Success!  We are done.
-  fp_add_message(t("trarabic_20021", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)));
+  fp_add_message(t(".يمكنك إضافة درجة علمية جديدة أو استخدم القائمة في أعلى لصفحة لتعود إلى قائمة الدرجات العلمية, لتبدأ بتعديل الدرجة العلمية. %year لعام %major_code تم إضافة الدرجة العلمية الجديدة ", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)));
   
   clear_session_form_values("admin_add_degree_form");
   
@@ -501,7 +501,7 @@ function admin_display_degrees() {
     
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
 
-  $rtn .= "<h2 class='title'>" . t("trarabic_10110", array("@year" => $de_catalog_year)) . "</h2>";  
+  $rtn .= "<h2 class='title'>" . t(" @year الدرجات العلمية لعام", array("@year" => $de_catalog_year)) . "</h2>";  
 
   $rtn .= "<div class='admin-degrees-upper-links'>";  
   $rtn .= l("Add new degree plan (major, degree plan, or track)", "admin/degrees/add-degree", "de_catalog_year=$de_catalog_year");
@@ -511,11 +511,11 @@ function admin_display_degrees() {
   
   
   $rtn .= "<div class='list-degree-row-excluded'>
-        " . t("trarabic_20022") . "
+        " . t("Majors or Tracks marked as \"exclude\" are shaded. You may pull up students with these majors in FlightPath, but they will not be options in the What If mode.") . "
       </div>
       <br>
       <div class='tenpt' align='center'>
-        " . t("trarabic_10112") . "
+        " . t("استخدم CTRL-F للبحث عن الدرجات بسرعة أكبر.") . "
       </div>";
   
 
@@ -972,10 +972,10 @@ function admin_display_edit_degree() {
   $rtn .= "
       <table>
        <tr>
-        <td valign='top' class='tenpt' width='15%'>" . t("trarabic_10113") . "</td>
+        <td valign='top' class='tenpt' width='15%'>" . t(":نوع الشهادة") . "</td>
         <td valign='top' class='tenpt' width='15%'><input type='text' name='degree_type' value='$degree->degree_type' size='5' maxlength='20'></td>
 
-        <td valign='top' class='tenpt' width='15%'>" . t("trarabic_10114") . "</td>
+        <td valign='top' class='tenpt' width='15%'>" . t(":صنف الشهادة") . "</td>
         <td valign='top' class='tenpt'><input type='text' name='degree_class' value='$degree->degree_class' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_class\");'>?</a>
         
@@ -984,11 +984,11 @@ function admin_display_edit_degree() {
         
        </tr>
        <tr>
-        <td valign='top' class='tenpt'>" . t("trarabic_10115") . "</td>
+        <td valign='top' class='tenpt'>" . t(":اسم الشهادة") . "</td>
         <td valign='top' class='tenpt' colspan='3'><input type='text' name='title' value='$degree->title' size='80' maxlength='100'></td>
        </tr>
        <tr>
-        <td valign='top' class='tenpt'>" . t("trarabic_10116") . "</td>
+        <td valign='top' class='tenpt'>" . t(":استبعد") . "</td>
         <td valign='top' class='tenpt' colspan='3'><input type='text' name='exclude' value='$degree->db_exclude' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_exclude\");'>?</a></td>
        </tr>
@@ -1002,7 +1002,7 @@ function admin_display_edit_degree() {
     $rtn .= "<b>Edit track information:</b>
       <blockquote style='margin-top: 0px; margin-bottom: 0px;'>
     <font size='2'>Track title: <input type='text' name='track_title' value='$degree->track_title' size='60' maxlength='100'></font><br>
-    <font size='2'>Track description: " . fp_get_js_alert_link(t("trarabic_10117"), t("trarabic_10118")) . "
+    <font size='2'>Track description: " . fp_get_js_alert_link(t("يمكنك إدخال HTML بسيط في هذا الحقل ، مثل <b> غامق </b> أو <i> مائل </i>."), t("(مساعدة - تنسيق)")) . "
             <a href='javascript: adminPopupAlertHelp(\"track_description\");'>(Help - Track Descriptions)</a>
     </font><br>
     <textarea name='track_description' cols='60' rows='3'>" . filter_markup($degree->track_description) . "</textarea>
@@ -1088,7 +1088,7 @@ function admin_display_edit_degree() {
 
     $rtn .= "</table><br>
         
-    " . fp_render_button(t("trarabic_10119", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
+    " . fp_render_button(t("حفظ ل @year", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
       <span class='admin-button-msg'>$button_msg</span>
     
     </div>
@@ -1101,7 +1101,7 @@ function admin_display_edit_degree() {
     $sem = $t + $s_count;
     if ($sem > 99) {
       // Max number of semesters.  More or less arbitrarily set number.
-      $rtn .= "<br>" . t("trarabic_10120") . "<br>";
+      $rtn .= "<br>" . t("تم إنشاء العدد الأقصى للفصول الدراسية") . "<br>";
       break;
     }
 
@@ -1141,7 +1141,7 @@ function admin_display_edit_degree() {
 
     $rtn .= "</table><br>
     
-    " . fp_render_button(t("trarabic_10121", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
+    " . fp_render_button(t("@year احفظ ل", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
         <span class='admin-button-msg'>$button_msg</span>
     
     </div>";
@@ -1154,7 +1154,7 @@ function admin_display_edit_degree() {
       <div class='elevenpt'><b>More Options:</b><br>
       Enter a public note for this degree: 
        <a href='javascript: adminPopupAlertHelp(\"public_note\");'>(Help - Public Note)</a>
-       " . fp_get_js_alert_link(t("trarabic_10122"), t("trarabic_10123")) . "
+       " . fp_get_js_alert_link(t("يمكنك إدخال HTML بسيط في هذا الحقل ، مثل <b> غامق </b> أو <i> مائل </i>."), t("(مساعدة - تنسيق)")) . "
       <br>
       <textarea name='public_note' rows='4' cols='80'>$degree->public_note</textarea>
       

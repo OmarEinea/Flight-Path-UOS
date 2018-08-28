@@ -115,7 +115,7 @@ function comments_perform_delete_comment() {
     db_query("UPDATE advising_comments
                SET delete_flag = '1'
                WHERE `id` = '?' ", $comment_id);
-    fp_add_message(t("trarabic_10645"));
+    fp_add_message(t("تم حذف التعليق بنجاح."));
   }
   
   
@@ -187,7 +187,7 @@ function comments_comment_form_submit($form, $form_state) {
 			watchdog("advising mailer", $e->getMessage());
 		}
 		//CODE-ADD-END - 2017-10-09
-	fp_add_message(t("trarabic_10646"));
+	fp_add_message(t("تم حفظ التعليق بنجاح."));
   }
 
   watchdog("save_comment", "Comment saved");  
@@ -209,8 +209,8 @@ function comments_comment_form() {
   
   $form["type"] = array(
     "type" => "radios",
-    "label" => t("trarabic_10647"),
-    "options" => array("public" => t("trarabic_10648"), "faculty" => t("trarabic_10649")),
+    "label" => t(":مرئي ل"),
+    "options" => array("public" => t("الجميع (شامل الطلبة)"), "faculty" => t("أعضاء هيئة التدريس/الموظفين فقط")),
     "value" => "faculty",
   );
   
@@ -230,7 +230,7 @@ function comments_comment_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10650"),
+    "value" => t("حفظ"),
   );   
   
 
@@ -258,7 +258,7 @@ function comments_display_main() {
          
     $form = fp_render_form("comments_comment_form");
   
-    $rtn .= fp_render_c_fieldset($form, t("trarabic_10651"), true);
+    $rtn .= fp_render_c_fieldset($form, t("اضغط لإدخال تعليق"), true);
   }
     
   $access_types = (user_has_permission("view_faculty_comments")) ? array("faculty", "public") : array("public");
@@ -322,15 +322,15 @@ function comments_render_comment($comment, $delete_link = "") {
 
   // Make sure the user has access to view it!
   if (!user_has_permission("view_comments")) {
-    return "<p>" . t("trarabic_10652") . "</p>";
+    return "<p>" . t("عذراً, لست مصرح لعرض التعليقات.") . "</p>";
   }
   if ($comment["access_type"] == "faculty" && !user_has_permission("view_faculty_comments")) {
-    return "<p>" . t("trarabic_10653") . "</p>";    
+    return "<p>" . t("عذرًا ، ولكن ليس لديك إذن لعرض التعليق المطلوب (مسموح لأعضاء هيئة التدريس فقط).") . "</p>";    
   }
 
 
   $rtn .= "<div class='comment-comment comment-comment-" . $comment["access_type"] . "'>
-              <div class='comment-by-line'>" .ucwords($comment["access_type"]) . " " . t("trarabic_10654") . " " . fp_get_faculty_name($comment["faculty_id"]) . "</div>
+              <div class='comment-by-line'>" .ucwords($comment["access_type"]) . " " . t("تعليق من قبل") . " " . fp_get_faculty_name($comment["faculty_id"]) . "</div>
               <div class='comment-datetime'>" . format_date($comment["posted"], "pretty") . "</div>
               <div class='comment-text'>" . filter_markup($comment["comment"], "full") . "</div>
               ";
@@ -410,20 +410,20 @@ function comments_perm() {
 
   return array(
     "view_comments" => array(
-      "title" => t("trarabic_10655"),
-      "description" => t("trarabic_10656"),
+      "title" => t("يمكن عرض التعليقات"),
+      "description" => t("يمكن للمستخدم عرض التعليقات (عامة فقط بشكل افتراضي)."),
     ),
     "view_faculty_comments" => array(
-      "title" => t("trarabic_10657"),
-      "description" => t("trarabic_10658"),
+      "title" => t("عرض تعليقات 'هيئة التدريس'"),
+      "description" => t("يسمح للمستخدم بعرض تعليقات 'هيئة التدريس'"),
     ),      
     "can_save_comments" => array(
-      "title" => t("trarabic_10659"),
-      "description" => t("trarabic_10660"),
+      "title" => t("يمكنه حفظ التعليق"),
+      "description" => t("يسمح للمستخدم بحفظ التعليقات الجديدة, المرئية للجميع أو لهيئة التدريس/الموظفين فقط."),
     ),
     "can_delete_own_comments_3_months" => array(
-      "title" => t("trarabic_10661"),
-      "description" => t("trarabic_20145"),
+      "title" => t("يمكن حذف التعليقات الخاصة لمدة 3 أشهر"),
+      "description" => t(".يمكن للمستخدم حذف التعليقات التي قام بها لمدة تصل إلى 3 أشهر. بعد 3 أشهر ، لن يتمكنوا من حذف تعليقهم"),
     ),
     
   );

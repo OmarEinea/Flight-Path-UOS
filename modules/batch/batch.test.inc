@@ -19,9 +19,9 @@
 function batch_test_finished_page($batch, $items_max) {
   $rtn = "";
   
-  $rtn .= "<p>" . t("trarabic_10185", array("%max" => $items_max)) . "</p>";
+  $rtn .= "<p>" . t("مواضيع %max لقد اكتملت الدفعة. لقد قمت بمعالجة", array("%max" => $items_max)) . "</p>";
   
-  $rtn .= "<p>" . l(t("trarabic_10186"), "batch-test-form") . "</p>";
+  $rtn .= "<p>" . l(t("العودة إلى الاستمارة"), "batch-test-form") . "</p>";
   
   
   return $rtn;
@@ -38,12 +38,12 @@ function batch_test_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("trarabic_20035") . "</p>",
+    "value" => "<p>" . t(".عند إرسال هذا النموذج, ستبدأ عملية دفع عشوائية Batch API هذا نموذج اختبار حتى تتمكن من رؤية كيفية عمل نظام") . "</p>",
   );
   
   
   $form["items"] = array(  
-    "label" => t("trarabic_10187"),
+    "label" => t("كم مادة لمعالجتها؟"),
     "type" => "select",
     "options" => array(100 => 100, 200 => 200, 300 => 300, 400 => 400, 500 => 500),
     "hide_please_select" => TRUE,
@@ -51,9 +51,9 @@ function batch_test_form() {
   
   
   $form["destination"] = array(
-    "label" => t("trarabic_10188"),
+    "label" => t(":مكان الوصول بعد استكمال الدفعة"),
     "type" => "select",
-    "options" => array("default" => t("trarabic_10189"), "function" => t("trarabic_10190")),
+    "options" => array("default" => t("None set. By default return to this form page."), "function" => t("Function - go to the function 'batch_test_finished_page'.")),
     "hide_please_select" => TRUE,
   );
   
@@ -65,7 +65,7 @@ function batch_test_form() {
   
   $form["submit_btn"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10191"),
+    "value" => t("التسليم والبدء بالدفعة"),
   );
   
   
@@ -81,8 +81,8 @@ function batch_test_form_submit($form, $form_state) {
   // Okay, set up the batch....
   $batch = array(
     "operation" => array("batch_test_perform_batch_operation", array($items_max)),
-    "title" => t("trarabic_10192"),
-    "success_message" => t("trarabic_10193"),
+    "title" => t("عملية اختبار الدفعة"),
+    "success_message" => t(" لقد تم استكمال عملية الدفعة بنجاح"),
     "display_percent" => $form_state["values"]["display_percent"],
     "file" => menu_get_module_path("batch") . "/batch.test.inc",
   );

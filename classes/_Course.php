@@ -1267,7 +1267,7 @@ class _Course
         if (!in_array($cur2["local_course_id"], $already)) {
           $c = new Course($cur2["local_course_id"]);
           $this->transfer_eqv_text .= "$c->subject_id $c->course_num
-  							(" . $c->get_catalog_hours() . " " . t("trarabic_10416") . ") ";
+  							(" . $c->get_catalog_hours() . " " . t("ساعات") . ") ";
           $already[] = $cur2["local_course_id"];
         }
       }

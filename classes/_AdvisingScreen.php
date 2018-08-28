@@ -335,8 +335,8 @@ function draw_menu_items($menu_array) {
 	  }
     
 	  // Add in our hidden divs which we will sometimes display...
-	  $page_content .= "<div id='updateMsg' class='updateMsg' style='display: none;'>" . t("trarabic_10261") . "</div>
-								<div id='loadMsg' class='updateMsg' style='display: none;'>" . t("trarabic_10262") . "</div>";
+	  $page_content .= "<div id='updateMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحديث") . "</div>
+								<div id='loadMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحميل") . "</div>";
 	  
 		
 		include($GLOBALS["fp_system_settings"]["theme"] . "/fp_" . $print_option . "template.php");
@@ -524,7 +524,7 @@ function draw_menu_items($menu_array) {
 	{
 	  $pC = "";
 		$is_empty = true;
-		$pC .= $this->draw_semester_box_top(variable_get("graduate_credits_block_title", t("trarabic_10263")), FALSE);
+		$pC .= $this->draw_semester_box_top(variable_get("graduate_credits_block_title", t("Graduate Credits")), FALSE);
 		// Basically, go through all the courses the student has taken,
 		// And only show the graduate credits.  Similar to build_transfer_credits
 
@@ -548,14 +548,14 @@ function draw_menu_items($menu_array) {
 
 		}
 
-    $notice = trim(variable_get("graduate_credits_block_notice", t("trarabic_10264")));
+    $notice = trim(variable_get("graduate_credits_block_notice", t("لا يمكن استخدام هذه المساقات لدرجة البكالوريوس")));
 		
     // Do we have a notice to display?
 		if ($notice != "")
 		{
 			$pC .= "<tr><td colspan='8'>
 					<div class='hypo tenpt' style='margin-top: 15px; padding: 5px;'>
-						<b>" . t("trarabic_10265") . "</b> $notice
+						<b>" . t("ملاحظة مهمة") . "</b> $notice
 					</div>
 					</td></tr>";
 		}
@@ -602,7 +602,7 @@ function draw_menu_items($menu_array) {
 	{
 
 		$pC = "";
-		$pC .= $this->draw_semester_box_top(t("trarabic_10266"));
+		$pC .= $this->draw_semester_box_top(t("الرصيد الزائد"));
 		$is_empty = true;
 
 		// Should we exclude graduate credits from this list?
@@ -669,17 +669,17 @@ function draw_menu_items($menu_array) {
 		$pC = "";
 		$is_empty = true;
 		if ($bool_include_box_top) {
-		  $pC .= $this->draw_semester_box_top(t("trarabic_10267"), true);
+		  $pC .= $this->draw_semester_box_top(t("ملاحظات ورسائل"), true);
 		}
 
 		$pC .= "<tr><td colspan='8' class='tenpt'>
 					";
 		$fn_type_array = array("substitution","transfer");
 		$fn_char = array("substitution" => "S", "transfer"=>"T");
-		$fn_name = array("substitution" => t("trarabic_10268"), 
-		                "transfer" => t("trarabic_10269"));
-		$fn_between = array("substitution" => t("trarabic_10270"),
-		                   "transfer" => t("trarabic_10271") . " {$GLOBALS["fp_system_settings"]["school_initials"]}'s");
+		$fn_name = array("substitution" => t("بدائل"), 
+		                "transfer" => t("هوامش معادلة النقل"));
+		$fn_between = array("substitution" => t("إلى"),
+		                   "transfer" => t("إلى") . " {$GLOBALS["fp_system_settings"]["school_initials"]}'s");
 		for ($xx = 0; $xx <= 1; $xx++)
 		{
 			$fn_type = $fn_type_array[$xx];
@@ -719,12 +719,12 @@ function draw_menu_items($menu_array) {
 					$new_group = new Group();
 					$new_group->group_id = $in_group;
 					$new_group->load_descriptive_data();
-					$extra = "<div style='padding-left: 45px;'><i>" . t("trarabic_10272") . " $new_group->title.</i></div>";
+					$extra = "<div style='padding-left: 45px;'><i>" . t("في") . " $new_group->title.</i></div>";
 					if ($new_course == $o_course || $o_course == "")
 					{
-						$o_course = t("trarabic_10273");
+						$o_course = t("تم إضافته");
 						$fbetween = "";
-						$extra = str_replace("<i>" . t("trarabic_10274"), "<i>" . t("trarabic_10275"), $extra);
+						$extra = str_replace("<i>" . t("in"), "<i>" . t("to"), $extra);
 					}
 				}
 
@@ -756,7 +756,7 @@ function draw_menu_items($menu_array) {
 
 			$pC .= "<div class='tenpt' style='padding-left: 10px; padding-bottom: 5px;
 			                                 margin-left: 1.5em; text-indent: -1.5em;'>
-							$l_si $l_cn (" . $c->get_hours() . " " . t("trarabic_10276") . ") from <em>$c->institution_name</em>.
+							$l_si $l_cn (" . $c->get_hours() . " " . t("ساعات") . ") from <em>$c->institution_name</em>.
 								";
 			
   		
@@ -771,8 +771,8 @@ function draw_menu_items($menu_array) {
 		{
 			$mtitle = "<div style='padding-bottom: 10px;'>
 						<div style='padding-bottom: 5px;'>
-						<b>" . t("trarabic_10277") . "</b><br>
-				" . t("trarabic_20057") . "</div>";
+						<b>" . t("تحويل معادلة المساقات المحذوفة") . "</b><br>
+				" . t(".تمت إزالة معادلات التحويل الافتراضية لهذه المساقات") . "</div>";
 			$pC = str_replace("<!--TRANS_UN_COURSES-->",$mtitle,$pC);
 			$pC .= "</div>";
 		}		
@@ -801,7 +801,7 @@ function draw_menu_items($menu_array) {
 
 			$pC .= "<div class='tenpt' style='padding-left: 10px; padding-bottom: 5px;
 			                                   margin-left: 1.5em; text-indent: -1.5em;'>
-							$l_s_i $l_c_n ($c->hours_awarded " . t("trarabic_10278") . ") - $c->grade - $l_term
+							$l_s_i $l_c_n ($c->hours_awarded " . t("ساعات") . ") - $c->grade - $l_term
 								";
 			
 			$c->group_list_unassigned->reset_counter();
@@ -814,9 +814,9 @@ function draw_menu_items($menu_array) {
 				{
 					$group_title = "<i>$group->title</i>";
 				} else {
-					$group_title = t("trarabic_10279");
+					$group_title = t("الخطة الدراسية");
 				}
-				$pC .= t("trarabic_10280") . " $group_title.";
+				$pC .= t("تم الحذف من") . " $group_title.";
 			}
 
 
@@ -831,8 +831,8 @@ function draw_menu_items($menu_array) {
 		{
 			$mtitle = "<div style='padding-bottom: 10px;'>
 						<div style='padding-bottom: 5px;'>
-						<b>" . t("trarabic_10281") . "</b><br>
-				" . t("trarabic_20058") . "</div>";
+						<b>" . t("المساقات المنتقلة") . "</b><br>
+				" . t(".تم نقل هذه المساقات من مواقعها الأصلية في خطتك الدراسية") . "</div>";
 			$pC = str_replace("<!--MOVEDCOURSES-->",$mtitle,$pC);
 			$pC .= "</div>";
 		}
@@ -845,7 +845,7 @@ function draw_menu_items($menu_array) {
 			{// Don't display in print view.
 			  $purl = fp_url("advise/popup-toolbox/transfers"); 
 				$pC .= "<div style='tenpt'>				
-					<a href='javascript: popupWindow2(\"" . $purl . "\",\"\");'><img src='" . fp_theme_location() . "/images/toolbox.gif' border='0'>" . t("trarabic_10282") . "</a>
+					<a href='javascript: popupWindow2(\"" . $purl . "\",\"\");'><img src='" . fp_theme_location() . "/images/toolbox.gif' border='0'>" . t("إعدادات المشرفين") . "</a>
 				</div>";
 				$is_empty = false;
 			}
@@ -879,10 +879,10 @@ function draw_menu_items($menu_array) {
 		$pC = "";
 		// This will display the substitution management screen.
 
-		$pC .= fp_render_curved_line(t("trarabic_10283"));
+		$pC .= fp_render_curved_line(t("تدبير البدائل"));
 
 		$pC .= "<div class='tenpt'>
-				" . t("trarabic_10284") . "
+				" . t(": لقد تم صنع البدائل التالية للطالب") . "
 				<br><br>
 				";
 		$is_empty = true;
@@ -913,11 +913,11 @@ function draw_menu_items($menu_array) {
 				$in_group = " in $new_group->title.";
 			}
 
-			$sub_action = t("trarabic_10285");
+			$sub_action = t("تم التبديل عن");
 			$sub_trans_notice = "";
 			if ($substitution->bool_group_addition == true)
 			{
-				$sub_action = t("trarabic_10286");
+				$sub_action = t("تمت الإضافة ألى");
 				$cr_s_i = $cr_c_n = "";
 				$in_group = str_replace("in","",$in_group);
 			}
@@ -926,7 +926,7 @@ function draw_menu_items($menu_array) {
 			{
 				$sub_s_i = $subbed_course->course_transfer->subject_id;
 				$sub_c_n = $subbed_course->course_transfer->course_num;
-				$sub_trans_notice = "[" . t("trarabic_10287") . "]";
+				$sub_trans_notice = "[" . t("النقل") . "]";
 			}
 
 			$extra = $by = $remarks = "";
@@ -937,13 +937,13 @@ function draw_menu_items($menu_array) {
 			
 			if ($by != "")
 			{
-				$by = " <br>&nbsp; &nbsp; " . t("trarabic_10288") . " $by. 
+				$by = " <br>&nbsp; &nbsp; " . t("البديل") . " $by. 
 						<br>&nbsp; &nbsp; <i>$ondate.</i>";
 			}
 
 			if ($remarks != "")
 			{
-				$remarks = " <br>&nbsp; &nbsp; " . t("trarabic_10289") . " <i>$remarks</i>.";
+				$remarks = " <br>&nbsp; &nbsp; " . t(":ملاحظات") . " <i>$remarks</i>.";
 			}
 
       // If the sub'd course had ghost hours, make a note of that.
@@ -963,7 +963,7 @@ function draw_menu_items($menu_array) {
 						$sub_s_i $sub_c_n $sub_trans_notice ($subbed_course->substitution_hours hrs) $sub_action
 						$cr_s_i $cr_c_n$in_group $by$remarks $extra
 						<br>
-							<a href='javascript: popupRemoveSubstitution(\"$subbed_course->db_substitution_id\");'>" . t("trarabic_10290") . "</a>
+							<a href='javascript: popupRemoveSubstitution(\"$subbed_course->db_substitution_id\");'>" . t("حذف بديل؟") . "</a>
 					</div>";
 
 			$is_empty = false;
@@ -971,7 +971,7 @@ function draw_menu_items($menu_array) {
 
 		if ($is_empty == true)
 		{
-			$pC .= "<div align='center'>" . t("trarabic_10291") . "</div>";
+			$pC .= "<div align='center'>" . t(".لم يتم القيام بأي بدائل لهذا الطالب") . "</div>";
 		}
 
 		$pC .= "</div>";
@@ -992,10 +992,10 @@ function draw_menu_items($menu_array) {
 		$pC = "";
 		// This will display the substitution management screen.
 
-		$pC .= fp_render_curved_line(t("trarabic_10292"));
+		$pC .= fp_render_curved_line(t("Manage Transfer Equivalencies"));
 
 		$pC .= "<div class='tenpt'>
-				" . t("trarabic_10293") . "
+				" . t(".لدى هذا الطالب رصيد النقل والمعادلات التالية") . "
 				<br><br>
 				";
 		$is_empty = true;
@@ -1053,17 +1053,17 @@ function draw_menu_items($menu_array) {
 				if ($rC = $this->student->list_transfer_eqvs_unassigned->find_match($course))
 				{
 					// Yes, the eqv WAS removed (or unassigned)
-					$pC .= "<div class='tenpt'>" . t("trarabic_10294", array("@initials" => $initials)) . "<br>
-							<a href='javascript: popupRestoreTransferEqv(\"$rC->db_unassign_transfer_id\")'>" . t("trarabic_10295") . "</a></div>";
+					$pC .= "<div class='tenpt'>" . t("تمت إزالة معادلة @initials هذه المساقات لـهذا الطالب.", array("@initials" => $initials)) . "<br>
+							<a href='javascript: popupRestoreTransferEqv(\"$rC->db_unassign_transfer_id\")'>" . t("استعادة؟") . "</a></div>";
 				} else {
-					$pC .= "<div class='tenpt'>" . t("trarabic_10296", array("@initials" => $initials)) . "</div>";
+					$pC .= "<div class='tenpt'>" . t("@initialsمعادلة لم تدخل بعد (أو لا تنطبق).", array("@initials" => $initials)) . "</div>";
 				}
 			} else {
 				// This course *DOES* have an equivalency.
 				$pC .= "<div class='tenpt'>$initials eqv: $l_s_i $l_c_n - $l_title</div>";
 
 				$pC .= "<div class='tenpt' align='right'>
-							<a href='javascript: popupUnassignTransferEqv(\"" . $course->course_id . "\");'>" . t("trarabic_10297") . "</a>
+							<a href='javascript: popupUnassignTransferEqv(\"" . $course->course_id . "\");'>" . t("حذف هذا المعادلة؟") . "</a>
 							</div>";
 
 			}
@@ -1074,7 +1074,7 @@ function draw_menu_items($menu_array) {
 		}
 
 		if ($is_empty == true) {
-			$pC .= "<div align='center'>" . t("trarabic_10298") . "</div>";
+			$pC .= "<div align='center'>" . t(".لا يوجد معادلات انتقال لهذا الطالب") . "</div>";
 		}
 
 		$pC .= "</div>";
@@ -1095,7 +1095,7 @@ function draw_menu_items($menu_array) {
 	{
 		$pC = "";
 
-		$pC .= fp_render_curved_line(t("trarabic_10299"));
+		$pC .= fp_render_curved_line(t("كل مساقات الطالب"));
 
 		$csid = $_REQUEST["current_student_id"];
 		$order = $_REQUEST["order"];
@@ -1107,11 +1107,11 @@ function draw_menu_items($menu_array) {
 		}
 
 		$pC .= "<div class='tenpt'>
-				" . t("trarabic_20059") . "					
+				" . t(".تحميلها FlightPath تعرض هذه النافذة جميع المساقات للطالب التي يمكن لـ") . "					
 				<br><br>
-				" . t("trarabic_10300") . " &nbsp; &nbsp;";
-    $pC .= l(t("trarabic_10301"), "advise/popup-toolbox/courses", "order=name&current_student_id=$csid", array("style" => $ns)) . "&nbsp; &nbsp;";
-    $pC .= l(t("trarabic_10302"), "advise/popup-toolbox/courses", "order=date&current_student_id=$csid", array("style" => $os));
+				" . t(": رتب حسب") . " &nbsp; &nbsp;";
+    $pC .= l(t("الاسم"), "advise/popup-toolbox/courses", "order=name&current_student_id=$csid", array("style" => $ns)) . "&nbsp; &nbsp;";
+    $pC .= l(t("تاريخ التقاطها"), "advise/popup-toolbox/courses", "order=date&current_student_id=$csid", array("style" => $os));
 
 		$pC .= "<hr>
 				<table border='0' cellpadding='2'>
@@ -1158,7 +1158,7 @@ function draw_menu_items($menu_array) {
 
 			$h = $c->hours_awarded;
 			if ($c->bool_ghost_hour) {
-			  $h .= "(" . t("trarabic_10303") . "<a href='javascript:alertSubGhost()'>?</a>)";
+			  $h .= "(" . t("شبح") . "<a href='javascript:alertSubGhost()'>?</a>)";
 			}
 			
 			$pC .= "<tr>
@@ -1203,7 +1203,7 @@ function draw_menu_items($menu_array) {
 
 		if ($is_empty == true)
 		{
-			$pC .= "<div align='center'>" . t("trarabic_10304") . "</div>";
+			$pC .= "<div align='center'>" . t("لا يوجد مساقات منقولة لهذا الطالب") . "</div>";
 		}
 
 		$pC .= "</table>";
@@ -1228,10 +1228,10 @@ function draw_menu_items($menu_array) {
 		$pC = "";
 
 
-		$pC .= fp_render_curved_line(t("trarabic_10305"));
+		$pC .= fp_render_curved_line(t("إدارة المساقات المنقولة"));
 
 		$pC .= "<div class='tenpt'>
-				" . t("trarabic_10306") . "
+				" . t("لدى هذاالطالب المساقات المنقولة التالية") . "
 				<br><br>
 				";
 		$is_empty = true;
@@ -1261,11 +1261,11 @@ function draw_menu_items($menu_array) {
 
 			$h = $c->hours_awarded;
 			if ($c->bool_ghost_hour) {
-			  $h .= " [" . t("trarabic_10307") . "<a href='javascript:alertSubGhost();'>?</a>] ";
+			  $h .= " [" . t("شبح") . "<a href='javascript:alertSubGhost();'>?</a>] ";
 			}
 			
 			$pC .= "<div class='tenpt' style='padding-bottom: 15px;'>
-							<b>$l_s_i $l_c_n</b> ($h " . t("trarabic_10308") . ") - $c->grade - $l_term
+							<b>$l_s_i $l_c_n</b> ($h " . t("ساعات") . ") - $c->grade - $l_term
 								";
 
 			$c->group_list_unassigned->reset_counter();
@@ -1278,10 +1278,10 @@ function draw_menu_items($menu_array) {
 				{
 					$group_title = "<i>$group->title</i>";
 				} else {
-					$group_title = t("trarabic_10309");
+					$group_title = t("خطة الدرجة العلمية");
 				}
-				$pC .= "<div class='tenpt'>" . t("trarabic_10310") . " $group_title.<br>
-							<a href='javascript: popupRestoreUnassignFromGroup(\"$group->db_unassign_group_id\")'>" . t("trarabic_10311") . "</a>
+				$pC .= "<div class='tenpt'>" . t("تم حذف هذا المساق من") . " $group_title.<br>
+							<a href='javascript: popupRestoreUnassignFromGroup(\"$group->db_unassign_group_id\")'>" . t("استعادة؟") . "</a>
 							</div>
 							";
 			}
@@ -1295,7 +1295,7 @@ function draw_menu_items($menu_array) {
 
 		if ($is_empty == true)
 		{
-			$pC .= "<div align='center'>" . t("trarabic_10312") . "</div>";
+			$pC .= "<div align='center'>" . t("لا يوجد مساقات منقولة لهذا الطالب") . "</div>";
 		}
 
 		$pC .= "</div>";
@@ -1323,7 +1323,7 @@ function draw_menu_items($menu_array) {
 		$top_scores = array();
 
 		$pC = "";
-		$pC .= $this->draw_semester_box_top(t("trarabic_10313"), TRUE);
+		$pC .= $this->draw_semester_box_top(t("نتائج الامتحانات"), TRUE);
 
 		$pC .= "<tr><td colspan='8' class='tenpt'>
 					";
@@ -1351,7 +1351,7 @@ function draw_menu_items($menu_array) {
 
 		}
 
-    $pC .= fp_render_c_fieldset($fsC, t("trarabic_10314"), TRUE);
+    $pC .= fp_render_c_fieldset($fsC, t("انقر لعرض/اخفاء درجات الاختبار القياسية"), TRUE);
 
 		$pC .= "</td></tr>";
 
@@ -1498,9 +1498,9 @@ function draw_menu_items($menu_array) {
  									<img src='$pie_chart_url'>
  								</td>
  								<td class='elevenpt'>
- 								    <span style='color: blue;'>$val% " . t("trarabic_10315") . "</span><br>
+ 								    <span style='color: blue;'>$val% " . t("مكتمل") . "</span><br>
  								    ( <span style='color: blue;'>$top_value</span>
- 									 / <span style='color: gray;'>$bottom_value " . t("trarabic_10316") . "</span> )
+ 									 / <span style='color: gray;'>$bottom_value " . t("ساعات") . "</span> )
  									 ";
 	
 		$rtn .= "
@@ -1618,7 +1618,7 @@ function draw_menu_items($menu_array) {
 			if (!$this->bool_force_pie_charts) {
   			$rtn .= "				
   				<div style='font-size: 8pt; text-align:right;'>
-  					<a href='javascript:hideShowCharts(\"hide\");'>" . t("trarabic_10317") . "</a>
+  					<a href='javascript:hideShowCharts(\"hide\");'>" . t("إخفاء الرسوم البيانية") . "</a>
   				</div>";
 			}
 			$rtn .= "</div>";
@@ -1631,7 +1631,7 @@ function draw_menu_items($menu_array) {
  			                                elevenpt blueBorder' cellpadding='0' cellspacing='0' >
  			<tr>
   				<td colspan='10' class='blueTitle' align='center' height='20'>
-    			" . fp_render_square_line(t("trarabic_10318")) . "
+    			" . fp_render_square_line(t("تقدم")) . "
   				</td>
  			</tr>
  			<tr>";
@@ -1654,7 +1654,7 @@ function draw_menu_items($menu_array) {
 			{
 
 				$rtn .= "<div style='font-size: 8pt; text-align:right;'>
-					<a href='javascript:hideShowCharts(\"show\");'>" . t("trarabic_10319") . "</a>
+					<a href='javascript:hideShowCharts(\"show\");'>" . t("إظهار الرسم البياني") . "</a>
 				</div>
 					";
 			} else {
@@ -1722,15 +1722,15 @@ function draw_menu_items($menu_array) {
 				<div style='margin-bottom: 10px;'>
 				<table width='100%' cellspacing='0' cellpadding='0' border='0'>
 				<td width='33%' style='padding-right:5px;'>
-					" . $this->draw_pie_chart_box(t("trarabic_10320"),$fulfilled_core_hours, $total_core_hours, "core") . "
+					" . $this->draw_pie_chart_box(t("التقدم - المساقات الأساسية"),$fulfilled_core_hours, $total_core_hours, "core") . "
 				</td>
 				
 				<td width='33%' style='padding-right: 5px;'>
-					" . $this->draw_pie_chart_box(t("trarabic_10321"),$fulfilled_major_hours, $total_major_hours, "major") . "
+					" . $this->draw_pie_chart_box(t("التقدم - مساقات التخصص"),$fulfilled_major_hours, $total_major_hours, "major") . "
 				</td>
 				
 				<td width='33%'>
-					" . $this->draw_pie_chart_box(t("trarabic_10322"),$fulfilled_degree_hours, $total_degree_hours, "cumulative") . "
+					" . $this->draw_pie_chart_box(t("التقدم - الدرجة العلمية"),$fulfilled_degree_hours, $total_degree_hours, "cumulative") . "
 				</td>
 				
 
@@ -1741,7 +1741,7 @@ function draw_menu_items($menu_array) {
 			$rtn .= "
 				
 				<div style='font-size: 8pt; text-align:right;'>
-					<a href='javascript:hideShowCharts(\"hide\");'>" . t("trarabic_10323") . "</a>
+					<a href='javascript:hideShowCharts(\"hide\");'>" . t("إخفاء الرسوم البيانية") . "</a>
 				</div>";
 
 			$rtn .= "
@@ -1752,18 +1752,18 @@ function draw_menu_items($menu_array) {
  			<table border='0' width='100%'  class='elevenpt blueBorder' cellpadding='0' cellspacing='0' >
  			<tr>
   				<td colspan='4' class='blueTitle' align='center' height='20'>
-    			" . fp_render_square_line(t("trarabic_10324")) . "
+    			" . fp_render_square_line(t("التقدم")) . "
   				</td>
  			</tr>
  			<tr>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("trarabic_10325") . " $fulfilled_core_hours / $total_core_hours
+ 					" . t(": الأساسية") . " $fulfilled_core_hours / $total_core_hours
  				</td>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("trarabic_10326") . " $fulfilled_major_hours / $total_major_hours
+ 					" . t(": التخصص") . " $fulfilled_major_hours / $total_major_hours
  				</td>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("trarabic_10327") . " $fulfilled_degree_hours / $total_degree_hours
+ 					" . t(": الدرجة العلمية") . " $fulfilled_degree_hours / $total_degree_hours
  				</td>
  				
  			</tr>
@@ -1775,7 +1775,7 @@ function draw_menu_items($menu_array) {
 			{
 
 				$rtn .= "<div style='font-size: 8pt; text-align:right;'>
-					<a href='javascript:hideShowCharts(\"show\");'>" . t("trarabic_10328") . "</a>
+					<a href='javascript:hideShowCharts(\"show\");'>" . t("إظهار الرسوم البيانية") . "</a>
 				</div>
 					";
 			} else {
@@ -1818,7 +1818,7 @@ function draw_menu_items($menu_array) {
 						style='border: 5px double #C1A599;
 								padding: 5px;
 								margin: 10px;'>
-					<b>" . t("trarabic_10329") . "</b> $public_note
+					<b>" . t(": رسالة مهمة") . "</b> $public_note
 					</div>
 					</td></tr>";
 
@@ -1921,7 +1921,7 @@ function draw_menu_items($menu_array) {
 			  
 				$pC .= "<td align='center'>
 						<div class='tenpt' style='margin-top:35px; margin-bottom:10px; padding: 10px; width: 200px;'>
-						" . fp_render_button(t("trarabic_10330"),"submitSaveActive();") . "					
+						" . fp_render_button(t("تسليم"),"submitSaveActive();") . "					
 						</div>
 						</td></tr>
 						";		
@@ -2120,8 +2120,8 @@ function draw_menu_items($menu_array) {
 		if ($course == null)
 		{
 			// No course available!
-			$pC .= fp_render_curved_line(t("trarabic_10331"));
-			$pC .= "<div class='tenpt'>" . t("trarabic_20060") . "
+			$pC .= fp_render_curved_line(t("الوصف"));
+			$pC .= "<div class='tenpt'>" . t("لم يتم تحديد أي مساق. الرجاء النقر فوق علامة التبويب تحديد في أعلى الشاشة") . "
 					</div>";
 			return $pC;
 		}
@@ -2177,18 +2177,18 @@ function draw_menu_items($menu_array) {
 			$course->course_transfer->title = strtoupper($course->course_transfer->title);
 
 			$pC .= "<div style='margin-top: 13px;' class='tenpt'>
-				<b>" . t("trarabic_10332") . "</b><br>
+				<b>" . t("معلومات الرصيد المنقول") . "</b><br>
 				<div style='margin-left: 20px;' class='tenpt'>
-					" . t("trarabic_10333") . " " . $course->course_transfer->subject_id . " " . $course->course_transfer->course_num . " 
+					" . t(": المساق") . " " . $course->course_transfer->subject_id . " " . $course->course_transfer->course_num . " 
 					- " . $course->course_transfer->title . " ($hrs hrs)<br>
-					" . t("trarabic_10334") . " " . $this->fix_institution_name($course->course_transfer->institution_name) . "<br>
-					" . t("trarabic_10335") . " " . $course->get_term_description() . "<br>
+					" . t(": المؤسسة") . " " . $this->fix_institution_name($course->course_transfer->institution_name) . "<br>
+					" . t(": الفصل") . " " . $course->get_term_description() . "<br>
 					<!-- Grade: " . $course->grade . "<br> -->
 					";
 
 			$transfer_eqv_text = $course->course_transfer->transfer_eqv_text;
 			if ($transfer_eqv_text == "") {
-				$transfer_eqv_text = t("trarabic_10336");
+				$transfer_eqv_text = t(".غير مدخل أو غير قابل اللتطبيق");
 				$bool_transferEqv = false;
 			}
 
@@ -2207,7 +2207,7 @@ function draw_menu_items($menu_array) {
 		  $use_hours = $course_hours;
 			if ($course->bool_transfer)
 			{
-				$pC .= "<b>$initials " . t("trarabic_10337") . "</b><br>
+				$pC .= "<b>$initials " . t(": معلومات عن المساق المعادل") . "</b><br>
 						<b>$course->subject_id $course->course_num</b> - ";
 				$new_course = new Course();
 				$new_course->course_id = $course->course_id;
@@ -2215,19 +2215,19 @@ function draw_menu_items($menu_array) {
 				$use_hours = $new_course->get_catalog_hours();
 			}
 			$pC .= "
-					<b>$course->title ($use_hours " . t("trarabic_10338") . ")</b>";
+					<b>$course->title ($use_hours " . t("ساعات") . ")</b>";
 		}
 		if ($course->bool_substitution_new_from_split || $course->bool_substitution_split)
 		{
 			$pC .= "<div class='tenpt' style='margin-bottom:5px;'>
-						<i>" . t("trarabic_10339");
+						<i>" . t("تم فصل ساعات هذا المساق في بديل");
 			
 			if ($datastring_bool_new_from_split) {
-			  $pC .= "<br>" . t("trarabic_10340") . " " . $datastring_max_hours . " hrs.";
+			  $pC .= "<br>" . t(": الساعات المتبقية بعد الفصل") . " " . $datastring_max_hours . " hrs.";
 			}
 			/*
 			else {
-			  $pC .= "<br>" . t("trarabic_10341") . " " . $course->max_hours . " hrs.";
+			  $pC .= "<br>" . t(": الساعات الأصلية للمساق") . " " . $course->max_hours . " hrs.";
 			}
 			*/
 			
@@ -2259,13 +2259,13 @@ function draw_menu_items($menu_array) {
 
 			$pC .= $this->fix_institution_name($course->course_transfer->institution_name) . "</i>.";
 			*/
-			$pC = str_replace("<!--EQV1-->"," (" . t("trarabic_10342") . ")",$pC);
+			$pC = str_replace("<!--EQV1-->"," (" . t("رصيد التحويل") . ")",$pC);
 			if (!$bool_transferEqv)
 			{
-				$t_msg = t("trarabic_20061", array("@initials" => $initials)) . "
+				$t_msg = t("مكافئ، أو تمت إزالة معادلة هذا الطالب. اسأل مرشدك الأكاديمي إذا كان سيتم احتساب هذا المساق نحو شهادتك @initials لا يحتوي هذا المساق على ", array("@initials" => $initials)) . "
 					</div>"; 
 			} else {
-				$t_msg = t("trarabic_20062", array("@initials" => $initials)) . "
+				$t_msg = t("على خطة درجة الطالب، أو تمت إزالة المعادلة لهذا الطالب. اسأل مرشدك الأكاديمي إذا كان سيتم احتساب هذا المساق نحو شهادتك @initials تعيين هذا المساق إلى معادلة FlightPath لا يمكن ل ", array("@initials" => $initials)) . "
 					</div>"; 				
 			}
 
@@ -2284,7 +2284,7 @@ function draw_menu_items($menu_array) {
 			// Replace the temporary comment <!--EQV1--> in the header with
 			// the new eqv information.
 			*/
-			$pC = str_replace("<!--EQV1-->"," (" . t("trarabic_10343") . " $t_s_i $t_c_n)",$pC);
+			$pC = str_replace("<!--EQV1-->"," (" . t("رصيد التحويل") . " $t_s_i $t_c_n)",$pC);
 			/*			$pC .= $this->fix_institution_name($course->course_transfer->institution_name);
 			$pC .= "</i>.";
 			*/
@@ -2292,8 +2292,8 @@ function draw_menu_items($menu_array) {
 			if (user_has_permission("can_substitute"))
 			{
 				$pC .= "<div align='left' class='tenpt'>
-					<b>" . t("trarabic_10344") . "</b>
-						<a href='javascript: popupUnassignTransferEqv(\"" . $course->course_transfer->course_id . "\");'>" . t("trarabic_10345") . "</a></div>";
+					<b>" . t("وظيفة إدارية خاصة:") . "</b>
+						<a href='javascript: popupUnassignTransferEqv(\"" . $course->course_transfer->course_id . "\");'>" . t("حذف هذه المعادلة؟") . "</a></div>";
 				$pC .= "</div>";
 			}
 
@@ -2305,12 +2305,12 @@ function draw_menu_items($menu_array) {
 		if ($course->term_id != "" && $course->term_id != "11111" && $course->display_status != "eligible" && $course->display_status != "disabled")
 		{
 			$pC .= "<div class='tenpt' style='margin-top: 10px;'>
-						" . t("trarabic_10346") . " " . $course->get_term_description() . ".
+						" . t("الطالب المسجل في هذا المساق في") . " " . $course->get_term_description() . ".
 					</div>";
 		} else if ($course->term_id == "11111")
 		{
 			$pC .= "<div class='tenpt' style='margin-top: 10px;'>
-						" . t("trarabic_20063") . "
+						" . t("لا يمكن استرداد التاريخ المحدد الذي تم تسجيل الطالب فيه في هذا المساق في هذا الوقت. يرجى التحقق من النسخة الرسمية للطالب للحصول على مزيد من التفاصيل") . "
 					</div>";
 
 		}
@@ -2325,14 +2325,14 @@ function draw_menu_items($menu_array) {
 			$pC .= "<div class='tenpt' style='margin-top: 10px;'>
 						<img src='" . fp_theme_location() . "/images/icons/$g->icon_filename' width='19' height='19'>
 						&nbsp;
-						" . t("trarabic_10347") . " $g->title.
+						" . t("هذا المساق هو جزء من") . " $g->title.
 					";
 			// If user is an admin...
 			if (user_has_permission("can_substitute")) {
 				$tflag = intval($course->bool_transfer);
 				$pC .= "<div align='left' class='tenpt'>
-					<b>" . t("trarabic_10348") . "</b>
-						<a href='javascript: popupUnassignFromGroup(\"$course->course_id\",\"$course->term_id\",\"$tflag\",\"$g->group_id\");'>" . t("trarabic_10349") . "</a></div>";
+					<b>" . t("وظيفة إدارية خاصة:") . "</b>
+						<a href='javascript: popupUnassignFromGroup(\"$course->course_id\",\"$course->term_id\",\"$tflag\",\"$g->group_id\");'>" . t("الحذف من هذه المجموعة؟") . "</a></div>";
 				$pC .= "</div>";
 			}
 
@@ -2343,8 +2343,8 @@ function draw_menu_items($menu_array) {
 			{
 				$tflag = intval($course->bool_transfer);
 				$pC .= "<div align='left' class='tenpt'>
-					<b>" . t("trarabic_10350") . "</b>
-						<a href='javascript: popupUnassignFromGroup(\"$course->course_id\",\"$course->term_id\",\"$tflag\",\"0\");'>" . t("trarabic_10351") . "</a></div>";
+					<b>" . t("وظيفة إدارية خاصة:") . "</b>
+						<a href='javascript: popupUnassignFromGroup(\"$course->course_id\",\"$course->term_id\",\"$tflag\",\"0\");'>" . t("الحذف من الخطة الدراسية؟") . "</a></div>";
 				$pC .= "</div>";
 			}
 
@@ -2356,12 +2356,12 @@ function draw_menu_items($menu_array) {
 			
 			
 			$pC .= "<div class='tenpt' style='margin-top: 20px;'>
-					<b>" . t("trarabic_10352") . "</b>
+					<b>" . t("المعلومات الإدارية الخاصة:") . "</b>
 					
 				<span id='viewinfolink'
 				onClick='document.getElementById(\"admin_info\").style.display=\"\"; this.style.display=\"none\"; '
 				class='hand' style='color: blue;'
-				> - " . t("trarabic_10353") . " -</span>					
+				> - " . t("انقر للإظهار") . " -</span>					
 					
 					<div style='padding-left: 20px; display:none;' id='admin_info'>
 					";
@@ -2373,12 +2373,12 @@ function draw_menu_items($menu_array) {
   			$group->load_descriptive_data();
   			
   			$pC .= "
-  					" . t("trarabic_10354") . "<br>
-  					&nbsp; " . t("trarabic_10355") . " $group->group_id<br>
-  					&nbsp; " . t("trarabic_10356") . " $group->title<br>";
-				$pC .= "&nbsp; <i>" . t("trarabic_10357") . " $group->group_name</i><br>";
+  					" . t(":المساق مخصص للمجموعة") . "<br>
+  					&nbsp; " . t(": رمز المجموعة") . " $group->group_id<br>
+  					&nbsp; " . t(": العنوان") . " $group->title<br>";
+				$pC .= "&nbsp; <i>" . t(": الاسم الداخلي") . " $group->group_name</i><br>";
   			
-  			$pC .= "&nbsp; " . t("trarabic_10358") . " $group->catalog_year
+  			$pC .= "&nbsp; " . t(": كتالوج العام") . " $group->catalog_year
   			";
 			}
 			$pC .= "
@@ -2405,10 +2405,10 @@ function draw_menu_items($menu_array) {
 
 			if ($remarks != "")
 			{
-				$remarks = " " . t("trarabic_10359") . " <i>$remarks</i>.";
+				$remarks = " " . t(":ملاحظات التبديل") . " <i>$remarks</i>.";
 			}
 
-			$forthecourse = t("trarabic_20064") . " <b>" . $course->course_substitution->subject_id . " 
+			$forthecourse = t("لمتطلبات المساق الأصلي") . " <b>" . $course->course_substitution->subject_id . " 
 						" . $course->course_substitution->course_num . "</b>";
 			if ($temp["required_course_id"]*1 == 0)
 			{
@@ -2416,14 +2416,14 @@ function draw_menu_items($menu_array) {
 			}
 
 			$pC .= "<div class='tenpt' style='margin-top: 10px;'>
-						<b>" . t("trarabic_10360") . "</b> " . t("trarabic_20065") . " $forthecourse
+						<b>" . t(": ملاحظة") . "</b> " . t("تم استبدال هذا المساق في الخطة الدراسية") . " $forthecourse
 						$by$remarks";
 
 			
 			if (user_has_permission("can_substitute")) {
 				$pC .= "<div align='left' class='tenpt' style='padding-left: 10px;'>
-					<b>" . t("trarabic_10361") . "</b>
-					<a href='javascript: popupRemoveSubstitution(\"$course->db_substitution_id\");'>" . t("trarabic_10362") . "</a>
+					<b>" . t("وظيفة إدارية خاصة:") . "</b>
+					<a href='javascript: popupRemoveSubstitution(\"$course->db_substitution_id\");'>" . t("حذف البديل؟") . "</a>
 					</div>";
 			}
 
@@ -2433,7 +2433,7 @@ function draw_menu_items($menu_array) {
 		if ($course->has_variable_hours() && $course->grade == "")
 		{
 			$pC .= "<div class='tenpt' style='margin-top: 10px;'>
-					" . t("trarabic_20066") . "<br>
+					" . t(":لهذا المساق ساعات متغيرة. يرجى تحديد عدد الساعات التي يستحقها هذا المساق") . "<br>
 					<center>
 					<select name='selHours' id='selHours' onChange='popupSetVarHours();'>
 					";
@@ -2450,7 +2450,7 @@ function draw_menu_items($menu_array) {
 				if ($t == $course->advised_hours){ $sel = "SELECTED"; }
 				$pC .= "<option value='$t' $sel>$t</option>";
 			}
-			$pC .= "</select> " . t("trarabic_10363") . "<br>
+			$pC .= "</select> " . t("الساعات") . "<br>
 					
 					</center>
 					</div>";
@@ -2474,7 +2474,7 @@ function draw_menu_items($menu_array) {
 			if (user_has_permission("can_advise_students"))
 			{
 				$pC .= "<div style='margin-top: 20px;'>
-				" . fp_render_button(t("trarabic_10364"), "popupAssignSelectedCourseToGroup(\"$group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"$db_group_requirement_id\");", true, "style='font-size: 10pt;'") . "
+				" . fp_render_button(t("اختر المساق"), "popupAssignSelectedCourseToGroup(\"$group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"$db_group_requirement_id\");", true, "style='font-size: 10pt;'") . "
 				</div>
 				
 				";
@@ -2487,7 +2487,7 @@ function draw_menu_items($menu_array) {
 					<input type='hidden' name='varHours' id='varHours' value='$var_hours_default'>";
 
 
-      $pC .= fp_render_button(t("trarabic_10365"), "popupUpdateSelectedCourse(\"$course->course_id\",\"$course->assigned_to_group_id\",\"$course->assigned_to_semester_num\",\"$course->random_id\",\"$advising_term_id\");");
+      $pC .= fp_render_button(t("تحديث"), "popupUpdateSelectedCourse(\"$course->course_id\",\"$course->assigned_to_group_id\",\"$course->assigned_to_semester_num\",\"$course->random_id\",\"$advising_term_id\");");
 
 		}
 
@@ -3105,10 +3105,10 @@ function draw_menu_items($menu_array) {
 		$headers = array();
 		if ($hideheaders != true)
 		{
-			$headers[0] = t("trarabic_10366");
-			$headers[1] = t("trarabic_10367");
-			$headers[2] = t("trarabic_10368");
-			$headers[3] = t("trarabic_10369");
+			$headers[0] = t("المساق");
+			$headers[1] = t("الساعات");
+			$headers[2] = t("العلامة");
+			$headers[3] = t("النقاط");
 		}
 
 
@@ -3320,8 +3320,8 @@ function draw_menu_items($menu_array) {
 		  // has been completed, we should only use the hours_awarded.
 		  
 			$var_hour_icon = "<img src='" . fp_theme_location() . "/images/var_hour.gif'
-								title='" . t("trarabic_10370") . "'
-								alt='" . t("trarabic_10371") . "'>";
+								title='" . t("لدى هذا المساق ساعات متغيرة") . "'
+								alt='" . t("لدى هذا المساق ساعات متغيرة") . "'>";
 			$hours = $course->get_advised_hours();
 
 		}
@@ -3337,7 +3337,7 @@ function draw_menu_items($menu_array) {
 
 		$dispgrade = $grade;
 		// If there is a MID, then this is a midterm grade.
-		$dispgrade = str_replace("MID","<span class='superscript'>" . t("trarabic_10372") . "</span>",$dispgrade);
+		$dispgrade = str_replace("MID","<span class='superscript'>" . t("mid") . "</span>",$dispgrade);
 
 		if (strtoupper($grade) == "E")
 		{ // Currently enrolled.  Show no grade.
@@ -3455,7 +3455,7 @@ function draw_menu_items($menu_array) {
 		// If the course has a 'u' in it, it is a 'University Capstone' course.
 		if (strstr($course->requirement_type, "u")) {
 			$icon_filename = "ucap.gif";
-			$title_text = t("trarabic_10373");
+			$title_text = t(" University Capstone هذا المساق هو");
 		}
 
 		if ($icon_filename != "") {
@@ -3524,7 +3524,7 @@ function draw_menu_items($menu_array) {
       			colspan='4'>
        				&nbsp; &nbsp; $subject_id &nbsp;
         			$course_num$footnote
-	       			&nbsp; ($hours " . t("trarabic_10374") . ")
+	       			&nbsp; ($hours " . t("ساعات متبقية") . ")
        	   	</td>
      	</tr>
      	</table>";		
@@ -3632,8 +3632,8 @@ function draw_menu_items($menu_array) {
 		if ($course->has_variable_hours() == true)
 		{
 			$var_hour_icon = "<img src='" . fp_theme_location() . "/images/var_hour.gif'
-								title='" . t("trarabic_10375") . "'
-								alt='" . t("trarabic_10376") . "'>";
+								title='" . t("لدى هذا المساق ساعات متغيرة") . "'
+								alt='" . t("لدى هذا المساق ساعات متغيرة") . "'>";
 		}
 
 
@@ -3695,7 +3695,7 @@ function draw_menu_items($menu_array) {
 			$pC .= "
 				<td class='tenpt underline' style='color: gray;' 
 					onClick='$js_code' colspan='3'>
-				<i>" . t("trarabic_10377") . " <span style='color: blue;'>" . ($repeats + 1) . "</span> " . t("trarabic_10378") . "</i>
+				<i>" . t("قد يستغرق ما يصل إلى") . " <span style='color: blue;'>" . ($repeats + 1) . "</span> " . t("مرات.") . "</i>
 				</td>
 			";
 		} else {
@@ -3736,10 +3736,10 @@ function draw_menu_items($menu_array) {
 		$course = new Course($course_id);
 		$bool_sub_add = false;
 
-		$c_title = t("trarabic_10379") . " $course->subject_id $course->course_num";
+		$c_title = t("بدل ل") . " $course->subject_id $course->course_num";
 		if ($course_id == 0)
 		{
-			$c_title = t("trarabic_10380");
+			$c_title = t("بدل مساق إضافي");
 			$bool_sub_add = true;
 		}
 		$pC .= fp_render_curved_line($c_title);
@@ -3750,15 +3750,15 @@ function draw_menu_items($menu_array) {
 			$new_group = new Group($group_id);
 			$checked = "";
 			if ($bool_sub_add == true){$checked = "checked disabled";}
-			$extra = " " . t("trarabic_10381", array("%newg" => $new_group->title)) . "
-			" . t("trarabic_10382") . " <input type='checkbox' id='cbAddition' value='true' $checked> 
+			$extra = " " . t(" %newg في المجموعة", array("%newg" => $new_group->title)) . "
+			" . t(":إضافة فقط") . " <input type='checkbox' id='cbAddition' value='true' $checked> 
 			   <a href='javascript: alertSubAddition();'>?</a>";
 		}
  
 		$c_hours = $course->max_hours*1;
 		$c_ghost_hour = "";
 		if ($course->bool_ghost_hour == TRUE) {
-		  $c_ghost_hour = t("trarabic_10383") . "<a href='javascript: alertSubGhost();'>?</a>";
+		  $c_ghost_hour = t("شبح") . "<a href='javascript: alertSubGhost();'>?</a>";
 		}
 
 		if (($hours_avail*1 > 0 && $hours_avail < $c_hours) || ($c_hours <= 0))
@@ -3775,7 +3775,7 @@ function draw_menu_items($menu_array) {
 		}
 
 		$pC .= "<div class='tenpt'>
-					" . t("trarabic_20067", array("%course" => "$course->subject_id $course->course_num ($c_hours $c_ghost_hour " . t("trarabic_10384") . ")")) . "$extra
+					" . t("%course الرجاء اختيار مساق بديل ل", array("%course" => "$course->subject_id $course->course_num ($c_hours $c_ghost_hour " . t("ساعات") . ")")) . "$extra
 				</div>
 				";
 		
@@ -3785,7 +3785,7 @@ function draw_menu_items($menu_array) {
 		$bool_ghost_for_ghost = (variable_get("restrict_ghost_subs_to_ghost_hours", "yes") == "yes" && $course->bool_ghost_hour);
 		
 		if ($bool_ghost_for_ghost) {
-		  $pC .= "<div class='tenpt'>" . t("trarabic_20068") . "</div>";
+		  $pC .= "<div class='tenpt'>" . t("(يجب أن تكون قيمة المساقات التي يمكن استبدالها وحدها تساوي الصفر (ساعة وهمية واحدة FlightPath حسب الإعداد في <b>:ملاحظة</b>") . "</div>";
 		}
 				
 		
@@ -3801,15 +3801,15 @@ function draw_menu_items($menu_array) {
     
 		for ($t = 0; $t <= 1; $t++)
 		{
-			if ($t == 0) {$the_title = "{$GLOBALS["fp_system_settings"]["school_initials"]} " . t("trarabic_10385"); $bool_transferTest = true;}
-			if ($t == 1) {$the_title = t("trarabic_10386"); $bool_transferTest = false;}
+			if ($t == 0) {$the_title = "{$GLOBALS["fp_system_settings"]["school_initials"]} " . t("الرصيد"); $bool_transferTest = true;}
+			if ($t == 1) {$the_title = t("رصيد التحويل"); $bool_transferTest = false;}
 
 			$pC .= "<tr><td colspan='3' valign='top' class='tenpt' style='padding-bottom: 10px;'>
 				$the_title
 				</td>
-				<td class='tenpt' valign='top' >" . t("trarabic_10387") . "</td>
-				<td class='tenpt' valign='top' >" . t("trarabic_10388") . "</td>
-				<td class='tenpt' valign='top' >" . t("trarabic_10389") . "</td>
+				<td class='tenpt' valign='top' >" . t("ساعات") . "</td>
+				<td class='tenpt' valign='top' >" . t("العلامة") . "</td>
+				<td class='tenpt' valign='top' >" . t("الفصل") . "</td>
 				</tr>";
 			
 			$is_empty = true;
@@ -3842,7 +3842,7 @@ function draw_menu_items($menu_array) {
 				    && $c->bool_ghost_hour == TRUE) {
 				      
 				  $bool_disable_selection = TRUE;
-				  $disabled_msg = t("trarabic_20069");
+				  $disabled_msg = t("يمكن استبدال المساقات التي تبلغ قيمتها صفر فقط بمتطلبات مساق قيمتها تساوي صفر FlightPath تم تعطيل بديل هذا المساق؟ وفقا لإعدادات في");
 				     
 				}
 				
@@ -3958,14 +3958,14 @@ function draw_menu_items($menu_array) {
 					}
 					if ($c->bool_outdated_sub == true)
 					{
-						$help_link = fp_get_js_alert_link(t("trarabic_10390"), "?");
-						$extra .= " <span style='color:red;'>[" . t("trarabic_10391") . "$help_link]</span>";
+						$help_link = fp_get_js_alert_link(t("هذا الاستبدال قديم. تم إعداده لمساق أو مجموعة لا تظهر حاليا في خطة دراسة الطالب. يمكنك إزالة هذا الفرع من خلال إعدادات المسؤول. في الجزء السفلي من علامة التبويب"), "?");
+						$extra .= " <span style='color:red;'>[" . t("قديم") . "$help_link]</span>";
 					}
 
 					// It has already been substituted!
 					$pC .= "<tr style='background-color: beige;'>
 						<td valign='top' class='tenpt' width='15%'>
-						 " . t("trarabic_10392") . "
+						 " . t("فرعي:") . "
 						</td>
 						<td valign='top' class='tenpt' colspan='5'>
 							$subject_id 
@@ -3988,7 +3988,7 @@ function draw_menu_items($menu_array) {
 				// Meaning, there were no credits (may be the case with
 				// transfer credits)
 				$pC .= "<tr><td colspan='8' class='tenpt'>
-							- " . t("trarabic_10393") . "
+							- " . t("لا يوجد رصيد قابل للتبديل") . "
 						</td></tr>";
 			}
 
@@ -3998,9 +3998,9 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "</table></div>
 		<div class='tenpt' style='margin-top: 5px;'>
-			" . t("trarabic_10394") . "
+			" . t(": اختر عددالساعات للاستخدام") . "
 			<select name='subHours' id='subHours' onChange='popupOnChangeSubHours()'>
-				<option value=''>" . t("trarabic_10395") . "</option>
+				<option value=''>" . t("لا شيء محدد") . "</option>
 			</select>
 			";
 		
@@ -4016,7 +4016,7 @@ function draw_menu_items($menu_array) {
 		<input type='hidden' name='subTermID' id='subTermID' value=''>
 		<input type='button' value='Save Substitution' onClick='popupSaveSubstitution(\"$course_id\",\"$group_id\",\"$semester_num\");'>
 		
-		<div class='tenpt' style='padding-top: 5px;'><b>" . t("trarabic_10396") . "</b> - " . t("trarabic_10397") . " 
+		<div class='tenpt' style='padding-top: 5px;'><b>" . t("اختياري") . "</b> - " . t(":أدخل ملاظات") . " 
 		<input type='text' name='subRemarks' id='subRemarks' value='' size='30' maxlength='254'>
 		
 		</div>
@@ -4228,7 +4228,7 @@ function draw_menu_items($menu_array) {
 				// This also means that a user's course
 				// selections have been restricted as a result.
 				// Replace the MSG at the top saying so.
-				$msg = "<div class='tenpt'>" . t("trarabic_20070") . "</div>";
+				$msg = "<div class='tenpt'>" . t("تم تقييد اختيارك للمساقات بناءً على اختيارات مساقات سابقة ") . "</div>";
 				$pC = str_replace("<!--MSG-->", $msg, $pC);
 			}
 
@@ -4292,13 +4292,13 @@ function draw_menu_items($menu_array) {
 					<td colspan='8'>
 						<div class='tenpt'>
 						<b>Please Note:</b> 
-						" . t("trarabic_20071");
+						" . t("من العثور على أي مساقات مؤهلة لعرضها لهذه القائمة. اسأل مرشدك الأكاديمي إذا كنت قد أكملت الدورات المساقات، أو يمكنك التسجيل في المساقات، والتي يمكن عرضها هنا FlightPath لم يتمكن");
 
 			if (user_has_permission("can_advise_students")){
 			  // This is an advisor, so put in a little more
 				// information.
 				$pC .= "
-									<div class='tenpt' style='padding-top: 5px;'><b>" . t("trarabic_10398") . "</b> " . t("trarabic_20072") . "</div>";
+									<div class='tenpt' style='padding-top: 5px;'><b>" . t(":ملاحظة مميزة للمرشدين") . "</b> " . t(".لا يزال بإمكانك إرشاد الطالب بأخذ مساق، حتى إذا كانت غير قابلة للانتقاء من هذه القائمة. استخدم الرابط (إضافة مساق إضافي) في الجزء السفلي من الصفحة") . "</div>";
 			}
 			$pC .= "						</div>
 					</td>
@@ -4313,19 +4313,19 @@ function draw_menu_items($menu_array) {
 
 		if ($group_hours_remaining == 1){$s = "";}
 		if ($bool_unselectableCourses == true) {
-			$unselectable_notice = " <div class='tenpt'><i>(" . t("trarabic_20073", array("%hrs" => $group_hours_remaining)) . ")</i></div>";
+			$unselectable_notice = " <div class='tenpt'><i>(" . t("قد لا يتم اختيارها %hrs hour$s المساقات التي تبلغ قيمتها أكثر من", array("%hrs" => $group_hours_remaining)) . ")</i></div>";
 			if (user_has_permission("can_advise_students")) {
 				// This is an advisor, so put in a little more
 				// information.
 				$unselectable_notice .= "
-									<div class='tenpt' style='padding-top: 5px;'><b>" . t("trarabic_10399") . "</b> " . t("trarabic_20074") . "</div>";
+									<div class='tenpt' style='padding-top: 5px;'><b>" . t(":ملاحظة مميزة للمرشدين") . "</b> " . t("لا يزال بإمكانك إرشاد الطالب بأخذ مساق، حتى إذا كانت غير قابلة للانتقاء من هذه القائمة. استخدم الرابط (إضافة مساق إضافي) في الجزء السفلي من الصفحة") . "</div>";
 			}
 		}
 
 		if ($group_hours_remaining < 100 && $bool_no_courses != true)	{ 
 		  // Don't show for huge groups (like add-a-course)
 			$pC .= "<div class='elevenpt' style='margin-top:5px;'>
-					" . t("trarabic_20075", array("@hrs" => $group_hours_remaining)) . "$unselectable_notice</div>";
+					" . t("من هذه القائمة hour$s<b>@hrs</b> يمكنك اختيار", array("@hrs" => $group_hours_remaining)) . "$unselectable_notice</div>";
 		}
 
 		if ($bool_display_submit == true && !$this->bool_blank && $bool_no_courses != true)
@@ -4335,7 +4335,7 @@ function draw_menu_items($menu_array) {
 					<div style='margin-top: 20px;'>
 					
 					
-				" . fp_render_button(t("trarabic_10400"), "popupAssignSelectedCourseToGroup(\"$place_group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"-1\");", true, "style='font-size: 10pt;'") . "
+				" . fp_render_button(t("اختر مساق"), "popupAssignSelectedCourseToGroup(\"$place_group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"-1\");", true, "style='font-size: 10pt;'") . "
 					</div>
 				";
 			}
@@ -4346,20 +4346,20 @@ function draw_menu_items($menu_array) {
 		if (user_has_permission("can_substitute") && $group->group_id != -88)
 		{
 			$pC .= "<div class='tenpt' style='margin-top: 20px;'>
-					<b>" . t("trarabic_10401") . "</b>
+					<b>" . t(":المعلومات الإدارية الخاصة") . "</b>
 					
 				<span id='viewinfolink'
 				onClick='document.getElementById(\"admin_info\").style.display=\"\"; this.style.display=\"none\"; '
 				class='hand' style='color: blue;'
-				> - " . t("trarabic_10402") . " -</span>					
+				> - " . t("انقر للاظهار") . " -</span>					
 					
 					<div style='padding-left: 20px; display:none;' id='admin_info'>
-					" . t("trarabic_10403") . "<br>
-					&nbsp; " . t("trarabic_10404") . " $group->group_id<br>
-					&nbsp; " . t("trarabic_10405") . " $group->title<br>";
-  		$pC .= "&nbsp; <i>" . t("trarabic_10406") . " $group->group_name</i><br>";
+					" . t(":معلومات عن هذه المجموعة") . "<br>
+					&nbsp; " . t(":رمز المجموعة") . " $group->group_id<br>
+					&nbsp; " . t(":العنوان") . " $group->title<br>";
+  		$pC .= "&nbsp; <i>" . t(":الاسم الداخلي") . " $group->group_name</i><br>";
 
-			$pC .= "&nbsp; " . t("trarabic_10407") . " $group->catalog_year
+			$pC .= "&nbsp; " . t(":كتالوج العام") . " $group->catalog_year
 					</div>
 					
 					</div>";						
@@ -4375,7 +4375,7 @@ function draw_menu_items($menu_array) {
 			}
 			$back_link = "<span class='tenpt'>
 						<a href='" . fp_url("advise/popup-group-select", "window_mode=popup&group_id=$group->group_id&semester_num=$display_semesterNum&group_hours_remaining=$group_hours_remaining&current_student_id=$csid&blank_degree_id=$blank_degree_id") . "' 
-						class='nounderline'>" . t("trarabic_10408") . "</a></span>";
+						class='nounderline'>" . t("انقر هنا للعودة إلى اختيار المواضيع") . "</a></span>";
 			$pC = str_replace("<!--MSG2-->",$back_link,$pC);
 		}
 
@@ -4422,10 +4422,10 @@ function draw_menu_items($menu_array) {
 					<input type='hidden' name='current_student_id' value='$csid'>
 					<input type='hidden' name='blank_degree_id' value='$blank_degree_id'>
 		
-					" . t("trarabic_10409") . "
+					" . t("يرجى البدء باختيار موضوع من القائمة أدناه") . "
 					<br><br>
 					<select name='selected_subject'>
-					<option value=''>" . t("trarabic_10410") . "</option>
+					<option value=''>" . t("..رجاء اختر موضوعا") . "</option>
 					<option value=''>----------------------------------------</option>
 					";
 		$new_array = array();
@@ -4452,7 +4452,7 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "</select>
 				<div style='margin: 20px;' align='left'>
-				" . fp_render_button(t("trarabic_10411") . " ->","document.getElementById(\"theform\").submit();") . "
+				" . fp_render_button(t("التالي") . " ->","document.getElementById(\"theform\").submit();") . "
 				</div>
 					<!-- <input type='submit' value='submit'> -->
 					

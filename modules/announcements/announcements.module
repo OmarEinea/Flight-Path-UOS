@@ -16,8 +16,8 @@
 function announcements_content_register_content_type() {
   $arr = array(
     "announcement" => array(
-      "title" => t("trarabic_10592"),
-      "description" => t("trarabic_10593"),
+      "title" => t("إعلان"),
+      "description" => t("هذا إعلان قصير للمستخدم, يقصد به أن يعرض مثل الأخير في Block."),
       "settings" => array(),
     ),    
   );
@@ -28,9 +28,9 @@ function announcements_content_register_content_type() {
   
   $arr["announcement"]["settings"]["visibility"] = array(
     "type" => "radios",
-    "label" => t("trarabic_10594"),
-    "options" => array("public" => t("trarabic_10595"), 
-                       "faculty" => t("trarabic_10596"), "hidden" => t("trarabic_10597")
+    "label" => t("صلاحية الرؤية:"),
+    "options" => array("public" => t("عام (كل المستخدمين, بما فيها الطلاب)"), 
+                       "faculty" => t("هيئة التدريس/الموظفين فقط"), "hidden" => t("مخفي")
                        ),
     "required" => TRUE,                       
   );
@@ -48,7 +48,7 @@ function announcements_perm() {
     
   return array(
     "view_faculty_announcements" => array(
-      "title" => t("trarabic_10598"),
+      "title" => t("عرض إعلانات هيئة التدريس"),
     ),
   );
 }
@@ -98,10 +98,10 @@ function announcements_render_announcements() {
     // If we have not updated this announcement before, then print "posted",
     // else, print "updated" date.
     if ($announcement["updated"] > $announcement["posted"]) {      
-      $rtn .= t("trarabic_10599") . " " . date("D, M jS Y - g:ia", $announcement["updated"]);      
+      $rtn .= t("محدث") . " " . date("D, M jS Y - g:ia", $announcement["updated"]);      
     }
     else {
-      $rtn .= t("trarabic_10600") . " " . date("D, M jS Y - g:ia", $announcement["posted"]);
+      $rtn .= t("تم النشر") . " " . date("D, M jS Y - g:ia", $announcement["posted"]);
     }
     
     $rtn .= "</div>";
@@ -127,7 +127,7 @@ function announcements_render_announcements() {
  */
 function announcements_blocks() {
   return array(
-    "primary" => t("trarabic_10601"),
+    "primary" => t("مجموعة الإعلانات الرئيسية"),
   );
 }
 
@@ -147,7 +147,7 @@ function announcements_render_block($delta) {
       
     fp_add_css(fp_get_module_path("announcements") . "/css/announcements.css");
     
-    $rtn["title"] = t("trarabic_10602");       
+    $rtn["title"] = t("إعلانات");       
     $rtn["body"] = announcements_render_announcements();
   }
   

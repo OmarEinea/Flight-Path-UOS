@@ -499,12 +499,12 @@ function fp_build_tab_array($page) {
     && user_has_permission("can_advise_students"))
     {
       $t_term_id = $GLOBALS["fp_advising"]["advising_term_id"];
-      $for_term = " " . t("trarabic_10016") . " " . get_term_description($t_term_id);
+      $for_term = " " . t("for") . " " . get_term_description($t_term_id);
 
       // If this is an advisor or above
       $furl = fp_url("advise/popup-change-term");
       $for_term .= "<span style='font-size: 8pt; font-weight:normal;'>
-             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color:blue; background-color: white; border: 1px solid black; padding-left: 3px; padding-right: 3px;'>" . t("trarabic_10017") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' height='13' border='0' style='vertical-align: bottom;'></a>
+             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color:blue; background-color: white; border: 1px solid black; padding-left: 3px; padding-right: 3px;'>" . t("تغيير") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' height='13' border='0' style='vertical-align: bottom;'></a>
             </span>";
 
 
@@ -513,25 +513,25 @@ function fp_build_tab_array($page) {
     // TODO:  bool_blank? bool_print?
     if ($GLOBALS["fp_advising"]["advising_what_if"] == "yes" && !$bool_blank)
     {
-      $whatif = " (" . t("trarabic_10018") . ") ";
+      $whatif = " (" . t("في نمط ماذا لو") . ") ";
       $hypoclass = "hypo";
       // latest cat year because its what if.
       $student->catalog_year = $settings["current_catalog_year"];
       if ($bool_print != true) {
         $what_if_select = "<div class='tenpt'><b>
-          " . l(t("trarabic_10019"), "what-if", "advising_what_if=yes&what_if_major_code=none&what_if_track_code=none&current_student_id=$current_student_id") . "
+          " . l(t("تغيير إعدادات ماذا لو"), "what-if", "advising_what_if=yes&what_if_major_code=none&what_if_track_code=none&current_student_id=$current_student_id") . "
           </b></div>";
       }
     }
 
-    $ca = t("trarabic_10020");
+    $ca = t("حاليا مرشد أكاديمي ل");
     
     if (!user_has_permission("can_advise_students") || $screen_mode == "detailed") {
-      $ca = t("trarabic_10021");
+      $ca = t("تفاصيل الطالب");
     }
 
     if ($bool_blank == true) {
-      $ca = t("trarabic_10022");
+      $ca = t("عرض خطة دراسية فارغة");
     }
 
     
@@ -581,15 +581,15 @@ function fp_build_tab_array($page) {
     }
 
     if (!$bool_blank) {
-      array_push($display_array, t("trarabic_10023") . " ~~ " . $student->name);
-      array_push($display_array, t("trarabic_10024") . " ~~ " . $student->student_id);
+      array_push($display_array, t(": الاسم ") . " ~~ " . $student->name);
+      array_push($display_array, t(": رمز المستخدم") . " ~~ " . $student->student_id);
     }
     
     if ($screen_mode == "detailed") {
       $degree_title .= " ($degree_plan->major_code)";
     }
     
-    array_push($display_array, t("trarabic_10025") . " ~~ " . $degree_title);
+    array_push($display_array, t(": التخصص") . " ~~ " . $degree_title);
     // If this degree has tracks, we must display something about it here.
 
     if ($degree_plan->bool_has_tracks)
@@ -605,12 +605,12 @@ function fp_build_tab_array($page) {
       
       $op_link = "<a href='javascript: popupWindow2(\"" . fp_url("advise/popup-change-track") . "\",\"$extra_vars\");'><img
               src='" . fp_theme_location() . "/images/popup.gif' border='0' 
-              title='" . t("trarabic_10026") . "'></a>";
-      $op_text = t("trarabic_10027") . " $op_link";
+              title='" . t("اضغط لتغيير خيارات البرنامج الدراسي") . "'></a>";
+      $op_text = t("اضغط للإختيار: ") . " $op_link";
 
       if ($screen_mode == "not_advising" || $screen_mode == "detailed")
       {
-        $op_text = t("trarabic_10028");
+        $op_text = t("لم يتم الإختيار");
         $op_link = "";
       }
 
@@ -621,7 +621,7 @@ function fp_build_tab_array($page) {
           // In other words, we do not have permission to advise,
           // and we are not in whatIf, so take out the link.
           $op_link = "";
-          $op_text = t("trarabic_10029");
+          $op_text = t("لم يتم الإختيار");
 
         }
       }
@@ -637,14 +637,14 @@ function fp_build_tab_array($page) {
       }
 
 
-      array_push($display_array, t("trarabic_10030") . " ~~ " . $op_text);
+      array_push($display_array, t(":خيار") . " ~~ " . $op_text);
     }
     if (!$bool_blank) {
-      array_push($display_array, t("trarabic_10031") . " ~~ " . $student->rank);
+      array_push($display_array, t(":المرتبة") . " ~~ " . $student->rank);
     }
-    array_push($display_array, t("trarabic_10032") . " ~~ " . $cat_year);
+    array_push($display_array, t(":كتالوج السنة الدراسية") . " ~~ " . $cat_year);
     if (!$bool_blank) {
-      array_push($display_array, t("trarabic_10033") . " ~~ " . $student->cumulative_hours . " " . t("trarabic_10034") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 3) . " " . t("trarabic_10035"));
+      array_push($display_array, t(":تراكمي") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 3) . " " . t("المعدل التراكمي"));
     }
 
     if ($student->student_id > 1 || $bool_blank == true)
@@ -713,8 +713,8 @@ function fp_build_tab_array($page) {
         <img src='" . fp_theme_location() . "/images/alert_lg.gif' >  
       </td>
       <td valign='middle' class='tenpt' style='padding-left: 8px;'>
-        <b>" . t("trarabic_10036") . " </b>
-        " . t("trarabic_20002", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
+        <b>" . t("ملاحظة مهمة:") . " </b>
+        " . t("أعلاه للطالب, مما يعني أن خطة الدرجة العلمية أدناه قد لا تظهر متطلبات درجته العلمية بدقة @current كتالوج العام .@earliest إظهار خطط الدرجة العلمية من كتالوجات أقدم من FlightPath لا يمكن ل", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
       </td>
       </table>
       </div>
@@ -877,7 +877,7 @@ function fp_render_mobile_tab_array($tab_array) {
     
     $rtn .= "<table border='0' width='200' cellpadding='0' cellspacing='0' class='fp-mobile-tabs'>
              <td>
-             <b>" . t("trarabic_10037") . ": </b>";
+             <b>" . t("إظهار") . ": </b>";
     
     
     $rtn .= "<select onChange='executeSelection()' id='mobileTabsSelect'>";
@@ -1054,8 +1054,8 @@ function fp_render_tab_array($tab_array)
 function display_not_found() {
   
   $page = array(
-    "title" => t("trarabic_10038"),
-    "content" => "<h2>" . t("trarabic_10039") . "</h2>" . t("trarabic_10040"),
+    "title" => t("لم يتم العثور عليه"),
+    "content" => "<h2>" . t("لم يتم العثور على الصفحة") . "</h2>" . t("نعتذر, لم يتم العثور على الصفحة المطلوبة"),
   );
   
   fp_display_page($page);
@@ -1064,8 +1064,8 @@ function display_not_found() {
 
 function display_access_denied() {
   $page = array(
-    "title" => t("trarabic_10041"),
-    "content" => "<h2>" . t("trarabic_10042") . "</h2>" . t("trarabic_10043"),
+    "title" => t("الوصول محظور"),
+    "content" => "<h2>" . t("الوصول محظور") . "</h2>" . t("نعتذر, ليس لديك الصلاحية للدخول إلى الصفحة المطلوبة"),
   );
   
   fp_display_page($page);  

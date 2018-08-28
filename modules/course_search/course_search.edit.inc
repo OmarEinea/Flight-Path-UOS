@@ -27,7 +27,7 @@ function course_search_edit_course_details_form() {
   $course->catalog_year = $de_catalog_year;  // Since it may be 1900, force it!
   $course->load_descriptive_data(false, true, false, true);
 
-  fp_set_title(t("trarabic_10194", array("@course" => "$subject_id $course_num")));
+  fp_set_title(t(" @course عدل معلومات المساق ل", array("@course" => "$subject_id $course_num")));
 
   $form["#attributes"] = array("enctype" => "multipart/form-data");
   
@@ -63,22 +63,22 @@ function course_search_edit_course_details_form() {
   }
 
   $form["mark" . $m++] = array(
-    "value" => "<strong>$course->title (" . $course->get_catalog_hours() . " " . t("trarabic_10195") . ")</strong>
+    "value" => "<strong>$course->title (" . $course->get_catalog_hours() . " " . t("الساعات") . ")</strong>
                 <div class='tenpt'>$course->description</div>
                 ",
   );
 
   $form["syllabus"] = array(
     "type" => "file",
-    "label" => t("trarabic_10196"),
-    "prefix" => "<br><br>" . t("trarabic_10197") . " " . $filelink,
-    "description" => t("trarabic_20036"),
+    "label" => t(": تسليم نموذج جديد لمخطط المساق"),
+    "prefix" => "<br><br>" . t(": المخطط الحالي") . " " . $filelink,
+    "description" => t(".ملاحظة: سيؤدي اختيار ملف جديد إلى استبدال أي منهج قائم. تذكر أن تنقر فوق تسليم بعد تحديد ملف"),
   );
 
   if ($bool_delete_cb) {
     $form["del_syllabus"] = array(
       "type" => "checkboxes",
-      "options" => array("yes" => t("trarabic_10198")),
+      "options" => array("yes" => t("حذف المخطط الحالي؟")),
     );
   }
 
@@ -86,14 +86,14 @@ function course_search_edit_course_details_form() {
     $s_url = $syllabus_details["url"];
     
     $form["mark" . $m++] = array(
-      "value" => "<p>" . t("trarabic_10199") . "<a href='$s_url'>$s_url</a></p>",
+      "value" => "<p>" . t(": يمكن حفظ المخطط من خلال هذا العنوان") . "<a href='$s_url'>$s_url</a></p>",
     );
     
   }
 
   $form["mark" . $m++] = array(
-    "value" => "<b>" . t("trarabic_10200") . "</b>
-                <br>" . t("trarabic_20037"),
+    "value" => "<b>" . t(": جدول تناوب المساقات") . "</b>
+                <br>" . t("حدد الفصول دراسية التي سيتم تقديم هذا المساق فيها للسنوات الخمس المقبلة"),
   );
   
   //$term_array = get_term_id_suffixes();
@@ -181,17 +181,17 @@ function course_search_edit_course_details_form() {
 
   $form["not_anticipated"] = array(
     "type" => "checkboxes",
-    "label" => t("trarabic_10201"),
-    "options" => array("yes" => t("trarabic_10202")),
+    "label" => t(": غير متوقع"),
+    "options" => array("yes" => t(": هذا المساق غير متوقع")),
     "value" => $default_val,
-    "description" => t("trarabic_20038"),
+    "description" => t("تحديد هذا المربع يعني أنه من غير المتوقع تقديم المساق ضمن النطاق الزمني أعلاه. سيؤدي ذلك إلى تجاوز أي خيارات تم تحديدها أعلاه."),
   );
 
 
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10203"),
+    "value" => t("تسليم"),
     "prefix" => "<hr>",
   );
    
@@ -269,13 +269,13 @@ function course_search_edit_course_details_form_submit($form, $form_state) {
     $test = course_search_upload_attachment($course_id, $subject_id, $course_num);
     if (!$test)
     {
-      fp_add_message(t("trarabic_20039"));
+      fp_add_message(t(".حدث خطأ في تحميل المرفق. من الممكن أن تكون هذه مشكلة إذن في الكتابة مع الخادم"));
     } else {
       // success.
     }
   }      
    
-  fp_add_message(t("trarabic_10204"));
+  fp_add_message(t("لقد تم تحديث تفاصيل هذا المساق بنجاح"));
   // TODO:  Do a "goto" back to wherever we came from
 }
 
@@ -327,7 +327,7 @@ function course_search_upload_attachment($course_id, $subject_id, $course_num) {
     if ($file_details = course_search_get_course_syllabus_details($subject_id, $course_num, $course_id)) {
       $filename = $file_details["filename"];    
       if (!unlink("$files_path/custom/files/syllabi/$filename")) {
-        fp_add_message(t("trarabic_10205") . " $filename");
+        fp_add_message(t(": ليس بالإمكان حذف الملف الحالي") . " $filename");
       }
     }
 
@@ -387,11 +387,11 @@ function course_search_display_edit_courses()
 	$_SESSION["dec_lr"] = $lr;
 
 
-	$rtn .= "<h2 class='title'>" . t("trarabic_10206") . "</h2>
+	$rtn .= "<h2 class='title'>" . t(": تحديث معلومات المساق") . "</h2>
 			<div class='tenpt' style='margin-bottom: 20px;'>
-				" . t("trarabic_20040") . "
+				" . t(".لتحديث نموذج المقرر الدراسي أو الجدول الدراسي للمساق، يرجى تحديد المساق من القائمة أدناه") . "
 				<br>				
-			  " . l(t("trarabic_10207"), "tools/course-search/view-reports") . "
+			  " . l(t("إظهار التقارير"), "tools/course-search/view-reports") . "
 			</div>
 			";
 
@@ -538,11 +538,11 @@ function course_search_display_view_reports() {
   
   $rtn = "";
   
-  $rtn .= "<h2 class='title'>" . t("trarabic_10208") . "</h2>";
+  $rtn .= "<h2 class='title'>" . t("إظهار التقارير") . "</h2>";
   $rtn .= "<ul>";
 
-  $rtn .= "<li>" . l(t("trarabic_10209"), "tools/course-search/get-offering-csv") . "</a>
-              - " . t("trarabic_20041") . "</li> ";
+  $rtn .= "<li>" . l(t("[CSV] الاقتراحات المتوقعة - كل المساقات"), "tools/course-search/get-offering-csv") . "</a>
+              - " . t("<b>قد يستغرق إلى دقيقة للتحميل</b> CSV يعرض هذا التقرير جميع المساقات في العروض المتوقعة للكتالوج للسنوات الخمس القادمة. سيتم تحميله كملف") . "</li> ";
   
   $rtn .= "</ul>";
   return $rtn;

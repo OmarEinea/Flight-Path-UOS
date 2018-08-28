@@ -27,7 +27,7 @@ function course_search_edit_course_details_form() {
   $course->catalog_year = $de_catalog_year;  // Since it may be 1900, force it!
   $course->load_descriptive_data(false, true, false, true);
 
-  fp_set_title(t("Edit Course Info for @course", array("@course" => "$subject_id $course_num")));
+  fp_set_title(t("trarabic_10194", array("@course" => "$subject_id $course_num")));
 
   $form["#attributes"] = array("enctype" => "multipart/form-data");
   
@@ -63,23 +63,22 @@ function course_search_edit_course_details_form() {
   }
 
   $form["mark" . $m++] = array(
-    "value" => "<strong>$course->title (" . $course->get_catalog_hours() . " " . t("hrs.") . ")</strong>
+    "value" => "<strong>$course->title (" . $course->get_catalog_hours() . " " . t("trarabic_10195") . ")</strong>
                 <div class='tenpt'>$course->description</div>
                 ",
   );
 
   $form["syllabus"] = array(
     "type" => "file",
-    "label" => t("Submit new sample course syllabus:"),
-    "prefix" => "<br><br>" . t("Current sample syllabus:") . " " . $filelink,
-    "description" => t("Note: selecting a new file will replace any existing
-                        syllabus.  Remember to click Submit after selecting a file."),
+    "label" => t("trarabic_10196"),
+    "prefix" => "<br><br>" . t("trarabic_10197") . " " . $filelink,
+    "description" => t("trarabic_20036"),
   );
 
   if ($bool_delete_cb) {
     $form["del_syllabus"] = array(
       "type" => "checkboxes",
-      "options" => array("yes" => t("Delete the existing syllabus?")),
+      "options" => array("yes" => t("trarabic_10198")),
     );
   }
 
@@ -87,15 +86,14 @@ function course_search_edit_course_details_form() {
     $s_url = $syllabus_details["url"];
     
     $form["mark" . $m++] = array(
-      "value" => "<p>" . t("Syllabus may be downloaded using this address: ") . "<a href='$s_url'>$s_url</a></p>",
+      "value" => "<p>" . t("trarabic_10199") . "<a href='$s_url'>$s_url</a></p>",
     );
     
   }
 
   $form["mark" . $m++] = array(
-    "value" => "<b>" . t("Course Rotation Schedule:") . "</b>
-                <br>" . t("Select semesters/terms in which this Course
-                      will be offered for the next five years."),
+    "value" => "<b>" . t("trarabic_10200") . "</b>
+                <br>" . t("trarabic_20037"),
   );
   
   //$term_array = get_term_id_suffixes();
@@ -183,19 +181,17 @@ function course_search_edit_course_details_form() {
 
   $form["not_anticipated"] = array(
     "type" => "checkboxes",
-    "label" => t("Not Anticipated:"),
-    "options" => array("yes" => t("This course is not anticipated.")),
+    "label" => t("trarabic_10201"),
+    "options" => array("yes" => t("trarabic_10202")),
     "value" => $default_val,
-    "description" => t("Checking this box means that the course is not
-                        anticipated to be offered within the time range above.
-                        This will override any selections made above."),
+    "description" => t("trarabic_20038"),
   );
 
 
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),
+    "value" => t("trarabic_10203"),
     "prefix" => "<hr>",
   );
    
@@ -273,14 +269,13 @@ function course_search_edit_course_details_form_submit($form, $form_state) {
     $test = course_search_upload_attachment($course_id, $subject_id, $course_num);
     if (!$test)
     {
-      fp_add_message(t("There was an error uploading attachment.  It is possible this is a write-permission
-                        issue with the server."));
+      fp_add_message(t("trarabic_20039"));
     } else {
       // success.
     }
   }      
    
-  fp_add_message(t("This course's details have been updated successfully."));
+  fp_add_message(t("trarabic_10204"));
   // TODO:  Do a "goto" back to wherever we came from
 }
 
@@ -332,7 +327,7 @@ function course_search_upload_attachment($course_id, $subject_id, $course_num) {
     if ($file_details = course_search_get_course_syllabus_details($subject_id, $course_num, $course_id)) {
       $filename = $file_details["filename"];    
       if (!unlink("$files_path/custom/files/syllabi/$filename")) {
-        fp_add_message(t("Unable to delete existing file:") . " $filename");
+        fp_add_message(t("trarabic_10205") . " $filename");
       }
     }
 
@@ -392,12 +387,11 @@ function course_search_display_edit_courses()
 	$_SESSION["dec_lr"] = $lr;
 
 
-	$rtn .= "<h2 class='title'>" . t("Update Course Information") . "</h2>
+	$rtn .= "<h2 class='title'>" . t("trarabic_10206") . "</h2>
 			<div class='tenpt' style='margin-bottom: 20px;'>
-				" . t("To update a course's sample syllabus or schedule,
-				please select the course from the list below.") . "
+				" . t("trarabic_20040") . "
 				<br>				
-			  " . l(t("View Reports"), "tools/course-search/view-reports") . "
+			  " . l(t("trarabic_10207"), "tools/course-search/view-reports") . "
 			</div>
 			";
 
@@ -544,13 +538,11 @@ function course_search_display_view_reports() {
   
   $rtn = "";
   
-  $rtn .= "<h2 class='title'>" . t("View Reports") . "</h2>";
+  $rtn .= "<h2 class='title'>" . t("trarabic_10208") . "</h2>";
   $rtn .= "<ul>";
 
-  $rtn .= "<li>" . l(t("[CSV] Anticipated Offerings - All Courses"), "tools/course-search/get-offering-csv") . "</a>
-              - " . t("This report shows all courses in the catalog's anticipated offerings
-              for the next 5 years.  Will be downloaded as a CSV file.
-              <b>May take up to a minute to load.</b>") . "</li> ";
+  $rtn .= "<li>" . l(t("trarabic_10209"), "tools/course-search/get-offering-csv") . "</a>
+              - " . t("trarabic_20041") . "</li> ";
   
   $rtn .= "</ul>";
   return $rtn;

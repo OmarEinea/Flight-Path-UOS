@@ -491,52 +491,37 @@ function admin_duplicate_year_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("This form will allow you to duplicate an entire year's worth of data
-                 (courses, degrees, groups) into a new year.  This is used to create a new
-                 year of data, based on the previous year, for example. <b>It will completely
-                 delete the 'destination' year data, if it already exists!</b>  Use carefully.
-                 <br><br>
-                 The new year will be placed in DRAFT, and will not be visible in FlightPath
-                 until draft changes are applied.
-                 <br><br>
-                 <u>It would be wise</u> to back up your database before proceeding.") . "</p><hr>",
+    "value" => "<p>" . t("trarabic_20112") . "</p><hr>",
   );
   
   $form["source_year"] = array(
     "type" => "textfield",
-    "label" => t("Source year:"),
+    "label" => t("trarabic_10516"),
     "size" => 10,
     "required" => TRUE,
-    "description" => t("Enter the 4-digit source year you are copying FROM.  For example,
-                        2007.  If you are copying from '2007-2008' then just enter
-                        2007."),
+    "description" => t("trarabic_20113"),
   );
   
   $form["destination_year"] = array(
     "type" => "textfield",
-    "label" => t("Destination year:"),
+    "label" => t("trarabic_10517"),
     "size" => 10,
     "required" => TRUE,
-    "description" => t("Enter the 4-digit source year you are copying TO.  <b><u>If this year
-                        all ready exists in the system, all data for this year will be DELETED.</u></b>
-                        If you are copying to '2009-2010' then just enter
-                        2009."),
+    "description" => t("trarabic_20114"),
   );  
   
  $form["passcode"] = array(
     "type" => "password",
-    "label" => t("For added security, you must enter the Apply Draft Changes password:"),
+    "label" => t("trarabic_10518"),
     "required" => TRUE,
-    "description" => t("This is a password set up in FlightPath's settings, to provide an extra layer
-                        of security for this powerful action.  Draft changes will not actually be applied,
-                        this is simply used as an added layer of security."),
+    "description" => t("trarabic_20115"),
         
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),
-    "description" => t("This action may take several minutes to complete!  Click only ONCE!"),
+    "value" => t("trarabic_10519"),
+    "description" => t("trarabic_10520"),
     "prefix" => "<hr>",
   );  
   
@@ -560,8 +545,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
-    form_error("passcode", t("Error!  The password you entered is not correct.  Check with the FlightPath administrator
-                              (or check the admin settings pages) to learn the password."));
+    form_error("passcode", t("trarabic_20116"));
     return;
     
   }
@@ -770,9 +754,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   }  
     
      
-  fp_add_message(t("The copy operation is now completed.  You may view the new year
-                    by using the Data Entry links on the admin main menu.  Remember, you must
-                    apply draft changes before they will be visible in FlightPath."));
+  fp_add_message(t("trarabic_20117"));
   
   
 }
@@ -807,61 +789,47 @@ function admin_advising_settings_form() {
     
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("Term ID Quick Reference:") . $mark,
+    "value" => t("trarabic_10521") . $mark,
   );
   */
   
   $form["available_advising_term_ids"] = array(
     "type" => "textfield",
-    "label" => t("Available advising term id's"),
+    "label" => t("trarabic_10522"),
     "value" => variable_get("available_advising_term_ids", ""),
-    "description" => t("These are the terms for which advisors may advise a student to take
-                        a course.  They should follow the structure established on the
-                        school data settings page.
-                        Separate term id's by commas. Ex: 200940, 200941, 200960. Make sure to enter
-                        in the order that they should appear in FlightPath."),
+    "description" => t("trarabic_20118"),
   );  
 
   $form["advising_term_id"] = array(
     "type" => "textfield",
-    "label" => t("Default advising term id"),
+    "label" => t("trarabic_10523"),
     "value" => variable_get("advising_term_id", ""),
-    "description" => t("Of the available term ids above, this is the default that FlightPath
-                        is set to when an advisor logs in. Ex: 200940."),
+    "description" => t("trarabic_20119"),
   );  
 
 
   $form["current_catalog_year"] = array(
     "type" => "textfield",
     "size" => 10,
-    "label" => t("Current catalog year"),
+    "label" => t("trarabic_10524"),
     "value" => variable_get("current_catalog_year", ""),
-    "description" => t("This is the year which What If loads degrees from, as well as other important functions.
-                        Only change this once you have fully loaded a new catalog year."),
+    "description" => t("trarabic_20120"),
   );  
 
   $form["current_draft_catalog_year"] = array(
     "type" => "textfield",
     "size" => 10,
-    "label" => t("Current DRAFT catalog year"),
+    "label" => t("trarabic_10525"),
     "value" => variable_get("current_draft_catalog_year", ""),
-    "description" => t("While in Draft mode, this is the year which Blank Degree Search loads degrees from.  What If
-                        mode will always use the Current catalog year, set above.
-                        You may change this while working on a new catalog.  It will not affect any other
-                        users of the system.  While not working on a new catalog, set this
-                        to the same as the Current catalog year."),
+    "description" => t("trarabic_20121"),
   );  
 
 
   $form["not_released_grades_terms"] = array(
     "type" => "textfield",
-    "label" => t("NOT released grades terms"),
+    "label" => t("trarabic_10526"),
     "value" => variable_get("not_released_grades_terms", ""),
-    "description" => t("Enter the term_id's, separated by commas, 
-                        which are NOT released and should NOT be visible to either advisors or students. 
-                        Coures in these terms will only show midterm grades or no grades at all. 
-                        Ex: 201240, 201240:S1") . "<br>" . t("If left blank, grades will be visible to 
-                        students and advisors as soon as they appear in the database."),
+    "description" => t("trarabic_20122") . "<br>" . t("trarabic_20123"),
   );  
 
 
@@ -883,11 +851,11 @@ function admin_get_semester_name($semester_num) {
   
     
   /**
-  $ar = array(t("Freshman Year"), t("Sophomore Year"), t("Junior Year"), t("Senior Year"));
+  $ar = array(t("trarabic_10527"), t("trarabic_10528"), t("trarabic_10529"), t("trarabic_10530"));
   $s = $ar[$semester_num];
   if ($s == "")
   {
-    $s = t("Year") . " " . ($semester_num + 1);
+    $s = t("trarabic_10531") . " " . ($semester_num + 1);
   }
   */
   
@@ -904,23 +872,21 @@ function admin_apply_draft_changes_form() {
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("You can use this form to apply your draft changes to the production database, making changes
-                  to degrees, courses, and groups visible to all users of the system."),
+    "value" => t("trarabic_20124"),
   );
   
   $form["passcode"] = array(
     "type" => "password",
-    "label" => t("For added security, you must enter the Apply Draft Changes password:"),
+    "label" => t("trarabic_10532"),
     "required" => TRUE,
-    "description" => t("This is a password set up in FlightPath's settings, to provide an extra layer
-                        of security for this powerful action."),
+    "description" => t("trarabic_20125"),
         
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),
-    "description" => t("This action may take several seconds to complete!  Click only ONCE!"),
+    "value" => t("trarabic_10533"),
+    "description" => t("trarabic_10534"),
     "prefix" => "<hr>",
   );
   
@@ -943,8 +909,7 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
     
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
-    form_error("passcode", t("Error!  The password you entered is not correct.  Check with the FlightPath administrator
-                              (or check the admin settings pages) to learn the password."));
+    form_error("passcode", t("trarabic_20126"));
     return;
     
   }
@@ -1008,7 +973,7 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
     mail($notify, "FlightPath Apply Draft Changes", "Someone has applied draft changes to FlightPath, which updated degree plans, groups, and courses.");
   }
   
-  fp_add_message(t("Successfully updated the production database with draft changes.  Your changes are now live and visible on production for all users."));
+  fp_add_message(t("trarabic_10535"));
 
   watchdog("admin", "Draft changes applied.");
  
@@ -1073,37 +1038,36 @@ function admin_menu_handle_replacement_pattern($str) {
 function admin_perm() {
   return array(
     "can_access_admin" => array(
-      "title" => t("Access administrative console"),
-      "description" => t("This is a powerful permission!  This allows a 
-                          user to access the 'admin console' for FlightPath."),
+      "title" => t("trarabic_10536"),
+      "description" => t("trarabic_20127"),
     ),
     "can_edit_urgent_message" => array(
-      "title" => t("Edit urgent message"),
-      "description" => t("The user may edit the 'Urgent Message' which appears at the top of every page, if set."),
+      "title" => t("trarabic_10537"),
+      "description" => t("trarabic_10538"),
     ),    
     "can_access_data_entry" => array(
-      "title" => t("Access Data Entry"),
-      "description" => t("The user can access (view) the data-entry portion of the admin console. Degree plans, groups, and courses."),
+      "title" => t("trarabic_10539"),
+      "description" => t("trarabic_10540"),
     ),
     "can_edit_data_entry" => array(
-      "title" => t("Edit Data Entry"),
-      "description" => t("This is a powerful permission! The user can edit degree plans, groups, and courses."),
+      "title" => t("trarabic_10541"),
+      "description" => t("trarabic_10542"),
     ),
     "can_view_advanced" => array(
-      "title" => t("View advanced"),
-      "description" => t("The user may see advanced information on-screen, for example, internal ID numbers for degrees and courses."),
+      "title" => t("trarabic_10543"),
+      "description" => t("trarabic_10544"),
     ),   
     "can_apply_draft_changes" => array(
-      "title" => t("Apply draft changes"),
-      "description" => t("The user may move draft changes into production."),
+      "title" => t("trarabic_10545"),
+      "description" => t("trarabic_10546"),
     ),   
     "can_edit_advising_settings" => array(
-      "title" => t("Edit advising settings"),
-      "description" => t("The user may edit advising settings, like available term IDs and the current catalog year."),
+      "title" => t("trarabic_10547"),
+      "description" => t("trarabic_10548"),
     ),   
     "display_watchdog" => array(
-      "title" => t("View watchdog (log) entries"),
-      "description" => t("The user may view the recent watchdog log entries.  This represents a security concern, so give this only to trusted users."),
+      "title" => t("trarabic_10549"),
+      "description" => t("trarabic_10550"),
     ),   
 
     
@@ -1123,9 +1087,8 @@ function admin_urgent_message_form() {
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => "<p>" . t("Any message you enter here will be displayed at the top of every page in the system. 
-                  This is used to alert users that the system is about to be taken offline, or any other urgently-needed information.") . "</p>
-                  <p>" . t("To delete this message, simple delete all the text in the box and save.") . "</p>",
+    "value" => "<p>" . t("trarabic_20128") . "</p>
+                  <p>" . t("trarabic_10551") . "</p>",
   );
   
   $form["urgent_msg"] = array(
@@ -1472,11 +1435,9 @@ function admin_display_main() {
   $cron_last_run = variable_get("cron_last_run", 0);    
   if ($cron_last_run < strtotime("-7 DAY")) {
     // Warn admin that they need to have cron set up!  It's been over a week!
-    fpm(t("Your system's cron process hasn't run in over a week.  In order for FlightPath
-            to continue to function properly, a cron process much be configured.
-            You may @run_link or see the @status_link page for instructions.", 
-            array("@status_link" => l(t("System status"), "admin/config/status"),
-                  "@run_link" => l(t("run cron now"), "admin/config/run-cron"))));
+    fpm(t("trarabic_20129", 
+            array("@status_link" => l(t("trarabic_10552"), "admin/config/status"),
+                  "@run_link" => l(t("trarabic_10553"), "admin/config/run-cron"))));
   }
   
   
@@ -1485,11 +1446,11 @@ function admin_display_main() {
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
 
-  $rtn .= "<h2>" . t("FlightPath Admin Console - Main Menu") . "</h2>";
+  $rtn .= "<h2>" . t("trarabic_10554") . "</h2>";
   $rtn .= "<table class='fp-semester-table' cellpadding='5'>
            <tr>
             <td valign='top' width='50%'>
-              " . fp_render_menu_block(t("System Configuration"), "admin/config") . "
+              " . fp_render_menu_block(t("trarabic_10555"), "admin/config") . "
             </td>
             <td valign='top' width='50%'>
               ";
@@ -1500,16 +1461,16 @@ function admin_display_main() {
   $rtn .= "<div class='admin-advising-settings'>
              
        <ul>
-        <li>" . t("Available terms for advising: %v", array("%v" => variable_get("available_advising_term_ids", ""))) . "</li>
-        <li>" . t("Default advising term: %v", array("%v" => variable_get("advising_term_id", ""))) . "</li>          
-        <li>" . t("Current catalog year: %v", array("%v" => variable_get("current_catalog_year", ""))) . "</li>       
-        <li>" . t("Current draft catalog year: %v", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>             
-        <li>" . t("Not released grades terms: %v", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>             
+        <li>" . t("trarabic_10556", array("%v" => variable_get("available_advising_term_ids", ""))) . "</li>
+        <li>" . t("trarabic_10557", array("%v" => variable_get("advising_term_id", ""))) . "</li>          
+        <li>" . t("trarabic_10558", array("%v" => variable_get("current_catalog_year", ""))) . "</li>       
+        <li>" . t("trarabic_10559", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>             
+        <li>" . t("trarabic_10560", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>             
         
       </ul>";
   
   if (user_has_permission("can_edit_advising_settings")) {
-    $rtn .= l(t("Edit Advising Settings"), "admin/edit-advising-settings");
+    $rtn .= l(t("trarabic_10561"), "admin/edit-advising-settings");
   }
   
   $rtn .= "</div>";
@@ -1535,7 +1496,7 @@ function admin_display_main() {
     $rtn .= "<div class='data-entry-cats'>";
 
     // Have a pulldown here of years, then use javascript to hide/show relavant groups.
-    $rtn .= "&nbsp; &nbsp; &nbsp; " . t("Select a catalog year") . ": <select id='data-entry-select-cats' onChange='adminHideDECats();'>";
+    $rtn .= "&nbsp; &nbsp; &nbsp; " . t("trarabic_10562") . ": <select id='data-entry-select-cats' onChange='adminHideDECats();'>";
     $selected_cat = ($de_catalog_year != "") ? $de_catalog_year : $current_catalog_year;
     
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
@@ -1546,15 +1507,15 @@ function admin_display_main() {
     
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
       $rtn .= "<ul class='data-entry-for-cat data-entry-for-cat-$t'>";
-      $rtn .= "<li>" . l(t("Degree plans for @year", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("Groups for @year", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("Courses for @year", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("trarabic_10563", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("trarabic_10564", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("trarabic_10565", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
       $rtn .= "</ul>";
     }
         
     if (user_has_permission("can_edit_data_entry")) {
-      $rtn .= "<b>" . t("Administrator function:") . "</b><ul>
-              <li>" . l(t("Duplicate entire year worth of data to new year"), "admin/duplicate-year") . "</li>
+      $rtn .= "<b>" . t("trarabic_10566") . "</b><ul>
+              <li>" . l(t("trarabic_10567"), "admin/duplicate-year") . "</li>
                 </ul>";
     }
     
@@ -1565,12 +1526,10 @@ function admin_display_main() {
     $res = db_query("SELECT * FROM draft_instructions");
     if (db_num_rows($res) > 0) {
       $rtn .= "<div class='draft-changes-waiting-msg'>
-                      " . t("Draft changes have been made which have yet to be applied.
-                      When you are ready for your draft changes to appear in
-                      production, click the link below.") . "</div>";
+                      " . t("trarabic_20130") . "</div>";
     }
     $rtn .= "<ul class='data-entry-draft-waiting'>
-              <li>" . l(t("Apply draft changes"), "admin/apply-draft-changes") . "</li>
+              <li>" . l(t("trarabic_10568"), "admin/apply-draft-changes") . "</li>
            </ul>";
         
   }

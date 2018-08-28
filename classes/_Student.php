@@ -276,7 +276,7 @@ class _Student
       $db_category_description = trim($cur2["category_description"]);
       
       // Did we find anything in the table?  If not, just use the codes themselves
-      if ($db_test_description == "") $db_test_description = t("Test code:") . " " . $db_test_id;
+      if ($db_test_description == "") $db_test_description = t("trarabic_10429") . " " . $db_test_id;
       if ($db_category_description == "") $db_category_description = $db_category_id;
       
       

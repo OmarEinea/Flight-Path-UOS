@@ -30,7 +30,7 @@ function student_search_menu() {
   
   
   $items["student-search"] = array(
-    "title" => t("Advisees"),
+    "title" => t("trarabic_10757"),
     "page_callback" => "student_search_subtab_switchboard",
     "access_arguments" => array("view_any_advising_session"),
     "type" => MENU_TYPE_TAB,
@@ -42,7 +42,7 @@ function student_search_menu() {
   );
   
   $items["student-search/my-advisees"] = array(
-    "title" => t("My Advisees"),
+    "title" => t("trarabic_10758"),
     "page_callback" => "student_search_display_my_advisees",
     "access_arguments" => array("display_my_advisees_subtab"),
     "type" => MENU_TYPE_SUB_TAB, 
@@ -60,7 +60,7 @@ function student_search_menu() {
   
   
   $items["student-search/my-majors"] = array(
-    "title" => t("My Majors"),
+    "title" => t("trarabic_10759"),
     "page_callback" => "student_search_display_my_majors",
     "access_arguments" => array("display_my_majors_subtab"),
     "type" => MENU_TYPE_SUB_TAB,
@@ -78,7 +78,7 @@ function student_search_menu() {
 
   
   $items["student-search/majors-search"] = array(
-    "title" => t("Majors"),
+    "title" => t("trarabic_10760"),
     "page_callback" => "student_search_display_majors_search",
     "access_arguments" => array("display_majors_subtab"),
     "type" => MENU_TYPE_SUB_TAB,
@@ -96,7 +96,7 @@ function student_search_menu() {
   
     
   $items["student-search/search"] = array(
-    "title" => t("Search"),
+    "title" => t("trarabic_10761"),
     "page_callback" => "student_search_display_search",
     "access_arguments" => array("display_search_subtab"),
     "type" => MENU_TYPE_SUB_TAB,
@@ -129,35 +129,24 @@ function student_search_settings_form() {
     "type" => "checkbox",
     "label" => "Major search - Only show major choices from current catalog year?",    
     "value" => variable_get("student_search_major_search_cur_year", FALSE),
-    "description" => t("If checked, the Majors tab will only allow selections of
-                        unexcluded degrees/majors in the current catalog year.
-                        If not sure what to do, leave this CHECKED."),
+    "description" => t("trarabic_20157"),
   );
   
   
   
   $form["extra_student_search_conditions"] = array(
     "type" => "textarea",
-    "label" => t("Extra student search conditions:"),
+    "label" => t("trarabic_10762"),
     "value" => variable_get("extra_student_search_conditions", " AND is_active = 1 "),
-    "description" => t("This is mysql which will get appended to end of the WHERE clause of every query
-                    relating to searching for students.  It is so you can easily add global conditions, 
-                    especially if you are overriding the student_search module.  For example,
-                    to check that the students are admitted or enrolled.  <b>Probably not necessary</b> if you
-                    are not overriding the student_search module.  If you are unsure what to do, leave this set to default.
-                    <br>Default is:  AND is_active = 1 "),    
+    "description" => t("trarabic_20158"),    
   );
     
   
   $form["enrolled_student_search_conditions"] = array(
     "type" => "textarea",
-    "label" => t("Enrolled student search conditions:"),
+    "label" => t("trarabic_10763"),
     "value" => variable_get("enrolled_student_search_conditions", " AND is_active = 1 "),
-    "description" => t("Similar to the one above it, this is a clause which will only bring up students
-                    who are enrolled at the university, and taking courses.  This might be identical to the
-                    one above it.  At the moment, this is only being used in the Stats module, and not
-                    for any logic in FlightPath, so you should consider it optional.
-                    <br>Default is:  AND is_active = 1 "),    
+    "description" => t("trarabic_20159"),    
   );
 
   
@@ -202,7 +191,7 @@ function student_search_render_small_search() {
               style='padding:0; margin:0; padding-bottom: 5px;'>
                      
                      <input type='text' class='smallinput' size='12' name='search_for' id='search_bar_value'                       
-                        placeholder = '" . t("Student ID") . "'>
+                        placeholder = '" . t("trarabic_10764") . "'>
                      <input type='submit' name='submit' value='Go' class='smallinput'>
                      <input type='hidden' name='current_student_id' value='$current_student_id'>   
                      <input type='hidden' name='did_search' value='true'>                  
@@ -246,7 +235,7 @@ function student_search_display_my_advisees() {
 	  
   $adv_array = student_search_query_advisees($query);
   $s = (count($adv_array) == 1) ? "" : "s"; 
-  $rtn .= student_search_render_advisees($adv_array, t("My Advisees Results") . " &nbsp; ( " . count($adv_array) . " " . t("student$s") . " )");
+  $rtn .= student_search_render_advisees($adv_array, t("trarabic_10765") . " &nbsp; ( " . count($adv_array) . " " . t("trarabic_10766") . " )");
 
   return $rtn;  
 }
@@ -260,24 +249,24 @@ function student_search_display_my_advisees() {
 function student_search_perm() {
   return array(
     "administer_student_search" => array(
-      "title" => t("Administer Student Search"),
-      "description" => t("Configure settings for the student search module."),
+      "title" => t("trarabic_10767"),
+      "description" => t("trarabic_10768"),
     ),
     "display_search_subtab" => array(
-      "title" => t("Display Search subtab"),
-      "description" => t("The user may view the Search subtab under the Advisees tab."),
+      "title" => t("trarabic_10769"),
+      "description" => t("trarabic_10770"),
     ),
     "display_my_advisees_subtab" => array(
-      "title" => t("Display My Advisees subtab"),
-      "description" => t("The user may view the My Advisees subtab under the Advisees tab."),
+      "title" => t("trarabic_10771"),
+      "description" => t("trarabic_10772"),
     ),    
     "display_my_majors_subtab" => array(
-      "title" => t("Display My Majors subtab"),
-      "description" => t("The user may view the My Majors subtab under the Advisees tab."),
+      "title" => t("trarabic_10773"),
+      "description" => t("trarabic_10774"),
     ),    
     "display_majors_subtab" => array(
-      "title" => t("Display Majors subtab"),
-      "description" => t("The user may view the Majors (search) subtab under the Advisees tab."),
+      "title" => t("trarabic_10775"),
+      "description" => t("trarabic_10776"),
     ),        
   );
 }
@@ -314,9 +303,9 @@ function student_search_display_majors_search() {
   
   $rtn .= "<form method='POST' action='" . $url . "'
               class='major-search-form'>            
-            <label>" . t("Select an available major from the list below:") . "</label>
+            <label>" . t("trarabic_10777") . "</label>
             <select name='major_code'>
-              <option value=''>- " . t("Please Select") . " -</option>
+              <option value=''>- " . t("trarabic_10778") . " -</option>
               ";
   
   
@@ -356,7 +345,7 @@ function student_search_display_majors_search() {
   
   $rtn .= "
             </select>
-            <input type='submit' value='" . t("Search") . "'>
+            <input type='submit' value='" . t("trarabic_10779") . "'>
             </form>";        
    
 
@@ -394,7 +383,7 @@ function student_search_display_majors_search() {
   
   $adv_array = student_search_query_advisees($query);
   $s = (count($adv_array) == 1) ? "" : "s"; 
-  $rtn .= student_search_render_advisees($adv_array, t("Major @major Results", array("@major" => $major_code)) . " &nbsp; ( " . count($adv_array) . " " . t("student$s") . " )");
+  $rtn .= student_search_render_advisees($adv_array, t("trarabic_10780", array("@major" => $major_code)) . " &nbsp; ( " . count($adv_array) . " " . t("trarabic_10781") . " )");
 
 
   
@@ -435,7 +424,7 @@ function student_search_display_my_majors() {
 
   $adv_array = student_search_query_advisees($query);
   $s = (count($adv_array) == 1) ? "" : "s"; 
-  $rtn .= student_search_render_advisees($adv_array, t("Major @major Results", array("@major" => $faculty_user_major_code)) . " &nbsp; ( " . count($adv_array) . " " . t("student$s") . " )");
+  $rtn .= student_search_render_advisees($adv_array, t("trarabic_10782", array("@major" => $faculty_user_major_code)) . " &nbsp; ( " . count($adv_array) . " " . t("trarabic_10783") . " )");
 
 
   
@@ -490,7 +479,7 @@ function student_search_display_search() {
     <table style='text-align: left; width: 100%; height: 60px;'
     border='0' cellpadding='0' cellspacing='0'>
       <tr>
-      <td width='30%' align='right'><font size='2'><b>" . t("Search for advisees:") . "&nbsp;&nbsp;</b></td> 
+      <td width='30%' align='right'><font size='2'><b>" . t("trarabic_10784") . "&nbsp;&nbsp;</b></td> 
       <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for' placeholder='Student ID'></font>
               <input type='hidden' name='did_search' id='input_did_search' value='true'></td>
       <td class='tenpt'>";
@@ -575,12 +564,12 @@ function student_search_display_search() {
 
   // Are we showing the maximum number of students?
   if (count($adv_array) == 300) {
-    $rtn .= "<div class='student-search-max-results'><em>" . t("Showing maximum 300 results. Please narrow search criteria.") . "</em></div>";
+    $rtn .= "<div class='student-search-max-results'><em>" . t("trarabic_10785") . "</em></div>";
   }
   
   
   
-  $rtn .= student_search_render_advisees($adv_array, t("Search Results") . " &nbsp; ( " . count($adv_array) . " " . t("student$s") . " )");
+  $rtn .= student_search_render_advisees($adv_array, t("trarabic_10786") . " &nbsp; ( " . count($adv_array) . " " . t("trarabic_10787") . " )");
   $rtn .= "</form>";
   $rtn .= "</table>";
 
@@ -599,25 +588,19 @@ function student_search_get_advanced_search_tips() {
 // Display advanced tips
   $advanced_tips_html = "
           <div class='student-search-advanced-tips'>            
-            " . t("FlightPath displays students who are currently enrolled or are newly admitted for
-            an upcoming term. Use the following tips to expand your search options:") . "
+            " . t("trarabic_20160") . "
             <ul>
-              <li>" . t("To search for inactive students, as well as active, add an asterisk (*)
-                  after your search.
-                  <br>&nbsp; &nbsp; &nbsp; 
-                        Ex:  <em>smith*</em> &nbsp; &nbsp; or &nbsp; &nbsp; <em>10035744*</em>") . "
+              <li>" . t("trarabic_20161") . "
               </li>
-              <li>" . t("Search by major by typing major=CODE in the search box.
-                  <br>&nbsp; &nbsp; &nbsp; 
-                        Ex:  <em>major=ENGL</em>  &nbsp; &nbsp; or &nbsp; &nbsp;  <em>major=ENGL*</em>") . "
+              <li>" . t("trarabic_20162") . "
               </li>
             </ul>
           </div>";
   
   
   $rtn .= "<div class='student-search-advanced-tips-wrapper'>
-             <label>" . t("Can't find the student you're looking for?") . "</label>
-              " . fp_render_c_fieldset($advanced_tips_html, t("View advanced search tips"), TRUE) . "
+             <label>" . t("trarabic_10788") . "</label>
+              " . fp_render_c_fieldset($advanced_tips_html, t("trarabic_10789"), TRUE) . "
            </div>";      
   
   return $rtn;
@@ -640,7 +623,7 @@ function student_search_render_advisees($adv_array, $title) {
               margin: 10px 0px 10px 0px; padding: 10px; 
               font-size: 12pt; font-weight: bold;'>
         " .t("Loading") . " <font color='blue'>$first_name $last_name</font> ($student_id).  
-          &nbsp; " . t("Please wait...") . "
+          &nbsp; " . t("trarabic_10790") . "
         </div>";
     $bool_redirect_one = TRUE;
   }
@@ -655,13 +638,13 @@ function student_search_render_advisees($adv_array, $title) {
   if (!fp_screen_is_mobile()) {
    $rtn .= "
       <td width='5%' valign='top'>&nbsp; </td>
-      <td width='12%' valign='top' class='tenpt'><b>" . t("CWID") . "</b></td>
-      <td width='15%' valign='top' class='tenpt'><b>" . t("First Name") . "</b></td>
-      <td width='20%' valign='top' class='tenpt'><b>" . t("Last Name")  . "</b></td>
-      <td width='15%' valign='top' class='tenpt'><b>" . t("Major Code") . "</b></td>
-      <td width='10%' valign='top' class='tenpt'><b>" . t("Rank") . "</b></td>
-      <td width='15%' valign='top' class='tenpt'><b>" . t("Catalog Year") . "</b></td>
-      <td width='15%' valign='top' class='tenpt'><b>" . t("GPA") . "</b></td>
+      <td width='12%' valign='top' class='tenpt'><b>" . t("trarabic_10791") . "</b></td>
+      <td width='15%' valign='top' class='tenpt'><b>" . t("trarabic_10792") . "</b></td>
+      <td width='20%' valign='top' class='tenpt'><b>" . t("trarabic_10793")  . "</b></td>
+      <td width='15%' valign='top' class='tenpt'><b>" . t("trarabic_10794") . "</b></td>
+      <td width='10%' valign='top' class='tenpt'><b>" . t("trarabic_10795") . "</b></td>
+      <td width='15%' valign='top' class='tenpt'><b>" . t("trarabic_10796") . "</b></td>
+      <td width='15%' valign='top' class='tenpt'><b>" . t("trarabic_10797") . "</b></td>
       ";
   } 
   

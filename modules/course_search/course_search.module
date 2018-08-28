@@ -155,15 +155,12 @@ function course_search_menu() {
 function course_search_perm() {
   return array(
           "administer_course_search" => array(
-            "title" => t("Administer course search"),
-            "description" => t("Users with this setting will be able
-                              to modify settings for the Course Search module."),
+            "title" => t("trarabic_10698"),
+            "description" => t("trarabic_20148"),
           ),
           "can_update_course_info_details" => array(
-            "title" => t("Can update course info details"),
-            "description" => t("Allows users to update the 'course info' details,
-                                like the course's sample syllabus and rotation
-                                schedule."),
+            "title" => t("trarabic_10699"),
+            "description" => t("trarabic_20149"),
           ),
                     
           
@@ -180,21 +177,18 @@ function course_search_settings_form() {
   
   $form["course_search_avail_term_id_suffix_order"] = array(
     "type" => "textfield",
-    "label" => t("Available Term ID Suffixes & Order"),
+    "label" => t("trarabic_10700"),
     "value" => variable_get("course_search_avail_term_id_suffix_order", ""),
-    "description" => t("Enter the order of term ID suffixes, so that they will display
-                in the correct order in the table of available course
-                offerings.  Separate by comma.") . "
+    "description" => t("trarabic_20150") . "
                 <br>
                 Ex: 60, 40, 41, 80, 81, mm",
   );    
   
   $form["course_search_avail_term_headers"] = array(
     "type" => "textfield",
-    "label" => t("Available Term Table Headers"),
+    "label" => t("trarabic_10701"),
     "value" => variable_get("course_search_avail_term_headers", ""),
-    "description" => t("Enter the table headers for the available table, in the same
-                order as the suffix order above.") . "
+    "description" => t("trarabic_20151") . "
                 <br>
                 Ex: Spring, May, Summer 1, Summer 2, Fall, Winter",
   );    
@@ -202,11 +196,9 @@ function course_search_settings_form() {
 
   $form["course_search_avail_term_mobile_headers"] = array(
     "type" => "textfield",
-    "label" => t("Available Term Mobile Table Headers"),
+    "label" => t("trarabic_10702"),
     "value" => variable_get("course_search_avail_term_mobile_headers", ""),
-    "description" => t("Enter the table headers for the available table, in the same
-                order as the suffix order above, as it should be displayed on
-                a mobile device (with a smaller screen).") . "
+    "description" => t("trarabic_20152") . "
                 <br>
                 Ex: Spr, May, Sum1, Sum2, Fall, Win",
   );    
@@ -263,7 +255,7 @@ function course_search_download_syllabus() {
     // Display a message, letting the user know it does not
     // exist.
     watchdog("syllabus", "fail,$c", array(), WATCHDOG_ERROR);
-    fp_add_message(t("Sorry, the syllabus for @course could not be found.", array("@course" => "$subject_id $course_num")));
+    fp_add_message(t("trarabic_10703", array("@course" => "$subject_id $course_num")));
     // Just so admins can see:
     fpm("Admin: file path attempted: $files_path/custom/files/syllabi/$filename");
     return;
@@ -314,7 +306,7 @@ function course_search_display_courses() {
   
   $rtn .= "";
       
-  $rtn .= fp_render_curved_line(t("Course Search"));
+  $rtn .= fp_render_curved_line(t("trarabic_10704"));
 
   $settings = fp_get_system_settings();
   $current_catalog_year = $settings["current_catalog_year"];
@@ -346,7 +338,7 @@ function course_search_display_courses() {
   $title = trim($cur["title"]);
   */
   
-  $rtn .= t("Current catalog year:") . " <b>$catalog_year-" . ($catalog_year +1) . "</b>   
+  $rtn .= t("trarabic_10705") . " <b>$catalog_year-" . ($catalog_year +1) . "</b>   
       ";
   $important_notice = "              
       <div class='tenpt hypo' style='padding: 5px;'>
@@ -460,8 +452,7 @@ function course_search_display_courses() {
       $description = trim($cur["description"]);
       if ($description == "")
       {
-        $description = t("No description is available at this time.  Consult
-              the official course catalog for listings.");
+        $description = t("trarabic_20153");
       }
 
       $syllabus_text = "";     
@@ -472,7 +463,7 @@ function course_search_display_courses() {
         $syllabus_text = "<div class='course-search-sample-syllabus'>
                           <a href='{$syllabus_array["url"]}' class='nounderline'>
                  <img src='" . fp_theme_location() . "/images/document_icon.gif' border='0' height='12'> 
-                  " . t("Sample Syllabus") . "</a>
+                  " . t("trarabic_10706") . "</a>
                   
                 </div>
                 ";
@@ -490,7 +481,7 @@ function course_search_display_courses() {
       {
         $schedule_text .= "
               <div>
-                <b>" . t("Anticipated availability:") . "</b>
+                <b>" . t("trarabic_10707") . "</b>
                 ";
         $s_disp = "auto";
         if ($mode != "advanced")
@@ -536,7 +527,7 @@ function course_search_display_courses() {
             <div id='$rnd_div_id' style='display: $s_disp; margin-left: $mleft;'>
             <table border='1' width='$twidth' class='fp-course-search-avail'>
               <tr>
-               <td>" . t("Year") . "</td>
+               <td>" . t("trarabic_10708") . "</td>
               ";
         foreach ($th as $header_text) {
           $schedule_text .= "<td>" . trim($header_text) . "</td>";
@@ -600,9 +591,8 @@ function course_search_display_courses() {
       if (course_search_get_course_rotation_schedule_not_anticipated($n_course_id))
       {
         // This course has no anticipated offerings!
-        $schedule_text = "<div><b>" . t("Anticipated availability:") . "</b>
-              " . t("There are no anticipated course offerings
-              at this time.") . "</div>";
+        $schedule_text = "<div><b>" . t("trarabic_10709") . "</b>
+              " . t("trarabic_20154") . "</div>";
         if ($only_term != "") $bool_hide = TRUE;
       }
 
@@ -619,7 +609,7 @@ function course_search_display_courses() {
       $repeat = "";
       if (trim($cur["repeat_hours"]*1) > $min_hours)
       {
-        $repeat = "<div class='course-search-repeat'>" . t("May be repeated for up to @repeat hours of credit.", array("@repeat" => $cur["repeat_hours"]*1)) . "</div>";
+        $repeat = "<div class='course-search-repeat'>" . t("trarabic_10710", array("@repeat" => $cur["repeat_hours"]*1)) . "</div>";
       }
       
       
@@ -633,7 +623,7 @@ function course_search_display_courses() {
                 margin-left: 10px;
                 margin-bottom: 20px;
                 margin-top: 50px;'>
-                " . t("The following courses are for Graduate Students only.") . "
+                " . t("trarabic_10711") . "
                 </div>";
         }
   
@@ -651,7 +641,7 @@ function course_search_display_courses() {
                       $on_click>
                        <span class='course-search-course-name'>$n_subject_id $n_course_num</span>
                         $hyp1 
-                        <span class='course-search-course-title'>$title</span> - $hours " . t("hrs.") . "$repeat </div>
+                        <span class='course-search-course-title'>$title</span> - $hours " . t("trarabic_10712") . "$repeat </div>
                  <div class='course-search-course-extra'>
                    <div class='course-search-course-description'>$description</div>
                    <div class='course-search-course-details'>$details</div>
@@ -660,8 +650,8 @@ function course_search_display_courses() {
 
         if (user_has_permission("can_update_course_info_details") && !fp_screen_is_mobile()) {
           $rtn .= "<div class='course-search-admin-options'>
-                    " . t("Administrative options:") . " 
-                    " . l(t("Edit syllabus and rotation schedule"), "tools/course-search/edit-info-details", "course_id=$n_course_id&subject_id=$n_subject_id&course_num=$n_course_num") . "                  
+                    " . t("trarabic_10713") . " 
+                    " . l(t("trarabic_10714"), "tools/course-search/edit-info-details", "course_id=$n_course_id&subject_id=$n_subject_id&course_num=$n_course_num") . "                  
                 </div>";
         }         
                  
@@ -843,7 +833,7 @@ function course_search_display_search() {
   $rtn .= "";
   
   if (user_has_permission("can_update_course_info_details")) {
-    $rtn .= "<div>" . t("Administrators:") . " " . l(t("Edit course schedules and syllabi"), "tools/course-search/edit-list") . "</div>";
+    $rtn .= "<div>" . t("trarabic_10715") . " " . l(t("trarabic_10716"), "tools/course-search/edit-list") . "</div>";
   }
     
   $rtn .= fp_render_curved_line("Course Search");

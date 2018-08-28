@@ -58,7 +58,7 @@ function menu_rebuild_cache($bool_display_message = TRUE) {
   }  
   
   if ($bool_display_message) {
-    fp_add_message(t("The menu router has been rebuilt"));
+    fp_add_message(t("trarabic_10007"));
   }
     
 }

@@ -586,7 +586,7 @@ class _DegreePlan
     // developmentals are required.
     // -55 is the developmental semester.
     $sem = new Semester(-55);
-    $sem->title = variable_get("developmentals_title", t("Developmental Requirements"));
+    $sem->title = variable_get("developmentals_title", t("trarabic_10420"));
     $is_empty = true;
 
     $temp_array = $this->db->get_developmental_requirements($student_id);
@@ -603,7 +603,7 @@ class _DegreePlan
       $is_empty = false;      
     }
     
-    $sem->notice = variable_get("developmentals_notice", t("According to our records, you are required to complete the course(s) listed above. For some transfer students, your record may not be complete. If you have any questions, please ask your advisor."));
+    $sem->notice = variable_get("developmentals_notice", t("trarabic_10421"));
 
     if (!$is_empty)
     {
@@ -618,7 +618,7 @@ class _DegreePlan
     // semester, with the number -88, with a single group,
     // also numbered -88.
     $semester_courses_added = new Semester(-88);
-    $semester_courses_added->title = t("Courses Added by Advisor");
+    $semester_courses_added->title = t("trarabic_10422");
 
     // Now, we want to add the Add a Course group...
     $g = new Group();

@@ -41,10 +41,10 @@ class _AdvisingScreenTypeView extends _AdvisingScreen
 		  }
 		}
 		
-		//$this->add_to_screen($this->display_semester_list($list_semesters, "c", t("Core Requirements"), true));
-		//$this->add_to_screen($this->display_semester_list($list_semesters, "m", t("Major Requirements"), true));
-		//$this->add_to_screen($this->display_semester_list($list_semesters, "s", t("Supporting Requirements"), true));
-		//$this->add_to_screen($this->display_semester_list($list_semesters, "e", t("Electives"), true));
+		//$this->add_to_screen($this->display_semester_list($list_semesters, "c", t("trarabic_10412"), true));
+		//$this->add_to_screen($this->display_semester_list($list_semesters, "m", t("trarabic_10413"), true));
+		//$this->add_to_screen($this->display_semester_list($list_semesters, "s", t("trarabic_10414"), true));
+		//$this->add_to_screen($this->display_semester_list($list_semesters, "e", t("trarabic_10415"), true));
 
 		
 		$temp_d_s = new Semester(-55); // developmental requirements.

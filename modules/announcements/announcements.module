@@ -16,8 +16,8 @@
 function announcements_content_register_content_type() {
   $arr = array(
     "announcement" => array(
-      "title" => t("Announcement"),
-      "description" => t("This is a short announcement to the user, meant to be displayed like news items in a block."),
+      "title" => t("trarabic_10592"),
+      "description" => t("trarabic_10593"),
       "settings" => array(),
     ),    
   );
@@ -28,9 +28,9 @@ function announcements_content_register_content_type() {
   
   $arr["announcement"]["settings"]["visibility"] = array(
     "type" => "radios",
-    "label" => t("Visibility:"),
-    "options" => array("public" => t("Public (all users, incl students)"), 
-                       "faculty" => t("Only faculty/staff"), "hidden" => t("Hidden")
+    "label" => t("trarabic_10594"),
+    "options" => array("public" => t("trarabic_10595"), 
+                       "faculty" => t("trarabic_10596"), "hidden" => t("trarabic_10597")
                        ),
     "required" => TRUE,                       
   );
@@ -48,7 +48,7 @@ function announcements_perm() {
     
   return array(
     "view_faculty_announcements" => array(
-      "title" => t("View faculty announcements"),
+      "title" => t("trarabic_10598"),
     ),
   );
 }
@@ -98,10 +98,10 @@ function announcements_render_announcements() {
     // If we have not updated this announcement before, then print "posted",
     // else, print "updated" date.
     if ($announcement["updated"] > $announcement["posted"]) {      
-      $rtn .= t("Updated") . " " . date("D, M jS Y - g:ia", $announcement["updated"]);      
+      $rtn .= t("trarabic_10599") . " " . date("D, M jS Y - g:ia", $announcement["updated"]);      
     }
     else {
-      $rtn .= t("Posted") . " " . date("D, M jS Y - g:ia", $announcement["posted"]);
+      $rtn .= t("trarabic_10600") . " " . date("D, M jS Y - g:ia", $announcement["posted"]);
     }
     
     $rtn .= "</div>";
@@ -127,7 +127,7 @@ function announcements_render_announcements() {
  */
 function announcements_blocks() {
   return array(
-    "primary" => t("Primary announcements block"),
+    "primary" => t("trarabic_10601"),
   );
 }
 
@@ -147,7 +147,7 @@ function announcements_render_block($delta) {
       
     fp_add_css(fp_get_module_path("announcements") . "/css/announcements.css");
     
-    $rtn["title"] = t("Announcements");       
+    $rtn["title"] = t("trarabic_10602");       
     $rtn["body"] = announcements_render_announcements();
   }
   

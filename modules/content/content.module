@@ -219,7 +219,7 @@ function content_view_content() {
   
   $rtn .= "<div class='content-view content-view-{$content["type"]}'>";
   
-  $rtn .= "<div class='content-submitted'>" . t("Submitted by") . " " . $author->name . " " . t("on");
+  $rtn .= "<div class='content-submitted'>" . t("trarabic_10662") . " " . $author->name . " " . t("trarabic_10663");
   $rtn .= " " . format_date($content["posted"]) . "</div>";
   
   $rtn .= "<div class='content-body'>" . $content["body"] . "</div>";
@@ -255,7 +255,7 @@ function content_edit_content_form($type = "", $cid = "") {
   
  if ($cid != "new") {
     $content = content_load($cid);
-    fp_set_title(t("Editing") . " " . $content["title"] . "");
+    fp_set_title(t("trarabic_10664") . " " . $content["title"] . "");
     // Re-set $type, just in case the user put the wrong type in the
     // URL
     $type = $content["type"];
@@ -263,14 +263,14 @@ function content_edit_content_form($type = "", $cid = "") {
   else {
     // New piece of content
     $content = array();
-    fp_set_title(t("Add new") . " " . $types[$type]["title"]);
+    fp_set_title(t("trarabic_10665") . " " . $types[$type]["title"]);
   }
 
 
   
   // Does the user have permission to edit this content?
   if (!user_has_permission("edit_$type" . "_content")) {  
-    fp_add_message(t("Sorry, you do not have permission to edit that content type."));
+    fp_add_message(t("trarabic_10666"));
     fp_goto("admin/config/content");
     return;
   }
@@ -291,17 +291,16 @@ function content_edit_content_form($type = "", $cid = "") {
  
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("Title:"),
+    "label" => t("trarabic_10667"),
     "value" => $content["title"],
     "required" => TRUE,
-    "description" => t("To hide the title, you may start
-                     it with [hide].  For example: \"[hide] this is a sample.\""), 
+    "description" => t("trarabic_20146"), 
   );
   
 
   $form["body"] = array(
     "type" => "textarea",
-    "label" => t("Body:"),
+    "label" => t("trarabic_10668"),
     "rows" => 15,
     "value" => $content["body"],    
   );
@@ -324,12 +323,12 @@ function content_edit_content_form($type = "", $cid = "") {
   
   $form["submit_submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),        
+    "value" => t("trarabic_10669"),        
   );
    
   $form["submit_delete"] = array(
     "type" => "submit",
-    "value" => t("Delete"),    
+    "value" => t("trarabic_10670"),    
     "confirm" => t('Are you sure you wish to delete this?\nThis action cannot be undone.'),
   );
 
@@ -361,7 +360,7 @@ function content_edit_content_form_submit(&$form, $form_state) {
   
   // Does the user have permission to edit this content?
   if (!user_has_permission("edit_$type" . "_content")) {  
-    fp_add_message(t("Sorry, you do not have permission to edit that content type."));
+    fp_add_message(t("trarabic_10671"));
     fp_goto("admin/config/content");
     return;
   }  
@@ -407,7 +406,7 @@ function content_edit_content_form_submit(&$form, $form_state) {
                     
     }
     
-    fp_add_message(t("%title has been saved successfully.", array("%title" => $values["title"])));
+    fp_add_message(t("trarabic_10672", array("%title" => $values["title"])));
     
     
   }
@@ -415,7 +414,7 @@ function content_edit_content_form_submit(&$form, $form_state) {
   // Should be we deleting things?
   if ($values["submit_delete"] != "") {
     db_query("DELETE FROM content WHERE cid = '?' ", $values["cid"]);
-    fp_add_message(t("%title has been deleted successfully.", array("%title" => $values["title"])));
+    fp_add_message(t("trarabic_10673", array("%title" => $values["title"])));
     $form["#redirect"] = array(
       "path" => "admin/config/content",
     );
@@ -496,7 +495,7 @@ function content_handle_delete_content() {
   db_query("UPDATE content SET delete_flag = '1'
             WHERE aid = '?' ", $aid);
   
-  fp_add_message(t("Content successfully deleted."));
+  fp_add_message(t("trarabic_10674"));
   fp_goto("admin/config/content");
 }
 
@@ -534,11 +533,11 @@ function content_display_content_admin_list() {
           <hr>";
   
   // Show a table of current content in the system.
-  $rtn .= "<b>" . t("Existing content:") . "</b>";
+  $rtn .= "<b>" . t("trarabic_10675") . "</b>";
   $filter = $_GET["filter"];
   $rtn .= "<form class='filters' action='" . fp_url("admin/config/content") . "' method='GET'>
-              " . t("Display type:") . " &nbsp; <select name='filter'>
-                  <option value=''>" . t(" -- Any --") . "</option>";
+              " . t("trarabic_10676") . " &nbsp; <select name='filter'>
+                  <option value=''>" . t("trarabic_10677") . "</option>";
 
   foreach ($types as $type => $details) {
     $sel = ($type == $filter) ? "selected" : "";
@@ -556,11 +555,11 @@ function content_display_content_admin_list() {
   
   $rtn .= "<table width='100%' border='1' class='tenpt'>
             <tr>
-              <th>" . t("Title") . "</th>
-              <th>" . t("Edit") . "</th>
-              <th>" . t("Type") . "</th>
-              <th>" . t("Author") . "</th>
-              <th>" . t("Updated") . "</th>
+              <th>" . t("trarabic_10678") . "</th>
+              <th>" . t("trarabic_10679") . "</th>
+              <th>" . t("trarabic_10680") . "</th>
+              <th>" . t("trarabic_10681") . "</th>
+              <th>" . t("trarabic_10682") . "</th>
             </tr>";
   if ($filter != "") {
     $res = db_query("SELECT * FROM content WHERE type = '?' ORDER BY title", $filter);
@@ -579,7 +578,7 @@ function content_display_content_admin_list() {
     
     if (user_has_permission("edit_{$cur["type"]}" . "_content")) {
       $rtn .= "
-                <td valign='top'>" . l(t("edit"), "content/{$cur["cid"]}/edit") . "</td>";
+                <td valign='top'>" . l(t("trarabic_10683"), "content/{$cur["cid"]}/edit") . "</td>";
     }
     else {
       $rtn .= "<td>&nbsp;</td>";
@@ -631,8 +630,8 @@ function content_get_types() {
 function content_content_register_content_type() {
   return array(
     "page" => array(
-      "title" => t("Page"),
-      "description" => t("This is a basic web page."),     
+      "title" => t("trarabic_10684"),
+      "description" => t("trarabic_10685"),     
     ),
   );
 }
@@ -652,13 +651,13 @@ function content_content_register_content_type() {
 function hook_content_register_content_type() {
   $arr = array(
     "type_1" => array(
-      "title" => t("Type One"),
-      "description" => t("This is a content type."),
+      "title" => t("trarabic_10686"),
+      "description" => t("trarabic_10687"),
       "settings" => array(),
     ),
     "type_2" => array(
-      "title" => t("Type Two"),
-      "description" => t("This is another content type."),
+      "title" => t("trarabic_10688"),
+      "description" => t("trarabic_10689"),
       "settings" => array(),
     ),
     
@@ -680,10 +679,10 @@ function content_render_content($bool_show_delete = FALSE) {
   while ($cur = db_fetch_array($res)) {
     $rtn .= "<div class='content'>
                 <div class='content-text'>" . filter_markup($cur["body"], "full") . "</div>
-                <div class='content-posted'>" . t("Posted") . " " . date("D, M jS Y - g:ia", $cur["posted"]) . "</div>";
+                <div class='content-posted'>" . t("trarabic_10690") . " " . date("D, M jS Y - g:ia", $cur["posted"]) . "</div>";
     if ($bool_show_delete) {
       $delete_link = "";
-      $delete_link = fp_get_js_confirm_link(t("Are you sure you wish to delete this content?"), 'window.location="' . fp_url("content/delete", "aid=" . $cur["aid"]) . '"', t("Delete?"));
+      $delete_link = fp_get_js_confirm_link(t("trarabic_10691"), 'window.location="' . fp_url("content/delete", "aid=" . $cur["aid"]) . '"', t("trarabic_10692"));
       $rtn .= "<div class='content-delete'>$delete_link</div>";  
     }
     
@@ -705,16 +704,14 @@ function content_perm() {
 
   
   $rtn["admin_content"] = array(
-    "title" => t("Administer Content"),
-    "description" => t("The user needs this permission to access the content page at all, in
-                      addition to specific permissions listed below for editing
-                      different content types."),
+    "title" => t("trarabic_10693"),
+    "description" => t("trarabic_20147"),
   );
   
   $types = content_get_types();
   foreach ($types as $type => $details) {  
     $rtn ["edit_$type" . "_content"] = array(
-      "title" => t("Edit") . " " . $details["title"] . " " . t("content"),      
+      "title" => t("trarabic_10694") . " " . $details["title"] . " " . t("trarabic_10695"),      
     );
   }
   
@@ -736,7 +733,7 @@ function content_perm() {
  */
 function content_blocks() {
   return array(
-    "primary" => t("Primary content block"),
+    "primary" => t("trarabic_10696"),
   );
 }
 
@@ -756,7 +753,7 @@ function content_render_block($delta) {
       
     fp_add_css(fp_get_module_path("content") . "/css/content.css");
     
-    $rtn["title"] = t("Content");       
+    $rtn["title"] = t("trarabic_10697");       
     $rtn["body"] = content_render_content();
   }
   

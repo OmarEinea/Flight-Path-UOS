@@ -214,7 +214,7 @@ function fp_render_form($callback, $form_type = "") {
   if ($form_type == "system_settings") {      
     $rtn .= "<div class='buttons'>";
     //$rtn .= fp_render_button("Save settings", "\$(\"#sysform\").submit()");
-    $rtn .= "<input type='submit' name='submit_button' value='" . t("Save settings") . "'>";
+    $rtn .= "<input type='submit' name='submit_button' value='" . t("trarabic_10005") . "'>";
     $rtn .= "</div>";      
   }
   
@@ -255,7 +255,7 @@ function form_basic_validate($form, $form_submitted) {
         // It's blank!  ERROR!
         $label = $element["label"];
         if ($label == "") $label = $name;
-        form_error($name, t("You must enter a value for <b>%element_label</b>", array("%element_label" => $label)));
+        form_error($name, t("trarabic_10006", array("%element_label" => $label)));
       }
     }
   }

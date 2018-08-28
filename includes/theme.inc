@@ -499,12 +499,12 @@ function fp_build_tab_array($page) {
     && user_has_permission("can_advise_students"))
     {
       $t_term_id = $GLOBALS["fp_advising"]["advising_term_id"];
-      $for_term = " " . t("for") . " " . get_term_description($t_term_id);
+      $for_term = " " . t("trarabic_10016") . " " . get_term_description($t_term_id);
 
       // If this is an advisor or above
       $furl = fp_url("advise/popup-change-term");
       $for_term .= "<span style='font-size: 8pt; font-weight:normal;'>
-             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color:blue; background-color: white; border: 1px solid black; padding-left: 3px; padding-right: 3px;'>" . t("change") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' height='13' border='0' style='vertical-align: bottom;'></a>
+             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color:blue; background-color: white; border: 1px solid black; padding-left: 3px; padding-right: 3px;'>" . t("trarabic_10017") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' height='13' border='0' style='vertical-align: bottom;'></a>
             </span>";
 
 
@@ -513,25 +513,25 @@ function fp_build_tab_array($page) {
     // TODO:  bool_blank? bool_print?
     if ($GLOBALS["fp_advising"]["advising_what_if"] == "yes" && !$bool_blank)
     {
-      $whatif = " (" . t("in \"What If\" mode") . ") ";
+      $whatif = " (" . t("trarabic_10018") . ") ";
       $hypoclass = "hypo";
       // latest cat year because its what if.
       $student->catalog_year = $settings["current_catalog_year"];
       if ($bool_print != true) {
         $what_if_select = "<div class='tenpt'><b>
-          " . l(t("Change What If Settings"), "what-if", "advising_what_if=yes&what_if_major_code=none&what_if_track_code=none&current_student_id=$current_student_id") . "
+          " . l(t("trarabic_10019"), "what-if", "advising_what_if=yes&what_if_major_code=none&what_if_track_code=none&current_student_id=$current_student_id") . "
           </b></div>";
       }
     }
 
-    $ca = t("Currently Advising");
+    $ca = t("trarabic_10020");
     
     if (!user_has_permission("can_advise_students") || $screen_mode == "detailed") {
-      $ca = t("Student Details");
+      $ca = t("trarabic_10021");
     }
 
     if ($bool_blank == true) {
-      $ca = t("Viewing Blank Degree Plan");
+      $ca = t("trarabic_10022");
     }
 
     
@@ -581,15 +581,15 @@ function fp_build_tab_array($page) {
     }
 
     if (!$bool_blank) {
-      array_push($display_array, t("Name:") . " ~~ " . $student->name);
-      array_push($display_array, t("CWID:") . " ~~ " . $student->student_id);
+      array_push($display_array, t("trarabic_10023") . " ~~ " . $student->name);
+      array_push($display_array, t("trarabic_10024") . " ~~ " . $student->student_id);
     }
     
     if ($screen_mode == "detailed") {
       $degree_title .= " ($degree_plan->major_code)";
     }
     
-    array_push($display_array, t("Major:") . " ~~ " . $degree_title);
+    array_push($display_array, t("trarabic_10025") . " ~~ " . $degree_title);
     // If this degree has tracks, we must display something about it here.
 
     if ($degree_plan->bool_has_tracks)
@@ -605,12 +605,12 @@ function fp_build_tab_array($page) {
       
       $op_link = "<a href='javascript: popupWindow2(\"" . fp_url("advise/popup-change-track") . "\",\"$extra_vars\");'><img
               src='" . fp_theme_location() . "/images/popup.gif' border='0' 
-              title='" . t("Click to change degree options.") . "'></a>";
-      $op_text = t("Click to select:") . " $op_link";
+              title='" . t("trarabic_10026") . "'></a>";
+      $op_text = t("trarabic_10027") . " $op_link";
 
       if ($screen_mode == "not_advising" || $screen_mode == "detailed")
       {
-        $op_text = t("None selected");
+        $op_text = t("trarabic_10028");
         $op_link = "";
       }
 
@@ -621,7 +621,7 @@ function fp_build_tab_array($page) {
           // In other words, we do not have permission to advise,
           // and we are not in whatIf, so take out the link.
           $op_link = "";
-          $op_text = t("None selected");
+          $op_text = t("trarabic_10029");
 
         }
       }
@@ -637,14 +637,14 @@ function fp_build_tab_array($page) {
       }
 
 
-      array_push($display_array, t("Option:") . " ~~ " . $op_text);
+      array_push($display_array, t("trarabic_10030") . " ~~ " . $op_text);
     }
     if (!$bool_blank) {
-      array_push($display_array, t("Rank:") . " ~~ " . $student->rank);
+      array_push($display_array, t("trarabic_10031") . " ~~ " . $student->rank);
     }
-    array_push($display_array, t("Catalog Year:") . " ~~ " . $cat_year);
+    array_push($display_array, t("trarabic_10032") . " ~~ " . $cat_year);
     if (!$bool_blank) {
-      array_push($display_array, t("Cumulative:") . " ~~ " . $student->cumulative_hours . " " . t("hrs") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 3) . " " . t("GPA"));
+      array_push($display_array, t("trarabic_10033") . " ~~ " . $student->cumulative_hours . " " . t("trarabic_10034") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 3) . " " . t("trarabic_10035"));
     }
 
     if ($student->student_id > 1 || $bool_blank == true)
@@ -713,12 +713,8 @@ function fp_build_tab_array($page) {
         <img src='" . fp_theme_location() . "/images/alert_lg.gif' >  
       </td>
       <td valign='middle' class='tenpt' style='padding-left: 8px;'>
-        <b>" . t("Important Notice:") . " </b>
-        " . t("FlightPath cannot display degree plans from 
-        catalogs earlier than @earliest.
-        The above student's catalog year is @current, which means 
-        that the degree plan below may not accurately 
-        display this student's degree requirements.", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
+        <b>" . t("trarabic_10036") . " </b>
+        " . t("trarabic_20002", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
       </td>
       </table>
       </div>
@@ -881,7 +877,7 @@ function fp_render_mobile_tab_array($tab_array) {
     
     $rtn .= "<table border='0' width='200' cellpadding='0' cellspacing='0' class='fp-mobile-tabs'>
              <td>
-             <b>" . t("Display") . ": </b>";
+             <b>" . t("trarabic_10037") . ": </b>";
     
     
     $rtn .= "<select onChange='executeSelection()' id='mobileTabsSelect'>";
@@ -1058,8 +1054,8 @@ function fp_render_tab_array($tab_array)
 function display_not_found() {
   
   $page = array(
-    "title" => t("Not Found"),
-    "content" => "<h2>" . t("Page not found") . "</h2>" . t("Sorry, the requested page could not be found."),
+    "title" => t("trarabic_10038"),
+    "content" => "<h2>" . t("trarabic_10039") . "</h2>" . t("trarabic_10040"),
   );
   
   fp_display_page($page);
@@ -1068,8 +1064,8 @@ function display_not_found() {
 
 function display_access_denied() {
   $page = array(
-    "title" => t("Access Denied"),
-    "content" => "<h2>" . t("Access Denied") . "</h2>" . t("Sorry, but you do not have access to the requested page or function."),
+    "title" => t("trarabic_10041"),
+    "content" => "<h2>" . t("trarabic_10042") . "</h2>" . t("trarabic_10043"),
   );
   
   fp_display_page($page);  

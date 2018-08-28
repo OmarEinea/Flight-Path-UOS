@@ -17,51 +17,44 @@ function system_perm() {
   
   $perms = array (
     "access_logged_in_content" => array(
-      "title" => t("Access logged-in content"),
-      "description" => t("This should be given to all authenticated users.  It simply means
-                          the user is allowed to view the logged-in area of FlightPath."),
+      "title" => t("trarabic_10798"),
+      "description" => t("trarabic_20163"),
     ),  
     
     "administer_modules" => array(
-      "title" => t("Administer modules"),
-      "description" => t("This will allow a user to install, enable, disable, and uninstall modules."),
+      "title" => t("trarabic_10799"),
+      "description" => t("trarabic_10800"),
     ),    
     
     "run_cron" => array(
-      "title" => t("Run Cron"),
-      "description" => t("The user may run hook_cron functions at will. Causes a new menu link to appear
-                          on the admin page."),
+      "title" => t("trarabic_10801"),
+      "description" => t("trarabic_20164"),
     ),    
         
     "de_can_administer_system_settings" => array(
-      "title" => t("Can administer system settings"),
-      "description" => t("This allows the user to edit any of the FlightPath
-                        system settings."),
+      "title" => t("trarabic_10802"),
+      "description" => t("trarabic_20165"),
     ),
     
     "de_can_administer_school_data" => array(
-      "title" => t("Can administer school data"),
-      "description" => t("This allows the user to edit the school data settings for FlightPath.
-                          For example, describing college and subject codes."),
+      "title" => t("trarabic_10803"),
+      "description" => t("trarabic_20166"),
     ),
     
     
     "view_fpm_debug" => array(
-      "title" => t("View debug output from the fpm() function"),
-      "description" => t("The user may view debug output from the fpm() function.
-                        Useful for developers."),
+      "title" => t("trarabic_10804"),
+      "description" => t("trarabic_20167"),
     ),
     
     "view_system_status" => array(
-      "title" => t("View system status"),
-      "description" => t("The user may view the update status and other requirements of the system."),
+      "title" => t("trarabic_10805"),
+      "description" => t("trarabic_10806"),
     ),
     
     "execute_php" => array(
-      "title" => t("Execute PHP code"),
-      "description" => t("WARNING: This is a very VERY powerful and DANGEROUS permission.  Only give it to
-                       developers.  An 'Execute PHP' link will appear on the admin menu, which
-                       lets the user execute any arbitrary PHP code."),
+      "title" => t("trarabic_10807"),
+      "description" => t("trarabic_20168"),
     ),
                             
        
@@ -93,10 +86,10 @@ function system_get_roles_for_user($user_id) {
   
   $res2 = db_query("SELECT user_id FROM users WHERE user_id = '?' AND user_id <> '0' ", $user_id);
   if (db_num_rows($res2) > 0) {
-    $rtn[2] = t("authenticated user");
+    $rtn[2] = t("trarabic_10808");
   }
   else {
-    $rtn[1] = t("anonymous user");
+    $rtn[1] = t("trarabic_10809");
   }
   
   return $rtn;
@@ -159,10 +152,10 @@ function system_check_clean_urls() {
  * The array looks like this:
  * return array(
  *   "system_main" => array(
- *     "title" => t("Main Tab"),
+ *     "title" => t("trarabic_10810"),
  *     "regions" => array (
- *       "left_col" => array("title" => t("Left Column")),
- *       "right_col" => array("title" => t("Right Column")),
+ *       "left_col" => array("title" => t("trarabic_10811")),
+ *       "right_col" => array("title" => t("trarabic_10812")),
  *      ),
  *   ),
  * );
@@ -173,19 +166,19 @@ function system_check_clean_urls() {
 function system_block_regions() {
   return array(
     "system_main" => array(
-      "title" => t("Main Tab"),
+      "title" => t("trarabic_10813"),
       "regions" => array (
-        "left_col" => array("title" => t("Left Column")),
-        "right_col" => array("title" => t("Right Column")),
+        "left_col" => array("title" => t("trarabic_10814")),
+        "right_col" => array("title" => t("trarabic_10815")),
        ),       
     ),
     "system_login" => array(
-      "title" => t("Login Page"),
+      "title" => t("trarabic_10816"),
       "regions" => array (
-        "top" => array("title" => t("Top")),
-        "left_col" => array("title" => t("Left Column")),
-        "right_col" => array("title" => t("Right Column")),
-        "bottom" => array("title" => t("Bottom")),
+        "top" => array("title" => t("trarabic_10817")),
+        "left_col" => array("title" => t("trarabic_10818")),
+        "right_col" => array("title" => t("trarabic_10819")),
+        "bottom" => array("title" => t("trarabic_10820")),
        ),       
     ),    
   );
@@ -453,14 +446,12 @@ function system_execute_php_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => t("Use this form to execute arbitrary PHP code.  <b>DO NOT</b>
-                   type php tags (&lt;php ?&gt;).  Be careful!  Entering bad code
-                   here can harm your site.  Only use if you know what you are doing."),    
+    "value" => t("trarabic_20169"),    
   );
 
   $form["system_execute_php"] = array(
     "type" => "textarea",
-    "label" => t("Enter PHP code here:"),
+    "label" => t("trarabic_10821"),
     "value" => variable_get("system_execute_php", ""),
     "rows" => 20,
   );
@@ -487,24 +478,21 @@ function system_confirm_db_updates_form() {
   $form = array();
 
   $form["mark" . $m++] = array(
-    "value" => t("Are you sure you wish to run the database updates?
-                This will find modules which have been updated, and now need to
-                make database changes.") . "
+    "value" => t("trarabic_20170") . "
                 <br><br>
-                " . t("You should back up your entire database first, just in case a problem
-                occurs!"),
+                " . t("trarabic_20171"),
   );
   
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Continue"),
+    "value" => t("trarabic_10822"),
     "prefix" => "<hr>",
-    "suffix" => "&nbsp; &nbsp; <a href='javascript: history.go(-1);'>" . t("Cancel") . "</a>",    
+    "suffix" => "&nbsp; &nbsp; <a href='javascript: history.go(-1);'>" . t("trarabic_10823") . "</a>",    
   );
   
   $form["mark" . $m++] = array(
-    "value" => t("Press only once, as this make take several moments to run."),
+    "value" => t("trarabic_10824"),
   );
   
   
@@ -525,8 +513,8 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
   // is different than what's in the database.
   
   $module_dirs = array();
-  $module_dirs[] = array("start" => "modules", "type" => t("Core"));
-  $module_dirs[] = array("start" => "custom/modules", "type" => t("Custom"));
+  $module_dirs[] = array("start" => "modules", "type" => t("trarabic_10825"));
+  $module_dirs[] = array("start" => "custom/modules", "type" => t("trarabic_10826"));
     
   foreach ($module_dirs as $module_dir) {
     $start_dir = $module_dir["start"];
@@ -584,7 +572,7 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
                                 WHERE path = '?' LIMIT 1 ", $info_details_array["schema"], $path);
                                        
               
-              fp_add_message(t("The module %module has run its DB updates.", array("%module" => $module)));              
+              fp_add_message(t("trarabic_10827", array("%module" => $module)));              
 
               
               
@@ -611,14 +599,13 @@ function system_confirm_db_updates_form_submit($form, $form_state) {
 function system_display_completed_db_updates() {
   $rtn = "";
   
-  $rtn .= t("Database updates have been completed.  If you do not see
-              any errors displayed, it means everything was run correctly.");
+  $rtn .= t("trarabic_20172");
   
   $rtn .= "<br><br>
               <ul>";
   
-  $rtn .= "<li>" . l(t("Return to Admin"), "admin-tools/admin") . "</li>
-          <li>" . l(t("Return to Modules page"), "admin/config/modules") . "</li>
+  $rtn .= "<li>" . l(t("trarabic_10828"), "admin-tools/admin") . "</li>
+          <li>" . l(t("trarabic_10829"), "admin/config/modules") . "</li>
            
           </ul>";
   
@@ -642,21 +629,9 @@ function system_display_install_finished_page() {
 
   fp_show_title(TRUE);
   
-  $rtn .= t("Your new installation of FlightPath is now complete.
-              <br><br>
-             As a security precaution, you should: 
-             <ul>
-              <li>change the permissions
-                  on custom/settings.php so that it cannot be read or written to by unauthorized
-                  users.</li>
-              <li>You should also rename or remove install.php so that web visitors cannot
-                  access it.</li>
-             </ul>
-             
-             If you need to re-install FlightPath, delete custom/settings.php, and drop all of the tables
-             in the database, then re-access install.php.") . "<br><br>";
+  $rtn .= t("trarabic_20173") . "<br><br>";
 
-  $rtn .= l(t("Access your new FlightPath site now."), "<front>");
+  $rtn .= l(t("trarabic_10830"), "<front>");
   
   
   return $rtn;
@@ -669,10 +644,9 @@ function system_display_install_finished_page() {
 function system_popup_report_contact_thank_you() {
   $rtn = "";
   
-  $rtn .= fp_render_curved_line(t("Contact the FlightPath Production Team"));
-  $rtn .= t("Thank you for submitting to the FlightPath Production Team.  They 
-             have received your comment and will review it shortly.") . "<br><br>";
-  $rtn .= t("You may now close this window.");
+  $rtn .= fp_render_curved_line(t("trarabic_10831"));
+  $rtn .= t("trarabic_20174") . "<br><br>";
+  $rtn .= t("trarabic_10832");
   
   return $rtn;
 }
@@ -688,43 +662,41 @@ function system_popup_report_contact_form() {
   fp_set_title("");
   
   $form["mark" . $m++] = array(
-    "value" => fp_render_curved_line(t("Contact the FlightPath Production Team")),
+    "value" => fp_render_curved_line(t("trarabic_10833")),
   );
   
   if (!user_has_permission("access_logged_in_content")) {
     $form["mark" . $m++] = array(
-      "value" => t("We're sorry, but for security reasons you may only access this form
-                    if you are logged in to FlightPath."),
+      "value" => t("trarabic_20175"),
     );
     return $form;
   }
   
   $form["mark" . $m++] = array(
-    "value" => t("If you've noticed an error or have a suggestion, use this
-                  form to contact the FlightPath Production Team."),
+    "value" => t("trarabic_20176"),
   );  
   
   $form["category"] = array(
     "type" => "select",
-    "label" => t("Please select a category"),
+    "label" => t("trarabic_10834"),
     "options" => array(
-                     t("Advising") => t("Advising"),
-                     t("Degree plan") => t("Degree plan"),
-                     t("What If?") => t("What If?"),
-                     t("Searching") => t("Searching"),
-                     t("Comments") => t("Comments"),
-                     t("Other") => t("Other"),
+                     t("trarabic_10835") => t("trarabic_10836"),
+                     t("trarabic_10837") => t("trarabic_10838"),
+                     t("trarabic_10839") => t("trarabic_10840"),
+                     t("trarabic_10841") => t("trarabic_10842"),
+                     t("trarabic_10843") => t("trarabic_10844"),
+                     t("trarabic_10845") => t("trarabic_10846"),
                       ),
   );
 
   $form["comment"] = array(
     "type" => "textarea",
-    "label" => t("Comment:"),    
+    "label" => t("trarabic_10847"),    
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Send email"),    
+    "value" => t("trarabic_10848"),    
   );  
   
   $form["#redirect"] = array("path" => "popup-contact-form/thank-you");    
@@ -746,13 +718,13 @@ function system_popup_report_contact_form_submit($form, $form_state) {
   $datetime = date("Y-m-d H:i:s", strtotime("now"));
 
   //$headers = "From: FlightPath-noreply@noreply.com\n";
-  $subject = t("FLIGHTPATH REPORT CONTACT") . " - $category ";
+  $subject = t("trarabic_10849") . " - $category ";
   $msg = "";
-  $msg .= t("You have received a new report/contact on") . " $datetime.\n";
-  $msg .= t("Name:") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t("User roles:") . " $user_roles \n\n";
-  $msg .= t("Category:") . " $category  \n";
-  $msg .= t("Possible Student:") . " $possible_student  \n";
-  $msg .= t("Comment:") . " \n $comment \n\n";
+  $msg .= t("trarabic_10850") . " $datetime.\n";
+  $msg .= t("trarabic_10851") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t("trarabic_10852") . " $user_roles \n\n";
+  $msg .= t("trarabic_10853") . " $category  \n";
+  $msg .= t("trarabic_10854") . " $possible_student  \n";
+  $msg .= t("trarabic_10855") . " \n $comment \n\n";
   $msg .= "------------------------------------------------ \n";
 
   $themd5 = md5($user->name . $user->cwid . $comment . $user_roles . $category);
@@ -785,16 +757,12 @@ function system_school_data_form() {
   
   $form["course_repeat_policy"] = array(
     "type" => "select",
-    "label" => t("Course repeat policy:"),
-    "options" => array("most_recent_exclude_previous" => t("most recent, exclude previous attempts"),
-                       "most_recent_do_not_exclude" => t("most recent, do not exclude previous attempts - \"beta\" feature")),
+    "label" => t("trarabic_10856"),
+    "options" => array("most_recent_exclude_previous" => t("trarabic_10857"),
+                       "most_recent_do_not_exclude" => t("trarabic_10858")),
     "value" => variable_get("course_repeat_policy", "most_recent_exclude_previous"),
     "hide_please_select" => TRUE,
-    "description" => t("This setting affects the course repeat policy for FlightPath for normal courses.
-                        <br><b>If you are unsure what to select</b>, choose 'most recent, exclude previous attempts'.
-                        <br>Please see the 
-                <b><a href='http://getflightpath.com/node/1085' target='_blank'>FlightPath documentation</a></b> 
-                on how to set up this field."),
+    "description" => t("trarabic_20177"),
                                               
                         
   );
@@ -802,27 +770,19 @@ function system_school_data_form() {
   
   $form["ignore_courses_from_hour_counts"] = array(
     "type" => "textfield",
-    "label" => t("Ignore courses from hour counts (CSV):"),
+    "label" => t("trarabic_10859"),
     "value" => variable_get("ignore_courses_from_hour_counts", ""),
-    "description" => t("List courses, separated by comma, 
-                which should be ignored in hours counts.  This helps
-                remedial courses from being applied to hour counts.
-                <br><b>These courses will automatically be assigned the requirement type code 'x'.</b>
-                <br>
-                Ex: MATH 093, ENGL 090, UNIV 1001"),    
+    "description" => t("trarabic_20178"),    
   );
 
 
 
   $form["term_id_structure"] = array(
     "type" => "textarea",
-    "label" => t("Structure of term ID's:"),
+    "label" => t("trarabic_10860"),
     "value" => variable_get("term_id_structure", ""),
-    "description" => t("Use this space to define termID structures, one per line.
-                Please see the 
-                <b><a href='http://getflightpath.com/node/1085' target='_blank'>FlightPath documentation</a></b> 
-                on how to set up this field.") . "
-                <br>" . t("Ex:") . " 
+    "description" => t("trarabic_20179") . "
+                <br>" . t("trarabic_10861") . " 
                 <br>[Y4]60, Spring, Spring of [Y4], Spr '[Y2]
                 <br>[Y4]40, Fall, Fall of [Y4-1], Fall '[Y2-1]",    
   );
@@ -854,18 +814,11 @@ function system_school_data_form() {
   
   $form["subjects"] = array(
     "type" => "textarea",
-    "label" => t("Subjects:"),
+    "label" => t("trarabic_10862"),
     "value" => $subjects,
     "rows" => 15,
-    "description" => t("Enter subjects known to FlightPath (for use
-                        in popups and the Course Search, for example), one per line
-                        in this format:") . "<br>SUBJ ~ COLLEGE ~ Title<br>" . t("For example:") . "
-                        <br>&nbsp; ACCT ~ BA ~ Accounting<br>&nbsp; BIOL ~ AS ~ Biology<br>" . t("Notice
-                        the separator between the code, college, and title is 1 tilde (~). Whitespace is ignored.
-                        <br><b>Important:</b> This field cannot be set up until you have your courses
-                        fully entered.  Once that occurs, the course
-                        subjects will automatically appear in this box, where you can then assign the college code
-                        and subject title."),
+    "description" => t("trarabic_20180") . "<br>SUBJ ~ COLLEGE ~ Title<br>" . t("trarabic_10863") . "
+                        <br>&nbsp; ACCT ~ BA ~ Accounting<br>&nbsp; BIOL ~ AS ~ Biology<br>" . t("trarabic_20181"),
   );  
   
   
@@ -878,13 +831,11 @@ function system_school_data_form() {
   
   $form["colleges"] = array(
     "type" => "textarea",
-    "label" => t("Colleges:"),
+    "label" => t("trarabic_10864"),
     "value" => $colleges,
-    "description" => t("Enter colleges known to FlightPath, one per line, in this format:
-                       ") . "<br>COLLEGE_CODE ~ Title<br>" . t("For example:") . "
+    "description" => t("trarabic_20182") . "<br>COLLEGE_CODE ~ Title<br>" . t("trarabic_10865") . "
                        <br>&nbsp; AE ~ College of Arts, Science, and Education
-                       <br>&nbsp; PY ~ College of Pharmacy<br>" . t("Notice
-                        the separator between the code and title is 1 tilde (~). Whitespace is ignored."),
+                       <br>&nbsp; PY ~ College of Pharmacy<br>" . t("trarabic_20183"),
   );
   
   
@@ -909,18 +860,12 @@ function system_school_data_form() {
 
   $form["degree_college"] = array(
     "type" => "textarea",
-    "label" => t("Degree Colleges:"),
+    "label" => t("trarabic_10866"),
     "value" => $degree_college,
     "rows" => 15,
-    "description" => t("Enter the degree's college, one per line, in this format:
-                       ") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t("For example:") . "
+    "description" => t("trarabic_20184") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t("trarabic_10867") . "
                        <br>&nbsp; ACCT ~ AE
-                       <br>&nbsp; BUSN ~ SB<br>" . t("Notice
-                        the separator between the codes is 1 tilde (~). Whitespace is ignored.
-                        <br><b>Important:</b> This field cannot be set up until you have your degrees
-                        entered.  Once that occurs, the degree major codes
-                        will automatically appear in this box, where you can then assign the college code.
-                        "),
+                       <br>&nbsp; BUSN ~ SB<br>" . t("trarabic_20185"),
   );
   
   
@@ -929,171 +874,129 @@ function system_school_data_form() {
   
   $form["sub_hours_decimals_allowed"] = array(
     "type" => "select",
-    "label" => t("Substitution hours decimal places allowed:"),
-    "options" => array(1 => t("1 (ex: 1.1 hrs)"), 2 => t("2 (ex: 1.15 hrs)"), 3 => t("3 (ex: 1.155 hrs)"), 4 => t("4 (ex: 1.1556 hrs)")),
+    "label" => t("trarabic_10868"),
+    "options" => array(1 => t("trarabic_10869"), 2 => t("trarabic_10870"), 3 => t("trarabic_10871"), 4 => t("trarabic_10872")),
     "value" => variable_get("sub_hours_decimals_allowed", 2),
     "no_please_select" => TRUE,
-    "description" => t("For hours with decimals (like 2.25 hours), how many numbers
-                      after the decimal place will be allowed?  Affects users performing
-                      substitutions.  For example, if you select \"2\" here, then
-                      a value of 1.2555 will be rejected, and the user will be asked to re-enter.
-                      1.25, would be accepted, since it has 2 decimal places.
-                      <br>If you are unsure what to select, set to 2."),
+    "description" => t("trarabic_20186"),
   );
   
   
   // Auto-correct course titles?
   $form["autocapitalize_course_titles"] = array(
     "type" => "select",
-    "label" => t("Auto-capitalize course titles?"),
+    "label" => t("trarabic_10873"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("autocapitalize_course_titles", "yes"),
-    "description" => t("If set to yes, course titles in FlightPath will be run through a capitalization
-                        filter, so that 'INTRO TO ACCOUNTING' becomes 'Intro to Accounting'.
-                        Generally, this makes the course names more attractive, but it can
-                        incorrectly capitalize acronyms and initials.  Disable if you would like
-                        complete control over capitalization.
-                        <br>If unsure, set to Yes."),
+    "description" => t("trarabic_20187"),
   );
   
 
   // Auto-correct institution names?
   $form["autocapitalize_institution_names"] = array(
     "type" => "select",
-    "label" => t("Auto-capitalize institution names?"),
+    "label" => t("trarabic_10874"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("autocapitalize_institution_names", "yes"),
-    "description" => t("If set to yes, transfer institution names in 
-                        FlightPath will be run through a capitalization
-                        filter, so that 'UNIVERSITY OF LOUISIANA AT MONROE' 
-                        becomes 'University of Louisiana at Monroe'.
-                        Like the course title setting above, this is to make
-                        inconsistent or unattractive capitalization prettier.  
-                        Disable if you would like
-                        complete control over capitalization.
-                        <br>If unsure, set to Yes."),
+    "description" => t("trarabic_20188"),
   );
 
   
   // Only allow ghost subs for fellow ghost hours?
   $form["restrict_ghost_subs_to_ghost_hours"] = array(
     "type" => "select",
-    "label" => t("Restrict ghost substitutions to courses with zero hours only?"),
+    "label" => t("trarabic_10875"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("restrict_ghost_subs_to_ghost_hours", "yes"),
-    "description" => t("If set to yes, courses with \"ghost\" hours may only be
-                        substituted for other courses with \"ghost\" hours.  What this
-                        means is that if a course is worth zero hours, it may only be
-                        subbed for a requirement worth zero hours, and it will not appear
-                        as an option for substitutions of courses worth more than zero hours.
-                        This will not affect old subs; only new ones.
-                        <br>If unsure, set to Yes."),
+    "description" => t("trarabic_20189"),
   );
 
   
   $form["initial_student_course_sort_policy"] = array(
     "type" => "select",
-    "label" => t("Initial student course sort policy:"),
+    "label" => t("trarabic_10877"),
     "options" => array("alpha" => "Alphabetical sort [default]", "grade" => "Best grade first (beta)"),
     "hide_please_select" => TRUE,
     "value" => variable_get("initial_student_course_sort_policy", "alpha"),
-    "description" => t("Student courses are sorted more than once as they are evaluated by FlightPath.
-                        By default, they are sorted alphabetically first.  If you change this to best-grade-first, 
-                        courses will be initally sorted according to the grade they earned, in the order defined in 'Grade order CSV' below.
-                        Any student grades not defined below will be considered the lowest possible grade."),
+    "description" => t("trarabic_20190"),
   );
   
   $form["grade_order"] = array(
     "type" => "textfield",
-    "label" => t("Grade order (CSV):"),
+    "label" => t("trarabic_10878"),
     "value" => variable_get("grade_order", ""),
-    "description" => t("List all possible grades, separated by comma, from highest to lowest.  This is only needed if you
-                      selected 'Best grade first' sort policy above.
-                      <br>Ex: AMID,BMID,CMID,DMID,FMID,A,B,C,D,F,W,I"),
+    "description" => t("trarabic_20191"),
   );
   
   
 
   $form["retake_grades"] = array(
     "type" => "textfield",
-    "label" => t("Retake grades (CSV):"),
+    "label" => t("trarabic_10879"),
     "value" => variable_get("retake_grades", ""),
-    "description" => t("List grades, separated by comma, which means 'the student must
-                retake this course. They did not earn credit.' Ex: F,W,I"),    
+    "description" => t("trarabic_20192"),    
   );
          
   $form["withdrew_grades"] = array(
     "type" => "textfield",
-    "label" => t("Withdrew grades (CSV):"),
+    "label" => t("trarabic_10880"),
     "value" => variable_get("withdrew_grades", "W"),
-    "description" => t("List grades, separated by comma, which means 'the student withdrew
-                from this course. They did not earn credit.' Ex: W,WD,WF.  If not sure
-                what to enter here, just enter 'W'."),    
+    "description" => t("trarabic_20193"),    
   );  
   
   $form["enrolled_grades"] = array(
     "type" => "textfield",
-    "label" => t("Enrolled grades (CSV):"),
+    "label" => t("trarabic_10881"),
     "value" => variable_get("enrolled_grades", ""),
-    "description" => t("List grades, separated by comma, which means 'the student is
-                currently enrolled in this course.' Ex: E,AMID,BMID "),    
+    "description" => t("trarabic_20194"),    
   );
 
   $form["b_or_better"] = array(
     "type" => "textfield",
-    "label" => t("B or better grades (CSV):"),
+    "label" => t("trarabic_10882"),
     "value" => variable_get("b_or_better", ""),
-    "description" => t("List grades, separated by comma, which are either a B or better."),    
+    "description" => t("trarabic_10883"),    
   );
 
   $form["c_or_better"] = array(
     "type" => "textfield",
-    "label" => t("C or better grades (CSV):"),
+    "label" => t("trarabic_10884"),
     "value" => variable_get("c_or_better", ""),
-    "description" => t("List grades, separated by comma, which are either a C or better."),    
+    "description" => t("trarabic_10885"),    
   );
 
   $form["d_or_better"] = array(
     "type" => "textfield",
-    "label" => t("D or better grades (CSV):"),
+    "label" => t("trarabic_10886"),
     "value" => variable_get("d_or_better", ""),
-    "description" => t("List grades, separated by comma, which are either a D or better."),    
+    "description" => t("trarabic_10887"),    
   );
 
   $form["minimum_substitutable_grade"] = array(
     "type" => "textfield",
     "size" => 3,
-    "label" => t("Minimum substitutable grade:"),
+    "label" => t("trarabic_10888"),
     "value" => variable_get("minimum_substitutable_grade", "D"),
-    "description" => t("Enter a grade which is the minimum grade a student must have earned
-                      for the course to be allowed in a substitution.  This will affect
-                      new substitutions, not old ones.  If unsure, enter D."),    
+    "description" => t("trarabic_20195"),    
   );
   
   
 
   $form["calculate_cumulative_hours_and_gpa"] = array(
-    "label" => t("Calculate student cumulative hours and GPA?"),
+    "label" => t("trarabic_10889"),
     "type" => "checkbox",
     "value" => variable_get("calculate_cumulative_hours_and_gpa", FALSE),
-    "description" => t("If checked, student cumulative hours and GPA will not be read from the
-                          'students' database table, but will instead be calculated on the fly
-                          each time a student is loaded.  If unsure what to do, check this box."),    
+    "description" => t("trarabic_20196"),    
   );
   
   $form["quality_points_grades"] = array(
-    "label" => t("Quality points and grades:"),
+    "label" => t("trarabic_10890"),
     "type" => "textarea",
     "value" => variable_get("quality_points_grades", "A ~ 4\nB ~ 3\nC ~ 2\nD ~ 1\nF ~ 0\nI ~ 0"),
-    "description" => t("Enter a grade, and how many quality points it is worth, separated by
-                        tilde (~), one per line.  You must include every grade which should count
-                        for (or against) a GPA calculation, even if it is worth zero points.  For example,
-                        if an 'F' should cause a GPA to lower (which normally it would), it should be
-                        listed here.  If a 'W' grade should simply be ignored, then DO NOT list it here.
-                        Any grade you do not list here will be IGNORED in all GPA calculations.") . "
+    "description" => t("trarabic_20197") . "
                         <br>
                         Ex:<blockquote style='margin-top:0; font-family: Courier New, monospace;'>                        
                         A ~ 4<br>B ~ 3<br>C ~ 2<br>D ~ 1<br>F ~ 0<br>I ~ 0</blockquote>",
@@ -1101,19 +1004,10 @@ function system_school_data_form() {
   
   
   $form["requirement_types"] = array(
-    "label" => t("Requirement types and codes:"),
+    "label" => t("trarabic_10891"),
     "type" => "textarea",
     "value" => variable_get("requirement_types", "g ~ General Requirements\nc ~ Core Requirements\ne ~ Electives\nm ~ Major Requirements\ns ~ Supporting Requirements\nx ~ Additional Requirements"),
-    "description" => t("Enter requirement type codes and descriptions, separated by a tilde (~), one
-                        per line.  <b>You may not use the code 'u'</b> as that is reserved in FlightPath.
-                        <b>You should define what 'x' means</b>, but be aware that the code 'x' will always
-                        designate a course whose hours should be ignored from GPA calculations.
-                        <b>You should define what 'm' means</b>, as this is the default code applied
-                        to a requirement if one is not entered.  <b>You should define what
-                        'e' means</b>, as this is also the code given to courses whose types we cannot
-                        figure out, perhaps because of a typo or intentionally.  Ex:  Electives.
-                        This list also defines the order in which they will appear on screen in
-                        Type View.  By convention, codes should be lower case single-letters.") . "
+    "description" => t("trarabic_20198") . "
                         <br>Ex:
                         <div style='padding-left: 20px; font-family: Courier New, monospace'>
                          g ~ General Requirements<br>
@@ -1135,22 +1029,16 @@ function system_school_data_form() {
   // the pie charts...
   if (!extension_loaded('gd') && !extension_loaded('gd2')) {
     $form["mark" . $m++] = array(
-      "value" => "<p class='hypo'><b>" . t("Note: it appears your web server does not have the 'GD' library
-                                enabled for PHP.  This is required to make the pie charts show up
-                                correctly.  Contact your server administrator about enabling the 'GD'
-                                library.") . "</b></p>",
+      "value" => "<p class='hypo'><b>" . t("trarabic_20199") . "</b></p>",
     );
   }
   
   
   $form["pie_chart_config"] = array(
-    "label" => t("Pie chart configuration:"),
+    "label" => t("trarabic_10892"),
     "type" => "textarea",
     "value" => variable_get("pie_chart_config", "c ~ Core Requirements\nm ~ Major Requirements\ndegree ~ Degree Progress"),
-    "description" => t("Enter configuration data for the pie charts which graph a student's progress
-                        through their degree.  Enter the requirement type code, pie chart label, and optional
-                        colors separated by tilde (~).  Requirement types not found for a student will be skipped 
-                        and the chart will not be drawn. <b>Enter 'degree' for total progress.</b>") . "
+    "description" => t("trarabic_20200") . "
                         <br>Ex:  CODE ~ LABEL ~ [optional: UNFINISHED COLOR ~ PROGRESS COLOR ]
                         <div style='padding-left: 20px; font-family: Courier New, monospace'>                          
                           c ~ Core Requirements ~ 660000 ~ FFCC33<br>
@@ -1162,80 +1050,63 @@ function system_school_data_form() {
 
   
   $form["developmentals_title"] = array(
-    "label" => t("Developmentals semester block title:"),
+    "label" => t("trarabic_10893"),
     "type" => "textfield",
-    "value" => variable_get("developmentals_title", t("Developmental Requirements")),
-    "description" => t("This is the title of the Developmental Requirements semester block,
-                        which appears on a student's degree plan, near the bottom, when they
-                        have remedial courses they are required to take.  If you are
-                        unsure what to enter, use 'Developmental Requirements'."),
+    "value" => variable_get("developmentals_title", t("trarabic_10894")),
+    "description" => t("trarabic_20201"),
   );
   
   $form["developmentals_notice"] = array(
-    "label" => t("Developmentals notice text:"),
+    "label" => t("trarabic_10895"),
     "type" => "textarea",
-    "value" => variable_get("developmentals_notice", t("According to our records, you are required to complete the course(s) listed above. For some transfer students, your record may not be complete. If you have any questions, please ask your advisor.")),
-    "description" => t("The text you enter here will be displayed below the Developmentals semester
-                        block, explaining to the student what these courses are.  For example:
-                        'According to our records, you are required to complete the course(s) listed
-                        above.'"),
+    "value" => variable_get("developmentals_notice", t("trarabic_10896")),
+    "description" => t("trarabic_20202"),
   );
 
   
 
   $form["graduate_level_codes"] = array(
     "type" => "textfield",
-    "label" => t("Graduate course level codes (CSV):"),
+    "label" => t("trarabic_10897"),
     "value" => variable_get("graduate_level_codes", "GR"),
-    "description" => t("List level codes, separated by comma, which should be considered graduate credit.  If you do not need
-                        to distinguish between graduate and undergraduate credit, leave this field blank.<br>If unsure, set to GR."),    
+    "description" => t("trarabic_20203"),    
   );
   
   
   
   $form["disallow_graduate_credits"] = array(
     "type" => "select",
-    "label" => t("Disallow automatic use of graduate credits?"),
+    "label" => t("trarabic_10898"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("disallow_graduate_credits", "yes"),
-    "description" => t("If set to yes, FlightPath will not automatically use graduate credits (based on the level code the student's credit
-                        is given in the database) to populate elective groups or on the degree plan.  They may still be substituted using the
-                        substitution system however.  In order for this setting to work, the 'Graduate course level codes' field must be set above.
-                        <br>If unsure, set to Yes."),
+    "description" => t("trarabic_20204"),
   );
   
 
   $form["display_graduate_credits_block"] = array(
     "type" => "select",
-    "label" => t("Display graduate credits in their own semester block?"),
+    "label" => t("trarabic_10899"),
     "options" => array("yes" => "Yes", "no" => "No"),
     "hide_please_select" => TRUE,
     "value" => variable_get("display_graduate_credits_block", "yes"),
-    "description" => t("If set to yes, FlightPath will display graduate credits in their own block, and NOT in Excess credits.  The graduate block details
-                        are set below.
-                        <br>If unsure, set to Yes."),
+    "description" => t("trarabic_20205"),
   );
   
   
   $form["graduate_credits_block_title"] = array(
-    "label" => t("Graduate Credits block title:"),
+    "label" => t("trarabic_10900"),
     "type" => "textfield",
-    "value" => variable_get("graduate_credits_block_title", t("Graduate Credits")),
-    "description" => t("This is the title of the Graduate Credits semester block (setting above),
-                        which appears on a student's degree plan, near the bottom, when they
-                        have graduate credits in their history (based on the credit's level code).  If you are
-                        unsure what to enter, use 'Graduate Credits'."),
+    "value" => variable_get("graduate_credits_block_title", t("trarabic_10901")),
+    "description" => t("trarabic_20206"),
   );
   
 
   $form["graduate_credits_block_notice"] = array(
-    "label" => t("Graduate Credits block notice text:"),
+    "label" => t("trarabic_10902"),
     "type" => "textarea",
-    "value" => variable_get("graduate_credits_block_notice", t("These courses may not be used for undergraduate credit.")),
-    "description" => t("The text you enter here will be displayed below the Gradute Credits semester
-                        block, explaining to the student what these courses are.  For example:
-                        'These courses may not be used for undergraduate credit.'"),
+    "value" => variable_get("graduate_credits_block_notice", t("trarabic_10903")),
+    "description" => t("trarabic_20207"),
   );
   
   
@@ -1325,34 +1196,29 @@ function system_settings_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => t("Use this form to alter the various system settings in FlightPath.
-                  Before making changes, it is always good policy to first back up your database."),
+    "value" => t("trarabic_20208"),
                   
   );
   
   $form["mark" . $m++] = array(
-    "value" => "<p><div style='font-size:0.8em;'>" . t("Your site requires a cron job in order to perform routine tasks.  This
-                        is accomplished by having your server access the following URL every so often
-                        (like once an hour):") . "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
-                        <br>" . t("Example linux cron command:") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i></div></p>",
+    "value" => "<p><div style='font-size:0.8em;'>" . t("trarabic_20209") . "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
+                        <br>" . t("trarabic_10904") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i></div></p>",
   );
   
   
   $form["maintenance_mode"] = array(
-    "label" => t("Set maintenance mode?"),
+    "label" => t("trarabic_10905"),
     "type" => "checkbox",
     "value" => variable_get("maintenance_mode", FALSE),
-    "description" => t("If checked, a message will display on every page stating
-                        that the system is currently undergoing routine maintenance."),    
+    "description" => t("trarabic_20210"),    
   );
   
   
   $form["contact_email_address"] = array(
     "type" => "textfield",
-    "label" => t("Contact email address:"),
+    "label" => t("trarabic_10906"),
     "value" => variable_get("contact_email_address", ""),
-    "description" => t("Enter the email address to mail when a user accesses the
-                        Contact FlightPath Production Team popup."),
+    "description" => t("trarabic_20211"),
     
   );
 
@@ -1368,10 +1234,9 @@ function system_settings_form() {
     // Give the option to change ONLY if we can support clean URLs
     $form["clean_urls"] = array(
       "type" => "checkbox",
-      "label" => t("Enable 'Clean URLs?'"),
+      "label" => t("trarabic_10907"),
       "value" => variable_get("clean_urls", FALSE),
-      "description" => t("Your server supports 'clean URLs', which eliminates 'index.php?q=' from your URLs, making them
-                          more readable.  It is recommended you leave this feature enabled.  For more information, see: http://getflightpath.com/node/5."), 
+      "description" => t("trarabic_20212"), 
     );
   }
   else {
@@ -1386,99 +1251,82 @@ function system_settings_form() {
     
   $form["theme"] = array(
     "type" => "textfield",
-    "label" => t("Theme location:"),
+    "label" => t("trarabic_10908"),
     "value" => variable_get("theme", "themes/classic"),
-    "description" => t("Enter the file location for your theme. Do not put preceeding or trailing slashes.  Ex: themes/classic"),    
+    "description" => t("trarabic_10909"),    
   );
     
 
   $form["school_initials"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("School initials:"),
+    "label" => t("trarabic_10910"),
     "value" => variable_get("school_initials", "DEMO"),
-    "description" => t("Ex: ULM or BPCC"),    
+    "description" => t("trarabic_10911"),    
   );
                   
 
   $form["earliest_catalog_year"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("Earliest catalog year:"),
+    "label" => t("trarabic_10912"),
     "value" => variable_get("earliest_catalog_year", "2006"),
-    "description" => t("This is the earliest possible catalog year FlightPath may look 
-                up.  Typically, this is the earliest year for which you have 
-                data (ie, when FlightPath went online.
-                If FlightPath cannot figure out a catalog year to use,
-                it will default to this one. Ex: 2006"),    
+    "description" => t("trarabic_20213"),    
   );
   
 
   $form["graduate_level_course_num"] = array(
     "type" => "textfield",
     "size" => 20,
-    "label" => t("Graduate level course num:"),
+    "label" => t("trarabic_10913"),
     "value" => variable_get("graduate_level_course_num", "5000"),
-    "description" => t("This is the course num which means 'graduate level', meaning
-                anything above it is considered a graduate level course. Ex: 5000"),    
+    "description" => t("trarabic_20214"),    
   );
   
 
   $form["allowed_student_ranks"] = array(
     "type" => "textfield",
-    "label" => t("Allowed student ranks (CSV):"),
+    "label" => t("trarabic_10914"),
     "value" => variable_get("allowed_student_ranks", ""),
-    "description" => t("This is a list of which student ranks are allowed into FlightPath.
-                It should be separated by commas.
-                This also affects which students you may search for on the Advisees
-                tab. Ex: FR, SO, JR, SR"),
+    "description" => t("trarabic_20215"),
   );
 
 
   $form["not_allowed_student_message"] = array(
     "type" => "textarea",
-    "label" => t("Not allowed student message:"),
+    "label" => t("trarabic_10915"),
     "value" => variable_get("not_allowed_student_message", ""),
-    "description" => t("When a student is NOT allowed into FlightPath because of their
-                rank, this message will be displayed."),    
+    "description" => t("trarabic_20216"),    
   );
     
 
   $form["hiding_grades_message"] = array(
     "type" => "textarea",
-    "label" => t("Hiding grades message:"),
+    "label" => t("trarabic_10916"),
     "value" => variable_get("hiding_grades_message", ""),
-    "description" => t("This message will be displayed when any course on the page
-                has its bool_hide_grade set to TRUE.  If you are not using
-                this functionality, you can leave this blank."),    
+    "description" => t("trarabic_20217"),    
   );
 
 
   $form["notify_apply_draft_changes_email_address"] = array(
     "type" => "textfield",
-    "label" => t("Notify apply draft changes email address:"),
+    "label" => t("trarabic_10917"),
     "value" => variable_get("notify_apply_draft_changes_email_address", ""),
-    "description" => t("Enter 1 or more email addresses (separated by comma) to notify when
-                draft changes are applied from the admin console.  
-                Leave blank to disable."),    
+    "description" => t("trarabic_20218"),    
   );
 
   $form["notify_mysql_error_email_address"] = array(
     "type" => "textfield",
-    "label" => t("Notify MySQL error email address:"),
+    "label" => t("trarabic_10918"),
     "value" => variable_get("notify_mysql_error_email_address", ""),
-    "description" => t("Enter 1 or more email addresses (separated by comma) to notify when
-                a mysql error occurs.  
-                Leave blank to disable."),    
+    "description" => t("trarabic_20219"),    
   );
     
   $form["admin_transfer_passcode"] = array(
     "type" => "textfield",
-    "label" => t("Admin Apply Draft password:"),
+    "label" => t("trarabic_10919"),
     "value" => variable_get("admin_transfer_passcode", "changeMe"),
-    "description" => t("Enter a password which an admin user must enter
-                        in order to apply draft changes to FlightPath.
-                        This is an added security measure. Ex: p@ssWord569w"),    
+    "description" => t("trarabic_20220"),    
   );
     
 
@@ -1489,25 +1337,18 @@ function system_settings_form() {
               "548" => "1.5 years (548 days)",
               "730" => "2 years (730 days)",
               "912" => "2.5 years (912 days)",
-              "never" => t("Never - Do not trim log table"),
+              "never" => t("trarabic_10920"),
               );
               
               
   
   $form["max_watchdog_age"] = array(
     "type" => "select",
-    "label" => t("Max watchdog (log) entry age:"),
+    "label" => t("trarabic_10921"),
     "hide_please_select" => TRUE,
     "options" => $options,
     "value" => variable_get("max_watchdog_age", "548"),
-    "description" => t("Keep entries in the watchdog log tables until they are this old.
-                        Entries older than this will be deleted at every cron run.
-                        For example, if you only want to keep log entries for 1 year, then
-                        set this to 1 year.
-                        <b>Warning:</b> the Stats module uses data in this table to create
-                        statistics and reports about use of FlightPath.  Once data is removed from the
-                        watchdog table, it cannot be retrieved again.
-                        <br>If you are unsure what to put here, select '1.5 years'."),
+    "description" => t("trarabic_20221"),
   );
   
                                   
@@ -1556,7 +1397,7 @@ function system_cron() {
     db_query("DELETE FROM watchdog WHERE `timestamp` < '?' ", $max_timestamp);
     $rows = db_affected_rows();
     if ($rows > 0) {
-      watchdog("system", t("@rows old rows (older than @max days) trimmed from watchdog table on system cron run.", array("@rows" => $rows, "@max" => $max_age_days)));
+      watchdog("system", t("trarabic_10922", array("@rows" => $rows, "@max" => $max_age_days)));
     }
     
   }
@@ -1580,9 +1421,7 @@ function system_handle_form_submit() {
   $form_token = $_REQUEST["form_token"];
   // Make sure the form_token is valid!
   if ($form_token != md5($callback . fp_token())) {
-    die(t("Sorry, but you have encountered an error.  A form submission was flagged
-          as possibly being an invalid or forged submission.  This may constitute a bug
-          in the system.  Please report this error to your Systems Administrator."));
+    die(t("trarabic_20222"));
   }
   
   if ($form_include != "") {
@@ -1600,10 +1439,7 @@ function system_handle_form_submit() {
     if (!menu_check_user_access($router_item)) {
       // The user does NOT have access to submit this form!  The fact that
       // it has made it this far means this may be some sort of hacking attempt.
-      die(t("Sorry, but you have encountered an error.  A form submission was flagged
-          as possibly being an invalid or having insufficient permissions to submit.  
-          This may constitute a bug in the system.  
-          Please report this error to your Systems Administrator."));
+      die(t("trarabic_20223"));
       
     }
   }  
@@ -1721,7 +1557,7 @@ function system_handle_form_submit() {
   }
   else if (isset($_SESSION["fp_batch_id"]) && !function_exists("batch_menu")) {
     // We requested a batch action, but the batch module is not installed.
-    fp_add_message(t("A batch process was attempted, but it appears that the Batch module is not enabled.  Please contact your FlightPath administrator."), "error");
+    fp_add_message(t("trarabic_10923"), "error");
     unset($_SESSION["fp_batch_id"]);
   }
   
@@ -1752,7 +1588,7 @@ function system_handle_logout() {
   
   watchdog("logout", "@user has logged out", array("@user" => "$name ($uid)"));
   
-  fp_add_message(t("You have been logged out of FlightPath."));
+  fp_add_message(t("trarabic_10924"));
   fp_goto("<front>");
   
 }
@@ -1775,7 +1611,7 @@ function system_perform_clear_cache() {
  */
 function system_perform_run_cron() {
   invoke_hook("cron");
-  fp_add_message(t("Cron run completed successfully."));
+  fp_add_message(t("trarabic_10925"));
   variable_set("cron_last_run", time());
   fp_goto("admin-tools/admin");
 }
@@ -1791,14 +1627,12 @@ function system_display_status_page() {
   
   $status_array = invoke_hook("status");  // get everyone's hook_status.
   
-  $rtn .= "<p>" . t("This page will show you important status messages
-                     about FlightPath.  For example, what modules (if any) have
-                     an update available.") . "</p>";
+  $rtn .= "<p>" . t("trarabic_20224") . "</p>";
 
   $rtn .= "<table width='100%' border='1' class='status-table' cellpadding='4'>
             <tr class='header-row'>
-              <th width='10%' class='package-header'>" . t("Package") . "</th>
-              <th>" . t("Status") . "</th>
+              <th width='10%' class='package-header'>" . t("trarabic_10926") . "</th>
+              <th>" . t("trarabic_10927") . "</th>
             </tr>";
   foreach ($status_array as $module => $details) {
     $pol = ($pol == "even") ? "odd" : "even";
@@ -1836,20 +1670,19 @@ function system_status() {
   $last_run = variable_get("cron_last_run", 0);
   
   // Report on current details about FlightPath.
-  $rtn["status"] .= "<p>" . t("FlightPath version:") . " " . FLIGHTPATH_CORE . "-" . FLIGHTPATH_VERSION . "</p>";
+  $rtn["status"] .= "<p>" . t("trarabic_10928") . " " . FLIGHTPATH_CORE . "-" . FLIGHTPATH_VERSION . "</p>";
   
   if ($last_run < strtotime("-2 DAY")) {
     $rtn["severity"] = "alert";
-    $rtn["status"] .= t("Cron hasn't run in over 2 days.  For your installation of FlightPath
-               to function properly, cron.php must be accessed routinely. At least once per day is recommended.");    
+    $rtn["status"] .= t("trarabic_20225");    
   }
   else {
-    $rtn["status"] .= t("Cron was last run on %date", array("%date" => format_date($last_run)));
+    $rtn["status"] .= t("trarabic_10929", array("%date" => format_date($last_run)));
   } 
   
-  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("Your site's cron URL is:");
+  $rtn["status"] .= "<p style='font-size: 0.8em;'>" . t("trarabic_10930");
   $rtn["status"] .= "<br>&nbsp; &nbsp; <i>" . $GLOBALS["fp_system_settings"]["base_url"] . "/cron.php?t=" . $GLOBALS["fp_system_settings"]["cron_security_token"] . "</i>
-                        <br>" . t("Example linux cron command:") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
+                        <br>" . t("trarabic_10931") . "&nbsp; <i>wget -O - -q -t 1 http://ABOVE_URL</i>";  
   $rtn["status"] .= "</p>";
   
   
@@ -1926,9 +1759,7 @@ function system_display_login_page() {
   
   $rtn .= "<noscript>
             <div style='padding: 5px; background-color: red; color: white; font-size: 12pt; font-weight: bold;'>
-            " . t("FlightPath requires JavaScript to be enabled in order to
-            function correctly.  Please enable JavaScript on your browser
-            before continuing.") . "</div>
+            " . t("trarabic_20226") . "</div>
           </noscript>";
   
   
@@ -1978,14 +1809,14 @@ function system_login_form() {
   fp_set_title("");
   
   $form["user"] = array(
-    "label" => t("User:"),
+    "label" => t("trarabic_10932"),
     "type" => "textfield",
     "size" => 30,
     "required" => TRUE,
   );
   
   $form["password"] = array(
-    "label" => t("Password:"),
+    "label" => t("trarabic_10933"),
     "type" => "password",
     "size" => 30,
     "required" => TRUE,
@@ -1993,7 +1824,7 @@ function system_login_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Login"),
+    "value" => t("trarabic_10934"),
   );
     
   $form["#attributes"] = array("onSubmit" => "showUpdate(true);");    
@@ -2029,8 +1860,7 @@ function system_login_form_validate($form, &$form_state) {
   // Check the user's password is valid.
   $res = db_query("SELECT * FROM users WHERE user_name = '?' AND password = '?' AND is_disabled = '0' ", $user, md5($password));
   if (db_num_rows($res) == 0) {
-    form_error("password", t("Sorry, but that username and password combination could not
-                            be found.  Please check your spelling and try again."));
+    form_error("password", t("trarabic_20227"));
     return;    
   }
   
@@ -2060,7 +1890,7 @@ function system_login_form_submit($form, &$form_state) {
   $db_row = $form_state["db_row"];
   
   if (!$passed) {
-    fp_add_message(t("Sorry, there has been an error while trying to authenticate the user."));
+    fp_add_message(t("trarabic_10935"));
     return;
   }
 
@@ -2171,9 +2001,9 @@ function system_display_main_page() {
 
 function system_blocks() {
   return array(
-    "tools" => t("Tools menu"),
-    "admin_tools" => t("Admin Tools menu"),
-    "login_form" => t("Login form"),
+    "tools" => t("trarabic_10936"),
+    "admin_tools" => t("trarabic_10937"),
+    "login_form" => t("trarabic_10938"),
   );
 }
 
@@ -2182,17 +2012,17 @@ function system_render_block($delta) {
   $block = array();
 
   if ($delta == "tools") {
-    $block["title"] = t("Tools");
+    $block["title"] = t("trarabic_10939");
     $block["body"] = fp_render_menu_block("", "tools");
   }
   
   if ($delta == "admin_tools") {
-    $block["title"] = t("Administrative Tools");
+    $block["title"] = t("trarabic_10940");
     $block["body"] = fp_render_menu_block("", "admin-tools");
   }
   
   if ($delta == "login_form") {
-    $block["title"] = t("Please log in below...");
+    $block["title"] = t("trarabic_10941");
     $block["body"] = fp_render_form("system_login_form");
   }
   
@@ -2240,15 +2070,13 @@ function system_init() {
   
   // Are we in maintenance mode?  If so, display a message.
   if (variable_get("maintenance_mode", FALSE)) {
-    fp_add_message(t("FlightPath is currently undergoing routine maintenance.  
-                      During this time, some data may appear incomplete.
-                      We apologize for the inconvenience and appreciate your patience."), "status", TRUE);
+    fp_add_message(t("trarabic_20228"), "status", TRUE);
   }
    
   // Is there an urgent message to display?  
   $urgent_msg = variable_get("urgent_msg", "");
   if ($urgent_msg) {
-    fp_add_message("<b>" . t("Important Message:") . "</b> " . $urgent_msg, "status", TRUE);
+    fp_add_message("<b>" . t("trarabic_10942") . "</b> " . $urgent_msg, "status", TRUE);
   }
   
   
@@ -2271,17 +2099,16 @@ function system_modules_form() {
   fp_add_css(fp_get_module_path("system") . "/css/style.css");
   
   $form["mark" . $m++] = array(
-    "value" => t("Use this form to enable or disable modules.  This scans the /modules/ and then /custom/modules/
-                  directories.") . " 
-                  " . l(t("Run DB updates?"), "admin/db-updates") . "<br><br>",
+    "value" => t("trarabic_20229") . " 
+                  " . l(t("trarabic_10943"), "admin/db-updates") . "<br><br>",
   );
   
   
   // Begin by scanning the /modules/ directory.  Anything in there
   // cannot be disabled.
   $module_dirs = array();
-  $module_dirs[] = array("start" => "modules", "type" => t("Core"));
-  $module_dirs[] = array("start" => "custom/modules", "type" => t("Custom"));
+  $module_dirs[] = array("start" => "modules", "type" => t("trarabic_10944"));
+  $module_dirs[] = array("start" => "custom/modules", "type" => t("trarabic_10945"));
     
   foreach ($module_dirs as $module_dir) {
     $start_dir = $module_dir["start"];
@@ -2345,22 +2172,21 @@ function system_modules_form() {
               $default_value = array($module => $module);              
             }
             else if ($cur["enabled"] == "") {
-              $installation_status = t("not installed");
+              $installation_status = t("trarabic_10946");
             }
             else if ($cur["enabled"] == "0") {
-              $installation_status = fp_get_js_confirm_link(t("Are you sure you wish to uninstall @module?\\nThis may remove saved data belonging to the module.", array("@module" => $module)), 
-                                                            ' window.location="' . fp_url("system/uninstall-module", "module=$module&path=" . urlencode($path) . "") . '"; ', t("uninstall?")); 
+              $installation_status = fp_get_js_confirm_link(t("trarabic_10947", array("@module" => $module)), 
+                                                            ' window.location="' . fp_url("system/uninstall-module", "module=$module&path=" . urlencode($path) . "") . '"; ', t("trarabic_10948")); 
             }
             
             
             // Does this module need to run db updates?
             if ($cur["enabled"] == "1" && $cur["schema"] != $info_details_array["schema"] && $info_details_array["schema"] != "") {
-              $installation_status = "<b>" . l(t("Run db updates"), "admin/db-updates") . "</b>";
+              $installation_status = "<b>" . l(t("trarabic_10949"), "admin/db-updates") . "</b>";
               
               // Let's also make sure to enable a message at the top of the screen, letting the user
               // know that there are needed updates.
-              fp_add_message("<b>" . t("Note:") . "</b> " . t("There are modules which have been updated.  Please back up your database,
-                                then run the DB Updates function below as soon as possible."), "error", TRUE); 
+              fp_add_message("<b>" . t("trarabic_10950") . "</b> " . t("trarabic_20230"), "error", TRUE); 
             }
             
             
@@ -2389,11 +2215,7 @@ function system_modules_form() {
               if (version_compare(FLIGHTPATH_VERSION, $info_details_array["requires core version"], "<")) {
                 // No, it's LESS than the required version!  We shouldn't be able to use this module!
                 $attributes["disabled"] = "disabled";
-                $requires .= "<div style='color: red;'>" . t("This module requires
-                                          that you run FlightPath version %fpv or higher.  
-                                          You are instead running version %fpov.  Please update
-                                          your core copy of FlightPath before attempting to install this
-                                          module.", array('%fpv' => $info_details_array["requires core version"],
+                $requires .= "<div style='color: red;'>" . t("trarabic_20231", array('%fpv' => $info_details_array["requires core version"],
                                                           '%fpov' => FLIGHTPATH_VERSION)) . "</div>";
               }
             }
@@ -2421,7 +2243,7 @@ function system_modules_form() {
             // Version & descr.            
             if ($info_details_array["requires"] != "") {
               $requires .= "<div class='fp-system-modules-requires hypo'>
-                            <b>" . t("Requires:") . "</b> {$info_details_array["requires"]}
+                            <b>" . t("trarabic_10951") . "</b> {$info_details_array["requires"]}
                            </div>";
               
             }
@@ -2429,10 +2251,10 @@ function system_modules_form() {
             // if we are overriding a module, then display something special.
             if ($bool_overriding) {
               $form["mark" . $m++] = array(
-                "value" => "<em>" . t("Overriding core module:") . "<br>{$info_details_array["name"]}</em>
+                "value" => "<em>" . t("trarabic_10952") . "<br>{$info_details_array["name"]}</em>
                             <div class='fp-system-modules-machine-name'>$file</div>
                             <div class='fp-system-modules-installation-status'>
-                            " . t("Use checkbox in Core section above to manage module") . "
+                            " . t("trarabic_10953") . "
                             </div>",
               );
             }
@@ -2462,7 +2284,7 @@ function system_modules_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),
+    "value" => t("trarabic_10954"),
     "prefix" => "<hr>",
   );  
   
@@ -2533,7 +2355,7 @@ function system_handle_uninstall_module() {
   $cur = db_fetch_array($res);
   // Make sure it is not currently enabled.
   if ($cur["enabled"] == "1") {
-    fp_add_message(t("Module %module not yet disabled.  Disable first, then try to uninstall.", array("%module" => $module)));
+    fp_add_message(t("trarabic_10955", array("%module" => $module)));
     return;
   }
   
@@ -2550,7 +2372,7 @@ function system_handle_uninstall_module() {
   $res = db_query("DELETE FROM modules WHERE name = '?' ", $module);
   
   
-  fp_add_message(t("Uninstalled %module.", array("%module" => $module)));
+  fp_add_message(t("trarabic_10956", array("%module" => $module)));
   
   fp_goto("admin/config/modules");
 }
@@ -2581,7 +2403,7 @@ function system_enable_module($module_details) {
     
     $bool_call_hook_install = TRUE;
     
-    fp_add_message(t("The module %module has been installed.", array("%module" => $module)));
+    fp_add_message(t("trarabic_10957", array("%module" => $module)));
          
   }
 
@@ -2611,7 +2433,7 @@ function system_enable_module($module_details) {
   // Update our table.
   $res = db_query("UPDATE modules SET enabled = '1' WHERE name = '?' ", $module);    
 
-  fp_add_message(t("The module %module has been enabled.", array("%module" => $module)));
+  fp_add_message(t("trarabic_10958", array("%module" => $module)));
 
  
   
@@ -2641,7 +2463,7 @@ function system_disable_module($module_details) {
                    SET enabled = '0'
                    WHERE name = '?' ", $module);
 
-  fp_add_message(t("The module %module has been disabled.", array("%module" => $module)));  
+  fp_add_message(t("trarabic_10959", array("%module" => $module)));  
   
 }
 

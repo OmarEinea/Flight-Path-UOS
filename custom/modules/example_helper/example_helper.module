@@ -25,7 +25,7 @@
 function example_helper_init() {
   
   // Add a message to the screen which all users can see
-  fp_add_message(t("Example Helper is running."));
+  fp_add_message(t("trarabic_10459"));
   
   // Let's also provide a link to our menu item, created in hook_menu.
   // Notice to the use of the "l" function, for "link".

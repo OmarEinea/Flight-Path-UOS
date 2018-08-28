@@ -115,7 +115,7 @@ function comments_perform_delete_comment() {
     db_query("UPDATE advising_comments
                SET delete_flag = '1'
                WHERE `id` = '?' ", $comment_id);
-    fp_add_message(t("Comment has been deleted successfully."));
+    fp_add_message(t("trarabic_10645"));
   }
   
   
@@ -187,7 +187,7 @@ function comments_comment_form_submit($form, $form_state) {
 			watchdog("advising mailer", $e->getMessage());
 		}
 		//CODE-ADD-END - 2017-10-09
-	fp_add_message(t("Comment saved successfully."));
+	fp_add_message(t("trarabic_10646"));
   }
 
   watchdog("save_comment", "Comment saved");  
@@ -209,8 +209,8 @@ function comments_comment_form() {
   
   $form["type"] = array(
     "type" => "radios",
-    "label" => t("Visible to:"),
-    "options" => array("public" => t("Anyone (including students)"), "faculty" => t("Faculty/Staff only")),
+    "label" => t("trarabic_10647"),
+    "options" => array("public" => t("trarabic_10648"), "faculty" => t("trarabic_10649")),
     "value" => "faculty",
   );
   
@@ -230,7 +230,7 @@ function comments_comment_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Save"),
+    "value" => t("trarabic_10650"),
   );   
   
 
@@ -258,7 +258,7 @@ function comments_display_main() {
          
     $form = fp_render_form("comments_comment_form");
   
-    $rtn .= fp_render_c_fieldset($form, t("Click to enter comment"), true);
+    $rtn .= fp_render_c_fieldset($form, t("trarabic_10651"), true);
   }
     
   $access_types = (user_has_permission("view_faculty_comments")) ? array("faculty", "public") : array("public");
@@ -322,15 +322,15 @@ function comments_render_comment($comment, $delete_link = "") {
 
   // Make sure the user has access to view it!
   if (!user_has_permission("view_comments")) {
-    return "<p>" . t("Sorry, you do not have permission to view comments.") . "</p>";
+    return "<p>" . t("trarabic_10652") . "</p>";
   }
   if ($comment["access_type"] == "faculty" && !user_has_permission("view_faculty_comments")) {
-    return "<p>" . t("Sorry, but you do not have permission to view the requested comment (it is marked as faculty-only).") . "</p>";    
+    return "<p>" . t("trarabic_10653") . "</p>";    
   }
 
 
   $rtn .= "<div class='comment-comment comment-comment-" . $comment["access_type"] . "'>
-              <div class='comment-by-line'>" .ucwords($comment["access_type"]) . " " . t("comment by") . " " . fp_get_faculty_name($comment["faculty_id"]) . "</div>
+              <div class='comment-by-line'>" .ucwords($comment["access_type"]) . " " . t("trarabic_10654") . " " . fp_get_faculty_name($comment["faculty_id"]) . "</div>
               <div class='comment-datetime'>" . format_date($comment["posted"], "pretty") . "</div>
               <div class='comment-text'>" . filter_markup($comment["comment"], "full") . "</div>
               ";
@@ -410,21 +410,20 @@ function comments_perm() {
 
   return array(
     "view_comments" => array(
-      "title" => t("Can view comments"),
-      "description" => t("The user may view comments (only public by default)."),
+      "title" => t("trarabic_10655"),
+      "description" => t("trarabic_10656"),
     ),
     "view_faculty_comments" => array(
-      "title" => t("View 'Faculty' comments"),
-      "description" => t("The user is allowed to view 'Faculty' comments."),
+      "title" => t("trarabic_10657"),
+      "description" => t("trarabic_10658"),
     ),      
     "can_save_comments" => array(
-      "title" => t("Can save comments"),
-      "description" => t("The user may save new comments, visible to either everyone or only faculty/staff."),
+      "title" => t("trarabic_10659"),
+      "description" => t("trarabic_10660"),
     ),
     "can_delete_own_comments_3_months" => array(
-      "title" => t("Can delete own comments for 3 months"),
-      "description" => t("The user may delete comments they have made for up to 3 months.  After 3 months, they 
-                          will not be able to delete their comment."),
+      "title" => t("trarabic_10661"),
+      "description" => t("trarabic_20145"),
     ),
     
   );

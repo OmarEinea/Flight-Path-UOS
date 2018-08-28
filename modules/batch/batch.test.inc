@@ -19,9 +19,9 @@
 function batch_test_finished_page($batch, $items_max) {
   $rtn = "";
   
-  $rtn .= "<p>" . t("The batch has completed.  You processed %max items.", array("%max" => $items_max)) . "</p>";
+  $rtn .= "<p>" . t("trarabic_10185", array("%max" => $items_max)) . "</p>";
   
-  $rtn .= "<p>" . l(t("Return to form."), "batch-test-form") . "</p>";
+  $rtn .= "<p>" . l(t("trarabic_10186"), "batch-test-form") . "</p>";
   
   
   return $rtn;
@@ -38,13 +38,12 @@ function batch_test_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("This is a test form, so you can see how the Batch API system works.  When you submit this form,
-                           an arbitrary batch process will begin.") . "</p>",
+    "value" => "<p>" . t("trarabic_20035") . "</p>",
   );
   
   
   $form["items"] = array(  
-    "label" => t("How many 'items' to process?"),
+    "label" => t("trarabic_10187"),
     "type" => "select",
     "options" => array(100 => 100, 200 => 200, 300 => 300, 400 => 400, 500 => 500),
     "hide_please_select" => TRUE,
@@ -52,9 +51,9 @@ function batch_test_form() {
   
   
   $form["destination"] = array(
-    "label" => t("Destination after batch is complete:"),
+    "label" => t("trarabic_10188"),
     "type" => "select",
-    "options" => array("default" => t("None set. By default return to this form page."), "function" => t("Function - go to the function 'batch_test_finished_page'.")),
+    "options" => array("default" => t("trarabic_10189"), "function" => t("trarabic_10190")),
     "hide_please_select" => TRUE,
   );
   
@@ -66,7 +65,7 @@ function batch_test_form() {
   
   $form["submit_btn"] = array(
     "type" => "submit",
-    "value" => t("Submit and begin batch..."),
+    "value" => t("trarabic_10191"),
   );
   
   
@@ -82,8 +81,8 @@ function batch_test_form_submit($form, $form_state) {
   // Okay, set up the batch....
   $batch = array(
     "operation" => array("batch_test_perform_batch_operation", array($items_max)),
-    "title" => t("Test Batch Operation"),
-    "success_message" => t("The batch operation completed successfully."),
+    "title" => t("trarabic_10192"),
+    "success_message" => t("trarabic_10193"),
     "display_percent" => $form_state["values"]["display_percent"],
     "file" => menu_get_module_path("batch") . "/batch.test.inc",
   );

@@ -54,9 +54,8 @@ function advise_display_history() {
         align='left' style='border: 1px solid black;
               margin: 10px 0px 10px 0px; padding: 10px; 
               font-size: 12pt; font-weight: bold;'>
-        " . t("You have successfully advised") . " " . $db->get_student_name($student_id) . " ($student_id).
-        <br><span style='color: blue;'>" . t("Click 
-         to view a pop-up printable summary for:") . " 
+        " . t("trarabic_10163") . " " . $db->get_student_name($student_id) . " ($student_id).
+        <br><span style='color: blue;'>" . t("trarabic_20032") . " 
          <ul style='margin-top: 5px; margin-bottom: 5px;'>
         $click_links
         </ul></span></div>
@@ -78,7 +77,7 @@ function advise_display_history() {
   //////////////////////////////////////////////////
   /////////  Advising History
   ///////////////////////////////////////////////////
-  $rtn .= fp_render_curved_line(t("Advising History"));
+  $rtn .= fp_render_curved_line(t("trarabic_10164"));
   $rtn .= "<table border='0' cellspacing='0'>";
   $old_session_d_t = 0;
   $a_count = 0;
@@ -113,7 +112,7 @@ function advise_display_history() {
 
       $old_session_d_t = $test_d_t;
       $advised_by = "<div style='padding-top: $p'>
-              <b>" . t("Advised by") . " " . fp_get_faculty_name($db_faculty_id, false) . "</b>
+              <b>" . t("trarabic_10165") . " " . fp_get_faculty_name($db_faculty_id, false) . "</b>
             </div>";
 
       $rtn .= "<tr><td colspan='2' class='tenpt'>
@@ -160,7 +159,7 @@ function advise_display_history() {
   //------------------------------ COMMENT HISTORY -----------------------------------------
   //----------------------------------------------------------------------------------------
   $rtn .= "</td><td width='50%' valign='top'>";
-  $rtn .= fp_render_curved_line(t("Comment History"));
+  $rtn .= fp_render_curved_line(t("trarabic_10166"));
   $rtn .= "<table border='0' cellspacing='0'>";
 
   $old_term_id = "";
@@ -180,7 +179,7 @@ function advise_display_history() {
   
   $rtn .= "<tr><td colspan='3' class='tenpt'>
         <!--STARTCOM$cat_type--><div style='padding-top: 10px;'>
-          <b>" . t("Advising Comments") . "</b>
+          <b>" . t("trarabic_10167") . "</b>
           &nbsp; 
         <a href='javascript: popupPrintWindow(\"" . $turl . "\");'  
           class='nounderline'><img src='" . fp_theme_location() . "/images/popup.gif' border='0'>view/print all</a>
@@ -235,7 +234,7 @@ function advise_display_history() {
     
     $rtn .= "<tr><td colspan='4' class='tenpt'>
             <div style='padding-left: 20px;'>
-              " . t("No @cat_type comment history available.", array("@cat_type" => $cat_type)) . "</div></td></tr>";
+              " . t("trarabic_10168", array("@cat_type" => $cat_type)) . "</div></td></tr>";
   }
 
   $rtn .= "</table>";
@@ -285,10 +284,8 @@ function advise_popup_display_summary() {
     $official_degree_plan->load_descriptive_data();
     $official_degree_title = $official_degree_plan->get_title(true);
 
-    $what_if_message = "<b>" . t("Note:") . "</b>
-              " . t("This advising was saved using <b>What If</b> mode
-              for the %degree_title major.  According to @initials records,
-              the student's official major is %official.", array("%degree_title" => $degree_title, "@initials" => $GLOBALS["fp_system_settings"]["school_initials"], "%official" => $official_degree_title));
+    $what_if_message = "<b>" . t("trarabic_10169") . "</b>
+              " . t("trarabic_20033", array("%degree_title" => $degree_title, "@initials" => $GLOBALS["fp_system_settings"]["school_initials"], "%official" => $official_degree_title));
   }
 
   $page_is_mobile = fp_screen_is_mobile();
@@ -308,7 +305,7 @@ function advise_popup_display_summary() {
         <td> </td>
        </tr>
        <tr>
-        <td valign='top' width='15%'>" . t("Student:") . "</td>
+        <td valign='top' width='15%'>" . t("trarabic_10170") . "</td>
         <td valign='top' width='40%'>" . $db->get_student_name($db_student_id, false) . " ($db_student_id)</td>
         <td valign='top' rowspan='3'>
           <table width='100%' cellpadding='0' cellspacing='0'>
@@ -316,14 +313,14 @@ function advise_popup_display_summary() {
          <td width='100%' valign='bottom'><hr noshade size='1' width='100%' color='black' style='margin: 0px;'></td>
         </tr>
         <tr height='20'>
-         <td width='100%' valign='top' align='right'><span style='font-size: 8pt;'>" . t("Student signature") . "</span></td>
+         <td width='100%' valign='top' align='right'><span style='font-size: 8pt;'>" . t("trarabic_10171") . "</span></td>
         </tr>
 
         <tr height='20'>
          <td width='100%' valign='bottom'><hr noshade size='1' width='100%' color='black' style='margin: 0px;'></td>
         </tr>
         <tr>
-         <td width='100%' valign='bottom' align='right'><span style='font-size: 8pt;'>" . t("Advisor signature") . "</span></td>
+         <td width='100%' valign='bottom' align='right'><span style='font-size: 8pt;'>" . t("trarabic_10172") . "</span></td>
         </tr>
        <tr height='7'>
         <td> </td>
@@ -337,12 +334,12 @@ function advise_popup_display_summary() {
         </td>
        </tr>
        <tr>
-        <td valign='top' width='10%'>" . t("Advisor:") . "</td>
+        <td valign='top' width='10%'>" . t("trarabic_10173") . "</td>
         <td valign='top'>" . fp_get_faculty_name($db_faculty_id, false) . "</td>
 
        </tr>
        <tr>
-        <td valign='top'>" . t("Term:") . "</td>
+        <td valign='top'>" . t("trarabic_10174") . "</td>
         <td valign='top'>$term</td>
 
        </tr>
@@ -351,7 +348,7 @@ function advise_popup_display_summary() {
     $rtn .= "
        <tr>
         <td valign='top' colspan='2'>
-        " . t("Alternate Term:") . " _____________________
+        " . t("trarabic_10175") . " _____________________
         </td>
        </tr>";
   }
@@ -363,18 +360,18 @@ function advise_popup_display_summary() {
 
   if ($degree_title != "")
   {
-    $rtn .= t("Major:") . " $degree_title";
+    $rtn .= t("trarabic_10176") . " $degree_title";
   }
 
   $rtn .= "
        </tr>
        </table>
-       <div class='tenpt'><i>" . t("Submitted on") . " $dt.</i></div>
+       <div class='tenpt'><i>" . t("trarabic_10177") . " $dt.</i></div>
        <div class='tenpt'>$what_if_message</div>
        <br>
     ";
 
-  $rtn .= fp_render_curved_line(t("Advised Courses"));
+  $rtn .= fp_render_curved_line(t("trarabic_10178"));
 
   $fp = new FlightPath($student,$degree_plan, $db);
 
@@ -383,13 +380,13 @@ function advise_popup_display_summary() {
   $rtn .= "<table border='0' cellpadding='3'>
       <tr>
         <td class='tenpt' valign='top' width='25%'>
-          <b>" . t("Course") . "</b>
+          <b>" . t("trarabic_10179") . "</b>
         </td>
         <td class='tenpt' valign='top' width='70%'>
-          <b>" . t("Title") . "</b>
+          <b>" . t("trarabic_10180") . "</b>
         </td>
         <td class='tenpt' valign='top'>
-          <b>" . t("Hours") . "</b>
+          <b>" . t("trarabic_10181") . "</b>
         </td>
       </tr>";
 
@@ -424,18 +421,16 @@ function advise_popup_display_summary() {
 
   $rtn .= "</table>
       <div align='right' class='tenpt' style='padding-top: 10px; padding-right: 15px;'>
-        <b>" . t("Total advised hours:") . " &nbsp; " . $advised_courses_list->count_hours() . "</b>
+        <b>" . t("trarabic_10182") . " &nbsp; " . $advised_courses_list->count_hours() . "</b>
       </div>
       ";
 
 
   if (!$page_is_mobile) {
     $rtn .= "<br>";
-    $rtn .= fp_render_curved_line(t("Alternate Courses"));
+    $rtn .= fp_render_curved_line(t("trarabic_10183"));
     $rtn .= "<div class='tenpt'>
-        " . t("You may use this space to write in alternate courses 
-        the student should enroll in, in the event that an 
-        advised course is full or unavailable.") . "
+        " . t("trarabic_20034") . "
         <br><br>
         ___________________________________________________________________ <br><br>
         ___________________________________________________________________
@@ -444,7 +439,7 @@ function advise_popup_display_summary() {
 
   $rtn .= "</table>";
 
-  fp_set_title($db->get_student_name($db_student_id, FALSE) . " ($db_student_id) $term " . t("Advising Summary"));
+  fp_set_title($db->get_student_name($db_student_id, FALSE) . " ($db_student_id) $term " . t("trarabic_10184"));
 
   
   return $rtn;

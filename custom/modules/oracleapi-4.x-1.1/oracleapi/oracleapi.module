@@ -49,7 +49,7 @@ function oracleapi_menu() {
 function oracleapi_perm() {
   return array(
     "administer_oracleapi" => array(
-      "title" => t("Administer Oracle API settings"),
+      "title" => t("trarabic_10499"),
     ),
   );
 }
@@ -79,16 +79,12 @@ function oracleapi_settings_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("Use this form to set up the default Oracle connection
-                  and settings for your site.  Please remember, this module is meant to 
-                  provide functionality for other modules.  If you have no other modules
-                  installed which make use of Oracle API, then making changes on this screen
-                  will have no effect on FlightPath.") . "</p>",
+    "value" => "<p>" . t("trarabic_20105") . "</p>",
   );
 
   $form["oracleapi_username"] = array(
     "type" => "textfield",
-    "label" => t("Default username:"),
+    "label" => t("trarabic_10500"),
     "value" => variable_get("oracleapi_username", ""),
   );
   
@@ -100,47 +96,40 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_enc_password"] = array(
     "type" => "password",
-    "label" => t("Default password:"),
+    "label" => t("trarabic_10501"),
     "value" => $password,
-    "description" => t("Security note: the password will be saved to the database
-                        in a simple base64 encoding scheme.  <b>THIS IS NOT SECURE</b>.  This
-                        is merely to keep prying eyes from spotting the password
-                        in plain text.  Be sure that this user/password has an
-                        appropriately restricted level of access to your Oracle server,
-                        and make sure your MySQL database is tightly restricted as well."),
+    "description" => t("trarabic_20106"),
   );
 
   
   $form["oracleapi_server"] = array(
     "type" => "textfield",
-    "label" => t("Default host server:"),
+    "label" => t("trarabic_10502"),
     "value" => variable_get("oracleapi_server", ""),
-    "description" => t("Example:") . " bb1.example.edu",
+    "description" => t("trarabic_10503") . " bb1.example.edu",
   );
 
   $form["oracleapi_port"] = array(
     "type" => "textfield",
-    "label" => t("Default port:"),
+    "label" => t("trarabic_10504"),
     "value" => variable_get("oracleapi_port", "1521"),
-    "description" => t("Example:") . " 1521",
+    "description" => t("trarabic_10505") . " 1521",
   );
   
   
   $form["oracleapi_sid"] = array(
     "type" => "textfield",
-    "label" => t("Default SID:"),
+    "label" => t("trarabic_10506"),
     "value" => variable_get("oracleapi_sid", ""),
-    "description" => t("Example:") . " PROD",
+    "description" => t("trarabic_10507") . " PROD",
   );
 
   
   $form["oracleapi_email_error"] = array(
     "type" => "textfield",
-    "label" => t("Email on errors:"),
+    "label" => t("trarabic_10508"),
     "value" => variable_get("oracleapi_email_error", ""),
-    "description" => t("If there is an oracle error, an email will be sent to this
-                        address.  You may enter more than one address separated by a comma.
-                        Leave blank to disable."),
+    "description" => t("trarabic_20107"),
   );
   
   
@@ -205,8 +194,7 @@ function oracleapi_connect($username = "", $password = "", $server = "", $sid = 
   
   if ($username == "") {
     // If it STILL is blank, then it hasn't been set up yet.
-    fp_add_message(t("Oracle API default settings are not available.  Please make sure
-                      they are set up correctly."), "error");
+    fp_add_message(t("trarabic_20108"), "error");
     return FALSE;
   }
   
@@ -310,10 +298,10 @@ function oracleapi_query($sql_query = "") {
   if ($err = oracleapi_error($result)) {
     $msg = "";
     
-    $msg .= t("An Oracle error has occured:") . " " . $err;
+    $msg .= t("trarabic_10509") . " " . $err;
     $arr = debug_backtrace();
 
-    fpm($msg . "<br><br>" . t("The backtrace:"));
+    fpm($msg . "<br><br>" . t("trarabic_10510"));
     fpm($arr);
        
     // Should we email anyone?

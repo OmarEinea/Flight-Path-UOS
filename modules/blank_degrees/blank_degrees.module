@@ -164,14 +164,14 @@ function blank_degrees_display_blank_degree() {
     // If the user has permissions, show them the extra URL options.  (but don't bother in print mode)
     $rtn .= fp_render_c_fieldset("
               <div style='font-size: 0.85em;'>
-                " . t("This degree may be linked to directly using the following URLs:") . "
+                " . t("trarabic_10613") . "
                 <ul>
                   <li>Internal ID for $blank_catalog_year: <a href='" . $GLOBALS["fp_system_settings"]["base_url"] . "/" . fp_url("blank-degrees/display", "blank_degree_id=$blank_degree_id&blank_catalog_year=$blank_catalog_year", FALSE) . "'>Link</a></li>
                   <li>Major-code $blank_major_code for $blank_catalog_year: <a href='" . $GLOBALS["fp_system_settings"]["base_url"] . "/" . fp_url("blank-degrees/display", "blank_degree_id=major_code_$blank_major_code&blank_catalog_year=$blank_catalog_year", FALSE) . "'>Link</a></li>
                   <li>Major-code $blank_major_code always <b>current</b> catalog: <a href='" . $GLOBALS["fp_system_settings"]["base_url"] . "/" . fp_url("blank-degrees/display", "blank_degree_id=major_code_$blank_major_code&blank_catalog_year=current", FALSE) . "'>Link</a></li>
                 </ul>
               </div>
-             ", t("View URL Options"), TRUE);
+             ", t("trarabic_10614"), TRUE);
   }
   
   
@@ -208,8 +208,8 @@ function blank_degrees_display_blank_degree() {
 
 function blank_degrees_perm() {
   return array("blank_degrees_view_url_options" => array(
-                  "title" => t("View URL options"),
-                  "description" => t("View URL options at the bottom of blank degrees"), 
+                  "title" => t("trarabic_10615"),
+                  "description" => t("trarabic_10616"), 
   ));
 }
 
@@ -260,7 +260,7 @@ function blank_degrees_select_degree_form() {
 
     $form["blank_catalog_year"] = array(
       "type" => "select",
-      "label" => t("Please begin by selecting a catalog year:"),
+      "label" => t("trarabic_10617"),
       "options" => $catalog_year_options,
     );
   }
@@ -272,8 +272,8 @@ function blank_degrees_select_degree_form() {
     );
 
     $form["mark" . $m++] = array(
-      "value" => t("Searching degrees in %year.", array("%year" => $blank_catalog_year . "-" . ($blank_catalog_year+1))) . "
-                   " . l(t("Change?"), "tools/blank-degrees"),
+      "value" => t("trarabic_10618", array("%year" => $blank_catalog_year . "-" . ($blank_catalog_year+1))) . "
+                   " . l(t("trarabic_10619"), "tools/blank-degrees"),
     );    
     
     $mobile_markup = "";
@@ -285,7 +285,7 @@ function blank_degrees_select_degree_form() {
         $degree_id = $value["degree_id"];
         $title = $value["title"];
         if ($value["degree_class"] == "G") {
-          $title = "(" . t("Graduate") . ") " . $title;          
+          $title = "(" . t("trarabic_10620") . ") " . $title;          
         }
         // if title is too long, shorten it.
         $maxlen = 95;
@@ -314,7 +314,7 @@ function blank_degrees_select_degree_form() {
     else {
       // NOT mobile
       $form["blank_degree_id"] = array(
-        "label" => t("Please select a degree"),
+        "label" => t("trarabic_10621"),
         "type" => "select",
         "options" => $degree_options,
       );
@@ -328,7 +328,7 @@ function blank_degrees_select_degree_form() {
     $form["submit"] = array(
       "type" => "submit",
       "prefix" => "<hr>",
-      "value" => t("Continue") . " -&gt;",
+      "value" => t("trarabic_10622") . " -&gt;",
     );
   }
   

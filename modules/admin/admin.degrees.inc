@@ -10,8 +10,8 @@ function admin_display_degrees_popup_add_group() {
   
   $rtn = "";
 
-  $rtn .= "<b>" . t("Add an elective group to semester: @semester_num in @de_catalog_year", array("@semester_num" => $semester_num, "@de_catalog_year" => $de_catalog_year)) . "</b><br>
-        <span class='tenpt'>" . t("Use keyboard shortcut CTRL-F to find groups quickly.") . "</span>
+  $rtn .= "<b>" . t("trarabic_10087", array("@semester_num" => $semester_num, "@de_catalog_year" => $de_catalog_year)) . "</b><br>
+        <span class='tenpt'>" . t("trarabic_10088") . "</span>
         <br><br>
         First, select a group (from $de_catalog_year):
         <div class='tenpt' 
@@ -37,7 +37,7 @@ function admin_display_degrees_popup_add_group() {
 
 
   $rtn .= "</table></div>
-      " . t("Next, select properties for this group:") . "
+      " . t("trarabic_10089") . "
       <a href='javascript: adminPopupAlertHelp(\"group_properties\");'>?</a>
       <div class='tenpt' style='padding-top: 5px;'>
       Hrs: <input type='text' name='hours' id='hours' size='2'>
@@ -73,16 +73,13 @@ function admin_display_degrees_popup_add_group() {
 function admin_copy_degree_form() {
   $de_catalog_year = admin_get_de_catalog_year();
   
-  fp_set_title(t("Copy Degree for") . " $de_catalog_year");
+  fp_set_title(t("trarabic_10090") . " $de_catalog_year");
   
   $form = array();
 
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("Use this form to duplicate a degree plan in this catalog year.
-                  <b>IMPORTANT:</b> If you specify a destination major code which
-                  already exists, <b>all of its tracks and concentrations</b> will be
-                  deleted for @year!", array("@year" => $de_catalog_year)),
+    "value" => t("trarabic_20014", array("@year" => $de_catalog_year)),
   );
 
 
@@ -95,29 +92,24 @@ function admin_copy_degree_form() {
   $form["source_major_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("Enter the SOURCE major code you wish to copy:"),
+    "label" => t("trarabic_10091"),
     "required" => TRUE,
-    "description" => t("Ex: ART or GBUS. Do not enter any track or concentration codes here."),
+    "description" => t("trarabic_10092"),
   );
 
   $form["include_tracks"] = array(
     "type" => "checkboxes",
-    "label" => t("Include tracks and concentrations?"),
+    "label" => t("trarabic_10093"),
     "options" => array("yes" => "Include tracks and concentrations."),
-    "description" => t("Check this box if you wish to also copy any tracks and concentrations 
-                        this major code may have associated with it. If you do not check this box, 
-                        only the base degree will be copied. If the major does not have 
-                        tracks and concentrations, leave this unchecked."),
+    "description" => t("trarabic_20015"),
   );
 
   $form["destination_major_code"] = array(
     "type" => "textfield",
     "size" => 15,    
-    "label" => t("Enter the DESTINATION major code you wish to create/overwrite:"),
+    "label" => t("trarabic_10094"),
     "required" => TRUE,
-    "description" => t("Ex: CHEM or XYZ. Do not enter any track or concentration codes here.  If the destination
-                        major already exists, it and <b>all of its tracks and concentrations</b> will be
-                        deleted for this catalog year!"),
+    "description" => t("trarabic_20016"),
   );
   
   
@@ -158,7 +150,7 @@ function admin_copy_degree_form_submit($form, $form_submit) {
   if (db_num_rows($res) == 0) {
     // Meaning, it could not be found.
     
-    form_error("source_major_code", t("The source major, %source, could not be found for %year", array("%source" => $source_major_code, "%year" => $de_catalog_year)));
+    form_error("source_major_code", t("trarabic_10095", array("%source" => $source_major_code, "%year" => $de_catalog_year)));
     return;
   }
 
@@ -297,7 +289,7 @@ function admin_copy_degree_form_submit($form, $form_submit) {
   $res = db_query("INSERT INTO draft_instructions
                         (instruction) VALUES ('-') ");
   
-  fp_add_message(t("Degree %source has been copied to %dest for %year",
+  fp_add_message(t("trarabic_10096",
                   array("%source" => $source_major_code, "%dest" => $destination_major_code, "%year" => $de_catalog_year)));
                    
                     
@@ -311,14 +303,13 @@ function admin_copy_degree_form_submit($form, $form_submit) {
 function admin_add_degree_form() {  
   $de_catalog_year = admin_get_de_catalog_year();
   
-  fp_set_title(t("Add Degree for") . " " . $de_catalog_year);
+  fp_set_title(t("trarabic_10097") . " " . $de_catalog_year);
   
   $form = array();
   
   $form["markup" . $m++] = array(
     "type" => "markup",
-    "value" => t("You may use this screen to add a new degree,
-                  by entering a new major, concentration, or track (degree option)"),
+    "value" => t("trarabic_20017"),
   );
   
 
@@ -329,11 +320,10 @@ function admin_add_degree_form() {
 
   $form["new_major"] = array(
     "type" => "radios",
-    "label" => t("Please select: are you entering a new major code [and concentration] 
-                  or an existing major code [and concentration] (so you can add a new track)?"),
+    "label" => t("trarabic_20018"),
     "options" => array(
-      "new" => t("Entering a <b>new</b> major code [and concentration]"),
-      "existing" => t("Entering an <b>existing</b> major code [and concentration] (only adding a new track)"),
+      "new" => t("trarabic_10098"),
+      "existing" => t("trarabic_10099"),
     ),
     "required" => TRUE,
   );
@@ -342,23 +332,18 @@ function admin_add_degree_form() {
   $form["major_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("Major|Conc code:"),
-    "description" => t("To enter a concentration code, use MAJOR|CONC. 
-                      The | character is call the pipe, and it should under the backspace key. 
-                      If adding a new concentration to an existing major, you still put this in as a 
-                      NEW major code. Do not have any spaces in this box. The concentration code 
-                      is optional. If the major does not have a concentration, 
-                      then simply enter the major code by itself."),
+    "label" => t("trarabic_10100"),
+    "description" => t("trarabic_20019"),
     "required" => TRUE,
   );
 
 
   $form["new_track"] = array(
     "type" => "radios",
-    "label" => t("Please select: are you entering a new track code?"),
+    "label" => t("trarabic_10101"),
     "options" => array(
-      "new" => t("Entering a <b>new</b> track code"),
-      "none" => t("None - Not adding a track.  Leave blank"),
+      "new" => t("trarabic_10102"),
+      "none" => t("trarabic_10103"),
     ),
     "required" => TRUE,
   );
@@ -367,8 +352,8 @@ function admin_add_degree_form() {
   $form["track_code"] = array(
     "type" => "textfield",
     "size" => 15,
-    "label" => t("Track code:"),
-    "description" => t("Leave blank if you selected None above."),
+    "label" => t("trarabic_10104"),
+    "description" => t("trarabic_10105"),
   );
 
 
@@ -404,16 +389,14 @@ function admin_add_degree_form_submit($form, $form_submit) {
   //////////////////////////////////////////////
 
   if ($new_track == "new" && $track_code == "") {   
-    form_error("track_code", t("You selected to add a track, but did not specify a track code.")); 
+    form_error("track_code", t("trarabic_10106")); 
   }
 
   // Make sure user did not enter an underscore (_) in either
   // the track or major code!
   if (strstr($track_code, "_") || strstr($major_code, "_")) {
         
-    form_error("major_code", t("You are not allowed to enter underscores (_) in either the track code
-                    or major code.  FlightPath will add that for you.  Please re-enter
-                    your new degree without using an underscore.")); 
+    form_error("major_code", t("trarabic_20020")); 
 
   }
 
@@ -436,7 +419,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
   if (db_num_rows($res) > 0 && $new_major == "new") { 
     // Meaning, it already exists, yet we are trying to add it as a new
     // major.  This is an error!
-    fp_add_message(t("The major code %major_code already exists for %year.  You cannot add it as a new major.", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
+    fp_add_message(t("trarabic_10107", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
     return;
     
   }
@@ -444,7 +427,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
     // This is another error.  We are trying to add a track to an existing
     // major code, but none was found.
     
-    fp_add_message(t("The major code %major_code could not be found in the system for %year.  Perhaps you need to add it first?", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");    
+    fp_add_message(t("trarabic_10108", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");    
     return;
   }
   if (db_num_rows($res) == 0 && $new_major == "new") {
@@ -469,7 +452,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
     if (db_num_rows($res) > 0) {
       // Meaning, it already existed, so we can't create it.      
-      fp_add_message(t("The major and track code %major_code already exists for %year.  You cannot add it as a new major/track code.", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)), "error");
+      fp_add_message(t("trarabic_10109", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)), "error");
       return;      
       
     } 
@@ -502,9 +485,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
 
   // Success!  We are done.
-  fp_add_message(t("The new degree %major_code was added successfully for %year.  
-                      You may add another degree, or use the menu at the top of the page to return to your list
-                      of degrees, so you may begin editing the degree.", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)));
+  fp_add_message(t("trarabic_20021", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)));
   
   clear_session_form_values("admin_add_degree_form");
   
@@ -520,7 +501,7 @@ function admin_display_degrees() {
     
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
 
-  $rtn .= "<h2 class='title'>" . t("Degrees for @year", array("@year" => $de_catalog_year)) . "</h2>";  
+  $rtn .= "<h2 class='title'>" . t("trarabic_10110", array("@year" => $de_catalog_year)) . "</h2>";  
 
   $rtn .= "<div class='admin-degrees-upper-links'>";  
   $rtn .= l("Add new degree plan (major, degree plan, or track)", "admin/degrees/add-degree", "de_catalog_year=$de_catalog_year");
@@ -530,12 +511,11 @@ function admin_display_degrees() {
   
   
   $rtn .= "<div class='list-degree-row-excluded'>
-        " . t("Majors or Tracks marked as \"exclude\" are shaded.  You may pull up students with these
-        majors in FlightPath, but they will not be options in the What If mode.") . "
+        " . t("trarabic_20022") . "
       </div>
       <br>
       <div class='tenpt' align='center'>
-        " . t("Use CTRL-F to find degrees more quickly.") . "
+        " . t("trarabic_10112") . "
       </div>";
   
 
@@ -992,10 +972,10 @@ function admin_display_edit_degree() {
   $rtn .= "
       <table>
        <tr>
-        <td valign='top' class='tenpt' width='15%'>" . t("Degree Type:") . "</td>
+        <td valign='top' class='tenpt' width='15%'>" . t("trarabic_10113") . "</td>
         <td valign='top' class='tenpt' width='15%'><input type='text' name='degree_type' value='$degree->degree_type' size='5' maxlength='20'></td>
 
-        <td valign='top' class='tenpt' width='15%'>" . t("Degree Class:") . "</td>
+        <td valign='top' class='tenpt' width='15%'>" . t("trarabic_10114") . "</td>
         <td valign='top' class='tenpt'><input type='text' name='degree_class' value='$degree->degree_class' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_class\");'>?</a>
         
@@ -1004,11 +984,11 @@ function admin_display_edit_degree() {
         
        </tr>
        <tr>
-        <td valign='top' class='tenpt'>" . t("Degree Title:") . "</td>
+        <td valign='top' class='tenpt'>" . t("trarabic_10115") . "</td>
         <td valign='top' class='tenpt' colspan='3'><input type='text' name='title' value='$degree->title' size='80' maxlength='100'></td>
        </tr>
        <tr>
-        <td valign='top' class='tenpt'>" . t("Exclude:") . "</td>
+        <td valign='top' class='tenpt'>" . t("trarabic_10116") . "</td>
         <td valign='top' class='tenpt' colspan='3'><input type='text' name='exclude' value='$degree->db_exclude' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_exclude\");'>?</a></td>
        </tr>
@@ -1022,7 +1002,7 @@ function admin_display_edit_degree() {
     $rtn .= "<b>Edit track information:</b>
       <blockquote style='margin-top: 0px; margin-bottom: 0px;'>
     <font size='2'>Track title: <input type='text' name='track_title' value='$degree->track_title' size='60' maxlength='100'></font><br>
-    <font size='2'>Track description: " . fp_get_js_alert_link(t("You may enter simple HTML in this field, like <b>bold</b> or <i>italics</i>."), t("(Help - Formatting)")) . "
+    <font size='2'>Track description: " . fp_get_js_alert_link(t("trarabic_10117"), t("trarabic_10118")) . "
             <a href='javascript: adminPopupAlertHelp(\"track_description\");'>(Help - Track Descriptions)</a>
     </font><br>
     <textarea name='track_description' cols='60' rows='3'>" . filter_markup($degree->track_description) . "</textarea>
@@ -1108,7 +1088,7 @@ function admin_display_edit_degree() {
 
     $rtn .= "</table><br>
         
-    " . fp_render_button(t("Save for @year", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
+    " . fp_render_button(t("trarabic_10119", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
       <span class='admin-button-msg'>$button_msg</span>
     
     </div>
@@ -1121,7 +1101,7 @@ function admin_display_edit_degree() {
     $sem = $t + $s_count;
     if ($sem > 99) {
       // Max number of semesters.  More or less arbitrarily set number.
-      $rtn .= "<br>" . t("Maximum number of semesters created.") . "<br>";
+      $rtn .= "<br>" . t("trarabic_10120") . "<br>";
       break;
     }
 
@@ -1161,7 +1141,7 @@ function admin_display_edit_degree() {
 
     $rtn .= "</table><br>
     
-    " . fp_render_button(t("Save for @year", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
+    " . fp_render_button(t("trarabic_10121", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
         <span class='admin-button-msg'>$button_msg</span>
     
     </div>";
@@ -1174,7 +1154,7 @@ function admin_display_edit_degree() {
       <div class='elevenpt'><b>More Options:</b><br>
       Enter a public note for this degree: 
        <a href='javascript: adminPopupAlertHelp(\"public_note\");'>(Help - Public Note)</a>
-       " . fp_get_js_alert_link(t("You may enter simple HTML in this field, like <b>bold</b> or <i>italics</i>."), t("(Help - Formatting)")) . "
+       " . fp_get_js_alert_link(t("trarabic_10122"), t("trarabic_10123")) . "
       <br>
       <textarea name='public_note' rows='4' cols='80'>$degree->public_note</textarea>
       

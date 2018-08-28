@@ -260,21 +260,20 @@ function user_perm() {
   
   return array(
     "can_edit_user_roles" => array(
-      "title" => t("Edit user roles"),
-      "description" => t("The user may add/edit/delete user roles in the system."),
+      "title" => t("trarabic_10974"),
+      "description" => t("trarabic_10975"),
     ),   
     "can_edit_permissions" => array(
-      "title" => t("Edit permissions"),
-      "description" => t("The user may assign permissions to different roles in the system."),
+      "title" => t("trarabic_10976"),
+      "description" => t("trarabic_10977"),
     ),   
     "manage_users" => array(
-      "title" => t("Manage users"),
-      "description" => t("This is a powerful permission!  It allows the user to edit the details
-                          of other users, as well as create users."),
+      "title" => t("trarabic_10978"),
+      "description" => t("trarabic_20234"),
     ),    
     "delete_users" => array(
-      "title" => t("Delete users"),
-      "description" => t("This is a powerful permission!  It allows the user delete users from the system."),
+      "title" => t("trarabic_10979"),
+      "description" => t("trarabic_10980"),
     ),    
   );  
   
@@ -300,8 +299,7 @@ function user_permissions_form() {
   
   $form["mark" . $m++] = array(
     
-    "value" => t("Use this form to assign permissions to roles in the system.
-                  These permissions are defined by module."),
+    "value" => t("trarabic_20235"),
   );
 
   $roles = array();
@@ -326,12 +324,12 @@ function user_permissions_form() {
   //fpm($modules);
   foreach ($modules as $module) {
     $form["mark" . $m++] = array(
-      "value" => "<tr><td colspan='$col_count' class='perm-module-name'>" . ucwords($module) . " " . t("module") . "</td></tr>",
+      "value" => "<tr><td colspan='$col_count' class='perm-module-name'>" . ucwords($module) . " " . t("trarabic_10981") . "</td></tr>",
     );   
     
     // Draw the headers...
     $form["mark" . $m++] = array(
-      "value" => "<tr class='headers'><th style='min-width: 400px;'>" . t("Permission") . "</th>",
+      "value" => "<tr class='headers'><th style='min-width: 400px;'>" . t("trarabic_10982") . "</th>",
     );  
     foreach ($roles as $key => $role) {
       $form["mark" . $m++] = array(
@@ -402,7 +400,7 @@ function user_permissions_form() {
     
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Save permissions"),
+    "value" => t("trarabic_10983"),
     "prefix" => "<hr>",
   );
     
@@ -439,7 +437,7 @@ function user_permissions_form_submit($form, $form_submit) {
     }
   }
   
-  fp_add_message(t("Permissions saved successfully."));
+  fp_add_message(t("trarabic_10984"));
   
 } 
  
@@ -458,11 +456,8 @@ function user_user_roles_form() {
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("Roles are able to be assigned permissions in FlightPath, and then users are assigned
-                those roles.  You may not remove the two roles, 'anonymous user' and 'authenticated user'.
-                Those are assigned automatically when the user logs in or out.
-                However, you may add as many more roles as you wish.")
-                . "<br><br><b>" . t("roles:") . "</b>
+    "value" => t("trarabic_20236")
+                . "<br><br><b>" . t("trarabic_10985") . "</b>
                 <table style='padding-left: 20px;'>",
   );
 
@@ -472,8 +467,8 @@ function user_user_roles_form() {
     $key = $cur["rid"];
     $value = $cur["name"];
     
-    $prompt_link = fp_get_js_prompt_link("Enter a new name to change this role to:", $value, "document.getElementById(\"element-perform_action2\").value=\"edit~_~$key~_~\" + response; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("edit")) . "  |  ";
-    $confirm_link = fp_get_js_confirm_link(t("Are you sure you wish to delete this role?\\nIt will be removed from users' accounts.  This action cannot be undone.\\n\\nProceed?"), "document.getElementById(\"element-perform_action2\").value=\"del~_~$key\"; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("delete"));
+    $prompt_link = fp_get_js_prompt_link("Enter a new name to change this role to:", $value, "document.getElementById(\"element-perform_action2\").value=\"edit~_~$key~_~\" + response; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("trarabic_10986")) . "  |  ";
+    $confirm_link = fp_get_js_confirm_link(t("trarabic_10987"), "document.getElementById(\"element-perform_action2\").value=\"del~_~$key\"; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("trarabic_10988"));
     
     if ($key == 1 || $key == 2) {
       $prompt_link = $confirm_link = "";
@@ -497,12 +492,12 @@ function user_user_roles_form() {
   
   $form["new_role"] = array(
     "type" => "textfield",
-    "label" => t("Add a new role:"),    
+    "label" => t("trarabic_10989"),    
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Add new"),
+    "value" => t("trarabic_10990"),
   );  
   
   return $form;
@@ -567,11 +562,11 @@ function user_edit_user_advisees_form() {
 
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("Edit Faculty/Staff User");
+  $tab_array[0]["title"] = t("trarabic_10991");
   $tab_array[0]["active"] = FALSE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("Edit Faculty Advisees");
+  $tab_array[1]["title"] = t("trarabic_10992");
   $tab_array[1]["active"] = TRUE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user/advisees", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -581,16 +576,14 @@ function user_edit_user_advisees_form() {
   
   if ($faculty_cwid != "new") {  
     $name = fp_get_faculty_name($faculty_cwid);  
-    fp_set_title(t("Edit Faculty/Staff Advisees of @name (@id)", array("@name" => $name, "@id" => $faculty_cwid)));
+    fp_set_title(t("trarabic_10993", array("@name" => $name, "@id" => $faculty_cwid)));
   }
   else {
     // A new student!  We can't create a new student until a CWID is assigned.
-    fp_set_title(t("Create New Faculty/Staff User"));
+    fp_set_title(t("trarabic_10994"));
     $form["mark_sorry"] = array(
       "type" => "markup",
-      "value" => "<p>" . t("Sorry, but you cannot add advisees to this faculty member until the faculty member
-                      has been fully created (and given a CWID).  Use the Edit Faculty/Staff User button above
-                      to return to that screen.") . "</p>",
+      "value" => "<p>" . t("trarabic_20237") . "</p>",
     );
     return $form;
   }
@@ -615,14 +608,7 @@ function user_edit_user_advisees_form() {
 
   // We are good to go... display the box for entering CWIDS
   $form["markup_explain"] = array(
-    "value" => "<p>" . t("
-                If this faculty user is an advisor, you may enter their advisees' CWIDs in the box below, one
-                per line.  This will be used to populate the advisor_student table.
-                <br><br>
-                <i>Anything after a # sign will be ignored.  It is for your benefit only, it will NOT be saved.</i>
-                <br><br>
-                <b>Important:</b> If you have any routines which modify or edit the advisor_student table,
-                this data will be overwritten.") . "</p>",
+    "value" => "<p>" . t("trarabic_20238") . "</p>",
         
   );  
 
@@ -644,16 +630,16 @@ function user_edit_user_advisees_form() {
   
   $form["students"] = array(
     "type" => "textarea",
-    "label" => t("Advisee Student CWIDs:"),
+    "label" => t("trarabic_10995"),
     "value" => $contents,
     "rows" => 20,
     "cols" => 50,
-    "description" => t("Enter advisee student CWIDs for this faculty user, one per line."),
+    "description" => t("trarabic_10996"),
   );
   
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("Warn me if I enter a student CWID which doesn't exist in the students/users table yet (good for catching typos)"),    
+    "label" => t("trarabic_10997"),    
     "value" => "yes",
   );
   
@@ -687,7 +673,7 @@ function user_edit_user_advisees_form_validate($form, $form_state) {
       // Otherwise, check that it exists.
       $uid = db_get_user_id_from_cwid($line, "student");
       if ($uid < 2 || !$uid) {
-        form_error("students", t("The CWID %cwid could not be found in the users table as a student.  Your data has NOT been saved.", array("%cwid" => $line)));
+        form_error("students", t("trarabic_10998", array("%cwid" => $line)));
       }
       
     }
@@ -718,7 +704,7 @@ function user_edit_user_advisees_form_submit($form, $form_state) {
     
   }
 
-  fp_add_message(t("The advisees have been updated for this faculty member."));
+  fp_add_message(t("trarabic_10999"));
     
 }
 
@@ -740,16 +726,16 @@ function user_edit_user_form() {
   
   $name = fp_get_faculty_name($faculty_cwid);
   
-  fp_set_title(t("Edit Faculty/Staff User @name (@id)", array("@name" => $name, "@id" => $faculty_cwid)));
+  fp_set_title(t("trarabic_11000", array("@name" => $name, "@id" => $faculty_cwid)));
 
   
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("Edit Faculty/Staff User");
+  $tab_array[0]["title"] = t("trarabic_11001");
   $tab_array[0]["active"] = TRUE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("Edit Faculty Advisees");
+  $tab_array[1]["title"] = t("trarabic_11002");
   $tab_array[1]["active"] = FALSE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user/advisees", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -804,7 +790,7 @@ function user_edit_user_form() {
     }  
   //fpm($default_values);
     $form["roles"] = array(
-      "label" => t("Check which roles this user should have."),
+      "label" => t("trarabic_11003"),
       "type" => "checkboxes",
       "options" => $options,
       "value" => $default_values,
@@ -820,24 +806,19 @@ function user_edit_user_form() {
   // Only if we are making a new user...
   if ($faculty_cwid == "new") {
     $form["new_faculty_cwid"] = array(
-      "label" => t("Enter a new CWID, unique to faculty:"),
+      "label" => t("trarabic_11004"),
       "type" => "textfield",
       "size" => 20,
       "required" => TRUE,     
-      "description" => t("Enter a numeric ID for this faculty.  It may be the same
-                          as a student, but may not be the same as any existing
-                          faculty.  You will not be able to edit this value, once saved."),
+      "description" => t("trarabic_20239"),
     );
     
     $form["new_user_name"] = array(
-      "label" => t("Enter a new username, unique to all users:"),
+      "label" => t("trarabic_11005"),
       "type" => "textfield",
       "size" => 20,     
       "required" => TRUE,
-      "description" => t("Enter a username for this user.  This is what the user will
-                          use to log in.  It must be unique to all users (cannot have both
-                          a faculty and a student with the same username).  You will not
-                          be able to edit this value, once saved."),
+      "description" => t("trarabic_20240"),
     );
         
     
@@ -861,61 +842,57 @@ function user_edit_user_form() {
   } 
   
   $form["new_password"] = array(
-    "label" => t("Enter a new password for this user:"),
+    "label" => t("trarabic_11006"),
     "type" => "textfield",
     "size" => 20,
     "required" => ($faculty_cwid == "new") ? TRUE : FALSE,
-    "description" => t("If you enter any value here, it will change the
-                        user's password in FlightPath.  If you are using the LDAP module,
-                        the LDAP password will be unaffected."),    
+    "description" => t("trarabic_20241"),    
   );
 
   $form["email"] = array(
-    "label" => t("Email:"),
+    "label" => t("trarabic_11007"),
     "type" => "textfield",
     "value" => $cur["email"],
   );  
 
   $form["f_name"] = array(
-    "label" => t("First name:"),
+    "label" => t("trarabic_11008"),
     "type" => "textfield",
     "value" => $cur["f_name"],
   );  
 
   $form["l_name"] = array(
-    "label" => t("Last name:"),
+    "label" => t("trarabic_11009"),
     "type" => "textfield",
     "value" => $cur["l_name"],
   );  
 
   $form["is_disabled"] = array(
-    "label" => t("Is disabled:"),
+    "label" => t("trarabic_11010"),
     "type" => "textfield",
     "value" => $cur["is_disabled"],
     "size" => 5,
-    "description" => t("Enter only 1 or 0 (number one for 'yes', or number zero for 'no').  This setting means the user will
-                        be ignored by FlightPath, and they will not be able to log in or be searched for.
-                        It is safer to disable a user, than delete them."),
+    "description" => t("trarabic_20242"),
   );  
   
   
   // Unique to faculty...
   $form["college"] = array(
-    "label" => t("College:"),
+    "label" => t("trarabic_11011"),
     "type" => "textfield",
     "value" => $cur["college"],
     "size" => 5,
   );  
     
   $form["department"] = array(
-    "label" => t("Department:"),
+    "label" => t("trarabic_11012"),
     "type" => "textfield",
     "value" => $cur["department"],
     "size" => 30,
   );  
     
   $form["major_code"] = array(
-    "label" => t("Major code:"),
+    "label" => t("trarabic_11013"),
     "type" => "textfield",
     "value" => $cur["major_code"],
     "size" => 10,
@@ -933,7 +910,7 @@ function user_edit_user_form() {
     $form["mark" . $m++] = array(
       "type" => "markup",
       "value" => "<div align='right'>
-                        " . t("Delete this faculty member?") . " <input type='button' value='X'
+                        " . t("trarabic_11014") . " <input type='button' value='X'
                         onClick='userDeleteFaculty();'>
                       </div>", 
     );  
@@ -963,7 +940,7 @@ function user_edit_user_form_validate($form, $form_state) {
   // If a password was given, make sure it is appropriate.
   if (trim($values["new_password"]) != "") {
     if (strlen(trim($values["new_password"])) < 5) {
-      form_error("new_password", t("Please enter a password that is at least 5 characters long."));
+      form_error("new_password", t("trarabic_11015"));
       return;
     }
   }
@@ -977,16 +954,14 @@ function user_edit_user_form_validate($form, $form_state) {
     /*   // CWIDs are no longer required to be numeric.
     // Check that cwid is numeric.
     if (!is_numeric($new_cwid)) {
-      form_error("new_faculty_cwid", t("The cwid you entered is not numeric.  CWIDs must contain only numbers.  
-                                    Please select a different cwid."));
+      form_error("new_faculty_cwid", t("trarabic_20243"));
       return;
     }
     */
     
     // Check that username is at least 4 characters
     if (strlen($new_user_name) < 4) {
-      form_error("new_user_name", t("The username you entered is too short.  It must be at least 4 characters.
-                                      Please select a different username."));
+      form_error("new_user_name", t("trarabic_20244"));
       return;
       
     }
@@ -995,14 +970,14 @@ function user_edit_user_form_validate($form, $form_state) {
     // Check cwid isn't already in use.
     $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_faculty = '1'", $new_cwid));    
     if ($test == $new_cwid) {
-      form_error("new_faculty_cwid", t("The cwid you entered is already in use.  Please select a different cwid."));
+      form_error("new_faculty_cwid", t("trarabic_11016"));
       return;
     }
    
     // Check user_name isn't already in use.
     $test = db_result(db_query("SELECT user_name FROM users WHERE user_name = '?' ", $new_user_name));    
     if ($test == $new_user_name) {
-      form_error("new_user_name", t("The username you entered is already in use.  Please select a different username."));
+      form_error("new_user_name", t("trarabic_11017"));
       return;
     }
         
@@ -1048,7 +1023,7 @@ function user_edit_user_form_submit($form, $form_state) {
     db_query("DELETE FROM faculty WHERE cwid = '?' ", $faculty_cwid);
     db_query("DELETE FROM users WHERE cwid = '?' AND is_faculty = '1' ", $faculty_cwid);      
     
-    fp_add_message(t("User has been deleted."));
+    fp_add_message(t("trarabic_11018"));
     fp_goto("admin/users/faculty");
     return;
   }
@@ -1096,7 +1071,7 @@ function user_edit_user_form_submit($form, $form_state) {
               VALUES ('?', '?', '?', '?')
              ", $values["new_faculty_cwid"], $values["college"], $values["department"], $values["major_code"]);
                                   
-    fp_add_message(t("User created successfully."));
+    fp_add_message(t("trarabic_11019"));
     fp_goto("admin/users/edit-user", "faculty_cwid=" . $values["new_faculty_cwid"]);
   }
     
@@ -1105,7 +1080,7 @@ function user_edit_user_form_submit($form, $form_state) {
   
   
     
-  fp_add_message(t("User updated successfully."));
+  fp_add_message(t("trarabic_11020"));
   
   
 }
@@ -1146,9 +1121,9 @@ function user_display_student_users() {
   }
 
 
-  $rtn .= "<h2 class='title' style='margin-bottom:0;'>" . t("Edit Student Users") . "</h2>";
+  $rtn .= "<h2 class='title' style='margin-bottom:0;'>" . t("trarabic_11021") . "</h2>";
 
-  $rtn .= "<div class='add-new-student-user'>" . l(t("Create a new student user"), "admin/users/edit-student-user", "student_cwid=new&de_catalog_year=$de_catalog_year") . "</div>";
+  $rtn .= "<div class='add-new-student-user'>" . l(t("trarabic_11022"), "admin/users/edit-student-user", "student_cwid=new&de_catalog_year=$de_catalog_year") . "</div>";
 
 
   $letter_ranges = array(
@@ -1223,22 +1198,22 @@ function user_display_student_users() {
     $rtn .= "<input type='hidden' name='q' value='admin/users/students'>";
   }                        
   $rtn .= "
-                         " . t("Search : ") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
+                         " . t("trarabic_11023") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
                         <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
                        
-                        &nbsp; &nbsp; " . t("Major : ") . " 
+                        &nbsp; &nbsp; " . t("trarabic_11024") . " 
                        <select name='major_code' class='smallinput'>
-                        <option value=''>" . t("Select a major code...") . "</option>
+                        <option value=''>" . t("trarabic_11025") . "</option>
                         <option value=''>--------------------------</option>
                     <!--MAJORCODESEARCH-->
                        </select>
                        <input type='submit' name='major_code_submit' class='smallinput' value='Go'>
                        
-                       &nbsp; &nbsp; " . t("Status : ") . "
+                       &nbsp; &nbsp; " . t("trarabic_11026") . "
                        <select name='set_disp'>
-                        <option value='only_active' $sel_only_active>" . t("only active") . "</option>                        
-                        <option value='only_inactive' $sel_only_inactive>" . t("only inactive") . "</option>
-                        <option value='both' $sel_both>" . t("show both") . "</option>
+                        <option value='only_active' $sel_only_active>" . t("trarabic_11027") . "</option>                        
+                        <option value='only_inactive' $sel_only_inactive>" . t("trarabic_11028") . "</option>
+                        <option value='both' $sel_both>" . t("trarabic_11029") . "</option>
                        </select>
                        <input type='submit' name='show_inactive_submit' class='smallinput' value='Go'>                                              
                        
@@ -1374,7 +1349,7 @@ function user_display_student_users() {
                         ORDER BY f_name, l_name ", $ur, $lr);
     $displaying = $ur;
   }
-  $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("Displaying:") . "</b> $displaying</div>
+  $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("trarabic_11030") . "</b> $displaying</div>
       <table border='0' width='100%' cellpadding='3' cellspacing='0' class='user-list'>
     
         <tr>
@@ -1414,7 +1389,7 @@ function user_display_student_users() {
           <td valign='top' width='15%'>$l_name</td>
           <td valign='top'>$disp_major_code</td>
           <td valign='top'>$is_active</td>
-          <td valign='top'>" . l(t("edit"), "admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "</td>
+          <td valign='top'>" . l(t("trarabic_11031"), "admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "</td>
           
           
         </tr>";
@@ -1481,8 +1456,8 @@ function user_display_users() {
   }
 
 
-  $rtn .= "<h2 class='title' style='margin-bottom: 0;'>" . t("Edit Faculty / Staff Users") . "</h2>";
-  $rtn .= "<div class='add-new-user'>" . l(t("Create a new faculty/staff user"), "admin/users/edit-user", "faculty_cwid=new&de_catalog_year=$de_catalog_year") . "</div>";
+  $rtn .= "<h2 class='title' style='margin-bottom: 0;'>" . t("trarabic_11032") . "</h2>";
+  $rtn .= "<div class='add-new-user'>" . l(t("trarabic_11033"), "admin/users/edit-user", "faculty_cwid=new&de_catalog_year=$de_catalog_year") . "</div>";
 
 
   $letter_ranges = array(
@@ -1533,20 +1508,20 @@ function user_display_users() {
                         
   $rtn .= "                        
                         <input type='hidden' name='performAction' value='editUsers'>
-                         " . t("Search : ") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
+                         " . t("trarabic_11034") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
                         <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
                        
-                        &nbsp;&nbsp;" . t("Department : ") . "
+                        &nbsp;&nbsp;" . t("trarabic_11035") . "
                        <select name='department' class='smallinput'>
-                        <option value=''>" . t("Select a department:") . "</option>
+                        <option value=''>" . t("trarabic_11036") . "</option>
                         <option value=''>--------------------------</option>
                     <!--DEPTSEARCH-->
                        </select>
                        <input type='submit' name='deptsubmit' class='smallinput' value='Go'>
                        
-                       &nbsp;&nbsp;" . t("Role : ") . "
+                       &nbsp;&nbsp;" . t("trarabic_11037") . "
                        <select name='role' class='smallinput'>
-                       <option value=''>" . t("Select a role:") . "</option>
+                       <option value=''>" . t("trarabic_11038") . "</option>
                        <option value=''>--------------------------</option>
                        ";
   // Show list of roles
@@ -1719,7 +1694,7 @@ function user_display_users() {
                         ORDER BY f_name, l_name ", $ur, $lr);
     $displaying = $ur;
   }
-  $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("Displaying:") . "</b> $displaying</div>
+  $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("trarabic_11039") . "</b> $displaying</div>
       <table border='0' width='100%' cellpadding='3' cellspacing='0' class='user-list'>
     
         <tr>
@@ -1773,7 +1748,7 @@ function user_display_users() {
           <td valign='top' width='15%'>$l_name</td>
           <td valign='top'>$dept_name</td>
           <td valign='top'>$roles</td>
-          <td valign='top'>" . l(t("edit"), "admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "</td>
+          <td valign='top'>" . l(t("trarabic_11040"), "admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "</td>
           
           
         </tr>";

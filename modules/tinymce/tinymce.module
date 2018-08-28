@@ -88,15 +88,10 @@ function tinymce_config_form() {
   $form = array();
   
   $form["tinymce_include_on_paths"] = array(
-    "label" => t("Include on paths:"),
+    "label" => t("trarabic_10960"),
     "type" => "textarea",
     "value" => variable_get("tinymce_include_on_paths", ""),
-    "description" => t("Enter FlightPath paths, one per line, where
-                      the TinyMCE plugin should be included.
-                      Ex: comments
-                      <br>
-                      Wildcards are also allowed at the END of the path only.
-                      Ex: content/* "),
+    "description" => t("trarabic_20232"),
   );
 
   
@@ -109,8 +104,8 @@ function tinymce_config_form() {
 function tinymce_perm() {
   return array(
     "administer_tinymce" => array(
-      "title" => t("Administer TinyMCE"),
-      "description" => t("Configure the TinyMCE module."),
+      "title" => t("trarabic_10961"),
+      "description" => t("trarabic_10962"),
     ),
   );
 }
@@ -129,8 +124,7 @@ function tinymce_form_alter(&$form, $form_id) {
     foreach($form as $key=>$val) {
       if ($form[$key]["type"] == "textarea") {
         $form[$key]["description"] .= "<div class='tinymce-extra-instructions'>
-                                        " . t("Trouble with Copy/Paste? Try keyboard
-                                              shortcuts CTRL-C and CTRL-V. To single-space, press CTRL-ENTER.") . "</div>";
+                                        " . t("trarabic_20233") . "</div>";
       }
     }
   }

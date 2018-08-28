@@ -26,15 +26,15 @@ function stats_report_major_students_progress_form() {
   $last_major = $_SESSION["stats_report_major_students_progress"]["last_major"];
   
   $form["major"] = array(
-    "label" => t("Please select a major"),
+    "label" => t("trarabic_10210"),
     "type" => "select",
-    "options" => stats_draw_majors_pulldown($major, FALSE, FALSE, t("Please select a major"), TRUE, FALSE, TRUE),
+    "options" => stats_draw_majors_pulldown($major, FALSE, FALSE, t("trarabic_10211"), TRUE, FALSE, TRUE),
     "value" => $last_major,  
   );  
   
   $form["submit_btn"] = array(
     "type" => "submit",
-    "value" => t("Submit and generate CSV"),
+    "value" => t("trarabic_10212"),
   );
   
   
@@ -44,8 +44,8 @@ function stats_report_major_students_progress_form() {
 
   if (time() < $last_timestamp + (60 * 60)) {
     
-    $html .= "<hr><p>" . t("Last CSV report was generated for @major on @time.  It will remain for 1 hour.", array("@major" => $last_major, "@time" => format_date($last_timestamp))) . "</p>";
-    $html .= "<p>" . l(t("Download CSV for ") . $last_major, "stats/download-csv-from-batch/$last_batch_id", "filename=" . urlencode("major_student_progress__" . $last_major)) . "</p>";
+    $html .= "<hr><p>" . t("trarabic_10213", array("@major" => $last_major, "@time" => format_date($last_timestamp))) . "</p>";
+    $html .= "<p>" . l(t("trarabic_10214") . $last_major, "stats/download-csv-from-batch/$last_batch_id", "filename=" . urlencode("major_student_progress__" . $last_major)) . "</p>";
     
     
     $form["mark" . $m++] = array(
@@ -58,8 +58,7 @@ function stats_report_major_students_progress_form() {
   if (!function_exists("batch_set")) {
     $form = array();
     $form["markup"] = array(
-      "value" => "<p><b>" . t("To use this report, the Batch module must be enabled.  Please ask your administrator
-                            to enable the Batch module.") . "</b></p>",
+      "value" => "<p><b>" . t("trarabic_20042") . "</b></p>",
     );
   }
   
@@ -83,7 +82,7 @@ function stats_report_major_students_progress_form_submit($form, $form_state) {
   // Okay, set up the batch....
   $batch = array(
     "operation" => array("stats_report_major_students_progress_perform_batch_operation", array($major)),
-    "title" => t("Major Students Progress - CSV Export - Major: ") . $major,
+    "title" => t("trarabic_10215") . $major,
     "file" => menu_get_module_path("stats") . "/stats.major-students-progress.inc",
     "progress_message" => "Processing student @current of @total",
     "display_percent" => TRUE,

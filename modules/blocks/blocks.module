@@ -9,8 +9,8 @@
 function blocks_perm() {
   return array(
     "administer_blocks" => array(
-      "title" => t("Administer blocks"),
-      "description" => t("Allow the user to administer the location of blocks."),
+      "title" => t("trarabic_10623"),
+      "description" => t("trarabic_10624"),
     ),
   );
 }
@@ -103,21 +103,18 @@ function blocks_manage_blocks_form() {
   // Tell the user how they can use the content module, if it is enabled.
   if (function_exists("content_menu")) {
     $form["mark" . $m++] = array(
-      "value" => t("To add your own custom blocks of generic content, 
-                    use the 'content' module. ") . "<br>" . l(t("Add or edit content blocks"), "admin/config/content"),      
+      "value" => t("trarabic_20142") . "<br>" . l(t("trarabic_10625"), "admin/config/content"),      
     );    
   }
   else {
     $form["mark" . $m++] = array(
-      "value" => t("To add your own custom blocks of generic content, 
-                    use the 'content' module.  Have your administrator
-                    enable it to begin using it.")
+      "value" => t("trarabic_20143")
     );
   }
   
   // Build the available region options.
   $region_options = array();
-  $region_options[""] = t("- Disabled -");
+  $region_options[""] = t("trarabic_10626");
   foreach ($regions[$selected_module][$selected_section]["regions"] as $region => $rtitle) {
     $region_options[$region] = $rtitle["title"];
   }
@@ -139,9 +136,9 @@ function blocks_manage_blocks_form() {
                     <td colspan='10' class='block-module-name'>$module</td>
                 </tr>
                 <tr>
-                  <th>" . t("Block") . "</th>
-                  <th>" . t("Region") . "</th>
-                  <th>" . t("Weight") . "</th>
+                  <th>" . t("trarabic_10627") . "</th>
+                  <th>" . t("trarabic_10628") . "</th>
+                  <th>" . t("trarabic_10629") . "</th>
                 </tr>",
     );
     
@@ -191,7 +188,7 @@ function blocks_manage_blocks_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Save block positions"),
+    "value" => t("trarabic_10630"),
     "prefix" => "<hr>",
   );
       
@@ -208,8 +205,8 @@ function blocks_manage_blocks_form() {
 function blocks_content_register_content_type() {
   $arr = array(
     "content_block" => array(
-      "title" => t("Content Block"),
-      "description" => t("This is a piece of content which can be used as a Block on the Blocks page."),
+      "title" => t("trarabic_10631"),
+      "description" => t("trarabic_10632"),
       "settings" => array(),
     ),    
   );
@@ -219,10 +216,9 @@ function blocks_content_register_content_type() {
   // when we display.
   $arr["content_block"]["settings"]["mobile_display_mode"] = array(
     "type" => "select",
-    "label" => t("Mobile display mode"),
-    "options" => array("show" => t("Display"), "hide" => t("Do not show"), "collapse" => t("Collapse into fieldset")),
-    "description" => t("When viewing on a mobile device, how should this block display?
-                        If you are unsure what to select, leave it set to 'Display'."),
+    "label" => t("trarabic_10633"),
+    "options" => array("show" => t("trarabic_10634"), "hide" => t("trarabic_10635"), "collapse" => t("trarabic_10636")),
+    "description" => t("trarabic_20144"),
     "no_please_select" => TRUE,
   );
   
@@ -280,7 +276,7 @@ function blocks_render_block($delta) {
     }
     else if ($content["settings"]["mobile_display_mode"] == "collapse") {
       // Place the content in a collapsible fieldset.
-      $block["body"] = fp_render_c_fieldset($block["body"], t("Press to read") . " " . $content["title"], TRUE);
+      $block["body"] = fp_render_c_fieldset($block["body"], t("trarabic_10637") . " " . $content["title"], TRUE);
     }
   }
   
@@ -305,9 +301,9 @@ function blocks_render_block($delta) {
  */
 function hook_blocks() {
   return array(
-    "b1" => t("Tools menu"),
-    "admin_tools" => t("Admin Tools menu"),
-    "login_form" => t("Login form"),
+    "b1" => t("trarabic_10638"),
+    "admin_tools" => t("trarabic_10639"),
+    "login_form" => t("trarabic_10640"),
   );  
 }
 
@@ -329,17 +325,17 @@ function hook_render_block($delta) {
   $block = array();
 
   if ($delta == "tools") {
-    $block["title"] = t("Tools");
+    $block["title"] = t("trarabic_10641");
     $block["body"] = fp_render_menu_block("", "tools");
   }
   
   if ($delta == "admin_tools") {
-    $block["title"] = t("Administrative Tools");
+    $block["title"] = t("trarabic_10642");
     $block["body"] = fp_render_menu_block("", "admin-tools");
   }
   
   if ($delta == "login_form") {
-    $block["title"] = t("Please log in below...");
+    $block["title"] = t("trarabic_10643");
     $block["body"] = fp_render_form("system_login_form");
   }
   
@@ -389,7 +385,7 @@ function blocks_manage_blocks_form_submit($form, $form_state) {
     }
   }
     
-  fp_add_message(t("Blocks have been updated successfully."));
+  fp_add_message(t("trarabic_10644"));
     
 }
 

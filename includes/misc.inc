@@ -639,17 +639,17 @@ function fp_get_requirement_types() {
   
   // Make sure that code 'x' is set.
   if (!isset($rtn["x"])) {
-    $rtn["x"] = t("Additional Requirements");
+    $rtn["x"] = t("trarabic_10008");
   }
   
   // Make sure code 'e' for Electives is set.
   if (!isset($rtn["e"])) {
-    $rtn["e"] = t("Electives");
+    $rtn["e"] = t("trarabic_10009");
   }
   
   // Make sure code 'm' is set, for Major Requirements, our default type.
   if (!isset($rtn["m"])) {
-    $rtn["m"] = t("Major Requirements");
+    $rtn["m"] = t("trarabic_10010");
   }
   
   
@@ -838,7 +838,7 @@ function fp_get_module_details($module) {
   // Special case if we are looking up flightpath itself
   if ($module == "flightpath") {
     $rtn = array(
-      "info" => array("name" => t("FlightPath (Core)")),
+      "info" => array("name" => t("trarabic_10011")),
       "version" => FLIGHTPATH_VERSION,
     );
     return $rtn;
@@ -858,9 +858,9 @@ function fp_get_module_details($module) {
 /**
  * Eventually, this function will be used to translate strings.  For now, just pass through.
  * Allows variable replacements.  Use like this:
- * t("@name's blob", array("@name" => "Richard"));
+ * t("trarabic_10012", array("@name" => "Richard"));
  * or simply
- * t("My blob");  if you don't need replacements.
+ * t("trarabic_10013");  if you don't need replacements.
  * 
  * Not implimented yet.
  */
@@ -1266,8 +1266,7 @@ function fp_html_print_r($var, $name = "", $cnt = 0) {
     // Max levels deep.  Deeper, and PHP might run
     // out of memory or complain.
     $rtn .= "<div class='fp-html-print-r-too-deep'>
-              " . t("Depth too great. To view deeper,
-                     rephrase your fpm() call, starting at this depth.") . "
+              " . t("trarabic_20001") . "
              </div>";
     return $rtn;
   }
@@ -1281,14 +1280,14 @@ function fp_html_print_r($var, $name = "", $cnt = 0) {
   
   $count = "";
   if ($type == "string") {
-    $count = " - " . strlen($var) . " " . t("chars");
+    $count = " - " . strlen($var) . " " . t("trarabic_10014");
   }
   
   if ($type == "array" || $type == "object") {
       
     
     if ($type == "array") {
-      $count = " - " .  count($var) . " " . t("elements");
+      $count = " - " .  count($var) . " " . t("trarabic_10015");
     }
     
     if ($type == "object") {

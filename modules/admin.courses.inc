@@ -42,9 +42,9 @@ function admin_display_courses() {
   $_SESSION["dec_lr"] = $lr;
 
 
-  fp_set_title(t("Courses for @year", array("@year" => $de_catalog_year)));
+  fp_set_title(t("trarabic_10044", array("@year" => $de_catalog_year)));
 
-  $rtn .= "<h2 class='title'>" . t("Courses for @year", array("@year" => $de_catalog_year)) . "</h2>";
+  $rtn .= "<h2 class='title'>" . t("trarabic_10045", array("@year" => $de_catalog_year)) . "</h2>";
 
   $letter_ranges = array(
     "A" => array("A", "AZZZZ"),
@@ -77,7 +77,7 @@ function admin_display_courses() {
 $rtn .= "</div>                       
         <div class='tenpt'>             
         <div style='padding: 5px;'>          
-        " . l(t("Add a course for @year", array("@year" => $de_catalog_year)), "admin/courses/edit-course", "course_id=new&de_catalog_year=$de_catalog_year") . "
+        " . l(t("trarabic_10046", array("@year" => $de_catalog_year)), "admin/courses/edit-course", "course_id=new&de_catalog_year=$de_catalog_year") . "
         </div>          
                        Legend:  <br>&nbsp; &nbsp;[e] = Course has at least one add'l excluded name.  
                             &nbsp; &nbsp;[v] = Course has at least one add'l valid name.
@@ -88,15 +88,15 @@ $rtn .= "</div>
 
   $exclude_line = "and exclude != 1";
   if ($show_hidden == "yes") {
-    $rtn .= "<div class='tenpt'><b>" . t("Showing excluded courses.") . " ";
-    $rtn .= l(t("Hide?"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=no");
+    $rtn .= "<div class='tenpt'><b>" . t("trarabic_10047") . " ";
+    $rtn .= l(t("trarabic_10048"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=no");
     $rtn .= "</b></div>";
     $exclude_line = "";
 
   }  
   else {
-    $rtn .= "<div class='tenpt'><b>" . t("Hiding excluded courses.") . " ";
-    $rtn .= l(t("Show?"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=yes");
+    $rtn .= "<div class='tenpt'><b>" . t("trarabic_10049") . " ";
+    $rtn .= l(t("trarabic_10050"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=yes");
     $rtn .= "</b></div>";   
   }
 
@@ -207,7 +207,7 @@ function admin_edit_course_form() {
   $subject_id = str_replace("_A_","&",$subject_id);  
   $course_num = $_REQUEST["course_num"];
   
-  fp_set_title(t("Edit Course @course", array("@course" => "$subject_id $course_num ($de_catalog_year)")));
+  fp_set_title(t("trarabic_10051", array("@course" => "$subject_id $course_num ($de_catalog_year)")));
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
        
@@ -270,77 +270,48 @@ function admin_edit_course_form() {
   
   $form["course_names"] = array(
     "type" => "textfield",
-    "label" => t("Course names(s):"),
+    "label" => t("trarabic_10052"),
     "required" => TRUE,
     "value" => $all_names,
-    "popup_description" => t("These are the possible display names for this course. Typically,
-                              there will be only one name. Ex: ACCT 110. You must place a space
-                              between the subject ID and course number.
-                              
-                              If this course is known by another name (has an eqv course)
-                              then enter it as well using a comma.
-                              Ex: ACCT 110, MATH 110A
-                              
-                              Add the word 'exclude' to prevent it from showing in course
-                              selection windows in FlightPath.
-                              Ex: ACCT 110, MATH 110A exclude
-                              
-                              IMPORTANT: Course names are updated for ALL YEARS of a course."),
+    "popup_description" => t("trarabic_20003"),
   );  
   
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("Title:"),
+    "label" => t("trarabic_10053"),
     "value" => $course->title,
-    "popup_description" => t("The title of the course displayed in FlightPath."),
+    "popup_description" => t("trarabic_10054"),
   );  
   
   $form["min_hours"] = array(
     "type" => "textfield",
-    "label" => t("Min hours:"),
+    "label" => t("trarabic_10055"),
     "size" => 10,
     "value" => $course->min_hours,
-    "popup_description" => t("The min and max hours for a course will usually be the same
-                              number. Ex: 3.  If they differ, it means the course has
-                              variable hours.  
-                              
-                              For example, if you have a course
-                              worth 1-6 hours, enter 1 for min, and 6 for max."),
+    "popup_description" => t("trarabic_20004"),
   );  
    
 
   $form["max_hours"] = array(
     "type" => "textfield",
-    "label" => t("Max hours:"),
+    "label" => t("trarabic_10056"),
     "size" => 10,
     "value" => $course->max_hours,
-    "popup_description" => t("The min and max hours for a course will usually be the same
-                              number. Ex: 3.  If they differ, it means the course has
-                              variable hours.  
-                              
-                              For example, if you have a course
-                              worth 1-6 hours, enter 1 for min, and 6 for max."),
+    "popup_description" => t("trarabic_20005"),
   );  
 
   $form["repeat_hours"] = array(
     "type" => "textfield",
-    "label" => t("Repeat hours:"),
+    "label" => t("trarabic_10057"),
     "size" => 10,
     "value" => $course->repeat_hours,
-    "popup_description" => t("This is the number of hours a course may be repeated for credit.
-                              For example, if a course is worth 3 hours, but may be repeated
-                              for up to 9 hours of credit, enter a 9 in this box.
-                              
-                              If a course CANNOT be repeated for credit, this would
-                              be the same number as the min and max, or simply blank.
-                              
-                              If you are unsure what to enter, leave it blank."),
+    "popup_description" => t("trarabic_20006"),
   );  
    
     
   $form["description"] = array(
     "type" => "textarea",
-    "label" => t("Description"),
+    "label" => t("trarabic_10058"),
     "value" => $course->description,
     "rows" => 4,
     "cols" => 80,    
@@ -348,17 +319,15 @@ function admin_edit_course_form() {
      
   $form["all_years"] = array(
     "type" => "checkboxes",
-    "label" => t("Update for all years?"),
-    "options" => array("yes" => t("Update title, description, and hour info for all years of this course.")),    
-    "popup_description" => t("Check this box and press Submit to update title, description, and hour information
-                              for all available years of this course.  Note that course name is automatically
-                              updated for all years, regardless if you check this box or not."),
+    "label" => t("trarabic_10059"),
+    "options" => array("yes" => t("trarabic_10060")),    
+    "popup_description" => t("trarabic_20007"),
   );   
      
   
   $form["data_entry_comment"] = array(
     "type" => "textarea",
-    "label" => t("Optional Comment: (only seen by other FlightPath administrators)"),
+    "label" => t("trarabic_10061"),
     "rows" => 3,
     "cols" => 80,
     "value" => $course->data_entry_comment,
@@ -368,14 +337,14 @@ function admin_edit_course_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Save for @year", array("@year" => $de_catalog_year)),
+    "value" => t("trarabic_10062", array("@year" => $de_catalog_year)),
     "prefix" => "<hr>",
   );
   
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<div align='right'>
-                      " . t("Delete this course?") . " <input type='button' value='X'
+                      " . t("trarabic_10063") . " <input type='button' value='X'
                       onClick='adminDeleteCourse(\"$course_id\",\"$de_catalog_year\",\"$warn_eqv\");'>
                     </div>", 
   );
@@ -439,7 +408,7 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
           ";
     $res = db_query($query);
     
-    fp_add_message(t("Course %course successfully deleted for %year", array("%course" => $course_names, "%year" => $de_catalog_year)));
+    fp_add_message(t("trarabic_10064", array("%course" => $course_names, "%year" => $de_catalog_year)));
     // Redirect us to the list of courses.
     $form["#redirect"] = array(
       "path" => "admin/courses",
@@ -482,9 +451,7 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
     ////////////
     ///  Error conditions...
     if (strtolower($course_num) == "exclude" || $course_num == "") {
-      form_error("course_names", t("It appears you specified an excluded course
-            without a course number.  You entered %course.
-            Notice there is no course number. Please re-enter.", array("%course" => "$subject_id $course_num")));            
+      form_error("course_names", t("trarabic_20008", array("%course" => "$subject_id $course_num")));            
       continue;
     }
 

@@ -74,7 +74,7 @@ function batch_ajax_callback($batch_id) {
   if ($batch["token"] != batch_get_token()) {
     //  Not allowed!  Bad token.
     header('Content-Type: application/json');
-    print json_encode(array("error" => t("An error has occured-- you are now allowed to run this batch, or the batch does not exist.")));
+    print json_encode(array("error" => t("trarabic_10603")));
     exit();
   }  
   
@@ -89,7 +89,7 @@ function batch_ajax_callback($batch_id) {
   // If the operation callback doesn't exist, throw an error.
   if (!function_exists($operation_callback)) {
     header('Content-Type: application/json');
-    print json_encode(array("error" => t("An error has occured: Cannot find operation callback function @function", array("@function" => addslashes($operation_callback)))));
+    print json_encode(array("error" => t("trarabic_10604", array("@function" => addslashes($operation_callback)))));
     exit();    
   }
   
@@ -151,7 +151,7 @@ function batch_ajax_callback($batch_id) {
 function batch_finished_page($batch_id) {
   $batch = batch_get($batch_id);  
   if ($batch["token"] != batch_get_token()) {
-    return "<p>" . t("Sorry, there is a token mismatch or this batch no longer exists.") . "</p>";
+    return "<p>" . t("trarabic_10605") . "</p>";
   }
   
   // Otherwise, we can just return whatever their callback function is.  If this is from a form submission, we will send them
@@ -206,7 +206,7 @@ function batch_processing_page($batch_id) {
   
   $batch = batch_get($batch_id);  
   if ($batch["token"] != batch_get_token()) {
-    return "<p>" . t("Sorry, there is a token mismatch or this batch no longer exists.") . "</p>";
+    return "<p>" . t("trarabic_10606") . "</p>";
   }
   
   
@@ -228,7 +228,7 @@ function batch_processing_page($batch_id) {
   $rtn .= "<div class='batch-progress-bar-wrapper'>
              <div class='batch-progress-bar' id='batch-progress-bar'></div>             
            </div>
-           <div id='batch-progress-message'>" . t("Initializing... please wait...") . "</div>
+           <div id='batch-progress-message'>" . t("trarabic_10607") . "</div>
            
            ";
   
@@ -300,10 +300,10 @@ function batch_set($batch) {
 
 
   if (!isset($batch["title"])) {
-    $batch["title"] = t("Processing Batch...");    
+    $batch["title"] = t("trarabic_10608");    
   }
   if (!isset($batch["progress_message"])) {
-    $batch["progress_message"] = t("Processed @current out of @total.");
+    $batch["progress_message"] = t("trarabic_10609");
   }
   if (!isset($batch["display_percent"])) {
     $batch["display_percent"] = FALSE;
@@ -373,8 +373,8 @@ function batch_perm() {
   
   $perms = array (
     "batch_run_test" => array(
-      "title" => t("Run test batch function"),
-      "description" => t("This is only useful for developers.  It allows a user to execute a test batch process by visiting example.com/batch-test-form in their browser."),
+      "title" => t("trarabic_10610"),
+      "description" => t("trarabic_10611"),
     ),
   );
 
@@ -415,7 +415,7 @@ function batch_start_batch_from_form_submit($batch_id, $redirect_path = "", $red
   }
   else {
     // No... some problem.
-    fp_add_message(t("Sorry, this batch process could not be initialized.  Bad token, or batch does not exist?"), "error");
+    fp_add_message(t("trarabic_10612"), "error");
     return;
   }
   

@@ -37,7 +37,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
                 WHERE group_id = '?' 
                 AND catalog_year = '?'
                 ", $group_id, $de_catalog_year);
-    fp_add_message(t("The group @title (%name) has been deleted successfully for @year", array("@title" => $title, "%name" => $group_name, "@year" => $de_catalog_year)));
+    fp_add_message(t("trarabic_10124", array("@title" => $title, "%name" => $group_name, "@year" => $de_catalog_year)));
     fp_goto("admin/groups", "de_catalog_year=$de_catalog_year");
     return;
   }
@@ -178,13 +178,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
         else {
           // The course_id could not be found!
           
-          form_error("courses", t("Course Not Found!
-              You specified the course
-              <b>%course</b> as a requirement, but this course
-              could not be found in the catalog.
-              It was removed from the list of requirements.
-              Are you sure you typed it correctly?  Please check 
-              your spelling, and add the course again.", array("%course" => "$subject_id $course_num")));
+          form_error("courses", t("trarabic_20023", array("%course" => "$subject_id $course_num")));
 
         }
 
@@ -230,13 +224,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
       } 
       else {
         // The course_id could not be found!
-        form_error("courses", t("Course Not Found!
-              You specified the course
-              <b>%course</b> as a requirement, but this course
-              could not be found in the catalog.
-              It was removed from the list of requirements.
-              Are you sure you typed it correctly?  Please check 
-              your spelling, and add the course again.", array("%course" => "$subject_id $course_num")));
+        form_error("courses", t("trarabic_20024", array("%course" => "$subject_id $course_num")));
 
       }
 
@@ -291,7 +279,7 @@ function admin_edit_group_form() {
   //print_pre($group->to_string());
   $group->load_descriptive_data();
 
-  fp_set_title(t("Edit Group:") . " $group->title ($de_catalog_year)");
+  fp_set_title(t("trarabic_10125") . " $group->title ($de_catalog_year)");
 
   $form["perform_action2"] = array(
     "type" => "hidden",
@@ -322,42 +310,34 @@ function admin_edit_group_form() {
   // Actually draw the form out.
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("Group title:"),
+    "label" => t("trarabic_10126"),
     "value" => $group->title,
     "maxlength" => 100,
-    "popup_description" => t("This is what FlightPath uses to refer to this group in screens and popups.
-                        Ex: Free Electives, Art Electives, Core Humanities, etc."),
+    "popup_description" => t("trarabic_20025"),
   );
 
   $form["group_name"] = array(
     "type" => "textfield",
-    "label" => t("Internal group name:"),
+    "label" => t("trarabic_10127"),
     "value" => $group->group_name,
     "maxlength" => 100,
-    "popup_description" => t("The \"group's name\" is internal to FlightPath, and is never seen by the average user.
-                        You may use this to distinguish between groups with the same title. Ex:
-                        major_electives_sr and major_electives_jr.  The field may be considered
-                        optional, but it is highly recommended you enter something here for your
-                        own clarity later on.  It is OK to have the same group title and name."),
+    "popup_description" => t("trarabic_20026"),
   );
 
 
   $form["priority"] = array(
     "type" => "textfield",
-    "label" => t("Priority:"),
+    "label" => t("trarabic_10129"),
     "value" => $group->priority,
     "maxlength" => 10,
     "size" => 10,
-    "popup_description" => t("This should be a number, and it is very important, because it determines the
-                        order in which courses are assigned to groups in FlightPath.
-                        Higher numbers fill in FIRST!  So a group with a priority of 100 would fill in before
-                        a group with a priority of 30."),
+    "popup_description" => t("trarabic_20027"),
   );
 
 
   $form["icon_filename"] = array(
     "type" => "hidden",
-    "label" => t("Icon:"),
+    "label" => t("trarabic_10130"),
     "value" => $group->icon_filename,
     "suffix" => "
                 <img src='" . fp_theme_location() . "/images/icons/$group->icon_filename' width='19'>
@@ -370,11 +350,11 @@ function admin_edit_group_form() {
     
   $form["definition"] = array(
     "type" => "markup",
-    "label" => t("Definition:"),
-    "value" => "<label>" . t("Definition:") . "</label><i>" . nl2br($group->definition) . "</i>",
+    "label" => t("trarabic_10131"),
+    "value" => "<label>" . t("trarabic_10132") . "</label><i>" . nl2br($group->definition) . "</i>",
     "prefix" => "<div style='overflow: auto; max-height: 150px;' class='admin-groups-show-definition'>",
     "suffix" => "</div><a href='javascript: adminPopupWindow(\"" . fp_url("admin/groups/popup-edit-definition", "de_catalog_year=$de_catalog_year&group_id=$group_id") . "\");'
-                            >[" . t("edit definition") . "]</a>",
+                            >[" . t("trarabic_10133") . "]</a>",
   );
  
 
@@ -387,7 +367,7 @@ function admin_edit_group_form() {
   $courses = admin_get_group_courses($group);
   $form["courses"] = array(
     "type" => "textarea",
-    "label" => t("Required Courses:"),
+    "label" => t("trarabic_10134"),
     "rows" => 17,
     "cols" => 80,
     "value" => $courses,
@@ -396,9 +376,7 @@ function admin_edit_group_form() {
   if (trim($group->definition)) {
     $form["courses"]["attributes"] = "readonly=readonly style='background-color: #ccc;' ";
     $form["courses"]["prefix"] = "<div class='admin-groups-courses-disabled'>
-                                 " . t("Note: Because a definition was specified, you cannot directly
-                                      edit the Required Courses.  Manage these courses using the
-                                      Edit Definition popup window.") . "</div>";
+                                 " . t("trarabic_20028") . "</div>";
                                  
   }
   
@@ -406,7 +384,7 @@ function admin_edit_group_form() {
 
   $form["data_entry_comment"] = array(
     "type" => "textarea",
-    "label" => t("Optional Comment: (only seen by other FlightPath administrators)"),
+    "label" => t("trarabic_10135"),
     "rows" => 3,
     "cols" => 80,
     "value" => $group->data_entry_comment,
@@ -422,7 +400,7 @@ function admin_edit_group_form() {
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<div align='right'>
-                      " . t("Delete this group?") . " <input type='button' value='X'
+                      " . t("trarabic_10136") . " <input type='button' value='X'
                       onClick='adminDeleteGroup(\"$group_id\");'>
                     </div>", 
   );
@@ -456,15 +434,15 @@ function admin_display_groups_popup_edit_definition() {
 
   
   // This text will be used to describe how the definition works in a javascript alert box:
-  $tdef .= t("Definitions provide a very quick way to add or remove many courses from a group.  For example, to add all CSCI courses, enter:") . "\n";
+  $tdef .= t("trarabic_10137") . "\n";
   $tdef .= "       add CSCI.*\n";
-  $tdef .= t("The . is used to seperate the subject from the course number.  The * means \"any value.\"  You may also use it in the subject.  For example, ");
-  $tdef .= t("to add all CSCI and any course with a subject that begins with A, enter:") . "\n";
+  $tdef .= t("trarabic_10138");
+  $tdef .= t("trarabic_10139") . "\n";
   $tdef .= "       add CSCI.*\n       add A*.*\n";
-  $tdef .= t("Removing courses is done the same way.  For example, you can add all courses, then remove any course with a number lower than 400:") . "\n";
+  $tdef .= t("trarabic_10140") . "\n";
   $tdef .= "       add *.*\n       rem *.1*\n       rem *.2*\n       rem *.3*\n";
-  $tdef .= "\n\n" . t("It should be stated that add statements will include courses which have been marked as \"exclude.\"  This is normal.  Those courses will not") . " ";
-  $tdef .= t("show up in group selection screens, but they will be added to a group if a student has completed that course in the past.");
+  $tdef .= "\n\n" . t("trarabic_10141") . " ";
+  $tdef .= t("trarabic_10142");
   
   
   
@@ -490,8 +468,7 @@ function admin_display_groups_popup_edit_definition() {
       </tr>
       </table>
       </form>
-      " . t("If you are satisfied with the results of this definition, 
-      click the Save to Group button.  Otherwise, simply close this window.") . "
+      " . t("trarabic_20029") . "
       
       
       <input type='button' value='Save to Group' onClick='adminPopupSaveDefinition(\"\");'>
@@ -899,24 +876,24 @@ function admin_display_groups() {
   
   $db2 = new DatabaseHandler();
 
-  fp_set_title(t("Edit Groups for") . " $de_catalog_year");
+  fp_set_title(t("trarabic_10143") . " $de_catalog_year");
 
   $rtn .= "
-      <h2 class='title'>" . t("Edit Groups for @de_catalog_year", array("@de_catalog_year" => $de_catalog_year)) . "</h2>
+      <h2 class='title'>" . t("trarabic_10144", array("@de_catalog_year" => $de_catalog_year)) . "</h2>
         Options:
         <ul style='margin-top: 5px;'>          
-          <li>" . l(t("Add a new group to this year"), "admin/groups/edit-group", "de_catalog_year=$de_catalog_year&group_id=new") . "</li>
-          <li>" . l(t("Process all group definitions for this year"), "admin/groups/process-all-definitions", "de_catalog_year=$de_catalog_year") . "</li>
+          <li>" . l(t("trarabic_10145"), "admin/groups/edit-group", "de_catalog_year=$de_catalog_year&group_id=new") . "</li>
+          <li>" . l(t("trarabic_10146"), "admin/groups/process-all-definitions", "de_catalog_year=$de_catalog_year") . "</li>
           </li>
         </ul>
-          <div align='center'>" . t("Hint: use CTRL-F to search groups quickly") . "</div>
+          <div align='center'>" . t("trarabic_10147") . "</div>
         <table border='0' cellpadding='2' width='100%' class='admin-groups-list'>
         <tr>
-          <th>" . t("Title") . "</th>
-          <th>" . t("Internal Name") . "</th>
+          <th>" . t("trarabic_10148") . "</th>
+          <th>" . t("trarabic_10149") . "</th>
           <th align='center'>Pri</th>
           <th align='center'>i</th>
-          <th align='center'>" . t("Used") . "</th>
+          <th align='center'>" . t("trarabic_10150") . "</th>
         </tr>
       ";
 
@@ -946,7 +923,7 @@ function admin_display_groups() {
     }
 
     if ($db_title == "") {
-      $db_title = "[" . t("NO TITLE SPECIFIED") . "]";
+      $db_title = "[" . t("trarabic_10151") . "]";
     }
 
     $rtn .= "<tr $on_mouse_over>
@@ -984,13 +961,11 @@ function admin_process_all_definitions_form() {
   $form = array();
   $de_catalog_year = admin_get_de_catalog_year();
 
-  fp_set_title(t("Process all definitions for @year", array("@year" => $de_catalog_year)));
+  fp_set_title(t("trarabic_10152", array("@year" => $de_catalog_year)));
   
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("This will cause all of the groups with definitions to be cleared, and their
-                  definitions re-run.  This process can take several minutes, depending
-                  on how many groups with definitions you have."), 
+    "value" => t("trarabic_20030"), 
   );  
       
 
@@ -1001,8 +976,8 @@ function admin_process_all_definitions_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Process definitions"),
-    "description" => t("Can take several minutes to run! Only click ONCE!"),
+    "value" => t("trarabic_10153"),
+    "description" => t("trarabic_10154"),
   );
      
 
@@ -1038,7 +1013,7 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
     $courses = trim($temp["text"]);
     $ccount = 0;
 
-    fp_add_message(t("Working on %name", array("%name" => $group_name)));
+    fp_add_message(t("trarabic_10155", array("%name" => $group_name)));
 
     // Remove all the existing group requirements for this group first.
     $res2 = db_query("DELETE FROM draft_group_requirements
@@ -1097,21 +1072,18 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
         else {
           // The course_id could not be found!
 
-          fp_add_message(t("Course not found! You specified %course as a requirement in %gname,
-                            but this course could not be found in the catalog.  It was removed from
-                            the list of requirements.  Are you sure you typed it correctly? Please
-                            check your spelling, and add the course again.", array("%course" => "$subject_id $course_num", "%gname" => $group_name)), "error");
+          fp_add_message(t("trarabic_20031", array("%course" => "$subject_id $course_num", "%gname" => $group_name)), "error");
 
         }
       }
     }
 
-    fp_add_message(t("%name definition processed. %count courses added.", array("%name" => $group_name, "%count" => $ccount)));    
+    fp_add_message(t("trarabic_10156", array("%name" => $group_name, "%count" => $ccount)));    
 
   }
   
     
-  fp_add_message(t("Group definitions have been re-run for @year", array("@year" => $de_catalog_year)));
+  fp_add_message(t("trarabic_10157", array("@year" => $de_catalog_year)));
 }
 
 
@@ -1131,14 +1103,14 @@ function admin_display_groups_popup_show_group_use() {
   $group->load_descriptive_data();
 
 
-  $rtn .= "<b>" . t("Degrees using @group_title (%group_name):", array("@group_title"=>$group->title, "%group_name" => $group->group_name)) . "</b>
+  $rtn .= "<b>" . t("trarabic_10158", array("@group_title"=>$group->title, "%group_name" => $group->group_name)) . "</b>
     <br><br>
     <table border='0' cellspacing='5'>
     <tr>
-      <th>" . t("Degree") . "</th>
-      <th>" . t("Code") . "</th>
-      <th>" . t("Semester") . "</th>
-      <th>" . t("Year") . "</th>
+      <th>" . t("trarabic_10159") . "</th>
+      <th>" . t("trarabic_10160") . "</th>
+      <th>" . t("trarabic_10161") . "</th>
+      <th>" . t("trarabic_10162") . "</th>
     </tr>
     ";
 

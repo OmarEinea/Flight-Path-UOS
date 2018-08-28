@@ -48,7 +48,7 @@ function banner_integration_menu() {
 function banner_integration_perm() {
   return array(
     "administer_banner_integration" => array(
-      "title" => t("Administer Banner settings"),
+      "title" => t("trarabic_10450"),
     ),
   );
 }
@@ -64,73 +64,57 @@ function banner_integration_settings_form() {
 
   $form["banner_integration_load_student_local_courses"] = array(
     "type" => "checkboxes",
-    "label" => t("Load local courses from Banner for each student?"),
-    "description" => t("If checked, this module will attempt to load a student's
-                      currently enrolled courses, as well as courses from 'history'
-                      when the student is selected for advising."),
-    "options" => array("yes" => t("Yes, load local courses from Banner for each student.")),
+    "label" => t("trarabic_10451"),
+    "description" => t("trarabic_20081"),
+    "options" => array("yes" => t("trarabic_10452")),
     "value" => variable_get("banner_integration_load_student_local_courses", array()),
   ); 
   
   
   $form["banner_integration_enrolled_grade"] = array(
     "type" => "textfield",
-    "label" => t("Enrolled local courses grade:"),
+    "label" => t("trarabic_10453"),
     "size" => 10,
-    "description" => t("If loading local courses from Banner (see above option), currently enrolled
-                        courses will be given this grade.  It must be a grade listed
-                        in the 'Enrolled grades (CSV)' setting, found on the System Settings page.
-                        For example, you may use an existing enrolled 'grade', or invent a new one.
-                        If unsure what to put here, use 'E'."),
+    "description" => t("trarabic_20082"),
     "value" => variable_get("banner_integration_enrolled_grade", "E"),
   );
   
   
   $form["banner_integration_exclude_historical_courses_code"] = array(
-    "label" => t("SHRTCKN_REPEAT_COURSE_IND code to exclude courses from historical query:"),
+    "label" => t("trarabic_10454"),
     "type" => "textfield",
     "size" => 10,
     "value" => variable_get("banner_integration_exclude_historical_courses_code", "E"),
-    "description" => t("This refers to the field <b>shrtckn_repeat_course_ind</b>, which is checked
-                       when we load a student's 'historical' courses from Banner.  This is usually
-                       used to indicate academic renewal, when a course should be excluded.
-                       <b>Important:</b> If you do not wish to use this, do NOT set it blank.
-                       Instead, set it to an unused code. For example 'NOT_USED'."),
+    "description" => t("trarabic_20083"),
   );
   
   $form["banner_integration_exclude_transfer_courses_code"] = array(
-    "label" => t("SHRTRCE_REPEAT_COURSE code to exclude courses from transfer courses query:"),
+    "label" => t("trarabic_10455"),
     "type" => "textfield",
     "size" => 10,
     "value" => variable_get("banner_integration_exclude_transfer_courses_code", "E"),
-    "description" => t("Similar to the setting above, this refers to the field <b>shrtrce_repeat_course</b>, which is checked
-                       when we run through the student transfer courses routine.  This is usually
-                       used to indicate academic renewal, when a course should be excluded.
-                       <b>Important:</b> If you do not wish to use this, do NOT set it blank.
-                       Instead, set it to an unused code. For example 'NOT_USED'."),
+    "description" => t("trarabic_20084"),
   );
     
   
   
   
   $form["mark" . $m++] = array(
-    "value" => "<hr><h3>" . t("Routines settings") . "</h3>
-                <p style='font-size:0.8em;'>" . t("These settings affect the nightly routines found in the
-                   banner_integration.routines.inc file.  See the README.txt file
-                   for instructions on setting up a nightly routine.") . "</p>",
+    "value" => "<hr><h3>" . t("trarabic_10456") . "</h3>
+                <p style='font-size:0.8em;'>" . t("trarabic_20085") . "</p>",
   );
 
   
   // import local courses...
   $options = array(
-    "skip_if_exists" => t("Skip (do not modify) local courses if they already exist in FP's database.") . "
+    "skip_if_exists" => t("trarabic_10457") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
                          If NOT checked, we will overwrite whatever is in our MySQL database with
                          what is in Banner.  We will look for the course's subject_id and course_num only, with
                          no concern for hour counts or catalog year.
                          <br>
                          If unsure what to select, leave this CHECKED.</div>",  
-    "update_prod_and_draft" => t("Update production data as well as draft.") . "
+    "update_prod_and_draft" => t("trarabic_10458") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
                          If NOT checked, then all modifications will happen to FlightPath's draft_courses
                          table, and not the production courses table.  After running the routine, you

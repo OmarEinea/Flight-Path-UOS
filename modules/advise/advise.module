@@ -274,22 +274,19 @@ function advise_toggle_draft_form() {
   $form = array();
   
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("By turning Draft Mode on, you will be able
-                  to view degree plans which are still in 'Draft' mode
-                  in both the regular View tab, as well as the Blank Degrees module,
-                  if enabled.") . "</p>",
+    "value" => "<p>" . t("trarabic_20131") . "</p>",
   );
   
   $form["draft"] = array(
     "type" => "radios",
-    "label" => t("Enable Draft Mode?"),
-    "options" => array("yes" => t("Yes"), "no" => t("No")),
+    "label" => t("trarabic_10569"),
+    "options" => array("yes" => t("trarabic_10570"), "no" => t("trarabic_10571")),
     "value" => $_SESSION["fp_draft_mode"],
   );
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Submit"),
+    "value" => t("trarabic_10572"),
     "prefix" => "<hr>",
   );
   
@@ -303,7 +300,7 @@ function advise_toggle_draft_form() {
 
 
 function advise_toggle_draft_form_submit($form, $form_state) {
-  fp_add_message(t("Draft mode successfully updated."));  
+  fp_add_message(t("trarabic_10573"));  
   $_SESSION["fp_draft_mode"] = $form_state["values"]["draft"];
 }
 
@@ -322,20 +319,19 @@ function advise_display_popup_change_track() {
   
 
   $degree_plan->load_descriptive_data();
-  $rtn .= fp_render_curved_line(t("Select a Degree Option"));
+  $rtn .= fp_render_curved_line(t("trarabic_10574"));
   $rtn .= "<div class='tenpt'>
-      " . t("This major has one or more degree options, which affects which courses are required. 
-      Please select a degree option (or track) from the list below.") . "
+      " . t("trarabic_20132") . "
       <br><br>
-      " . t("If you are unsure of what to do, simply close this window.");
+      " . t("trarabic_10575");
 
-  $rtn .= "<br><br><b>" . $degree_plan->title . "</b> " . t("degree options:") . "</div><!--DEFAULT-->
+  $rtn .= "<br><br><b>" . $degree_plan->title . "</b> " . t("trarabic_10576") . "</div><!--DEFAULT-->
       <ul>";
 
   // Get the list of available tracks for this student.
   if (!$tracks = $degree_plan->get_available_tracks())
   {
-    $rtn .= "<li>" . t("This major has no degree options.") . "</li>";
+    $rtn .= "<li>" . t("trarabic_10577") . "</li>";
   }
 
   // Is there a "default" message for all tracks, which will override
@@ -376,7 +372,7 @@ function advise_display_popup_change_track() {
     if ($student->array_settings["track_code"] == $track_code
     && $student->array_settings["major_code"] == $degree_plan->major_code)
     {
-      $track_title .= " <b>(" . t("current") . ")</b>";
+      $track_title .= " <b>(" . t("trarabic_10578") . ")</b>";
     }
 
     if ($bool_default_description == false)
@@ -395,10 +391,10 @@ function advise_display_popup_change_track() {
     }
 
 
-    $link = fp_get_js_confirm_link(t("Are you sure you wish to change degree options?"), "opener.changeTrack(\"$temp_tc\"); window.close(); ", $track_title);
+    $link = fp_get_js_confirm_link(t("trarabic_10579"), "opener.changeTrack(\"$temp_tc\"); window.close(); ", $track_title);
     
     if ($GLOBALS["fp_advising"]["advising_what_if"] == "yes") {
-      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("Are you sure you wish to change degree options?") . "\");'>$track_title</a>";      
+      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("trarabic_10580") . "\");'>$track_title</a>";      
     }
 
     $rtn .= "<li class='tenpt' style='padding:3px;'>
@@ -427,12 +423,9 @@ function advise_display_popup_change_term() {
   $current_term = get_term_description($current_term_id);
   
 
-  $rtn .= fp_render_curved_line(t("Select an Advising Term"));
+  $rtn .= fp_render_curved_line(t("trarabic_10581"));
   $rtn .= "<div>
-      " . t("You may advise this student for future semesters.  Please select which
-      advising term you would like to advise for from the list below.  If you
-      are unsure, simply close this window and continue to advise for the current
-      term of %current_term.", array("%current_term" => $current_term)) . "
+      " . t("trarabic_20133", array("%current_term" => $current_term)) . "
       </div>";
 
   $rtn .= "<ul>";
@@ -444,10 +437,10 @@ function advise_display_popup_change_term() {
     
     $term_desc = get_term_description($term_id);
     if ($term_id == $current_term_id) {
-      $term_desc = "<b>$term_desc</b> - " . t("current");
+      $term_desc = "<b>$term_desc</b> - " . t("trarabic_10582");
     }
 
-    $link = fp_get_js_confirm_link(t("Are you sure you wish to change advising terms?"), "opener.changeTerm(\"$term_id\"); window.close(); ", $term_desc);
+    $link = fp_get_js_confirm_link(t("trarabic_10583"), "opener.changeTerm(\"$term_id\"); window.close(); ", $term_desc);
 
     $rtn .= "<li class='tenpt' style='padding:3px;'>$link</li>";
 
@@ -685,37 +678,31 @@ function advise_perm() {
   $perms = array();
   
   $perms["view_any_advising_session"] = array(
-    "title" => t("View any advising session"),
-    "description" => t("The user is allowed to view any advising sessions for any user.
-                        For example, the user is an advisor."),
+    "title" => t("trarabic_10584"),
+    "description" => t("trarabic_20134"),
   );
 
   $perms["view_own_advising_session"] = array(
-    "title" => t("View own advising session"),
-    "description" => t("The user is allowed to view their own advising sessions.
-                        For example, the user is a student."),
+    "title" => t("trarabic_10585"),
+    "description" => t("trarabic_20135"),
   );
   
 
   
   $perms["can_advise_students"] = array(
-    "title" => t("Can advise students"),
-    "description" => t("The user is allowed to advise other students,
-                      by clicking a checkbox next to a course, or by selecting
-                      a course from an elective group."),
+    "title" => t("trarabic_10586"),
+    "description" => t("trarabic_20136"),
   );
 
   $perms["can_substitute"] = array(
-    "title" => t("Can substitute"),
-    "description" => t("The user is allowed to substitute courses on a student's
-                        degree plan."),
+    "title" => t("trarabic_10587"),
+    "description" => t("trarabic_20137"),
   );
 
 
   $perms["toggle_draft"] = array(
-    "title" => t("Toggle draft mode"),
-    "description" => t("The user toggle 'draft' mode, so they can view draft degree plans
-                        in FlightPath."),
+    "title" => t("trarabic_10588"),
+    "description" => t("trarabic_20138"),
   );
 
   
@@ -1173,8 +1160,7 @@ function advise_init() {
     
   // Is draft mode enabled?
   if ($_SESSION["fp_draft_mode"] == "yes") {
-    fp_add_message("<b>" . t("Draft mode") . "</b> " . t("is currently enabled, however, substitutions and advisings will
-                      still be saved normally."), "status", TRUE);
+    fp_add_message("<b>" . t("trarabic_10589") . "</b> " . t("trarabic_20139"), "status", TRUE);
   }
           
 }
@@ -1192,7 +1178,7 @@ function advise_clear_cache() {
     }
   }
       
-  fp_add_message(t("Advising cache has been cleared."));
+  fp_add_message(t("trarabic_10590"));
   
 }
 
@@ -1288,7 +1274,7 @@ function advise_init_screen() {
   // Should we update the USER settings for anything?
   if ($GLOBALS["fp_advising"]["fp_update_user_settings_flag"] != "") {
     if (!$db->update_user_settings_from_post($user->id)) {
-      fp_add_message(t("Unable to update user settings.  Please try again later."));
+      fp_add_message(t("trarabic_10591"));
     }
   }
 
@@ -1298,9 +1284,7 @@ function advise_init_screen() {
   $form_token = md5("advise_display_view" . fp_token());
   if ($perform_action == "save_draft") {
     if ($_REQUEST["form_token"] != $form_token) {
-      die(t("Sorry, but you have encountered an error.  A form submission was flagged
-      as possibly being an invalid or forged submission.  This may constitute a bug
-      in the system.  Please report this error to your Systems Administrator."));
+      die(t("trarabic_20140"));
     }
     
     // Save, then reload the student.
@@ -1315,9 +1299,7 @@ function advise_init_screen() {
   }
   if ($perform_action == "save_active") {
     if ($_REQUEST["form_token"] != $form_token) {
-      die(t("Sorry, but you have encountered an error.  A form submission was flagged
-      as possibly being an invalid or forged submission.  This may constitute a bug
-      in the system.  Please report this error to your Systems Administrator."));
+      die(t("trarabic_20141"));
     }
     
     // Save, then go to the history screen.

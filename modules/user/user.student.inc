@@ -21,11 +21,11 @@ function user_student_edit_student_courses_form() {
 
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("Edit Student");
+  $tab_array[0]["title"] = t("trarabic_10216");
   $tab_array[0]["active"] = FALSE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("Edit Student Courses");
+  $tab_array[1]["title"] = t("trarabic_10217");
   $tab_array[1]["active"] = TRUE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user/courses", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -37,16 +37,14 @@ function user_student_edit_student_courses_form() {
   
   if ($student_cwid != "new") {  
     $name = fp_get_student_name($student_cwid);  
-    fp_set_title(t("Edit Student Courses @name (@id)", array("@name" => $name, "@id" => $student_cwid)));
+    fp_set_title(t("trarabic_10218", array("@name" => $name, "@id" => $student_cwid)));
   }
   else {
     // A new student!  We can't create a new student until a CWID is assigned.
-    fp_set_title(t("Create New Student User"));
+    fp_set_title(t("trarabic_10219"));
     $form["mark_sorry"] = array(
       "type" => "markup",
-      "value" => "<p>" . t("Sorry, but you cannot add student courses until the student
-                      has been fully created (and given a CWID).  Use the Edit Student button above
-                      to return to that screen.") . "</p>",
+      "value" => "<p>" . t("trarabic_20043") . "</p>",
     );
     return $form;
   }
@@ -73,20 +71,19 @@ function user_student_edit_student_courses_form() {
     "value" => "<p>
                   " . ("Enter the student's local (non-transfer) courses they have enrolled in at your institution.") . "
                   <ul>
-                    <li>" . t("Course:  Enter the full course subject ID and num, separated by a space.  Ex:  ACCT 101") . "</li>
-                    <li>" . t("Term:  Enter the term code that this student enrolled in this course. Ex:  201540") . "</li>
-                    <li>" . t("Grade: Enter the grade they earned. Ex: B") . "</li>
-                    <li>" . t("Hrs: Enter the hours awarded.  Ex: 3") . "</li>
-                    <li>" . t("Lvl: (optional), enter the level code for this course. Ex: UG") . "</li>
+                    <li>" . t("trarabic_10220") . "</li>
+                    <li>" . t("trarabic_10221") . "</li>
+                    <li>" . t("trarabic_10222") . "</li>
+                    <li>" . t("trarabic_10223") . "</li>
+                    <li>" . t("trarabic_10224") . "</li>
                   </ul>
-                  " . t("<b>Note:</b> If you have any routines which might overwrite this data (in the student_courses table), then this
-                               data may be ignored or deleted!") . "
+                  " . t("trarabic_20044") . "
                 </p>",
   );
   
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("Warn me if I enter a course which doesn't exist in draft_courses (good for catching typos)"),    
+    "label" => t("trarabic_10225"),    
     "value" => "yes",
   );
   
@@ -95,11 +92,11 @@ function user_student_edit_student_courses_form() {
     "value" => "
                 <table border='0' width='100%' cellpadding='3' cellspacing='0'>
                   <tr>
-                    <th>" . t("Course") . "</th>
-                    <th>" . t("Term") . "</th>
-                    <th>" . t("Grade") . "</th>
-                    <th>" . t("Hrs") . "</th>
-                    <th>" . t("Lvl") . "</th>
+                    <th>" . t("trarabic_10226") . "</th>
+                    <th>" . t("trarabic_10227") . "</th>
+                    <th>" . t("trarabic_10228") . "</th>
+                    <th>" . t("trarabic_10229") . "</th>
+                    <th>" . t("trarabic_10230") . "</th>
                   </tr>",
   );
   
@@ -199,9 +196,7 @@ function user_student_edit_student_courses_form() {
   // close table.
   $form["mark" . $m++] = array(
     "value" => "</table>
-                <p>" . t("Rows without Course entered will be skipped.
-                    <br><br><b>Note:</b> To add more blank rows, save your work.  When the page reloads, there will be additional
-                   blank rows to add new courses.") . "</p>",
+                <p>" . t("trarabic_20045") . "</p>",
   );
   
 
@@ -235,7 +230,7 @@ function user_student_edit_student_courses_form_validate($form, $form_state) {
                        AND course_num = '?' ", $subject_id, $course_num);
       $cur = db_fetch_array($res);
       if ($cur["subject_id"] != $subject_id) {
-        form_error("course_$t", t("The course %subject_id %course_num could not be found in the draft_courses table.  A typo?  Your data has NOT been saved.", 
+        form_error("course_$t", t("trarabic_10231", 
                                                   array("%subject_id" => $subject_id, "%course_num" => $course_num)));
       }                       
                 
@@ -277,7 +272,7 @@ function user_student_edit_student_courses_form_submit($form, $form_state) {
    
   }  
 
-  fp_add_message(t("Student courses updated."));
+  fp_add_message(t("trarabic_10232"));
   
     
 } // student_courses_form_submit
@@ -302,11 +297,11 @@ function user_edit_student_user_form() {
 
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
-  $tab_array[0]["title"] = t("Edit Student");
+  $tab_array[0]["title"] = t("trarabic_10233");
   $tab_array[0]["active"] = TRUE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
-  $tab_array[1]["title"] = t("Edit Student Courses");
+  $tab_array[1]["title"] = t("trarabic_10234");
   $tab_array[1]["active"] = FALSE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-student-user/courses", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "\"";
       
@@ -319,11 +314,11 @@ function user_edit_student_user_form() {
   
   if ($student_cwid != "new") {  
     $name = fp_get_student_name($student_cwid);  
-    fp_set_title(t("Edit Student User @name (@id)", array("@name" => $name, "@id" => $student_cwid)));
+    fp_set_title(t("trarabic_10235", array("@name" => $name, "@id" => $student_cwid)));
   }
   else {
     // A new student!
-    fp_set_title(t("Create New Student User"));
+    fp_set_title(t("trarabic_10236"));
   }
 
   $form["user_id"] = array(
@@ -370,7 +365,7 @@ function user_edit_student_user_form() {
   }  
 //fpm($default_values);
   $form["roles"] = array(
-    "label" => t("Check which roles this user should have."),
+    "label" => t("trarabic_10237"),
     "type" => "checkboxes",
     "options" => $options,
     "value" => $default_values,
@@ -383,24 +378,19 @@ function user_edit_student_user_form() {
   // Only if we are making a new student...
   if ($student_cwid == "new") {
     $form["new_student_cwid"] = array(
-      "label" => t("Enter a new CWID, unique to students:"),
+      "label" => t("trarabic_10238"),
       "type" => "textfield",
       "size" => 20,
       "required" => TRUE,     
-      "description" => t("Enter an ID for this student.  It may be the same
-                          as a faculty member, but may not be the same as any existing
-                          student.  You will not be able to edit this value, once saved."),
+      "description" => t("trarabic_20046"),
     );
     
     $form["new_user_name"] = array(
-      "label" => t("Enter a new username, unique to all users:"),
+      "label" => t("trarabic_10239"),
       "type" => "textfield",
       "size" => 20,     
       "required" => TRUE,
-      "description" => t("Enter a username for this user.  This is what the user will
-                          use to log in.  It must be unique to all users (cannot have both
-                          a faculty and a student with the same username).  You will not
-                          be able to edit this value, once saved."),
+      "description" => t("trarabic_20047"),
     );
         
     
@@ -424,103 +414,88 @@ function user_edit_student_user_form() {
   }
   
   $form["new_password"] = array(
-    "label" => t("Enter a new password for this user:"),
+    "label" => t("trarabic_10240"),
     "type" => "textfield",
     "size" => 20,
     "required" => ($student_cwid == "new") ? TRUE : FALSE,
-    "description" => t("If you enter any value here, it will change the
-                        user's password in FlightPath.  If you are using the LDAP module,
-                        the LDAP password will be unaffected."),    
+    "description" => t("trarabic_20048"),    
   );
 
   $form["email"] = array(
-    "label" => t("Email:"),
+    "label" => t("trarabic_10241"),
     "type" => "textfield",
     "value" => $cur["email"],
   );  
 
   $form["f_name"] = array(
-    "label" => t("First name:"),
+    "label" => t("trarabic_10242"),
     "type" => "textfield",
     "value" => $cur["f_name"],
   );  
 
   $form["l_name"] = array(
-    "label" => t("Last name:"),
+    "label" => t("trarabic_10243"),
     "type" => "textfield",
     "value" => $cur["l_name"],
   );  
 
   $form["is_disabled"] = array(
-    "label" => t("Is disabled:"),
+    "label" => t("trarabic_10244"),
     "type" => "textfield",
     "value" => $cur["is_disabled"],
     "size" => 5,
-    "description" => t("Enter only 1 or 0 (number one for 'yes', or number zero for 'no').  This setting means the user will
-                        be ignored by FlightPath, and they will not be able to log in or be searched for.
-                        It is safer to disable a user, than delete them."),
+    "description" => t("trarabic_20049"),
   );  
   
   
   // Unique to students...
   $form["cumulative_hours"] = array(
-    "label" => t("Cumulative hours:"),
+    "label" => t("trarabic_10245"),
     "type" => "textfield",
     "value" => $cur["cumulative_hours"],
     "size" => 5,
-    "description" => t("How many hours has the student earned?  NOTE: If FlightPath is set to
-                        calculate this, rather than read from the database, whatever you enter here
-                        will be ignored, and instead this value will be calculated on the fly when
-                        the student is loaded."),
+    "description" => t("trarabic_20050"),
   );  
     
   $form["gpa"] = array(
-    "label" => t("GPA:"),
+    "label" => t("trarabic_10246"),
     "type" => "textfield",
     "value" => $cur["gpa"],
     "size" => 5,
-    "description" => t("What is the student's GPA?  NOTE: If FlightPath is set to
-                        calculate this, rather than read from the database, whatever you enter here
-                        will be ignored, and instead this value will be calculated on the fly when
-                        the student is loaded."),    
+    "description" => t("trarabic_20051"),    
   );  
     
   $form["rank_code"] = array(
-    "label" => t("Rank or Classification:"),
+    "label" => t("trarabic_10247"),
     "type" => "textfield",
     "value" => $cur["rank_code"],
     "size" => 5,
-    "description" => t("For example, FR, SO, JR, SR, GR for Freshman, Sophomore, Junior, Senior, and Graduate.") . "
-                      <br><b>" . t("Important:") . "</b> " . t("You must enter a code from the Allowed Student Ranks field
-                      on the System Settings form.  For example, FR.  If you do not do this, you will not be able to search
-                      for this student in FlightPath.") . "<br>&nbsp; &nbsp; &nbsp;" . t("Current value for Allowed Student Ranks:") . " 
+    "description" => t("trarabic_10248") . "
+                      <br><b>" . t("trarabic_10249") . "</b> " . t("trarabic_20052") . "<br>&nbsp; &nbsp; &nbsp;" . t("trarabic_10250") . " 
                       <i>" . variable_get("allowed_student_ranks", "") . "</i>",
   );  
 
   $form["major_code"] = array(
-    "label" => t("Major code:"),
+    "label" => t("trarabic_10251"),
     "type" => "textfield",
     "value" => $cur["major_code"],
     "size" => 10,
   );  
     
   $form["catalog_year"] = array(
-    "label" => t("Catalog year:"),
+    "label" => t("trarabic_10252"),
     "type" => "textfield",
     "value" => $cur["catalog_year"],
     "size" => 10,
-    "description" => t("Only the leading year is used.  For example, for the
-                        catalog year 2008-2009, you would just enter 2008."),
+    "description" => t("trarabic_20053"),
   );  
 
   $form["is_active"] = array(
-    "label" => t("Is active:"),
+    "label" => t("trarabic_10253"),
     "type" => "textfield",
     "value" => $cur["is_active"],
     "size" => 5,
-    "description" => t("Enter only 1 or 0 (number one for 'yes', or number zero for 'no').  This setting means the student
-                      will not appear in searches automatically, unless the advisor specifies to search
-                      for inactive students."),
+    "description" => t("trarabic_20054"),
   );  
         
       
@@ -538,7 +513,7 @@ function user_edit_student_user_form() {
     $form["mark" . $m++] = array(
       "type" => "markup",
       "value" => "<div align='right'>
-                        " . t("Delete this student?") . " <input type='button' value='X'
+                        " . t("trarabic_10254") . " <input type='button' value='X'
                         onClick='userDeleteStudent();'>
                       </div>", 
     );  
@@ -563,7 +538,7 @@ function user_edit_student_user_form_validate($form, $form_state) {
   // If a password was given, make sure it is appropriate.
   if (trim($values["new_password"]) != "") {
     if (strlen(trim($values["new_password"])) < 5) {
-      form_error("new_password", t("Please enter a password that is at least 5 characters long."));
+      form_error("new_password", t("trarabic_10255"));
       return;
     }
   }
@@ -577,16 +552,14 @@ function user_edit_student_user_form_validate($form, $form_state) {
     /*  // CWIDS are no longer required to be numeric.
     // Check that cwid is numeric.
     if (!is_numeric($new_cwid)) {
-      form_error("new_student_cwid", t("The cwid you entered is not numeric.  CWIDs must contain only numbers.  
-                                    Please select a different cwid."));
+      form_error("new_student_cwid", t("trarabic_20055"));
       return;
     }
     */
 
     // Check that username is at least 4 characters
     if (strlen($new_user_name) < 4) {
-      form_error("new_user_name", t("The username you entered is too short.  It must be at least 4 characters.
-                                      Please select a different username."));
+      form_error("new_user_name", t("trarabic_20056"));
       return;
       
     }
@@ -595,14 +568,14 @@ function user_edit_student_user_form_validate($form, $form_state) {
     // Check cwid isn't already in use.
     $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_student = '1'", $new_cwid));    
     if ($test == $new_cwid) {
-      form_error("new_student_cwid", t("The cwid you entered is already in use.  Please select a different cwid."));
+      form_error("new_student_cwid", t("trarabic_10256"));
       return;
     }
    
     // Check user_name isn't already in use.
     $test = db_result(db_query("SELECT user_name FROM users WHERE user_name = '?' ", $new_user_name));    
     if ($test == $new_user_name) {
-      form_error("new_user_name", t("The username you entered is already in use.  Please select a different username."));
+      form_error("new_user_name", t("trarabic_10257"));
       return;
     }
       
@@ -636,7 +609,7 @@ function user_edit_student_user_form_submit($form, $form_state) {
     db_query("DELETE FROM students WHERE cwid = '?' ", $student_cwid);
     db_query("DELETE FROM users WHERE cwid = '?' AND is_student = '1' ", $student_cwid);      
     
-    fp_add_message(t("User has been deleted."));
+    fp_add_message(t("trarabic_10258"));
     fp_goto("admin/users/students");
     return;
   }
@@ -689,13 +662,13 @@ function user_edit_student_user_form_submit($form, $form_state) {
              ", $values["new_student_cwid"], $values["cumulative_hours"], $values["gpa"], $values["rank_code"],
                 $values["major_code"], $values["catalog_year"], $values["is_active"]);
                                   
-    fp_add_message(t("User created successfully."));
+    fp_add_message(t("trarabic_10259"));
     fp_goto("admin/users/edit-student-user", "student_cwid=" . $values["new_student_cwid"]);
   }
   
   
       
-  fp_add_message(t("User updated successfully."));
+  fp_add_message(t("trarabic_10260"));
   
   
 }

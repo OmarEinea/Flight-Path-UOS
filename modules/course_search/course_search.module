@@ -177,7 +177,7 @@ function course_search_settings_form() {
   
   $form["course_search_avail_term_id_suffix_order"] = array(
     "type" => "textfield",
-    "label" => t("Available Term ID Suffixes & Order"),
+    "label" => t("Available Term ID Suffixes &amp; Order"),
     "value" => variable_get("course_search_avail_term_id_suffix_order", ""),
     "description" => t(".أدخل ترتيب لواحق رمز الفصل، بحيث يتم عرضها بالترتيب الصحيح في جدول عروض المساقات المتاحة. افصل بفاصلة") . "
                 <br>

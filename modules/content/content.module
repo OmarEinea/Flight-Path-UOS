@@ -294,7 +294,7 @@ function content_edit_content_form($type = "", $cid = "") {
     "label" => t("عنوان:"),
     "value" => $content["title"],
     "required" => TRUE,
-    "description" => t("To hide the title, you may start it with [hide]. For example: \"[hide] this is a sample.\""), 
+    "description" => t("To hide the title, you may start it with [hide]. For example: '[hide] this is a sample.'"), 
   );
   
 

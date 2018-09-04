@@ -298,7 +298,7 @@ function ldap_settings_form() {
     "label" => t(" DNs الأساسية لإدخالات مستخدم LDAP:"),
     "type" => "textarea",
     "value" => variable_get("ldap_base_dns", ""),
-    "description" => t("ادخل DN واحد لكل سطر<br>مثال: ou=Students,ou=People,dc=example,dc=edu<br>&nbsp; ou=Employees,ou=People,dc=example,dc=edu"),
+    "description" => t("ادخل DN واحد لكل سطر<br/>مثال: ou=Students,ou=People,dc=example,dc=edu<br/>&nbsp; ou=Employees,ou=People,dc=example,dc=edu"),
   );
 
 
@@ -324,7 +324,7 @@ function ldap_settings_form() {
   
 
   $form["ldap_no_cwid_msg"] = array(
-    "label" => t(":رسالة للعرض إذا تعذر إيجاد رمز المستخدم<"),
+    "label" => t(":رسالة للعرض إذا تعذر إيجاد رمز المستخدم"),
     "type" => "textarea",
     "rows" => 2,
     "value" => variable_get("ldap_no_cwid_msg", t("لا يمكن العثور على CWID الخاص بالمستخدم في نتيجة LDAP. يرجى الرجوع إلى مسؤول النظام.")),

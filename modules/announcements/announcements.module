@@ -1,8 +1,8 @@
 <?php
 
 /**
- *  This module lets administrators create announcements, when then appear can appear in a block.  
- * 
+ *  This module lets administrators create announcements, when then appear can appear in a block.
+ *
  * This module uses the Content module to do all of its work.  All it is really for is
  * specifying the content type, then handing its output as a block.
 */
@@ -19,23 +19,23 @@ function announcements_content_register_content_type() {
       "title" => t("إعلان"),
       "description" => t("هذا إعلان قصير للمستخدم, يقصد به أن يعرض مثل الأخير في Block."),
       "settings" => array(),
-    ),    
+    ),
   );
-  
-  
+
+
   // In the settings region, I want some extra fields which will be used
   // when we display.
-  
+
   $arr["announcement"]["settings"]["visibility"] = array(
     "type" => "radios",
     "label" => t("صلاحية الرؤية:"),
-    "options" => array("public" => t("عام (كل المستخدمين, بما فيها الطلاب)"), 
+    "options" => array("public" => t("عام (كل المستخدمين, بما فيها الطلاب)"),
                        "faculty" => t("هيئة التدريس/الموظفين فقط"), "hidden" => t("مخفي")
                        ),
-    "required" => TRUE,                       
+    "required" => TRUE,
   );
-  
-  
+
+
   return $arr;
 }
 
@@ -45,7 +45,7 @@ function announcements_content_register_content_type() {
  *
  */
 function announcements_perm() {
-    
+
   return array(
     "view_faculty_announcements" => array(
       "title" => t("عرض إعلانات هيئة التدريس"),
@@ -58,34 +58,34 @@ function announcements_perm() {
  * Return the HTML rendering the announcements we have in the database.
  */
 function announcements_render_announcements() {
-  
+
   global $user;
-  
+
   $rtn = "";
-  
+
   $res = db_query("SELECT * FROM content WHERE type = 'announcement'
                     ORDER BY updated DESC");
   while ($cur = db_fetch_array($res)) {
-    
+
     $announcement = content_load($cur["cid"]);
     $title = $announcement["title"];
     if (strstr($title, "[hide]")) {
       $title = "";
     }
-    
-    
+
+
     // Visibility?
     if ($announcement["settings"]["visibility"] == "hidden") {
       continue;
     }
-    
+
     if ($announcement["settings"]["visibility"] == "faculty") {
       if (!user_has_permission("view_faculty_announcements")) {
         continue;
       }
     }
-    
-    
+
+
     $rtn .= "<div class='announcement'>";
     if ($title) {
       $rtn .= "
@@ -94,21 +94,21 @@ function announcements_render_announcements() {
     }
     $rtn .= "<div class='announcement-text'>" . filter_markup($announcement["body"], "full") . "</div>
                 <div class='announcement-posted'>";
-    
+
     // If we have not updated this announcement before, then print "posted",
     // else, print "updated" date.
-    if ($announcement["updated"] > $announcement["posted"]) {      
-      $rtn .= t("محدث") . " " . date("D, M jS Y - g:ia", $announcement["updated"]);      
+    if ($announcement["updated"] > $announcement["posted"]) {
+      $rtn .=date("D, M jS Y - g:ia", $announcement["updated"]) . " " . t("محدث") ;      
     }
     else {
-      $rtn .= t("تم النشر") . " " . date("D, M jS Y - g:ia", $announcement["posted"]);
+      $rtn .=  date("D, M jS Y - g:ia", $announcement["posted"]). " " .t("تم النشر");
     }
-    
+
     $rtn .= "</div>";
-        
+
     $rtn .= "</div>";
-  }                    
-  
+  }
+
   return $rtn;
 }
 
@@ -120,10 +120,10 @@ function announcements_render_announcements() {
  *  delta => "This is the title of the block.",
  *  ),
  * );
- * 
+ *
  * Delta can be just about anything machine-readable.  Alphanumeric and underscores only.
  * Ex: 0, 1, fun_2, etc.
- * 
+ *
  */
 function announcements_blocks() {
   return array(
@@ -140,18 +140,18 @@ function announcements_blocks() {
  * );
  */
 function announcements_render_block($delta) {
-  
+
   $rtn = array();
-  
+
   if ($delta == "primary") {
-      
+
     fp_add_css(fp_get_module_path("announcements") . "/css/announcements.css");
-    
-    $rtn["title"] = t("إعلانات");       
+
+    $rtn["title"] = t("إعلانات");
     $rtn["body"] = announcements_render_announcements();
   }
-  
-  
+
+
   return $rtn;
-  
+
 }

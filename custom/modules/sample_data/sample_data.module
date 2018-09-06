@@ -5,7 +5,7 @@
  */
 function sample_data_menu() {
   $items = array();
-  
+
   $items["admin/config/sample-data"] = array(
     "title" => "Sample Data",
     "description" => "Load sample data into FlightPath's database.",
@@ -16,18 +16,18 @@ function sample_data_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );         
- 
-  
+    "tab_parent" => "admin-tools/admin",
+  );
+
+
   return $items;
 }
 
@@ -44,22 +44,22 @@ function sample_data_install_form() {
   $form["mark" . $m++] = array(
     "value" => "<p>" . t("لذا يرجى نسخ قاعدة البيانات احتياطيا قبل المتابعة <b>ستقوم بالمسح أو الكتابة فوق البيانات الحالية</b> سيقوم هذا بتثبيت بيانات نموذجية في قاعدة البيانات الخاصة بك للمساقات والمجموعات والدرجات") . "</p>",
   );
-  
+
   $form["passcode"] = array(
     "type" => "textfield",
     "label" => t("هل أنت متأكد من أنك تريد تثبيت عينة بيانات؟"),
     "description" => "Enter YES (all caps) to proceed.",
-    
-  );  
-  
+
+  );
+
   $form["submit_btn"] = array(
     "type" => "submit",
     "value" => t("تسليم"),
     "suffix" => "<p>" . t("انقر تسليم مرة واحدة فقط. قد يستغرق عدة ثوان للتشغيل") . "</p>",
   );
-  
+
   return $form;
-  
+
 }
 
 
@@ -76,7 +76,7 @@ function sample_data_install_form_validate($form, $form_state) {
 function sample_data_install_form_submit($form, $form_state) {
   $file = fp_get_module_path("sample_data", TRUE, FALSE) . "/sample_data.sql";
   $sql = file_get_contents($file);
-  
+
   // Okay, now we simply execute the contents of $sql, and we're good to go!
   // We need to split up the sql file into lines.
   $lines = explode("\n", $sql);
@@ -87,12 +87,9 @@ function sample_data_install_form_submit($form, $form_state) {
       db_query($line);
     }
   }
-  
+
   // Clear our cache
-  fp_clear_cache(); 
-     
+  fp_clear_cache();
+
   fp_add_message(t(" محفوظ في كتالوج 2012-2013. أيضا تم ضبط بعض الإعدادات الخاصة بك. من علامة التبويب الرئيسية, يمكنك البحث عن الطالب بالاسم لتحميل مخطط دراسته ACCT ودرجة ACCT بالإضافة إلى عدد قليل من مساقات Sample Studentتم تحميل بيانات نموذجية في قاعدة البيانات! لديك الآن طالب عينة يدعى"));
 }
-
-
-

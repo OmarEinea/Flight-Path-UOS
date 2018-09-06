@@ -9,7 +9,7 @@
 
 function course_search_menu() {
   $items = array();
-  
+
   $items["tools/course-search"] = array(
     "title" => "Course Search",
     "description" => "Use this tool to view course descriptions, sample syllabi, and projected course offering schedules.",
@@ -23,9 +23,9 @@ function course_search_menu() {
       "menu_icon" => fp_theme_location() . "/images/book_glass_20.jpg",
     ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-  ); 
+  );
 
-  
+
   $items["course-search/get-syllabus"] = array(
     "title" => "Course Search",
     "page_callback" => "course_search_download_syllabus",
@@ -33,30 +33,30 @@ function course_search_menu() {
     "type" => MENU_TYPE_CALLBACK,
   );
 
-  
-  
+
+
   $items["admin/config/course-search"] = array(
     "title" => "Course Search Settings",
-    "description" => "Administer the Course Search module's settings",    
+    "description" => "Administer the Course Search module's settings",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("course_search_settings_form", "system_settings"),
     "access_arguments" => array("administer_course_search"),
     "page_settings" => array(
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
-      "page_hide_report_error" => TRUE,      
+      "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/book_glass_20.jpg",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
-      ),      
+      ),
     ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-  );  
-  
+  );
+
   $items["tools/course-search/courses"] = array(
     "title" => "Course Search",
     "page_callback" => "course_search_display_courses",
@@ -69,25 +69,25 @@ function course_search_menu() {
     "type" => MENU_TYPE_CALLBACK,
   );
 
-  
+
   $items["tools/course-search/edit-list"] = array(
     "title" => "Update Course Information",
     "page_callback" => "course_search_display_edit_courses",
     "access_arguments" => array("can_update_course_info_details"),
     "page_settings" => array(
-      "page_has_search" => FALSE,      
+      "page_has_search" => FALSE,
       "menu_links" => array(
         0 => array(
           "text" => "Back to Course Search",
           "path" => "tools/course-search",
         ),
       ),
-    ),    
+    ),
     "file" => menu_get_module_path("course_search") . "/course_search.edit.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );  
-  
-  
+  );
+
+
   $items["tools/course-search/edit-info-details"] = array(
     "title" => "Edit Course Info Details",
     "page_callback" => "fp_render_form",
@@ -105,8 +105,8 @@ function course_search_menu() {
           "text" => "Back to Course Edit List",
           "path" => "tools/course-search/edit-list",
         ),
-      ),      
-    ),        
+      ),
+    ),
     "file" => menu_get_module_path("course_search") . "/course_search.edit.inc",
     "type" => MENU_TYPE_CALLBACK,
   );
@@ -116,7 +116,7 @@ function course_search_menu() {
     "page_callback" => "course_search_display_view_reports",
     "access_arguments" => array("can_update_course_info_details"),
     "page_settings" => array(
-      "page_has_search" => FALSE,      
+      "page_has_search" => FALSE,
       "menu_links" => array(
         0 => array(
           "text" => "Back to Course Search",
@@ -127,20 +127,20 @@ function course_search_menu() {
           "path" => "tools/course-search/edit-list",
         ),
       ),
-    ),    
+    ),
     "file" => menu_get_module_path("course_search") . "/course_search.edit.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );  
+  );
 
   // Simple callback to download CSV
-  $items["tools/course-search/get-offering-csv"] = array(    
+  $items["tools/course-search/get-offering-csv"] = array(
     "page_callback" => "course_search_get_offering_csv",
     "access_arguments" => array("can_update_course_info_details"),
     "file" => menu_get_module_path("course_search") . "/course_search.edit.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );    
+  );
 
-    
+
   return $items;
 }
 
@@ -162,8 +162,8 @@ function course_search_perm() {
             "title" => t("يمكن تحديث تفاصيل معلومات المساقات "),
             "description" => t("يسمح للمستخدمين بتحديث تفاصيل معلومات المساق، مثل منهج المساق لجدول المساق"),
           ),
-                    
-          
+
+
   );
 }
 
@@ -174,7 +174,7 @@ function course_search_perm() {
  */
 function course_search_settings_form() {
   $form = array();
-  
+
   $form["course_search_avail_term_id_suffix_order"] = array(
     "type" => "textfield",
     "label" => t("Available Term ID Suffixes &amp; Order"),
@@ -182,8 +182,8 @@ function course_search_settings_form() {
     "description" => t(".أدخل ترتيب لواحق رمز الفصل، بحيث يتم عرضها بالترتيب الصحيح في جدول عروض المساقات المتاحة. افصل بفاصلة") . "
                 <br>
                 Ex: 60, 40, 41, 80, 81, mm",
-  );    
-  
+  );
+
   $form["course_search_avail_term_headers"] = array(
     "type" => "textfield",
     "label" => t("Available Term Table Headers"),
@@ -191,7 +191,7 @@ function course_search_settings_form() {
     "description" => t("Enter the table headers for the available table, in the same order as the suffix order above.") . "
                 <br>
                 Ex: Spring, May, Summer 1, Summer 2, Fall, Winter",
-  );    
+  );
 
 
   $form["course_search_avail_term_mobile_headers"] = array(
@@ -201,9 +201,9 @@ function course_search_settings_form() {
     "description" => t("Enter the table headers for the available table, in the same order as the suffix order above, as it should be displayed on a mobile device (with a smaller screen).") . "
                 <br>
                 Ex: Spr, May, Sum1, Sum2, Fall, Win",
-  );    
+  );
 
-  
+
   return $form;
 }
 
@@ -216,16 +216,16 @@ function course_search_settings_form() {
  */
 function course_search_download_syllabus() {
   // Get our global variables...
-  
+
   $c = trim(mysql_real_escape_string($_REQUEST["c"]));
   $id = trim(mysql_real_escape_string($_REQUEST["id"]));
-  
+
   $db = get_global_database_handler();
-  
+
   $temp = explode("_", $c);
   $subject_id = $temp[0];
   $course_num = $temp[1];
-  
+
   // Get the filename in question...
   $query = "select * from course_syllabi
             where course_perm_id = '$subject_id" . "_$course_num' ";
@@ -236,20 +236,20 @@ function course_search_download_syllabus() {
   $res = db_query($query);
   $cur = db_fetch_array($res);
   $filename = $cur["filename"];
-  
+
   $course_id = $cur["course_id"];
-  
+
   // Get the latest subject_id and course_num for this course!
   $new_course = new Course();
-  $new_course->course_id = $course_id;  
+  $new_course->course_id = $course_id;
   $new_course->catalog_year = variable_get("current_catalog_year", 2006);
   $new_course->load_descriptive_data(false, false, true);
-  
+
   $subject_id = $new_course->subject_id;
   $course_num = $new_course->course_num;
-  
+
   $files_path = $GLOBALS["fp_system_settings"]["file_system_path"];
-  
+
   if ($filename == "" || !file_exists("$files_path/custom/files/syllabi/$filename"))
   { // Check to make sure the src file actually exists.
     // Display a message, letting the user know it does not
@@ -260,13 +260,13 @@ function course_search_download_syllabus() {
     fpm("Admin: file path attempted: $files_path/custom/files/syllabi/$filename");
     return;
   }
-  
+
   watchdog("syllabus", "get,$c", array(), WATCHDOG_DEBUG);
-  
+
   $content_type = "application/plain";  // default, save as generic binary file.
   $temp = explode("\.", $filename);
   $ext = $temp[count($temp) - 1];  // get the original file extension.
-  
+
   // attempt to match to the correct content_type...
   if ($ext == "pdf"){ $content_type = "application/pdf"; }
   if ($ext == "doc") { $content_type = "application/msword"; }
@@ -275,18 +275,18 @@ function course_search_download_syllabus() {
   if ($ext == "pot") { $content_type = "application/mspowerpoint"; }
   if ($ext == "ppt") { $content_type = "application/powerpoint"; }
   if (strstr($ext,"xl")) { $content_type = "application/excel"; }
-  
-  
-  
-  
+
+
+
+
   $fn = urlencode($subject_id . "_" . $course_num . "_SAMPLE_SYLLABUS") .".$ext";  // make it a safe filename.
   $fn = str_replace("+"," ",$fn); // restore spaces from + symbols...
-  
+
   // Give it to the browser!
   header('Content-type: ' . $content_type . '');
   header('Content-Disposition: attachment; filename="' . $fn . '"');
   readfile("$files_path/custom/files/syllabi/" . $filename . "");
-  die;    
+  die;
 }
 
 
@@ -296,27 +296,27 @@ function course_search_download_syllabus() {
  */
 function course_search_display_courses() {
   $rtn = "";
-   
+
   fp_add_css(fp_get_module_path("course_search") . "/css/course_search_style.css");
-  
+
   if (fp_screen_is_mobile()) {
-    fp_add_css(fp_get_module_path("course_search") . "/css/course_search_mobile_style.css");    
-  }      
-  
-  
+    fp_add_css(fp_get_module_path("course_search") . "/css/course_search_mobile_style.css");
+  }
+
+
   $rtn .= "";
-      
+
   $rtn .= fp_render_curved_line(t("البحث عن المساقات"));
 
   $settings = fp_get_system_settings();
   $current_catalog_year = $settings["current_catalog_year"];
 
   // catalog_year is always just whatever the current year is.
-  $catalog_year = $current_catalog_year;  
+  $catalog_year = $current_catalog_year;
   $subject_id = $_REQUEST["subject_id"];
 
   $clean_urls = variable_get("clean_urls", FALSE);
-  
+
   // Try to find out the title to this subject, if one exists
   // in our subjects table.
   $res = db_query("SELECT * FROM subjects
@@ -324,12 +324,12 @@ function course_search_display_courses() {
   $cur = db_fetch_array($res);
   $title = $cur["title"];
   if ($title == "") $title = $subject_id;
-  
+
   /*
   $query = "SELECT DISTINCT a.* from subjects a,
-          courses b 
+          courses b
           WHERE a.subject_id = '?'
-          AND a.subject_id = b.subject_id 
+          AND a.subject_id = b.subject_id
           AND catalog_year = '?'
           AND exclude = 0
           ORDER BY title ";
@@ -337,59 +337,58 @@ function course_search_display_courses() {
   $cur = db_fetch_array($result);
   $title = trim($cur["title"]);
   */
-  
-  $rtn .= t("كاتلوج السنة الحالي:") . " <b>$catalog_year-" . ($catalog_year +1) . "</b>   
+
+  $rtn .= t("كاتلوج السنة الحالي:") . " <b>$catalog_year-" . ($catalog_year +1) . "</b>
       ";
-  $important_notice = "              
+  $important_notice = "
       <div class='tenpt hypo' style='padding: 5px;'>
-      <b>Important Notice:</b> <ul style='margin-top: 5px;'>
-      <li>Course descriptions are intended for unofficial use only.  Consult your catalog for the official listing.</li>
-      <li>Anticipated course availability reflects current plans but actual offerings may change because of factors 
-        unknown at planning time.  Consult the schedule of classes for final offerings.</li>
-      <li>Sample syllabi are provided for planning purposes only.  The syllabus used by an instructor may vary from this sample.</li>
-      <li>Please ask your advisor if you have any questions about a course.</li>
-      </ul>               
+      <b>:ملاحظة مهمة</b> <ul style='margin-top: 5px;'>
+      <li> هدف أوصاف المساقات إلى الاستخدام غير الرسمي فقط. استشر كتالوج القائمة الرسمية<li>
+      <li> يعكس مدى توفر المساقات المتوقعة للخطط الحالية ولكن العروض الفعلية قد تتغير بسبب عوامل غير معروفة في وقت التخطيط. راجع جدول الحصص للعروض النهائية. </li>
+      <li> يتم توفير عينة مناهج لأغراض التخطيط فقط. قد يختلف المنهج المستخدم من قبل المدرس عن هذه العينة< li>
+      <li> يرجى استشارة مرشدك الأكاديمي إذا كان لديك أي أسئلة حول المساقات.< li>
+      </ul>
       </div>
       ";
 
   if (fp_screen_is_mobile()) {
     // TODO:  implement the fieldset thingy.
-    //$pC .= $screen->draw_c_fieldset($important_notice, "View important notice", true);   
+    //$pC .= $screen->draw_c_fieldset($important_notice, "View important notice", true);
   }
   else {
     $rtn .= $important_notice;
   }
-  
-  $rtn .= "      
+
+  $rtn .= "
       <div>
-      
+
       <div style='margin: 10px 0 20px 10px; border-bottom: 2px solid black;'>
       <span style='font-size: 14pt; font-weight:bold;'>$title</span>
-      " . l("[change]", "tools/course-search", "", array("class" => "nounderline")) . "      
+      " . l("[change]", "tools/course-search", "", array("class" => "nounderline")) . "
       </div>
       ";
   // Draw the term selector.
   $only_term = $_REQUEST["only_term"];
-  $rtn .= "<form id='term_form' action='" . fp_url("tools/course-search/courses") . "' method='GET'>           
+  $rtn .= "<form id='term_form' action='" . fp_url("tools/course-search/courses") . "' method='GET'>
            <input type='hidden' name='mode' value='$subject_id'>
            <input type='hidden' name='subject_id' value='$subject_id'>
            ";
-  
+
   if (!$clean_urls) {
       // Hack for if clean URLs isn't enabled
       $rtn .= "<input type='hidden' name='q' value='tools/course-search/courses'>";
   }
-             
-  $rtn .= "           
+
+  $rtn .= "
            View courses offered:
            <select name='only_term' onChange='document.getElementById(\"term_form\").submit();'>
              <option value=''>Any term</option>
              ";
-  
+
   //$term_array = get_term_id_suffixes();
   $term_array = csv_to_array(variable_get("course_search_avail_term_id_suffix_order"));
-  
-  
+
+
   for ($t = $catalog_year; $t <= $catalog_year + 4; $t++)
   {
     $rtn .= "<option value=''>---------------------</option>";
@@ -397,24 +396,24 @@ function course_search_display_courses() {
     {
       $schedule_text .= "<td class='tenpt' align='center'>";
       $the_term_id = $t . $x;
-      
+
       $temp_course = new Course();
       $temp_course->term_id = $the_term_id;
       $term_desc = $temp_course->get_term_description(false);
-      
+
       $sel = "";
       if ($only_term != "" && $only_term == "$the_term_id") {
         $sel = " selected";
       }
-      
-      $rtn .= "<option value='$the_term_id' $sel>$term_desc</option> \n";     
-    }   
-    
-  } 
+
+      $rtn .= "<option value='$the_term_id' $sel>$term_desc</option> \n";
+    }
+
+  }
   $rtn .= "
            </select>
          </form>";
-  
+
   if ($only_term != "") {
     $temp_course = new Course();
     $temp_course->term_id = $only_term;
@@ -424,16 +423,16 @@ function course_search_display_courses() {
              The following courses are currently scheduled to be offered during " . $term_desc . ".
             </div>";
   }
-  
+
   $term_structures = get_term_structures();
-  
-  
+
+
   $grad_notice_flag = false;
   $temp_course = new Course();
   // removed course_num < 500 and
   $result = db_query("SELECT * FROM courses
               WHERE `catalog_year`='?' AND
-              `subject_id`='?' AND              
+              `subject_id`='?' AND
               `exclude`='0' ORDER BY `course_num` ", $catalog_year, $subject_id);
   if ($result)
   {
@@ -455,16 +454,16 @@ function course_search_display_courses() {
         $description = t(".لا يتوفر وصف في الوقت الحالي. استشر كتالوج الدورة الرسمية للقوائم");
       }
 
-      $syllabus_text = "";     
+      $syllabus_text = "";
       $syllabus_array = course_search_get_course_syllabus_details("", "", $n_course_id);
-      
+
       if ($syllabus_array["url"] != "")
       {
         $syllabus_text = "<div class='course-search-sample-syllabus'>
                           <a href='{$syllabus_array["url"]}' class='nounderline'>
-                 <img src='" . fp_theme_location() . "/images/document_icon.gif' border='0' height='12'> 
+                 <img src='" . fp_theme_location() . "/images/document_icon.gif' border='0' height='12'>
                   " . t("عينة المنهج") . "</a>
-                  
+
                 </div>
                 ";
       }
@@ -472,8 +471,8 @@ function course_search_display_courses() {
       // Look for all 5 years.
       $long_schedule_array = course_search_get_course_rotation_schedule($n_course_id, $catalog_year, 100, true);
       // Only grab next 2 years.
-      $schedule_array = course_search_get_course_rotation_schedule($n_course_id, $catalog_year);  
-      
+      $schedule_array = course_search_get_course_rotation_schedule($n_course_id, $catalog_year);
+
       $full_schedule_array = course_search_get_course_rotation_schedule($n_course_id);
       $schedule_text = "";
 
@@ -506,14 +505,14 @@ function course_search_display_courses() {
 
         // Consult our settings to find out what order our terms should be in.
         $term_array = csv_to_array(variable_get("course_search_avail_term_id_suffix_order"));
-       
+
         // Get our table headers
         $avail_headers = variable_get("course_search_avail_term_headers");
         $avail_mobile_headers = variable_get("course_search_avail_term_mobile_headers");
-        
-        
+
+
         $th = explode(",", $avail_headers);
-        
+
         $twidth = "90%";
         $mleft = "20px;";
         if (fp_screen_is_mobile()) {
@@ -521,7 +520,7 @@ function course_search_display_courses() {
           $twidth = "100%";
           $mleft = "0";
         }
-        
+
         $schedule_text .= "
               </div>
             <div id='$rnd_div_id' style='display: $s_disp; margin-left: $mleft;'>
@@ -533,7 +532,7 @@ function course_search_display_courses() {
           $schedule_text .= "<td>" . trim($header_text) . "</td>";
         }
         $schedule_text .= "      </tr>";
-        
+
         for ($t = $catalog_year; $t <= $catalog_year + 4; $t++)
         {
           $schedule_text .= "<tr>
@@ -548,21 +547,21 @@ function course_search_display_courses() {
             // Does the term suffix ($x) call for the year to be
             // subtracted by 1?  This is the case at ULM for fall.
             // Ex:  201340  is Fall of *2012*, not 2013.
-            // We can tell this because the term structure (from admin settings)            
+            // We can tell this because the term structure (from admin settings)
             //fpm($term_structures);
             if (strtoupper($term_structures[$x]["disp_adjust"]) == "[Y-1]") {
               //fpm("here for $x");
               $the_term_id = ($t + 1) . $x;
             }
-            
-            
+
+
             if (in_array($the_term_id, $full_schedule_array))
             {
-              $schedule_text .= "<img src='" . fp_theme_location() . "/images/small_check.gif'>";             
+              $schedule_text .= "<img src='" . fp_theme_location() . "/images/small_check.gif'>";
             }
             else {
               if ($only_term != "" && $only_term == $the_term_id) {
-                // Meaning, the term that the user selected is NOT in this 
+                // Meaning, the term that the user selected is NOT in this
                 // course's schedule.  So, we should hide it.
                 $bool_hide = TRUE;
               }
@@ -611,10 +610,10 @@ function course_search_display_courses() {
       {
         $repeat = "<div class='course-search-repeat'>" . t("قد تتكرر لمدة تصل إلى @repeat ساعة من الائتمان.", array("@repeat" => $cur["repeat_hours"]*1)) . "</div>";
       }
-      
-      
+
+
       // Draw it on screen...
-      if ($bool_hide != true) {     
+      if ($bool_hide != true) {
         if ($grad_notice_flag == false && $course_num > 4999)
         {
           $grad_notice_flag = true;
@@ -626,7 +625,7 @@ function course_search_display_courses() {
                 " . t("الدورات التالية هي لطلبة الدراسات العليا فقط.") . "
                 </div>";
         }
-  
+
         $details = $schedule_text . $syllabus_text;
 
         $hyp1 = " - ";
@@ -635,31 +634,31 @@ function course_search_display_courses() {
           $on_click = "onClick='toggleCourseExtra(this);'";
           $hyp1 = "";
         }
-        
+
         $rtn .= "<div class='course-search-course-block'>
-                 <div class='course-search-course-title-row' 
+                 <div class='course-search-course-title-row'
                       $on_click>
                        <span class='course-search-course-name'>$n_subject_id $n_course_num</span>
-                        $hyp1 
+                        $hyp1
                         <span class='course-search-course-title'>$title</span> - $hours " . t("ساعات.") . "$repeat </div>
                  <div class='course-search-course-extra'>
                    <div class='course-search-course-description'>$description</div>
                    <div class='course-search-course-details'>$details</div>
-                 
+
                  ";
 
         if (user_has_permission("can_update_course_info_details") && !fp_screen_is_mobile()) {
           $rtn .= "<div class='course-search-admin-options'>
-                    " . t("الخيارات الإدارية:") . " 
-                    " . l(t("syllabus و rotation schedule تعديل ال"), "tools/course-search/edit-info-details", "course_id=$n_course_id&subject_id=$n_subject_id&course_num=$n_course_num") . "                  
+                    " . t("الخيارات الإدارية:") . "
+                    " . l(t("syllabus و rotation schedule تعديل ال"), "tools/course-search/edit-info-details", "course_id=$n_course_id&subject_id=$n_subject_id&course_num=$n_course_num") . "
                 </div>";
-        }         
-                 
+        }
+
         $rtn .= "</div>";
-                       
+
         $rtn .= "</div>";
       }
-  
+
     }
   }
 
@@ -668,7 +667,7 @@ function course_search_display_courses() {
 
 
   //$pC .= $screen->get_java_script_code();
-  $rtn .= '    
+  $rtn .= '
     <script type="text/javascript">
     function toggleHideDiv(rndDivID)
     {
@@ -681,15 +680,15 @@ function course_search_display_courses() {
         d.style.display = "none";
         document.getElementById("SPAN" + rndDivID).innerHTML = "more&raquo;";
       }
-      
+
     }
-    
+
     function toggleCourseExtra(e) {
       $(e).siblings(".course-search-course-extra").slideToggle("medium");
-    }   
-    
+    }
+
     </script>
-  
+
       ';
 
   return $rtn;
@@ -699,7 +698,7 @@ function course_search_display_courses() {
 
 function course_search_get_course_rotation_schedule_not_anticipated($course_id)
 {
-  
+
 	// Returns TRUE if not is NOT ANTICIPATED.  False, if this
 	// is a normal courses which has an offering, or a blank
 	// offering.  This will
@@ -718,7 +717,7 @@ function course_search_get_course_rotation_schedule_not_anticipated($course_id)
 
 function course_search_get_course_rotation_schedule($course_id, $year = "", $limit = 20, $bool_include_next_five_years = false)
 {
-  
+
   // return an array containing the terms that this course
 	// is going to be offered, if any.
 	$rtn_array = array();
@@ -783,7 +782,7 @@ function course_search_get_course_rotation_schedule($course_id, $year = "", $lim
 
 function course_search_get_course_syllabus_details($subject_id = "", $course_num = "", $course_id = -1)
 {
-  
+
 	// This will return an array containing information
 	// about a course's syllabus, if it exists.
 	$rtn_array = FALSE;
@@ -795,10 +794,10 @@ function course_search_get_course_syllabus_details($subject_id = "", $course_num
 	  $query = "SELECT * FROM course_syllabi
 				WHERE `course_id`='$course_id' ";
 	}
-	
+
 	$res = db_query($query);
 	$cur = db_fetch_array($res);
-	
+
 	//$url = $GLOBALS["fp_system_settings"]["selfURL"] . "/" . get_module_path("course_search") . "/syllabus.php?id=" . $cur["course_id"];
 
 	if ($cur["filename"] != "") {
@@ -820,22 +819,22 @@ function course_search_get_course_syllabus_details($subject_id = "", $course_num
  * Displays the search pulldown for the user to use to find courses.
  */
 function course_search_display_search() {
-    
+
   $rtn = "";
-   
+
   fp_add_css(fp_get_module_path("course_search") . "/css/course_search_style.css");
-  
+
   if (fp_screen_is_mobile()) {
-    fp_add_css(fp_get_module_path("course_search") . "/css/course_search_mobile_style.css");    
-  }      
-  
-  
+    fp_add_css(fp_get_module_path("course_search") . "/css/course_search_mobile_style.css");
+  }
+
+
   $rtn .= "";
-  
+
   if (user_has_permission("can_update_course_info_details")) {
     $rtn .= "<div>" . t(":المسؤولين") . " " . l(t("تحرير جداول المساقات والمناهج الدراسية"), "tools/course-search/edit-list") . "</div>";
   }
-    
+
   $rtn .= fp_render_curved_line("Course Search");
 
 
@@ -848,7 +847,7 @@ function course_search_display_search() {
 
   if ($catalog_year == "")
   {
-    
+
     $rtn .= "Please select an available catalog year from the
       list below.<br><br>
       <form action='" . fp_url("tools/course-search") . "' method='GET' name='mainform' id='myform'>
@@ -871,62 +870,62 @@ function course_search_display_search() {
       // Hack for if clean URLs isn't enabled
       $rtn .= "<input type='hidden' name='q' value='tools/course-search'>";
     }
-      
+
     $rtn .= "      </form>";
 
-  } 
+  }
   else {
     // Catalog year has been selected.
 
     $rtn .= "Current catalog year: <b>$catalog_year-" . ($catalog_year +1) . "</b>
-        
+
         <br><br>
-      Please select an available subject from the list below.<br>       
+      Please select an available subject from the list below.<br>
       <br>
       <form action='" . fp_url("tools/course-search/courses") . "' method='GET' name='mainform' id='myform'>";
-    
+
     if (!$clean_urls) {
       // Hack for if clean URLs isn't enabled
       $rtn .= "<input type='hidden' name='q' value='tools/course-search/courses'>";
     }
-    
+
     if (!fp_screen_is_mobile()) {
       $rtn .= "
         <div align='center'>
           <select name='subject_id' style='width: 80%;'>
-        ";    
+        ";
     }
 
-    
+
     // We want to make a pull-down list of all available subjects.
     // Keep in mind with this join-- we may have courses who have
     // a subject_id, for which we don't have that subject in the subjects
     // table.
-   
-    
+
+
     $query = "SELECT DISTINCT b.subject_id, a.title FROM courses b LEFT JOIN subjects a
               ON (a.subject_id = b.subject_id)
               WHERE exclude = 0
               AND catalog_year = '?'
               ";
-    
+
     $subjects = array();
     $result = db_query($query, $catalog_year);
     while ($cur = db_fetch_array($result))
-    {      
+    {
       //fpm($cur);
       $title = trim($cur["title"]);
       $subject_id = trim($cur["subject_id"]);
-      
+
       if ($title == "") {
         $title = $subject_id;
       }
-      
+
       $subjects[$subject_id] = $title;
     }
-    
+
     asort($subjects);
-    
+
     foreach ($subjects as $subject_id => $title) {
       if (!fp_screen_is_mobile()) {
         $rtn .= "<option value='$subject_id'>$title ($subject_id)</option>";
@@ -937,13 +936,13 @@ function course_search_display_search() {
                     <div class='course-search-dept-name'>$title ($subject_id)</div>
                   </a>";
       }
-      
-      
+
+
     }
 
     if (!fp_screen_is_mobile()) {
       $rtn .= "
-          </select>       
+          </select>
           <input type='hidden' name='mode' value='$mode'>
           </div><br><br><br>
           <div align='right'>
@@ -952,11 +951,9 @@ function course_search_display_search() {
     }
 
     $rtn .= "</form>";
-  
+
   }
 
-  
+
   return $rtn;
 }
-
-

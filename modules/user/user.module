@@ -12,16 +12,16 @@ function user_menu() {
     "title" => "Users",
     "description" => "Search and manage FlightPath users",
     "page_callback" => "user_subtab_switchboard",
-    "access_arguments" => array("manage_users"),        
+    "access_arguments" => array("manage_users"),
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin-tools/admin",
     "weight" => 100,
     "page_settings" => array(
       "menu_icon" => fp_theme_location() . "/images/users.png",
     ),
-  );      
+  );
 
-  
+
   // Subtab for which type of user we want to work on.
   $items["admin/users/faculty"] = array(
     "title" => "Faculty / Staff Users",
@@ -32,43 +32,43 @@ function user_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
-    "type" => MENU_TYPE_SUB_TAB, 
-    "tab_family" => "users",    
+    ),
+    "type" => MENU_TYPE_SUB_TAB,
+    "tab_family" => "users",
     "tab_parent" => "admin-tools/admin",
     "weight" => 100,
-  );      
+  );
 
   $items["admin/users/students"] = array(
-    "title" => "Student Users",    
+    "title" => "Student Users",
     "page_callback" => "user_display_student_users",
     "access_arguments" => array("manage_users"),
     "page_settings" => array(
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
-    "type" => MENU_TYPE_SUB_TAB, 
-    "tab_family" => "users",    
+    ),
+    "type" => MENU_TYPE_SUB_TAB,
+    "tab_family" => "users",
     "tab_parent" => "admin-tools/admin",
     "weight" => 100,
-  );    
+  );
 
-  
+
   $items["admin/config/user-roles"] = array(
     "title" => "User roles",
     "description" => "Manage roles for users. Ex: advisors, viewers, etc.",
@@ -80,18 +80,18 @@ function user_menu() {
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/roles.png",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",        
+    "tab_parent" => "admin-tools/admin",
     "weight" => 110,
-  );     
+  );
 
   $items["admin/users/edit-user"] = array(
     "title" => "Edit Faculty/Staff User",
@@ -104,7 +104,7 @@ function user_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -112,13 +112,13 @@ function user_menu() {
           "text" => "Back to Users list",
           "path" => "admin/users/faculty",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
-        ),                
+        ),
       ),
-    ),   
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin-tools/admin",
-  );   
-  
+  );
+
   $items["admin/users/edit-user/advisees"] = array(
     "title" => "Edit Faculty/Staff User Advisees",
     "page_callback" => "fp_render_form",
@@ -130,7 +130,7 @@ function user_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -138,15 +138,15 @@ function user_menu() {
           "text" => "Back to Users list",
           "path" => "admin/users/faculty",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
-        ),                
+        ),
       ),
-    ),   
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin-tools/admin",
-  );    
-  
-    
-      
+  );
+
+
+
   $items["admin/users/edit-student-user"] = array(
     "title" => "Edit Student",
     "page_callback" => "fp_render_form",
@@ -158,7 +158,7 @@ function user_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -166,15 +166,15 @@ function user_menu() {
           "text" => "Back to Users list",
           "path" => "admin/users/students",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
-        ),                
+        ),
       ),
-    ),   
-    "type" => MENU_TYPE_NORMAL_ITEM,    
+    ),
+    "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin-tools/admin",
-    "file" => menu_get_module_path("user") . "/user.student.inc",    
-  );           
-  
-  
+    "file" => menu_get_module_path("user") . "/user.student.inc",
+  );
+
+
   $items["admin/users/edit-student-user/courses"] = array(
     "title" => "Edit Student Courses",
     "page_callback" => "fp_render_form",
@@ -186,7 +186,7 @@ function user_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -194,21 +194,21 @@ function user_menu() {
           "text" => "Back to Users list",
           "path" => "admin/users/students",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
-        ),                
+        ),
       ),
-    ),   
+    ),
     "type" => MENU_TYPE_CALLBACK,
     "tab_parent" => "admin-tools/admin",
     "file" => menu_get_module_path("user") . "/user.student.inc",
-  );           
-  
+  );
 
 
 
-  
-  
-  
-    
+
+
+
+
+
 
   $items["admin/config/permissions"] = array(
     "title" => "Permissions",
@@ -221,20 +221,20 @@ function user_menu() {
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/permission.png",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",   
+    "tab_parent" => "admin-tools/admin",
     "weight" => 120,
-  );     
-  
-    
+  );
+
+
   return $items;
 }
 
@@ -244,11 +244,11 @@ function user_menu() {
  * Decide what should happen when we go to "admin/config/users" by itself
  */
 function user_subtab_switchboard() {
-  
+
   // For now, we will just always go to the faculty section, though this function
   // is helpful if that needs to change one day.
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
   fp_goto("admin/users/faculty", "de_catalog_year=$de_catalog_year");
 }
 
@@ -257,26 +257,26 @@ function user_subtab_switchboard() {
 
 
 function user_perm() {
-  
+
   return array(
     "can_edit_user_roles" => array(
       "title" => t("تحرير أدوات المستخدم"),
       "description" => t("يمكن للمستخدم إضافة / تعديل / حذف أدوار المستخدم في النظام."),
-    ),   
+    ),
     "can_edit_permissions" => array(
       "title" => t("إذن التعديل"),
       "description" => t("يجوز للمستخدم تعيين أذن لأدوار مختلفة في النظام."),
-    ),   
+    ),
     "manage_users" => array(
       "title" => t("ادارة المستخدمين"),
       "description" => t("هذا إذن قوي! يسمح للمستخدم بتحرير تفاصيل المستخدمين الآخرين ، وكذلك إنشاء المستخدمين."),
-    ),    
+    ),
     "delete_users" => array(
       "title" => t("حذف المستخدمين"),
       "description" => t("هذاإذن قوي! يسمح للمستخدم حذف المستخدمين من النظام."),
-    ),    
-  );  
-  
+    ),
+  );
+
 }
 
 
@@ -287,18 +287,18 @@ function user_permissions_form() {
   $form = array();
 
   fp_add_css(fp_get_module_path("user") . "/css/user.css");
-    
+
   // Let's get all of our permissions from the permissions table.
   $permissions = array();
   $res = db_query("SELECT * FROM role_permissions");
   while ($cur = db_fetch_array($res)) {
     $permissions[$cur["rid"]][] = $cur["perm"];
   }
-    
-  $cb = $m = 1; 
-  
+
+  $cb = $m = 1;
+
   $form["mark" . $m++] = array(
-    
+
     "value" => t("استخدم هذا النموذج لتعيين أذونات للأدوار في النظام. يتم تعريف هذه الأذونات بواسطة الوحدة النمطية."),
   );
 
@@ -311,40 +311,40 @@ function user_permissions_form() {
 
 
   $col_count = count($roles) + 1;
-  
+
   $form["mark" . $m++] = array(
     "value" => "<table class='admin-perm-table' width='100%' cellpadding='0' cellspacing='0'>
                 ",
-  );   
-  
- 
-    
+  );
+
+
+
   // Go through all of the modules, then call hook_perm for them, to get their permissions.
   $modules = modules_implement_hook("perm");
   //fpm($modules);
   foreach ($modules as $module) {
     $form["mark" . $m++] = array(
       "value" => "<tr><td colspan='$col_count' class='perm-module-name'>" . ucwords($module) . " " . t("module") . "</td></tr>",
-    );   
-    
+    );
+
     // Draw the headers...
     $form["mark" . $m++] = array(
       "value" => "<tr class='headers'><th style='min-width: 400px;'>" . t("الإذن") . "</th>",
-    );  
+    );
     foreach ($roles as $key => $role) {
       $form["mark" . $m++] = array(
         "value" => "<th style='min-width: 100px;'>" . $role . "</th>",
-      );       
-    }  
+      );
+    }
     $form["mark" . $m++] = array(
       "value" => "</tr>",
-    );   
-    // End of headers    
-    
+    );
+    // End of headers
+
     $zebra = "even";
-    
+
     // Let's get all the perms.
-    $perms = call_user_func($module . "_perm");    
+    $perms = call_user_func($module . "_perm");
     foreach ($perms as $perm_name => $perm_details) {
       $title = $perm_details["title"];
       $desc = $perm_details["description"];
@@ -353,73 +353,73 @@ function user_permissions_form() {
 
       $form["mark" . $m++] = array(
         "value" => "<tr class='perm-cb-row perm-cb-row-$zebra'><td class='perm-details' valign='top'>
-                      <div class='perm-title' title='$perm_name'>$title</div>                      
+                      <div class='perm-title' title='$perm_name'>$title</div>
                       <div class='perm-desc' title='$perm_name'>$desc</div>
                    </td>",
-      );   
+      );
 
       foreach ($roles as $key => $role) {
-        
+
         // Should this be checked by default (cause it was all ready in our table?)
         $default_value = array();
         if (is_array($permissions[$key]) && in_array($perm_name, $permissions[$key])) {
           // Yes, it was in there!  Set up the default_value as an array that
           // looks like array(key => key).  That is how we set a checkbox to be checked
           // by default.
-          $default_value = array($key . "___$perm_name" => $key . "___$perm_name");          
+          $default_value = array($key . "___$perm_name" => $key . "___$perm_name");
         }
-        
+
         $form["perm_cb_" . $cb++] = array(
           "type" => "checkboxes",
           "options" => array("$key" . "___$perm_name" => ""),
           "value" => $default_value,
           "prefix" => "<td class='perm-cb'>",
-          "suffix" => "</td>",          
-        );   
-        
+          "suffix" => "</td>",
+        );
+
       }
-     
-      
-      
+
+
+
       $form["mark" . $m++] = array(
         "value" => "</tr>",
-      );   
-            
-           
-      
+      );
+
+
+
     }
-    
+
   }
-  
-    
-  
+
+
+
   $form["mark" . $m++] = array(
     "value" => "</table>",
-  );   
-    
-    
+  );
+
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("حفظ الأذونات"),
     "prefix" => "<hr>",
   );
-    
+
   return $form;
 }
- 
- 
- 
+
+
+
 /**
  * Submit handler for the permissions form.
  */
 function user_permissions_form_submit($form, $form_submit) {
   $values = $form_submit["values"];
-  
+
   // We should begin by truncating our permissions table, then re-inserting
   // everything we get from this submission.
   db_query("TRUNCATE TABLE role_permissions");
-  
-  // Find all the perm checkboxes.  
+
+  // Find all the perm checkboxes.
   foreach($values as $key => $val) {
     if (strstr($key, "perm_cb_")) {
       if (is_array($val)) {
@@ -428,19 +428,19 @@ function user_permissions_form_submit($form, $form_submit) {
           $temp = explode("___", $cb);
           $rid = $temp[0];
           $perm = $temp[1];
-          
+
           // Okay, save this to our table.
           db_query("INSERT INTO role_permissions (rid, perm)
-                    VALUES ('?', '?') ", $rid, $perm);      
+                    VALUES ('?', '?') ", $rid, $perm);
         }
       }
     }
   }
-  
+
   fp_add_message(t("تم حفظ الأذونات بنجاح."));
-  
-} 
- 
+
+}
+
 
 
 /**
@@ -448,12 +448,12 @@ function user_permissions_form_submit($form, $form_submit) {
  */
 function user_user_roles_form() {
   $form = array();
-  
+
   fp_add_css(fp_get_module_path("user") . "/css/user.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
-  
-  
-  
+
+
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => t("يمكن تعيين الأدوار للأذونات في FlightPath ، ومن ثم يتم تعيين هذه الأدوار للمستخدمين. لا يجوز لك إزالة الدورين 'المستخدم المجهول' و 'المستخدم المصادق عليه'. يتم تعيينها تلقائيًا عندما يسجل المستخدم الدخول أو الخروج. ومع ذلك ، يمكنك إضافة المزيد من الأدوار كما تشاء.")
@@ -463,43 +463,43 @@ function user_user_roles_form() {
 
   $res = db_query("SELECT * FROM roles ORDER BY rid");
   while ($cur = db_fetch_array($res)) {
-    
+
     $key = $cur["rid"];
     $value = $cur["name"];
-    
+
     $prompt_link = fp_get_js_prompt_link("Enter a new name to change this role to:", $value, "document.getElementById(\"element-perform_action2\").value=\"edit~_~$key~_~\" + response; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("تحرير")) . "  |  ";
     $confirm_link = fp_get_js_confirm_link(t("هل أنت متأكد من أنك تريد حذف هذا الدور؟\\nستتم إزالته من حسابات المستخدمين. لا يمكن التراجع عن هذا الإجراء.\\n\\nتقدم?"), "document.getElementById(\"element-perform_action2\").value=\"del~_~$key\"; document.getElementById(\"fp-form-user_user_roles_form\").submit(); ", t("حذف"));
-    
+
     if ($key == 1 || $key == 2) {
       $prompt_link = $confirm_link = "";
     }
-     
+
     $form["mark" . $m++] = array(
       "type" => "markup",
-      "value" => "<tr><td>$value</td><td>" . $prompt_link . " 
-                  " . $confirm_link . "</td></tr>", 
-    );    
+      "value" => "<tr><td>$value</td><td>" . $prompt_link . "
+                  " . $confirm_link . "</td></tr>",
+    );
   }
-  
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "</table>",
   );
-  
+
   $form["perform_action2"] = array(
     "type" => "hidden",
   );
-  
+
   $form["new_role"] = array(
     "type" => "textfield",
-    "label" => t("إضافة دور جديد:"),    
+    "label" => t("إضافة دور جديد:"),
   );
-  
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("اضف جديد"),
-  );  
-  
+  );
+
   return $form;
 }
 
@@ -509,44 +509,44 @@ function user_user_roles_form_submit($form, $form_state) {
 
   if (trim($values["new_role"]) != "") {
     $new_role = strtolower(trim($values["new_role"]));
-    
+
     // Clean up any trouble chars
     $new_role = preg_replace("/[^a-zA-Z0-9_]/", " ", $new_role);
 
     // Okay, add to the roles table.
     db_query("INSERT INTO roles (name) VALUES ('?') ", $new_role);
-        
-    fp_add_message("The new role has been added successfully.");       
+
+    fp_add_message("The new role has been added successfully.");
   }
-    
-  
+
+
   if (strstr($values["perform_action2"], "del~_~")) {
     $temp = explode("~_~", $values["perform_action2"]);
     $i = trim($temp[1]);
-  
+
     // Remove this rid from the table.
     db_query("DELETE FROM roles WHERE rid = '?' ", $i);
-      
-    fp_add_message("The role has been deleted successfully.");    
-            
+
+    fp_add_message("The role has been deleted successfully.");
+
   }
-  
-  
+
+
   if (strstr($values["perform_action2"], "edit~_~")) {
     $temp = explode("~_~", $values["perform_action2"]);
     $i = trim($temp[1]);
     $new_name = strtolower(trim($temp[2]));
-    $new_name = preg_replace("/[^a-zA-Z0-9_]/", " ", $new_name);    
-    if (trim($new_name) != "") {  
-      
+    $new_name = preg_replace("/[^a-zA-Z0-9_]/", " ", $new_name);
+    if (trim($new_name) != "") {
+
       // Let's update the table.
       db_query("UPDATE roles SET name = '?' WHERE rid = '?' ", $new_name, $i);
-  
-      fp_add_message("The role has been edited successfully.");    
+
+      fp_add_message("The role has been edited successfully.");
     }
-    
-  }  
-  
+
+  }
+
 }
 
 
@@ -556,7 +556,7 @@ function user_user_roles_form_submit($form, $form_state) {
 function user_edit_user_advisees_form() {
 
   $form = array();
-  
+
   $faculty_cwid = $_REQUEST["faculty_cwid"];
   $user_id = db_get_user_id_from_cwid($faculty_cwid);
 
@@ -565,17 +565,17 @@ function user_edit_user_advisees_form() {
   $tab_array[0]["title"] = t("تحرير عضو الكلية/الموظفين");
   $tab_array[0]["active"] = FALSE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
-      
+
   $tab_array[1]["title"] = t("Edit Faculty Advisees");
   $tab_array[1]["active"] = TRUE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user/advisees", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
-      
-  fp_set_page_sub_tabs($tab_array);  
+
+  fp_set_page_sub_tabs($tab_array);
 
 
-  
-  if ($faculty_cwid != "new") {  
-    $name = fp_get_faculty_name($faculty_cwid);  
+
+  if ($faculty_cwid != "new") {
+    $name = fp_get_faculty_name($faculty_cwid);
     fp_set_title(t("Edit Faculty/Staff Advisees of @name (@id)", array("@name" => $name, "@id" => $faculty_cwid)));
   }
   else {
@@ -587,30 +587,30 @@ function user_edit_user_advisees_form() {
     );
     return $form;
   }
-  
+
 
 
   $form["user_id"] = array(
     "type" => "hidden",
     "value" => $user_id,
   );
-  
+
   $form["perform_action2"] = array(
     "type" => "hidden",
     "value" => "",
   );
-  
+
   $form["faculty_cwid"] = array(
     "type" => "hidden",
     "value" => $faculty_cwid,
-  );    
+  );
 
 
   // We are good to go... display the box for entering CWIDS
   $form["markup_explain"] = array(
     "value" => "<p>" . t(" إذا كان هذا المستخدم مستشارًا من أعضاء هيئة التدريس  ، فيمكنك إدخال CWIDs الخاصة بالطلبة المشرف عليهم في المربع أدناه ، واحد في كل سطر. سيتم استخدام هذا لتعبئة جدول advisor_student. <br/><br/> <i>سيتم تجاهل أي شيء بعد علامة #. هو لصالحك فقط ، لن يتم حفظها.</i> <br/><br/> <b>مهم:</b> إذا كان لديك أي إجراءات تقوم بتعديل جدول advisor_student أو تحريره ، فستتم الكتابة فوق هذه البيانات.") . "</p>",
-        
-  );  
+
+  );
 
   $contents = "";
   $db = get_global_database_handler();
@@ -626,8 +626,8 @@ function user_edit_user_advisees_form() {
     }
     $contents .= "\n";
   }
-  $contents = trim($contents);  
-  
+  $contents = trim($contents);
+
   $form["students"] = array(
     "type" => "textarea",
     "label" => t("Advisee Student CWIDs:"),
@@ -636,22 +636,22 @@ function user_edit_user_advisees_form() {
     "cols" => 50,
     "description" => t("Enter advisee student CWIDs for this faculty user, one per line."),
   );
-  
+
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("> حذرني إذا قمت بإدخال CWID الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),    
+    "label" => t("> حذرني إذا قمت بإدخال CWID الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),
     "value" => "yes",
   );
-  
+
   $form["submit_btn"] = array(
     "type" => "submit",
     "value" => "Submit",
-  );  
-  
-  
-  
-  return $form;    
-  
+  );
+
+
+
+  return $form;
+
 } // edit_user_advisees_form
 
 
@@ -659,7 +659,7 @@ function user_edit_user_advisees_form() {
  * Check to see if we entered a CWID which doesn't exist in students table.
  */
 function user_edit_user_advisees_form_validate($form, $form_state) {
-      
+
   if ($form_state["values"]["warn_me"] === TRUE) {
     $students = trim($form_state["values"]["students"]);
     $lines = explode("\n", $students);
@@ -667,18 +667,18 @@ function user_edit_user_advisees_form_validate($form, $form_state) {
       $temp = explode("#", $line);
       $line = trim($temp[0]);
       if ($line == "") continue;
-      
+
       // $line should now contain the CWID
-      
+
       // Otherwise, check that it exists.
       $uid = db_get_user_id_from_cwid($line, "student");
       if ($uid < 2 || !$uid) {
         form_error("students", t("تعثر العثور على CWID %cwid في جدول المستخدمين كطالب.لم يتم حفظ بياناتك.", array("%cwid" => $line)));
       }
-      
+
     }
   }
-    
+
 }
 
 
@@ -690,7 +690,7 @@ function user_edit_user_advisees_form_submit($form, $form_state) {
   // Begin by clearing the table for this advisor.
   $faculty_cwid = trim($form_state["values"]["faculty_cwid"]);
   db_query("DELETE FROM advisor_student WHERE faculty_id = '?' ", $faculty_cwid);
-      
+
   $students = trim($form_state["values"]["students"]);
   $lines = explode("\n", $students);
   foreach($lines as $line) {
@@ -700,12 +700,12 @@ function user_edit_user_advisees_form_submit($form, $form_state) {
     // Okay, $line should now contain the CWID.
     // Insert into db.  (use REPLACE to prevent an error if data was entered twice)
     db_query("REPLACE INTO advisor_student (faculty_id, student_id)
-              VALUES ('?', '?') ", $faculty_cwid, $line);        
-    
+              VALUES ('?', '?') ", $faculty_cwid, $line);
+
   }
 
   fp_add_message(t("The advisees have been updated for this faculty member."));
-    
+
 }
 
 
@@ -716,38 +716,38 @@ function user_edit_user_advisees_form_submit($form, $form_state) {
 /**
  * Let the user edit a user's roles and other information.
  */
-function user_edit_user_form() {              
-    
+function user_edit_user_form() {
+
   fp_add_js(fp_get_module_path("user") . "/js/user.js");
 
   $form = array();
   $faculty_cwid = $_REQUEST["faculty_cwid"];
   $user_id = db_get_user_id_from_cwid($faculty_cwid);
-  
+
   $name = fp_get_faculty_name($faculty_cwid);
-  
+
   fp_set_title(t("تحرير مستخدم عضو هيئة التدريس/الموظفين @name (@id)", array("@name" => $name, "@id" => $faculty_cwid)));
 
-  
+
   // Figure out what the page's sub-tabs should be, and set them.
   $tab_array = array();
   $tab_array[0]["title"] = t("تحرير عضو هيئة التدريس / الموظفين");
   $tab_array[0]["active"] = TRUE;
   $tab_array[0]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
-      
+
   $tab_array[1]["title"] = t("Edit Faculty Advisees");
   $tab_array[1]["active"] = FALSE;
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("admin/users/edit-user/advisees", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "\"";
-      
-  fp_set_page_sub_tabs($tab_array);  
-  
-  
-  
-  
-  
-  
-  
-  
+
+  fp_set_page_sub_tabs($tab_array);
+
+
+
+
+
+
+
+
   $user_roles = system_get_roles_for_user($user_id);
   //fpm($user_roles);
   $default_values = array();
@@ -759,35 +759,35 @@ function user_edit_user_form() {
     "type" => "hidden",
     "value" => $user_id,
   );
-  
+
   $form["perform_action2"] = array(
     "type" => "hidden",
     "value" => "",
   );
-  
+
   $form["faculty_cwid"] = array(
     "type" => "hidden",
     "value" => $faculty_cwid,
-  );    
-  
+  );
+
   // Show a list of roles in the system which we may select from, and check the ones
-  // all ready assigned to this user.  
+  // all ready assigned to this user.
   if ($faculty_cwid != "new") {
     // Not for new users, since we don't have a user_id for them yet.
-  
+
     $options = array();
-        
+
     $res = db_query("SELECT * FROM roles ORDER BY rid");
     while ($cur = db_fetch_array($res)) {
-      
+
       $key = $cur["rid"];
       $value = $cur["name"];
-  
+
       if ($key > 2) {
         $options[$key] = $value;
-      } 
-        
-    }  
+      }
+
+    }
   //fpm($default_values);
     $form["roles"] = array(
       "label" => t("تحقق من الأدوار التي يجب أن يمتلكها هذا المستخدم."),
@@ -795,38 +795,38 @@ function user_edit_user_form() {
       "options" => $options,
       "value" => $default_values,
     );
-        
+
   }
-      
-    
+
+
   /////////////////////
 
   // Let's present the form elements to allow some basic editing of this user.
-  
+
   // Only if we are making a new user...
   if ($faculty_cwid == "new") {
     $form["new_faculty_cwid"] = array(
       "label" => t("ادخل CWID جديدة, فريدة من نوعها لهيئة التدريس."),
       "type" => "textfield",
       "size" => 20,
-      "required" => TRUE,     
+      "required" => TRUE,
       "description" => t("أدخل معرف رقمي لهذه الكلية. قد يكون نفس الطالب ، ولكن قد لا يكون مثل أي أعضاء هيئة تدريس حاليين. لن تكون قادرًا على تحرير هذه القيمة ، بمجرد حفظها."),
     );
-    
+
     $form["new_user_name"] = array(
       "label" => t("أدخل اسم مستخدم جديدًا ، فريدًا لجميع المستخدمين:"),
       "type" => "textfield",
-      "size" => 20,     
+      "size" => 20,
       "required" => TRUE,
       "description" => t("أدخل اسم مستخدم لهذا المستخدم. هذا ما سيستخدمه المستخدم لتسجيل الدخول. يجب أن يكون فريدًا لجميع المستخدمين (لا يمكن أن يكون لديه كل من أعضاء هيئة التدريس وطالب له نفس اسم المستخدم). لن تكون قادرًا على تحرير هذه القيمة ، بمجرد حفظها."),
     );
-        
-    
-    $cur = array();  
+
+
+    $cur = array();
   }
   else {
     // NOT a new faculty.  Load their information normally.
-    
+
     $res = db_query("SELECT * FROM users u, faculty s
                      WHERE u.cwid = '?'
                      AND u.is_faculty = '1'
@@ -839,33 +839,33 @@ function user_edit_user_form() {
     $form["mark" . $m++] = array(
       "value" => "<p><b>Username:</b> $user_name</p>",
     );
-  } 
-  
+  }
+
   $form["new_password"] = array(
     "label" => t("أدخل كلمة مرور جديدة لهذا المستخدم:"),
     "type" => "textfield",
     "size" => 20,
     "required" => ($faculty_cwid == "new") ? TRUE : FALSE,
-    "description" => t("إذا قمت بإدخال أي قيمة هنا ، فإنه سيتم تغيير كلمة مرور المستخدم في FlightPath. إذا كنت تستخدم وحدة LDAP ، فلن تتأثر كلمة مرور LDAP."),    
+    "description" => t("إذا قمت بإدخال أي قيمة هنا ، فإنه سيتم تغيير كلمة مرور المستخدم في FlightPath. إذا كنت تستخدم وحدة LDAP ، فلن تتأثر كلمة مرور LDAP."),
   );
 
   $form["email"] = array(
     "label" => t("البريد الإلكتروني:"),
     "type" => "textfield",
     "value" => $cur["email"],
-  );  
+  );
 
   $form["f_name"] = array(
     "label" => t("الاسم الأول:"),
     "type" => "textfield",
     "value" => $cur["f_name"],
-  );  
+  );
 
   $form["l_name"] = array(
     "label" => t("اسم العائلة:"),
     "type" => "textfield",
     "value" => $cur["l_name"],
-  );  
+  );
 
   $form["is_disabled"] = array(
     "label" => t("معطل:"),
@@ -873,57 +873,57 @@ function user_edit_user_form() {
     "value" => $cur["is_disabled"],
     "size" => 5,
     "description" => t("أدخل 1 أو 0 فقط (رقم واحد لـ 'نعم' ، أو الرقم صفر لـ 'لا'). هذه الأعداد تعني أنه سيتم تجاهل المستخدم من قبل FlightPath ، ولن يتمكن من تسجيل الدخول أو البحث عنه. من الآمن تعطيل أحد المستخدمين ، بدلاً من حذفه."),
-  );  
-  
-  
+  );
+
+
   // Unique to faculty...
   $form["college"] = array(
     "label" => t("كلية:"),
     "type" => "textfield",
     "value" => $cur["college"],
     "size" => 5,
-  );  
-    
+  );
+
   $form["department"] = array(
     "label" => t("قسم:"),
     "type" => "textfield",
     "value" => $cur["department"],
     "size" => 30,
-  );  
-    
+  );
+
   $form["major_code"] = array(
     "label" => t("الكود الرئيسي CSV:"),
     "type" => "textfield",
     "value" => $cur["major_code"],
     "size" => 10,
-  );  
-    
+  );
+
   $form["submit"] = array(
-    "type" => "submit",  
-    "value" => "Submit",    
+    "type" => "submit",
+    "value" => "Submit",
     "prefix" => "<hr>",
   );
-  
-  
+
+
   if ($faculty_cwid != "new" && user_has_permission("delete_users")) {
-    
+
     $form["mark" . $m++] = array(
       "type" => "markup",
       "value" => "<div align='right'>
                         " . t("هل تريد حذف عضو هيئة التدريس هذا؟") . " <input type='button' value='X'
                         onClick='userDeleteFaculty();'>
-                      </div>", 
-    );  
+                      </div>",
+    );
   }
 
 
 
-     
-  
-  
-  
-  return $form;    
-  
+
+
+
+
+  return $form;
+
 }
 
 
@@ -934,9 +934,9 @@ function user_edit_user_form() {
  * Validate handler for editing faculty users.
  */
 function user_edit_user_form_validate($form, $form_state) {
-  
+
   $values = $form_state["values"];
-  
+
   // If a password was given, make sure it is appropriate.
   if (trim($values["new_password"]) != "") {
     if (strlen(trim($values["new_password"])) < 5) {
@@ -944,13 +944,13 @@ function user_edit_user_form_validate($form, $form_state) {
       return;
     }
   }
-  
+
   // If creating a new user, make sure new_student_cwid and new_user_name are not
   // already in use.
   if ($values["faculty_cwid"] == "new") {
     $new_cwid = trim($values["new_faculty_cwid"]);
     $new_user_name = trim($values["new_user_name"]);
-    
+
     /*   // CWIDs are no longer required to be numeric.
     // Check that cwid is numeric.
     if (!is_numeric($new_cwid)) {
@@ -958,32 +958,32 @@ function user_edit_user_form_validate($form, $form_state) {
       return;
     }
     */
-    
+
     // Check that username is at least 4 characters
     if (strlen($new_user_name) < 4) {
       form_error("new_user_name", t("اسم المستخدم الذي أدخلته قصير جدًا. يجب أن يكون على الأقل 4 أحرف. يرجى تحديد اسم مستخدم مختلف."));
       return;
-      
+
     }
 
-    
+
     // Check cwid isn't already in use.
-    $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_faculty = '1'", $new_cwid));    
+    $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_faculty = '1'", $new_cwid));
     if ($test == $new_cwid) {
       form_error("new_faculty_cwid", t("إن cwid الذي أدخلته مستخدم بالفعل. يرجى اختيار cwid مختلفة."));
       return;
     }
-   
+
     // Check user_name isn't already in use.
-    $test = db_result(db_query("SELECT user_name FROM users WHERE user_name = '?' ", $new_user_name));    
+    $test = db_result(db_query("SELECT user_name FROM users WHERE user_name = '?' ", $new_user_name));
     if ($test == $new_user_name) {
       form_error("new_user_name", t("اسم المستخدم الذي قمت بإدخاله قيد الاستخدام بالفعل. يرجى تحديد اسم مستخدم مختلف."));
       return;
     }
-        
+
   }
-    
-  
+
+
 }
 
 
@@ -993,15 +993,15 @@ function user_edit_user_form_validate($form, $form_state) {
  * Submit handler for our edit faculty form
  */
 function user_edit_user_form_submit($form, $form_state) {
-  
+
   $values = $form_state["values"];
-  
+
   foreach ($values as $key => $val) {
     if (!is_array($val)) {
       $values[$key] = trim($val);
     }
   }
-  
+
   $user_id = $values["user_id"];
   $faculty_cwid = $values["faculty_cwid"];
   // Save the roles into the database for this user.
@@ -1015,49 +1015,49 @@ function user_edit_user_form_submit($form, $form_state) {
                 VALUES ('?', '?') ", $user_id, $rid);
     }
   }
-  
+
   // Are we supposed to DELETE a faculty?
   if ($values["perform_action2"] == "delete_faculty" && user_has_permission("delete_users")) {
 
-    
+
     db_query("DELETE FROM faculty WHERE cwid = '?' ", $faculty_cwid);
-    db_query("DELETE FROM users WHERE cwid = '?' AND is_faculty = '1' ", $faculty_cwid);      
-    
+    db_query("DELETE FROM users WHERE cwid = '?' AND is_faculty = '1' ", $faculty_cwid);
+
     fp_add_message(t("تم حذف المستخدم."));
     fp_goto("admin/users/faculty");
     return;
   }
-  
-    
+
+
   if ($faculty_cwid != "new") {
     // NOT a new faculty!  Insert values normally.
     // First-- was there a password given?  If so, insert that separate.
     if (trim($values["new_password"]) != "") {
       $new_pass = md5(trim($values["new_password"]));
-      db_query("UPDATE users 
-                SET password = '?' 
-                WHERE cwid = '?' 
+      db_query("UPDATE users
+                SET password = '?'
+                WHERE cwid = '?'
                 AND is_faculty = '1' ", $new_pass, $faculty_cwid);
-    }  
+    }
     // Okay, now we can just update everything else.
     // Update users table first...
     db_query("UPDATE users
-              SET email = '?',                  
+              SET email = '?',
                   f_name = '?',
                   l_name = '?',
                   is_disabled = '?'
                WHERE cwid = '?'
-               AND is_faculty = '1' ", $values["email"], $values["f_name"], 
+               AND is_faculty = '1' ", $values["email"], $values["f_name"],
                                        $values["l_name"], $values["is_disabled"],
                                        $faculty_cwid);
-   
+
    // Now, update the faculty table entry.
    db_query("UPDATE faculty
              SET college = '?',
                  department = '?',
-                 major_code = '?'                
-             WHERE cwid = '?'", $values["college"], $values["department"], 
-                                $values["major_code"], $faculty_cwid);             
+                 major_code = '?'
+             WHERE cwid = '?'", $values["college"], $values["department"],
+                                $values["major_code"], $faculty_cwid);
 
   }
   else {
@@ -1070,19 +1070,19 @@ function user_edit_user_form_submit($form, $form_state) {
     db_query("INSERT INTO faculty (cwid, college, department, major_code)
               VALUES ('?', '?', '?', '?')
              ", $values["new_faculty_cwid"], $values["college"], $values["department"], $values["major_code"]);
-                                  
+
     fp_add_message(t("تم إنشاء المستخدم بنجاح."));
     fp_goto("admin/users/edit-user", "faculty_cwid=" . $values["new_faculty_cwid"]);
   }
-    
-  
-  
-  
-  
-    
+
+
+
+
+
+
   fp_add_message(t("تم تحديث المستخدم بنجاح."));
-  
-  
+
+
 }
 
 
@@ -1102,20 +1102,20 @@ function user_display_student_users() {
   // First, let's get our list of departments...
   $major_code_array = array();
   $d = 0;
-  
+
   // Let's pull the needed variables out of our settings, so we know what
   // to query, because this is a non-FlightPath table.
   //$tsettings = $GLOBALS["fp_system_settings"]["extra_tables"]["human_resources:faculty_staff"];
-  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.  
-  //$table_name = $tsettings["table_name"];    
-  
+  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.
+  //$table_name = $tsettings["table_name"];
+
   $res = db_query("SELECT DISTINCT major_code FROM students ORDER BY major_code ");
   while ($cur = db_fetch_array($res)) {
     if (trim($cur["major_code"]) == "")
     {// skip if blank
       continue;
     }
-    
+
     $major_code_array[$d] = trim(ucwords($cur["major_code"]));
     $d++;
   }
@@ -1138,10 +1138,10 @@ function user_display_student_users() {
     "I" => array("I", "IZZZ"),
     "J" => array("J", "JZZZ"),
     "K" => array("K", "KZZZ"),
-    "L" => array("L", "LZZZ"),    
+    "L" => array("L", "LZZZ"),
     "M" => array("M", "MZZZ"),
     "N" => array("N", "NZZZ"),
-    "O" => array("O", "OZZZ"),    
+    "O" => array("O", "OZZZ"),
     "P" => array("P", "PZZZ"),
     "Q" => array("Q", "QZZZ"),
     "R" => array("R", "RZZZ"),
@@ -1152,7 +1152,7 @@ function user_display_student_users() {
     "W" => array("W", "WZZZ"),
     "X" => array("X", "XZZZ"),
     "Y" => array("Y", "YZZZ"),
-    "Z" => array("Z", "ZZZZ"),        
+    "Z" => array("Z", "ZZZZ"),
   );
 
 
@@ -1186,37 +1186,37 @@ function user_display_student_users() {
   if ($set_disp == "both") {
     $sel_both = "selected";
   }
-  
+
   $clean_urls = variable_get("clean_urls", FALSE);
 
   $rtn .= "</div>";
-  $rtn .= "                             
+  $rtn .= "
                         <form class='filters' action='" . fp_url("admin/users/students") . "' method='GET' >
                         <input type='hidden' name='performAction' value='editUsers'>";
   if (!$clean_urls) {
     // Hack to support non-clean URL sites
     $rtn .= "<input type='hidden' name='q' value='admin/users/students'>";
-  }                        
+  }
   $rtn .= "
                          " . t("بحث:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
                         <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
-                       
-                        &nbsp; &nbsp; " . t("أو") . " 
+
+                        &nbsp; &nbsp; " . t("أو") . "
                        <select name='major_code' class='smallinput'>
                         <option value=''>" . t("اختر رمز رئيسي ...") . "</option>
                         <option value=''>--------------------------</option>
                     <!--MAJORCODESEARCH-->
                        </select>
                        <input type='submit' name='major_code_submit' class='smallinput' value='Go'>
-                       
+
                        &nbsp; &nbsp; " . t("تعيين disp:") . "
                        <select name='set_disp'>
-                        <option value='only_active' $sel_only_active>" . t("النشط فقط") . "</option>                        
+                        <option value='only_active' $sel_only_active>" . t("النشط فقط") . "</option>
                         <option value='only_inactive' $sel_only_inactive>" . t("غير النشط فقط") . "</option>
                         <option value='both' $sel_both>" . t("أظهر كلاهما") . "</option>
                        </select>
-                       <input type='submit' name='show_inactive_submit' class='smallinput' value='Go'>                                              
-                       
+                       <input type='submit' name='show_inactive_submit' class='smallinput' value='Go'>
+
                        </form>
                        </div>
                        <br>
@@ -1277,16 +1277,16 @@ function user_display_student_users() {
 
   $_SESSION["prev_user_search"] = "";
 
-  
+
   // Let's pull the needed variables out of our settings, so we know what
   // to query, because this is a non-FlightPath table.
   //$tsettings = $GLOBALS["fp_system_settings"]["extra_tables"]["human_resources:faculty_staff"];
-  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.  
-  //$table_name = $tsettings["table_name"];  
-  
+  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.
+  //$table_name = $tsettings["table_name"];
+
   // TODO:  Check if we are searching through "active" as well!
-  
-  
+
+
   if ($search != "" && !($_GET["major_code_submit"]))
   {
     // Something was searched for, and the major_code submit button was not pushed.
@@ -1303,7 +1303,7 @@ function user_display_student_users() {
       // Two search terms, probably a name...
       $result = db_query("SELECT * FROM users u, students s
           WHERE
-          u.is_student = 1  
+          u.is_student = 1
           AND u.cwid = s.cwid
           $in_active_query_line
           AND (l_name LIKE '%?%'
@@ -1315,11 +1315,11 @@ function user_display_student_users() {
 
       // One search term....
       $result = db_query("SELECT * FROM users u, students s
-          WHERE 
+          WHERE
           u.is_student = 1
           AND u.cwid = s.cwid
           $in_active_query_line
-          AND (u.cwid LIKE '%?%' 
+          AND (u.cwid LIKE '%?%'
                 OR l_name LIKE '%?%'
                 OR f_name LIKE '%?%')
           ORDER BY l_name, f_name ", $search1, $search1, $search1);
@@ -1333,7 +1333,7 @@ function user_display_student_users() {
     $result = db_query("SELECT * FROM users a, students b
           WHERE a.cwid = b.cwid
           AND a.is_student = 1
-          AND major_code = '?' 
+          AND major_code = '?'
           $in_active_query_line
           ORDER BY l_name, f_name ", $major_code);
     $displaying = $major_code;
@@ -1351,7 +1351,7 @@ function user_display_student_users() {
   }
   $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("عرض:") . "</b> $displaying</div>
       <table border='0' width='100%' cellpadding='3' cellspacing='0' class='user-list'>
-    
+
         <tr>
           <th>CWID</th>
           <th>Name</th>
@@ -1360,21 +1360,21 @@ function user_display_student_users() {
           <th>Active?</th>
           <th>&nbsp;</th>
         </tr>
-    
+
     ";
   while ($cur = db_fetch_array($result)) {
 
     $user_id = $cur["user_id"];
     $l_name = trim(ucwords(strtolower($cur["l_name"])));
-    $f_name = trim(ucwords(strtolower($cur["f_name"])));    
+    $f_name = trim(ucwords(strtolower($cur["f_name"])));
     $student_cwid = trim($cur["cwid"]);
     $disp_major_code = trim($cur["major_code"]);
     $is_active = ($cur["is_active"] == "1") ? "Y" : "N";
-    
-    
 
-    
-    
+
+
+
+
     $ast = "";
     $reason = "";
 
@@ -1383,15 +1383,15 @@ function user_display_student_users() {
 
 
     $rtn .= "<tr class='is-active-$is_active'>
-              
+
               <td valign='top' width='15%'>$student_cwid</td>
           <td valign='top' width='15%'>$f_name</td>
           <td valign='top' width='15%'>$l_name</td>
           <td valign='top'>$disp_major_code</td>
           <td valign='top'>$is_active</td>
           <td valign='top'>" . l(t("تعديل"), "admin/users/edit-student-user", "student_cwid=$student_cwid&de_catalog_year=$de_catalog_year") . "</td>
-          
-          
+
+
         </tr>";
 
   } // while
@@ -1413,10 +1413,10 @@ function user_display_student_users() {
     $bC .= "<option value='$dd' $sel>{$major_code_array[$t]}</option> \n";
   }
   $rtn = str_replace("<!--MAJORCODESEARCH-->",$bC,$rtn);
-  
-  
+
+
   return $rtn;
-  
+
 }
 
 
@@ -1437,20 +1437,20 @@ function user_display_users() {
   // First, let's get our list of departments...
   $dept_array = array();
   $d = 0;
-  
+
   // Let's pull the needed variables out of our settings, so we know what
   // to query, because this is a non-FlightPath table.
   //$tsettings = $GLOBALS["fp_system_settings"]["extra_tables"]["human_resources:faculty_staff"];
-  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.  
-  //$table_name = $tsettings["table_name"];    
-  
+  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.
+  //$table_name = $tsettings["table_name"];
+
   $res = db_query("SELECT DISTINCT department FROM faculty ORDER BY department ");
   while ($cur = db_fetch_array($res)) {
     if (trim($cur["department"]) == "")
     {// skip if blank
       continue;
     }
-    
+
     $dept_array[$d] = trim(ucwords(strtolower($cur["department"])));
     $d++;
   }
@@ -1472,10 +1472,10 @@ function user_display_users() {
     "I" => array("I", "IZZZ"),
     "J" => array("J", "JZZZ"),
     "K" => array("K", "KZZZ"),
-    "L" => array("L", "LZZZ"),    
+    "L" => array("L", "LZZZ"),
     "M" => array("M", "MZZZ"),
     "N" => array("N", "NZZZ"),
-    "O" => array("O", "OZZZ"),    
+    "O" => array("O", "OZZZ"),
     "P" => array("P", "PZZZ"),
     "Q" => array("Q", "QZZZ"),
     "R" => array("R", "RZZZ"),
@@ -1486,7 +1486,7 @@ function user_display_users() {
     "W" => array("W", "WZZZ"),
     "X" => array("X", "XZZZ"),
     "Y" => array("Y", "YZZZ"),
-    "Z" => array("Z", "ZZZZ"),        
+    "Z" => array("Z", "ZZZZ"),
   );
 
 
@@ -1499,18 +1499,18 @@ function user_display_users() {
   $clean_urls = variable_get("clean_urls", FALSE);
 
   $rtn .= "</div>";
-  $rtn .= "                             
+  $rtn .= "
                         <form class='filters' action='" . fp_url("admin/users/faculty") . "' method='GET' >";
   if (!$clean_urls) {
     // Hack to support non-clean URL sites
     $rtn .= "<input type='hidden' name='q' value='admin/users/faculty'>";
-  }                        
-                        
-  $rtn .= "                        
+  }
+
+  $rtn .= "
                         <input type='hidden' name='performAction' value='editUsers'>
                          " . t("بحث:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
                         <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
-                       
+
                         &nbsp;&nbsp;" . t("أو") . "
                        <select name='department' class='smallinput'>
                         <option value=''>" . t("اختر قسماً:") . "</option>
@@ -1518,7 +1518,7 @@ function user_display_users() {
                     <!--DEPTSEARCH-->
                        </select>
                        <input type='submit' name='deptsubmit' class='smallinput' value='Go'>
-                       
+
                        &nbsp;&nbsp;" . t("أو") . "
                        <select name='role' class='smallinput'>
                        <option value=''>" . t("اختر دور:") . "</option>
@@ -1526,29 +1526,29 @@ function user_display_users() {
                        ";
   // Show list of roles
   $res = db_query("SELECT * FROM roles ORDER BY rid");
-  while ($cur = db_fetch_array($res)) {    
+  while ($cur = db_fetch_array($res)) {
     $key = $cur["rid"];
     $value = $cur["name"];
     $dispval = $value;
-    
+
     // Skip anonymous and authenticated
     if ($key == 1 || $key == 2) continue;
-    
+
     if (strlen($dispval) > 25) {
       $dispval = trim(substr($dispval, 0, 22)) . "...";
     }
-    
+
     $sel = "";
     if ($key == $_GET["role"]*1) {
       $sel = "selected";
     }
-    
+
     $rtn .= "<option value='$key' $sel>$dispval</option>";
   }
   $rtn .= "</select>
-                       
+
                        <input type='submit' name='rolesubmit' class='smallinput' value='Go'>
-                       
+
                        </form>
                        </div>
                        <br>
@@ -1614,14 +1614,14 @@ function user_display_users() {
 
   $_SESSION["prev_user_search"] = "";
 
-  
+
   // Let's pull the needed variables out of our settings, so we know what
   // to query, because this is a non-FlightPath table.
   //$tsettings = $GLOBALS["fp_system_settings"]["extra_tables"]["human_resources:faculty_staff"];
-  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.  
-  //$table_name = $tsettings["table_name"];  
-  
-  
+  //$tf = (object) $tsettings["fields"];  //Convert to object, makes it easier to work with.
+  //$table_name = $tsettings["table_name"];
+
+
   if ($search != "" && !($_GET["deptsubmit"]) && !($_GET["rolesubmit"]))
   {
     // Something was searched for, and the dept submit button was not pushed, nor role submit
@@ -1638,7 +1638,7 @@ function user_display_users() {
       // Two search terms, probably a name...
       $result = db_query("SELECT * FROM users u, faculty f
           WHERE
-          u.is_faculty = 1  
+          u.is_faculty = 1
           AND u.cwid = f.cwid
           AND (l_name LIKE '%?%'
                 AND f_name LIKE '%?%')
@@ -1649,10 +1649,10 @@ function user_display_users() {
 
       // One search term....
       $result = db_query("SELECT * FROM users u, faculty f
-          WHERE 
+          WHERE
           u.is_faculty = 1
           AND u.cwid = f.cwid
-          AND (u.cwid LIKE '%?%' 
+          AND (u.cwid LIKE '%?%'
                 OR l_name LIKE '%?%'
                 OR f_name LIKE '%?%')
           ORDER BY l_name, f_name ", $search1, $search1, $search1);
@@ -1666,7 +1666,7 @@ function user_display_users() {
     $result = db_query("SELECT * FROM users a, faculty b
           WHERE a.cwid = b.cwid
           AND a.is_faculty = 1
-          AND department = '?' 
+          AND department = '?'
           ORDER BY l_name, f_name ", $dept);
     $displaying = $dept;
   }
@@ -1674,16 +1674,16 @@ function user_display_users() {
     // User select a role.  Look for it...
     $search = "";
     $_SESSION["prev_user_search"] = "role%%$role";
-    
+
     $result = db_query("SELECT * FROM users a, faculty b, user_roles c
           WHERE a.cwid = b.cwid
           AND a.is_faculty = 1
           AND a.user_id = c.user_id
           AND c.rid = '?'
           ORDER BY l_name, f_name ", $role);
-    
+
     $displaying = user_get_role_name($role);
-  }    
+  }
   else
   { // No search, so look for the range...
     $result = db_query("SELECT * FROM users u, faculty f
@@ -1696,7 +1696,7 @@ function user_display_users() {
   }
   $rtn .= "<div class='tenpt' style='padding-bottom: 5px;'><b>" . t("عرض:") . "</b> $displaying</div>
       <table border='0' width='100%' cellpadding='3' cellspacing='0' class='user-list'>
-    
+
         <tr>
           <th>CWID</th>
           <th>Name</th>
@@ -1705,18 +1705,18 @@ function user_display_users() {
           <th>Roles</th>
           <th>&nbsp;</th>
         </tr>
-    
+
     ";
   while ($cur = db_fetch_array($result)) {
 
     $user_id = $cur["user_id"];
     $l_name = trim(ucwords(strtolower($cur["l_name"])));
-    $f_name = trim(ucwords(strtolower($cur["f_name"])));    
+    $f_name = trim(ucwords(strtolower($cur["f_name"])));
     $faculty_cwid = trim($cur["cwid"]);
     $dept_name = trim(ucwords(strtolower($cur["department"])));
 
-    
-    
+
+
     $ast = "";
     $reason = "";
 
@@ -1726,9 +1726,9 @@ function user_display_users() {
     $roles = "";
     $roles_classes = "no-roles";
     $temp = system_get_roles_for_user($user_id);
-    
+
     if (count($temp) > 1) $roles_classes = "";
-    
+
     foreach ($temp as $rid => $t) {
       if ($rid > 2) {
         // rid 1 and 2 are anonymous and authenticated-- no need to show them.
@@ -1742,15 +1742,15 @@ function user_display_users() {
     //      $pC .= "<a href='edit_users.php?action=load&course_id=$course_id'> user: $f_name $mid_name $l_name </a><br>";
 
     $rtn .= "<tr class='$roles_classes'>
-              
+
               <td valign='top' width='15%'>$faculty_cwid</td>
           <td valign='top' width='15%'>$f_name</td>
           <td valign='top' width='15%'>$l_name</td>
           <td valign='top'>$dept_name</td>
           <td valign='top'>$roles</td>
           <td valign='top'>" . l(t("تعديل"), "admin/users/edit-user", "faculty_cwid=$faculty_cwid&de_catalog_year=$de_catalog_year") . "</td>
-          
-          
+
+
         </tr>";
 
   } // while
@@ -1769,21 +1769,21 @@ function user_display_users() {
     {
       $sel = "selected";
     }
-    
+
     $dispval = $dd;
     if (strlen($dispval) > 40) {
       $dispval = trim(substr($dispval, 0, 37)) . "...";
     }
-    
-    
+
+
     $bC .= "<option value='$dd' $sel>$dispval</option> \n";
   }
   $rtn = str_replace("<!--DEPTSEARCH-->",$bC,$rtn);
 
-  
-  
+
+
   return $rtn;
-  
+
 }
 
 

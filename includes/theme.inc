@@ -11,7 +11,7 @@
 function convert_html_to_bbcode($str) {
   depricated_message();
   return $str;
-} 
+}
 
 // TODO: implement this!
 function convert_bbcode_to_html($str) {
@@ -23,7 +23,7 @@ function convert_bbcode_to_html($str) {
 /**
  * Format a timestamp using the date command.
  * TODO: Make the formats something which can be controlled through the settings.
- * 
+ *
  * Available formats:
  *  - standard
  *  - short
@@ -32,33 +32,33 @@ function convert_bbcode_to_html($str) {
  *
  */
 function format_date($timestamp, $format = "standard", $custom = "") {
-  
+
   if (!is_numeric($timestamp)) {
     $timestamp = 0;  // make sure it's numeric.
   }
-  
-  $f = "";  
+
+  $f = "";
   if ($format == "standard") {
     $f = "n/d/Y h:i:sa";
   }
-  
+
   if ($format == "short") {
     $f = "n/d/Y - g:i";
   }
-  
+
   if ($format == "pretty") {
     $f = "F jS, Y, g:ia";
   }
-  
+
   if ($format == "just_date") {
     $f = "F jS, Y";
   }
-  
+
   if ($custom != "") $f = $custom;
-  
+
   return date($f, $timestamp);
-  
-  
+
+
 }
 
 
@@ -71,18 +71,18 @@ function format_date($timestamp, $format = "standard", $custom = "") {
  *   tools/fun
  *   tools/here/there
  * So long as the menu type is "MENU_TYPE_NORMAL_ITEM".  Other types will be ignored.
- * 
- * 
- * We want to 
+ *
+ *
+ * We want to
  */
 function fp_render_menu_block($title = "Tools", $menu_root = "tools") {
   $rtn = "";
-  
+
   $is_empty = true;
   if ($title != "") {
     $rtn .= fp_render_curved_line($title);
   }
-  
+
   $menu_items = menu_get_items_beginning_with($menu_root);
   foreach ($menu_items as $item) {
     if ($item["type"] != MENU_TYPE_CALLBACK) {
@@ -90,14 +90,14 @@ function fp_render_menu_block($title = "Tools", $menu_root = "tools") {
       $is_empty = false;
     }
   }
-  
+
   if ($is_empty) {
     return "";
   }
   //pretty_print($menu_items);
-  
-  return $rtn;   
-  
+
+  return $rtn;
+
 }
 
 /**
@@ -117,21 +117,21 @@ function fp_display_page($page) {
   }
   $screen->page_title = $page_title;
   $screen->page_has_search = $page["router_item"]["page_settings"]["page_has_search"];
-  
+
   // If we don't have permission to search, then hide the little search.
   if (!user_has_permission("view_any_advising_session")) {
     $screen->page_has_search = FALSE;
   }
-  
+
   // mobile screens never have the search box
   if (fp_screen_is_mobile()) {
     $screen->page_has_search = FALSE;
   }
-  
+
   $screen->page_banner_is_link = $page["router_item"]["page_settings"]["page_banner_is_link"];
   $screen->page_hide_report_error = $page["router_item"]["page_settings"]["page_hide_report_error"];
   $screen->page_is_popup = $page["router_item"]["page_settings"]["page_is_popup"];
-  if (isset($page["router_item"]["page_settings"]["screen_mode"])) {    
+  if (isset($page["router_item"]["page_settings"]["screen_mode"])) {
     $screen->screen_mode = $page["router_item"]["page_settings"]["screen_mode"];
   }
   if (isset($page["router_item"]["page_settings"]["bool_print"])) {
@@ -139,39 +139,39 @@ function fp_display_page($page) {
   }
 
   if ($_REQUEST["scroll_top"] != "") {
-    $screen->page_scroll_top = $_REQUEST["scroll_top"];    
+    $screen->page_scroll_top = $_REQUEST["scroll_top"];
   }
-  
+
   // Was this page a tab?  And if so, are there any other tabs we need to display? //
   if ($page["router_item"]["type"] == MENU_TYPE_TAB || $page["router_item"]["tab_parent"] != "") {
     // We know we should have at least 1 tab for this page.
-    $tab_array = fp_build_tab_array($page);        
-    $screen->page_tabs = fp_render_tab_array($tab_array);    
+    $tab_array = fp_build_tab_array($page);
+    $screen->page_tabs = fp_render_tab_array($tab_array);
   }
-  
+
   // Should we override the page_tabs with what is in "fp_set_page_tabs" ?
   if (is_array($GLOBALS["fp_set_page_tabs"])) {
     //fpm($GLOBALS["fp_set_page_tabs"]);
-    $screen->page_tabs = fp_render_tab_array($GLOBALS["fp_set_page_tabs"]);    
+    $screen->page_tabs = fp_render_tab_array($GLOBALS["fp_set_page_tabs"]);
   }
-  
-      
+
+
   // Build up the content //
-  
-  $content_top = "";  
+
+  $content_top = "";
   $page_show_title = $page["router_item"]["page_settings"]["page_show_title"];
   if (isset($GLOBALS["fp_set_show_title"])) {
     $page_show_title = $GLOBALS["fp_set_show_title"];
   }
-  
+
   if ($page_show_title == TRUE) {
     $content_top .= "<h2 class='title'>" . $page_title . "</h2>";
-  } 
-  
-  if ($page["router_item"]["page_settings"]["display_greeting"] == TRUE) {  
+  }
+
+  if ($page["router_item"]["page_settings"]["display_greeting"] == TRUE) {
     $content_top .= fp_render_greeting();
   }
-  
+
   // Are there any "menu_link"s for this?  In order words, little links at the top of the page,
   // where breadcrumbs might appear.
   if (!$screen->bool_print && is_array($page["router_item"]["page_settings"]["menu_links"])) {
@@ -179,44 +179,44 @@ function fp_display_page($page) {
     foreach ($page["router_item"]["page_settings"]["menu_links"] as $item) {
       $lclass = "";
       if ($c == 0) $lclass='first';
-      
+
       $p = menu_convert_replacement_pattern($item["path"]);
       $q = menu_convert_replacement_pattern($item["query"]);
       $t = $item["text"];
       $a = $item["attributes"];
       if (!is_array($a)) $a = array();
-      
+
       // Make sure the current user has access to view this link.  Otherwise, do not even
       // bother showing it.
-      $test_item = menu_get_item($p) ;      
+      $test_item = menu_get_item($p) ;
       if (!menu_check_user_access($test_item)) {
         continue;
       }
-      
-      
+
+
       $content_top .= "<li class='$lclass'>" . l($t, $p, $q, $a) . "</li>";
       $c++;
     }
     $content_top .= "</ul>";
   }
-  
-  
+
+
   if (!$screen->bool_print) {
     // Any sub-tabs we need to render?
     if ($page["router_item"]["type"] == MENU_TYPE_SUB_TAB) {
       $sub_tab_array = fp_build_sub_tab_array($page);
       $content_top .= fp_render_sub_tab_array($sub_tab_array);
     }
-    
+
     // Should we override the page sub-tabs with what is in "fp_set_page_sub_tabs" ?
     if (is_array($GLOBALS["fp_set_page_sub_tabs"])) {
-      $content_top .= fp_render_sub_tab_array($GLOBALS["fp_set_page_sub_tabs"]);    
+      $content_top .= fp_render_sub_tab_array($GLOBALS["fp_set_page_sub_tabs"]);
     }
   }
 
-  
-  
-  
+
+
+
   // If there are "messages" waiting, then let's add them to the top of content.
   if (count($_SESSION["fp_messages"]) > 0) {
     $content_top .= "<div class='fp-messages'>";
@@ -225,27 +225,27 @@ function fp_display_page($page) {
       $message = $tmsg["msg"];
       $content_top .= "<div class='fp-message fp-message-$type'>$message</div>";
     }
-    $content_top .= "</div>";    
+    $content_top .= "</div>";
     unset($_SESSION["fp_messages"]);
   }
 
   // content_top gets the Currently Advising box.
   if ($page["router_item"]["page_settings"]["display_currently_advising"] == TRUE) {
     $content_top .= fp_render_currently_advising_box(false, $screen->bool_blank, $screen->bool_print, NULL, $screen->screen_mode);
-  }    
-  
+  }
+
   $screen->page_content = $content_top .= $page["content"];
   // If there are CSS files to add, add those.
-    
-  
+
+
   // Add in the body classes
-  $screen->page_body_classes .= " " . $GLOBALS["fp_add_body_classes"];  
-  
+  $screen->page_body_classes .= " " . $GLOBALS["fp_add_body_classes"];
+
   // Add in our URL
   $screen->page_body_classes .= " page-" . str_replace("/", "-", $_REQUEST["q"]);
-  
-  
-  $screen->output_to_browser();  
+
+
+  $screen->output_to_browser();
 }
 
 
@@ -268,54 +268,54 @@ function fp_show_title($bool_show = TRUE) {
  */
 function fp_render_c_fieldset($content, $legend = "Click to expand/collapse", $bool_start_closed = false)
 {
-  
+
   // Create a random ID for this fieldset, js, and styles.
   $id = md5(rand(9,99999) . time());
-  
+
   $start_js_val = 1;
   $fsstate = "open";
   $content_style = "";
-  
+
   if ($bool_start_closed) {
     $start_js_val = 0;
     $fsstate = "closed";
     $content_style = "display: none;";
   }
-  
+
   $js = "<script type='text/javascript'>
-  
+
   var fieldset_state_$id = $start_js_val;
-  
+
   function toggle_fieldset_$id() {
-    
+
     var content = document.getElementById('content_$id');
     var fs = document.getElementById('fs_$id');
-      
+
     if (fieldset_state_$id == 1) {
       // Already open.  Let's close it.
-      fieldset_state_$id = 0;      
+      fieldset_state_$id = 0;
       \$(content).slideUp('medium');
       fs.className = 'c-fieldset-closed-$id';
     }
     else {
       // Was closed.  let's open it.
       fieldset_state_$id = 1;
-      
+
       \$(content).slideDown('medium');
-      fs.className = 'c-fieldset-open-$id';      
-    }  
-  }  
+      fs.className = 'c-fieldset-open-$id';
+    }
+  }
   </script>";
-  
-  $rtn = "  
+
+  $rtn = "
     <fieldset class='c-fieldset-$fsstate-$id c-fieldset-$fsstate c-fieldset' id='fs_$id'>
       <legend><a href='javascript: toggle_fieldset_$id();' class='nounderline'>$legend</a></legend>
       <div id='content_$id' class='c-fieldset-content' style='$content_style'>
         $content
       </div>
     </fieldset>
-    $js  
-    
+    $js
+
   <style>
   fieldset.c-fieldset-open-$id {
     border: 1px solid;
@@ -325,18 +325,18 @@ function fp_render_c_fieldset($content, $legend = "Click to expand/collapse", $b
     border: 1px solid;
     border-bottom-width: 0;
     border-left-width: 0;
-    border-right-width: 0;    
-  }  
+    border-right-width: 0;
+  }
 
   legend a {
     text-decoration: none;
   }
-  
+
   </style>
-    
+
   ";
-  
-  
+
+
   return $rtn;
 }
 
@@ -348,21 +348,21 @@ function fp_render_c_fieldset($content, $legend = "Click to expand/collapse", $b
  */
 function fp_build_sub_tab_array($page) {
   global $current_student_id;
-  
+
   $tab_array = array();
 
   $tab_family = $page["router_item"]["tab_family"];
   $active_tab_path = $page["path"];
 
   $items = menu_get_items_in_tab_family($tab_family);
-  
+
   foreach ($items as $item) {
-        
+
     // Does the user have access to this subtab?
     if (!menu_check_user_access($item)) {
       continue;
-    }  
-    
+    }
+
     $title = $item["title"];
     $path = $item["path"];
     $active = FALSE;
@@ -371,27 +371,27 @@ function fp_build_sub_tab_array($page) {
       // Just a simple link to the path
       // Add the current_student_id to the query!
       $query = "current_student_id=$current_student_id";
-      
+
       $turl = fp_url($path, $query, TRUE);
-      
+
       $on_click = "window.location=\"" . $turl . "\"";
     }
-          
+
     if ($path == $active_tab_path) {
       // This is the current page we are on.
       $active = TRUE;
       $title = $page["title"];
       $on_click = "";
-    }            
+    }
 
     $tab_array[] = array(
       "title" => $item["title"],
       "active" => $active,
       "on_click" => $on_click,
     );
-    
+
   }
-  
+
   return $tab_array;
 }
 
@@ -403,31 +403,31 @@ function fp_build_sub_tab_array($page) {
 function fp_build_tab_array($page) {
     global $current_student_id;
     $tab_array = array();
-    
+
     $tab_family = $page["router_item"]["tab_family"];
     $active_tab_path = $page["path"];
-    
+
     if ($page["router_item"]["tab_parent"] != "") {
       // We want to know the PARENT's tab_family, so we can display the correct tabs at the top of the page.
       $tab_parent = $page["router_item"]["tab_parent"];
-      
-      $item = menu_get_item($tab_parent);      
+
+      $item = menu_get_item($tab_parent);
       $tab_family = $item["tab_family"];
       $active_tab_path = $item["path"];
-      
+
     }
-        
-    
-    // look for other possible tabs, based on the "tab_family" value 
-    // Also check to make sure the user has access to the tab.   
+
+
+    // look for other possible tabs, based on the "tab_family" value
+    // Also check to make sure the user has access to the tab.
     $items = menu_get_items_in_tab_family($tab_family);
     foreach ($items as $item) {
-      
+
       // Does the user have access to this tab?
       if (!menu_check_user_access($item)) {
         continue;
       }
-      
+
       $title = $item["title"];
       $path = $item["path"];
       $active = FALSE;
@@ -436,27 +436,27 @@ function fp_build_tab_array($page) {
         // Just a simple link to the path
         // Include the current_student_id!
         $query = "current_student_id=$current_student_id";
-        
+
         $turl = fp_url($path, $query, TRUE);
-        
+
         $on_click = "window.location=\"" . $turl . "\"";
       }
-            
+
       if ($path == $active_tab_path) {
         // This is the current page we are on.
         $active = TRUE;
         $title = $page["title"];
         $on_click = "";
-      }            
+      }
 
       $tab_array[] = array(
         "title" => $item["title"],
         "active" => $active,
         "on_click" => $on_click,
       );
-      
+
     }
-    
+
     return $tab_array;
 }
 
@@ -470,31 +470,31 @@ function fp_build_tab_array($page) {
    * @param bool $bool_hide_catalog_warning
    *       - If set to TRUE, FP will not display a warning which tells
    *         the user that they are working under an outdated catalog year.
-   * 
+   *
    * @return string
    */
   function fp_render_currently_advising_box($bool_hide_catalog_warning = false, $bool_blank = FALSE, $bool_print = FALSE, $degree_plan = NULL, $screen_mode = "") {
     global $current_student_id, $screen, $user, $student;
-    
+
     $rtn  = "";
-    
+
     $csid = $current_student_id;
-    
+
     if (is_object($screen) && is_object($screen->degree_plan)) {
-      $degree_plan = $screen->degree_plan;      
+      $degree_plan = $screen->degree_plan;
     }
-    
+
     if (!isset($student) || $student == null || !is_object($student)) {
       $student = new Student($csid);
     }
-    
+
     $settings = fp_get_system_settings();
-          
-    
+
+
     $rtn .= "<table class='fp-currently-advising'>";
-    
+
     $for_term = $whatif = $what_if_select = $hypoclass = "";
-    
+
     if ($GLOBALS["fp_advising"]["advising_term_id"] != "" && ($screen_mode != "not_advising" && $screen_mode != "detailed")
     && user_has_permission("can_advise_students"))
     {
@@ -525,7 +525,7 @@ function fp_build_tab_array($page) {
     }
 
     $ca = t("حاليا مرشد أكاديمي ل");
-    
+
     if (!user_has_permission("can_advise_students") || $screen_mode == "detailed") {
       $ca = t("تفاصيل الطالب");
     }
@@ -534,14 +534,14 @@ function fp_build_tab_array($page) {
       $ca = t("عرض خطة دراسية فارغة");
     }
 
-    
+
     $rtn .= "<tr><td colspan='2' style='padding-bottom: 10px;'>
         $what_if_select
       <table border='0' width='100%'  class='elevenpt blueBorder' cellpadding='0' cellspacing='0' >
       <tr>
           <td colspan='4' class='blueTitle' align='center' height='20'>
           " . fp_render_square_line("$ca$whatif$for_term") . "
-          </td>                    
+          </td>
       </tr>
       ";
 
@@ -575,7 +575,7 @@ function fp_build_tab_array($page) {
       $degree_title = $degree_plan->get_title2();
     }
     if ($degree_title == "") {
-      // Attempt to load the degree from the student's information.     
+      // Attempt to load the degree from the student's information.
       $degree_plan = $db->get_degree_plan($student->major_code, $student->catalog_year, true);
       $degree_title = $degree_plan->get_title2();
     }
@@ -584,11 +584,11 @@ function fp_build_tab_array($page) {
       array_push($display_array, t(": الاسم ") . " ~~ " . $student->name);
       array_push($display_array, t(": رمز المستخدم") . " ~~ " . $student->student_id);
     }
-    
+
     if ($screen_mode == "detailed") {
       $degree_title .= " ($degree_plan->major_code)";
     }
-    
+
     array_push($display_array, t(": التخصص") . " ~~ " . $degree_title);
     // If this degree has tracks, we must display something about it here.
 
@@ -602,9 +602,9 @@ function fp_build_tab_array($page) {
       $extra_vars .= "&what_if_track_code={$GLOBALS["what_if_track_code"]}";
       $extra_vars .= "&advising_what_if=yes";
       }*/
-      
+
       $op_link = "<a href='javascript: popupWindow2(\"" . fp_url("advise/popup-change-track") . "\",\"$extra_vars\");'><img
-              src='" . fp_theme_location() . "/images/popup.gif' border='0' 
+              src='" . fp_theme_location() . "/images/popup.gif' border='0'
               title='" . t("اضغط لتغيير خيارات البرنامج الدراسي") . "'></a>";
       $op_text = t("اضغط للإختيار: ") . " $op_link";
 
@@ -615,7 +615,7 @@ function fp_build_tab_array($page) {
       }
 
       if (!user_has_permission("can_advise_students")) {
-        
+
         if ($GLOBALS["fp_advising"]["advising_what_if"] != "yes")
         {
           // In other words, we do not have permission to advise,
@@ -632,7 +632,7 @@ function fp_build_tab_array($page) {
       {
         // Display the track code in detailed mode.
         $tc = ($screen_mode == "detailed") ? "($degree_plan->track_code)" : "";
-        
+
         $op_text = $degree_plan->track_title . " $tc $op_link";
       }
 
@@ -670,10 +670,10 @@ function fp_build_tab_array($page) {
                   </tr>";
         }
         else {
-         // Regular desktop screen. 
-        
+         // Regular desktop screen.
+
           $rtn .= "
-        
+
             <tr class='$hypoclass' >
               <td valign='top' width='20%' class='side_padding' style='padding-top: 5px;'>
                  $name1
@@ -688,29 +688,29 @@ function fp_build_tab_array($page) {
                    $value2
                 </td>
             </tr>  ";
-      
+
         }
-        
+
       }
     } else {
       // No student has been selected yet!
       $rtn .= "<tr height='60'>
-        <td align='center'> No advisee selected. </td>
+        <td align='center'>لم يتم اختيار أي طالب</td>
       </tr>";
       $bool_hide_catalog_warning = true;
     }
 
-    
+
     $rtn .= "</table>";
 
     if ($bool_catalog_warning == true && !$bool_hide_catalog_warning)
     {
       $rtn .= "
-      
+
       <div class='tenpt hypo' style='margin-top: 4px; padding: 2px;'>
       <table border='0' cellspacing='0' cellpadding='0'>
       <td valign='top'>
-        <img src='" . fp_theme_location() . "/images/alert_lg.gif' >  
+        <img src='" . fp_theme_location() . "/images/alert_lg.gif' >
       </td>
       <td valign='middle' class='tenpt' style='padding-left: 8px;'>
         <b>" . t("ملاحظة مهمة:") . " </b>
@@ -718,31 +718,31 @@ function fp_build_tab_array($page) {
       </td>
       </table>
       </div>
-      
-    "; 
+
+    ";
     }
 
     if ($bool_future_catalog_warning == true && !$bool_hide_catalog_warning)
     {
       $rtn .= "
-      
+
       <div class='tenpt hypo' style='margin-top: 4px; padding: 2px;'>
       <table border='0' cellspacing='0' cellpadding='0'>
       <td valign='top'>
-        <img src='" . fp_theme_location() . "/images/alert_lg.gif' >  
+        <img src='" . fp_theme_location() . "/images/alert_lg.gif' >
       </td>
       <td valign='middle' class='tenpt' style='padding-left: 8px;'>
-        <b>Important Notice: </b>
-        This student's catalog year is $cat_year, 
-        and specific curriculum requirements are not yet 
-        available for this year.  
+        <b>:ملاحظة هامة </b>
+        This student's catalog year is $cat_year,
+        and specific curriculum requirements are not yet
+        available for this year.
         To advise this student according to {$settings["current_catalog_year"]}-" . ($settings["current_catalog_year"] + 1) . "
         requirements, select the student's major using What If.
       </td>
       </table>
       </div>
-      
-    "; 
+
+    ";
     }
 
 
@@ -750,9 +750,9 @@ function fp_build_tab_array($page) {
 
     $rtn .= "</td></tr>";
 
-    
+
     $rtn .= "</table>";
-    
+
     return $rtn;
   }
 
@@ -771,22 +771,22 @@ function fp_render_greeting() {
     // No one is logged in!  Don't display.
     return "";
   }
-  
+
   $rtn = "";
-  
+
   $today = date("D, F jS, Y",time("today"));
-  
+
   $dname = $user->name;
   if ($user->f_name != "" || $user->l_name != "") {
     $dname = trim($user->f_name . " " . $user->l_name) . " ($user->name)";
   }
-  
-  $rtn .= "<div class='flightpath-greeting-message'>
-              Welcome $dname! Today is $today. " . l("Log out?", "logout") . "
+
+  $rtn .= "<div class='flightpath-greeting-message'>"
+             . l("تسجيل الخروج؟", "logout") . "   $today اليوم هو    !$dname أهلا بك
           </div>";
-  
-  return $rtn;  
-  
+
+  return $rtn;
+
 }
 
 
@@ -796,9 +796,9 @@ function fp_render_greeting() {
  */
 function fp_render_sub_tab_array($tab_array) {
   global $current_student_id;
-  
+
   $rtn = "";
-  
+
   $rtn .= "<div class='sub-tabs'>";
 
   foreach ($tab_array as $tab) {
@@ -806,10 +806,10 @@ function fp_render_sub_tab_array($tab_array) {
     $on_click = $tab["on_click"];
     $active = $tab["active"];
     $type = $tab["type"];
-    
+
     $extra_class = "";
     if ($active) $extra_class = "gradbutton-active";
-    
+
     if ($type == "link" ) {
       // Render as a standard link
       $rtn .= "<a href='javascript: $on_click' class='fp-sub-tab-link $extra_class'>$title</a>";
@@ -818,12 +818,12 @@ function fp_render_sub_tab_array($tab_array) {
       // Render as a button
       $rtn .= fp_render_button($title, $on_click, true, "", $extra_class);
     }
-    
+
   }
-  
-  
+
+
   $rtn .= "</div>";
-      
+
   return $rtn;
 }
 
@@ -851,7 +851,7 @@ function fp_render_button($title, $on_click, $bool_padd = true, $style = "", $ex
         ";
 
   if (fp_screen_is_mobile()) $on_mouse = "";  // Causes problems for some mobile devices.
-  
+
   if ($bool_padd) {
     $padd = "&nbsp;&nbsp;";
   }
@@ -867,21 +867,21 @@ function fp_render_button($title, $on_click, $bool_padd = true, $style = "", $ex
 
 
 function fp_render_mobile_tab_array($tab_array) {
-    
+
     $rtn = "";
-    
+
     $js_vars = "var mobileTabSelections = new Array(); ";
 
     if (count($tab_array) <= 1) return "";
-    
-    
+
+
     $rtn .= "<table border='0' width='200' cellpadding='0' cellspacing='0' class='fp-mobile-tabs'>
              <td>
              <b>" . t("إظهار") . ": </b>";
-    
-    
+
+
     $rtn .= "<select onChange='executeSelection()' id='mobileTabsSelect'>";
-    
+
     for ($t = 0; $t < count($tab_array); $t++)
     {
       $title = $tab_array[$t]["title"];
@@ -893,34 +893,34 @@ function fp_render_mobile_tab_array($tab_array) {
         continue;
       }
       $sel = ($active == true) ? $sel = "selected":"";
-      
+
       $rtn .= "<option $sel value='$t'>$title</option>";
-            
+
       $js_vars .= "mobileTabSelections[$t] = '$on_click'; \n";
-      
-    }   
-    
+
+    }
+
     $rtn .= "</select>
               </td></table>";
-            
-    
+
+
     $rtn .= '
       <script type="text/javascript">
-      ' . $js_vars . '      
-      
+      ' . $js_vars . '
+
       function executeSelection() {
         var sel = document.getElementById("mobileTabsSelect").value;
-        
+
         var statement = mobileTabSelections[sel];
         // Lets execute the statement...
         eval(statement);
-        
+
       }
-      
-      
+
+
       </script>
     ';
-    
+
     return $rtn;
 }
 
@@ -935,7 +935,7 @@ function fp_render_mobile_tab_array($tab_array) {
  *         - $tab_array[i]["title"] = The title or caption of the tab. "main", or "Edit", etc.
  *         - $tab_array[i]["active"] = boolean.  True if this is the tab we are currently looking at.
  *         - $tab_array[i]["on_click"] = This is a valid onClick='blah blah' that is the result of clicking the tab.
- * 
+ *
  * @return string
  */
 function fp_render_tab_array($tab_array)
@@ -943,10 +943,10 @@ function fp_render_tab_array($tab_array)
 
   // fix mobile tabs
   if (fp_screen_is_mobile()) {
-    return fp_render_mobile_tab_array($tab_array);         
+    return fp_render_mobile_tab_array($tab_array);
   }
-    
-  
+
+
   $rtn = "";
 
   $rtn .= "<table border='0' width='100%' cellpadding='0' cellspacing='0'>
@@ -988,7 +988,7 @@ function fp_render_tab_array($tab_array)
       }
 
       $rtn .= "
-    
+
     <table align='left' cellpadding='0' onClick='$on_click' cellspacing='0' class='$theclass' onmouseover='this.className=\"$overclass\";' onmouseout='this.className=\"inactive_tab\";'>
     <tr>
       <td class='tab_tl_i' align='left' valign='baseline'  width='12'></td>
@@ -1030,7 +1030,7 @@ function fp_render_tab_array($tab_array)
           <img src='$img_path/tab_right.gif' width='12' height='18'>
         </td>
       </tr>
-    </table>      
+    </table>
     ";
 
     }
@@ -1052,12 +1052,12 @@ function fp_render_tab_array($tab_array)
 
 
 function display_not_found() {
-  
+
   $page = array(
     "title" => t("لم يتم العثور عليه"),
     "content" => "<h2>" . t("لم يتم العثور على الصفحة") . "</h2>" . t("نعتذر, لم يتم العثور على الصفحة المطلوبة"),
   );
-  
+
   fp_display_page($page);
 }
 
@@ -1067,8 +1067,8 @@ function display_access_denied() {
     "title" => t("الوصول محظور"),
     "content" => "<h2>" . t("الوصول محظور") . "</h2>" . t("نعتذر, ليس لديك الصلاحية للدخول إلى الصفحة المطلوبة"),
   );
-  
-  fp_display_page($page);  
+
+  fp_display_page($page);
 }
 
 
@@ -1077,18 +1077,18 @@ function display_access_denied() {
  * Return the theme location
  */
 function fp_theme_location($bool_include_base_path = TRUE) {
-  
+
   $p = $GLOBALS["fp_system_settings"]["theme"];
-  
+
   // The theme hasn't been set for some reason
   if ($p == "") {
     $p = "themes/classic";
   }
-  
+
   if ($bool_include_base_path) {
-    $p = base_path() . "/" . $p;    
+    $p = base_path() . "/" . $p;
   }
-  
+
   return $p;
 }
 
@@ -1104,7 +1104,7 @@ function fp_render_curved_line($text) {
   // Will simply draw a curved title bar containing the $title
   // as the text.
   $img_path = fp_theme_location();
-  
+
 
   $rtn = "
    <table border='0' class='blueTitle' width='100%' cellpadding='0' cellspacing='0'>
@@ -1118,7 +1118,7 @@ function fp_render_curved_line($text) {
      <tr>
       <td align='left' valign='bottom'><img src='$img_path/images/corner_bl.gif'></td>
       <td align='right' valign='bottom'><img src='$img_path/images/corner_br.gif'></td>
-     </tr> 
+     </tr>
     </table>
 ";
 
@@ -1136,7 +1136,7 @@ function fp_render_curved_line($text) {
  * @return string
  */
 function fp_render_square_line($text) {
-  
+
   $rtn .= "
         <table border='0' width='100%' cellpadding='0' cellspacing='0'>
        <tr>
@@ -1149,9 +1149,9 @@ function fp_render_square_line($text) {
        <tr>
         <td align='left' valign='bottom'></td>
         <td align='right' valign='bottom'></td>
-       </tr> 
-      </table>     
-    
+       </tr>
+      </table>
+
       ";
 
   return $rtn;
@@ -1161,13 +1161,13 @@ function fp_render_square_line($text) {
 
 function fp_render_menu_item($item, $bool_check_user_access = TRUE) {
   $rtn = "";
-  
+
   if ($bool_check_user_access) {
     if (!menu_check_user_access($item)) {
       return "";
     }
   }
-  
+
   $description = $item["description"];
   $title = $item["title"];
   //$url = $GLOBALS["fp_system_settings"]["base_path"] . "/" . $item["path"];
@@ -1175,14 +1175,14 @@ function fp_render_menu_item($item, $bool_check_user_access = TRUE) {
   $target = $item["page_settings"]["target"];
   $menu_icon = $item["page_settings"]["menu_icon"];
   if ($menu_icon != "") {
-    $icon_img = "<img src='$menu_icon' border='0'>";    
-  } 
-  else { 
+    $icon_img = "<img src='$menu_icon' border='0'>";
+  }
+  else {
     $icon_img = "<span class='fp-menu-item-no-icon'></span>";
-  } 
-  
+  }
+
   if (!$description) $extra_class = "fp-menu-item-tight";
-  
+
   $rtn .= "<div class='fp-menu-item $extra_class'>
             <div class='fp-menu-item-link-line'>
               <a href='$url' target='$target'>$icon_img $title</a>
@@ -1191,8 +1191,8 @@ function fp_render_menu_item($item, $bool_check_user_access = TRUE) {
   if ($description) {
     $rtn .= " <div class='fp-menu-item-description'>$description</div>";
   }
-  $rtn .= "</div>";  
-  
+  $rtn .= "</div>";
+
   return $rtn;
 }
 
@@ -1202,5 +1202,3 @@ function fp_render_menu_item($item, $bool_check_user_access = TRUE) {
 function pretty_print($var) {
   print "<pre>" . print_r($var, true) . "</pre>";
 }
-
-

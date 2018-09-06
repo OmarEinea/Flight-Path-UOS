@@ -3,21 +3,21 @@
 /**
  * @file
  * The administrative configurations for FlightPath.
- * 
- * 
+ *
+ *
  */
 
- 
- 
- 
- 
+
+
+
+
 /**
  * Implementation of hook_menu
- * 
+ *
  */
-function admin_menu() { 
+function admin_menu() {
   $items = array();
-   
+
   $items["admin-tools/admin"] = array(
      "title" => "FlightPath Admin Console",
      "page_callback" => "admin_display_main",
@@ -27,11 +27,11 @@ function admin_menu() {
        "page_has_search" => FALSE,
        "page_banner_is_link" => TRUE,
        "page_hide_report_error" => TRUE,
-       "target" => "_blank",        
-     ),     
+       "target" => "_blank",
+     ),
      "type" => MENU_TYPE_TAB,
   );
-  
+
   $items["admin/config/urgent-message"] = array(
     "title" => "Edit urgent message",
     "description" => "Set a message which will be displayed to all users on every page",
@@ -43,24 +43,24 @@ function admin_menu() {
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/urgent.png",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );     
-  
+    "tab_parent" => "admin-tools/admin",
+  );
 
-  
+
+
   $items["admin/config/watchdog"] = array(
     "title" => "Watchdog (logs)",
     "description" => "View log messages from throughout the system",
-    "page_callback" => "admin_display_watchdog",    
+    "page_callback" => "admin_display_watchdog",
     "access_arguments" => array("display_watchdog"),
     "page_settings" => array(
       "page_has_search" => FALSE,
@@ -68,33 +68,33 @@ function admin_menu() {
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/log.png",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );       
+    "tab_parent" => "admin-tools/admin",
+  );
 
 
 
   $items["admin/config/watchdog/%"] = array(
-    "title" => "View Watchdog Entry",    
+    "title" => "View Watchdog Entry",
     "page_callback" => "admin_display_watchdog_entry",
-    "page_arguments" => array(3),    
+    "page_arguments" => array(3),
     "access_arguments" => array("display_watchdog"),
     "page_settings" => array(
       "page_has_search" => FALSE,
       "page_show_title" => TRUE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -103,15 +103,15 @@ function admin_menu() {
           "path" => "admin/config/watchdog",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%&sev_filter=%SEV_FILTER%&page=%PAGE%&type_filter=%TYPE_FILTER%",
         ),
-                
+
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_CALLBACK,
-    "tab_parent" => "admin-tools/admin",    
-  );      
+    "tab_parent" => "admin-tools/admin",
+  );
 
 
-  
+
   $items["admin/duplicate-year"] = array(
     "title" => "Duplicate entire catalog year",
     "page_callback" => "fp_render_form",
@@ -121,20 +121,20 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",      
+    "tab_parent" => "admin-tools/admin",
   );
-  
-  
-  
+
+
+
   $items["admin/edit-advising-settings"] = array(
     "title" => "Edit advising settings",
     "page_callback" => "fp_render_form",
@@ -144,19 +144,19 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );     
-  
-     
+    "tab_parent" => "admin-tools/admin",
+  );
+
+
   $items["admin/apply-draft-changes"] = array(
     "title" => "Apply draft changes",
     "page_callback" => "fp_render_form",
@@ -166,21 +166,21 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",      
+    "tab_parent" => "admin-tools/admin",
   );
-   
+
    ///////////////////////////////////////////////////////
-  ////////////////////// Degree Editing /////////////////// 
-   
+  ////////////////////// Degree Editing ///////////////////
+
   $items["admin/degrees"] = array(
     "title" => "Degrees",
     "page_callback" => "admin_display_degrees",
@@ -191,17 +191,17 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_TAB,
     "tab_family" => "admin_degrees",
   );
-   
+
   $items["admin/degrees/edit-degree"] = array(
     "title" => "Edit Degree",
     "page_callback" => "admin_display_edit_degree",
@@ -212,7 +212,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -222,19 +222,19 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin/degrees",
-  );   
-   
-  $items["admin/degrees/handle-edit-degree-submit"] = array(    
+  );
+
+  $items["admin/degrees/handle-edit-degree-submit"] = array(
     "page_callback" => "admin_handle_edit_degree_submit",
     "access_arguments" => array("can_edit_data_entry"),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );      
-   
+  );
+
 
   $items["admin/degrees/popup-add-group"] = array(
     "title" => "Add Group",
@@ -244,12 +244,12 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );     
+  );
 
-  
+
   $items["admin/degrees/add-degree"] = array(
     "title" => "Add Degree",
     "page_callback" => "fp_render_form",
@@ -261,7 +261,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -271,12 +271,12 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin/degrees",    
-  );     
-  
+    "tab_parent" => "admin/degrees",
+  );
+
   $items["admin/degrees/copy-degree"] = array(
     "title" => "Copy Degree",
     "page_callback" => "fp_render_form",
@@ -288,7 +288,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -298,17 +298,17 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.degrees.inc",
     "type" => MENU_TYPE_CALLBACK,
     "tab_parent" => "admin/degrees",
-  );     
-  
+  );
+
 
 
    ///////////////////////////////////////////////////////
-  ////////////////////// Group Editing /////////////////// 
-   
+  ////////////////////// Group Editing ///////////////////
+
   $items["admin/groups"] = array(
     "title" => "Groups",
     "page_callback" => "admin_display_groups",
@@ -319,12 +319,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_TAB,
     "tab_family" => "admin_groups",
@@ -341,7 +341,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -351,13 +351,13 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin/groups",
-  );     
-     
-     
+  );
+
+
   $items["admin/groups/popup-select-icon"] = array(
     "title" => "Select Icon",
     "page_callback" => "admin_display_groups_popup_select_icon",
@@ -366,11 +366,11 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );     
-     
+  );
+
   $items["admin/groups/popup-edit-definition"] = array(
     "title" => "Edit Definition",
     "page_callback" => "admin_display_groups_popup_edit_definition",
@@ -379,10 +379,10 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );     
+  );
 
   $items["admin/groups/popup-show-group-use"] = array(
     "title" => "Group Use",
@@ -392,10 +392,10 @@ function admin_menu() {
       "page_has_search" => FALSE,
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_CALLBACK,
-  );     
+  );
 
   $items["admin/groups/process-all-definitions"] = array(
     "title" => "Process all Definitions",
@@ -408,7 +408,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -418,13 +418,13 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.groups.inc",
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin/groups",
-  );     
-          
-     
+  );
+
+
   /////////////////////////////////////////////////
   /////////////////// Courses editing ////////////////
   $items["admin/courses"] = array(
@@ -437,17 +437,17 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "file" => menu_get_module_path("admin") . "/admin.courses.inc",
     "type" => MENU_TYPE_TAB,
     "tab_family" => "admin_courses",
-  );  
-     
+  );
+
   $items["admin/courses/edit-course"] = array(
     "title" => "Edit Course",
     "page_callback" => "fp_render_form",
@@ -459,7 +459,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -469,15 +469,15 @@ function admin_menu() {
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),   
+    ),
     "file" => menu_get_module_path("admin") . "/admin.courses.inc",
     "type" => MENU_TYPE_NORMAL_ITEM,
     "tab_parent" => "admin/courses",
-  );     
-          
-          
-     
-     
+  );
+
+
+
+
   return $items;
 }
 
@@ -489,11 +489,11 @@ function admin_menu() {
  */
 function admin_duplicate_year_form() {
   $form = array();
-  
+
   $form["mark" . $m++] = array(
     "value" => "<p>" . t("يفضل عمل نسخة احتياطية من قاعدة البيانات الخاصة بك قبل المتابعة<br/><br/>حتى يتم تطبيق تغييرات المسودة FlightPath سيتم وضع العام الجديد في مسودة ولن يكون مرئيا في<br/>استخدمها بعناية<b>ستحذف بيانات السنة الوجهة بالكامل، إذا كانت موجودة بالفعل</b>سيسمح لك هذا النموذج بتكرار بيانات سنة كاملة (مساقات، درجات، مجموعات) إلى سنة جديدة. يستخدم هذا لإنشاء سنة جديدة من البيانات، على أساس السنة السابقة، على سبيل المثال") . "</p><hr>",
   );
-  
+
   $form["source_year"] = array(
     "type" => "textfield",
     "label" => t(": من"),
@@ -501,32 +501,32 @@ function admin_duplicate_year_form() {
     "required" => TRUE,
     "description" => t(".أدخل سنة المصدر المكونة من أربعة أرقام التي تقوم النسخ منها. على سبيل المثال: 2007, إذا كنت تقوم بالنسخ من 2007-2008, أدخل فقط 2007"),
   );
-  
+
   $form["destination_year"] = array(
     "type" => "textfield",
     "label" => t(": إلى"),
     "size" => 10,
     "required" => TRUE,
     "description" => t("إذا كنت تنسخ إلى 2009-2010, فقم فقط بإدخال 2009<b><u>.إذا كان هذا العام جاهزا بالكامل في النظام. فسيتم حذف البيانات لهذا العام</u></b>أدخل سنة المصدر المكونة من أربعة أرقام التي تنسخ إليها."),
-  );  
-  
+  );
+
  $form["passcode"] = array(
     "type" => "password",
     "label" => t(":للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة"),
     "required" => TRUE,
     "description" => t(".لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي. لن تكون مشاريع التعديلات مطبقة بالفعل ، يتم استخدامها ببساطة كطبقة أمان إضافية FlightPath هذه كلمة مرور تم إعدادها في إعدادات"),
-        
+
   );
-  
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("تسليم"),
     "description" => t("!قد يستغرق هذا الإجراء عدة دقائق للاستكمال! اضغط مرة واحدة فقط"),
     "prefix" => "<hr>",
-  );  
-  
-  
-  
+  );
+
+
+
   return $form;
 }
 
@@ -539,37 +539,37 @@ function admin_duplicate_year_form() {
  */
 function admin_duplicate_year_form_submit($form, $form_state) {
   $values = $form_state["values"];
-  
+
   // Check to make sure they entered the transfer passcode correctly.
-  $db = get_global_database_handler();    
-  
+  $db = get_global_database_handler();
+
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
     form_error("passcode", t("أو تحقق من صفحات إعدادات المسؤول) لمعرفة كلمة المرور)FlightPath خطأ! كلمة المرور التي أدخلتها غير صحيحة. تحقق مع مسؤول "));
     return;
-    
+
   }
 
 
   // Okay, we made it this far, let's proceed with the copy!
   $new_year = $values["destination_year"];
   $old_year = $values["source_year"];
-  
-  
+
+
   /////////////////////////////////////////////////////////////////////
   // We must first begin by deleting any entries for the new_year
   // from our tables.  This is because we may have to run the parser
   // more than once while debugging and such.
   $res = db_query("DELETE FROM draft_courses WHERE `catalog_year`='$new_year' ");
-  
-  
+
+
   $res = db_query("DELETE FROM draft_degree_tracks WHERE `catalog_year`='$new_year' ");
   // For degrees, we first need to select all of the new_year degrees.
   $res = db_query("SELECT * FROM draft_degrees WHERE `catalog_year`='$new_year' ");
   while ($cur = db_fetch_array($res)) {
   	$res2 = db_query("DELETE FROM draft_degree_requirements WHERE `degree_id`='{$cur["degree_id"]}' ");
   }
-  
+
   $res = db_query("DELETE FROM draft_degrees WHERE `catalog_year`='$new_year' ");
   // For groups, begin by selecting all the groups in that year...
   $res = db_query("SELECT * FROM draft_groups WHERE `catalog_year`='$new_year' ");
@@ -590,32 +590,32 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   }
   $res = db_query("DELETE FROM draft_groups WHERE `catalog_year`='$new_year' ");
   //////////////////////////////////////////////////////////////////////////
-  
+
   //  Okay, we have deleted any possible old entries for the new year.
-  
+
   /////////////////////////////////////////////////////////////////////////
-  // Our first step is to copy all of the courses from the old_year to the new_year.  
+  // Our first step is to copy all of the courses from the old_year to the new_year.
   $res = db_query("SELECT * FROM draft_courses WHERE `catalog_year`='$old_year' ");
   while ($cur = db_fetch_array($res))
   {
   	extract($cur, 3, "db");
-  
+
   	$course = new Course($db_course_id, false, $db, false, $old_year);
   	$course->subject_id = $db_subject_id;
   	$course->course_num = $db_course_num;
   	$course->db_exclude = $db_exclude;
-  	
+
   	// Now, duplicate it for the new_year.
   	$db->duplicate_course_for_year($course, $new_year);
-  
-  
+
+
   }
-   
-  
+
+
   $group_id_array = array();
   $subgroup_id_array = array();
   //////////////////////////////////////////////////////////////////////////
-  //  Now, let's copy over the groups.  
+  //  Now, let's copy over the groups.
   $res = db_query("SELECT * FROM draft_groups WHERE `catalog_year`='$old_year' ");
   while ($cur = db_fetch_array($res))
   {
@@ -623,18 +623,18 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   	// First, let's request a new group ID for this new group.
   	$new_group_id = $db->request_new_group_id();
   	$group_id_array[$db_group_id] = $new_group_id;
-  
+
   	//$db_data_entry_comment = mysql_real_escape_string($db_data_entry_comment);
   	// Now, let's insert this top-level group back into the table
   	// as the new_year, with the new_group_id.
   	$query = "INSERT INTO draft_groups(`group_id`,`group_name`,
   							`title`,`definition`,`icon_filename`,`catalog_year`,
   							`priority`,`delete_flag`,`data_entry_comment`)
-  							VALUES ('?','?','?','?','?','?','?','?','?') ";  	
+  							VALUES ('?','?','?','?','?','?','?','?','?') ";
   	$res2 = db_query($query, $new_group_id,$db_group_name,$db_title,
   								$db_definition,$db_icon_filename,$new_year,
   								$db_priority,$db_delete_flag,$db_data_entry_comment);
-  
+
   	// Okay, now we need to go through the requirements for the group, and copy
   	// those over to the new_year.
   	$res3 = db_query("SELECT * FROM draft_group_requirements
@@ -642,7 +642,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   	while($cur3 = db_fetch_array($res3))
   	{
   		extract($cur3, 3, "db3");
-  
+
   		$child_group_id = 0;
   		// Was there a child_group (a branch)?  If so, we need to copy that
   		// over too, with a new child_group_id.
@@ -664,12 +664,12 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   										$db4_course_min_grade,$db4_course_repeats,
   										$db4_data_entry_value);
   			}
-  			
+
   			// Now, add the replace the db3_child_group_id with this new id
   			// so it will get added as a requirement.
   			$child_group_id = $new_sub_group_id;
   		}
-  
+
   		// Add the row into the table...
   		$res5 = db_query("INSERT INTO draft_group_requirements
   								(`group_id`,`course_id`,`course_min_grade`,
@@ -678,11 +678,11 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   		            $new_group_id,$db3_course_id,
   								$db3_course_min_grade,$db3_course_repeats,
   								$db3_data_entry_value,$child_group_id);
-  		
-  		
+
+
   	}
   }
-  
+
   /////////////////////////////////////////////////////////////////////
   //  Now, on to transfering the degrees.
   //  We will have to use the groupIDArray we constructed earlier, which
@@ -692,7 +692,7 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   while ($cur = db_fetch_array($res))
   {
   	extract($cur, 3, "db");
-  	
+
   	$res2 = db_query("INSERT INTO draft_degree_tracks
   						(`catalog_year`,`major_code`,`track_code`,`track_title`,
   						`track_short_title`,`track_description`)
@@ -700,14 +700,14 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   						('?','?','?','?','?','?') ",
   	           $new_year,$db_major_code,$db_track_code,$db_track_title,
   						$db_track_short_title,$db_track_description);
-  	
+
   }
   // Now, let's do the degrees themselves.
   $res = db_query("SELECT * FROM draft_degrees WHERE `catalog_year`='$old_year' ");
   while ($cur = db_fetch_array($res))
   {
   	extract($cur, 3, "db");
-  	
+
   	$new_degree_id = $db->request_new_degree_id();
   	// add in the top-level degree to the table.
   	$res2 = db_query("INSERT INTO draft_degrees
@@ -716,8 +716,8 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   						 VALUES
   						('?','?','?','?','?','?','?','?','?')
   						", $new_degree_id,$db_major_code,$db_degree_type,$db_title,
-  						 $db_semester_titles_csv,$new_year,$db_exclude, $db_degree_class, $db_public_note);						 
-  	
+  						 $db_semester_titles_csv,$new_year,$db_exclude, $db_degree_class, $db_public_note);
+
   	// now, pull out all of the degree_requirements.
   	$res3 = db_query("SELECT * FROM draft_degree_requirements
   							WHERE `degree_id`='$db_degree_id' ");
@@ -735,8 +735,8 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   				die("could not find group new group for $old_year $db3_group_id !");
   			}
   		}
-  		 
-  		
+
+
   		$res4 = db_query("INSERT INTO draft_degree_requirements
   							(`degree_id`,`semester_num`,`group_id`,`group_requirement_type`,
   							`group_hours_required`,`group_min_grade`,`course_id`,
@@ -746,17 +746,17 @@ function admin_duplicate_year_form_submit($form, $form_state) {
   							", $new_degree_id,$db3_semester_num,$required_group_id,$db3_group_requirement_type,
   							$db3_group_hours_required,$db3_group_min_grade,$db3_course_id,
   							$db3_course_min_grade,$db3_course_requirement_type,$db3_data_entry_value);
-  		
-  		
+
+
   	}
-  	
-  	
-  }  
-    
-     
+
+
+  }
+
+
   fp_add_message(t("FlightPath اكتملت عملية النسخ الآن. يمكنك عرض السنة الجديدة باستخدام ارتباطات إدخال البيانات في القائمة الرئيسية للمشرف. تذكر ، يجب عليك تطبيق تغييرات المسودة قبل أن تكون مرئية في"));
-  
-  
+
+
 }
 
 
@@ -767,13 +767,13 @@ function admin_duplicate_year_form_submit($form, $form_state) {
  */
 function admin_advising_settings_form() {
   $form = array();
-  
+
   $settings = fp_get_system_settings();
-  
+
   /*
   $mark = "";
   // TODO: This needs to become genericized!  If it can't be, it should just be taken out.
-    
+
   $sems = array(40,41, 60,81,82);
   for($t = $settings["current_catalog_year"]; $t <= $settings["current_catalog_year"] + 2; $t++) {
     $mark .= "<div style='padding-left: 15px;'>";
@@ -784,28 +784,28 @@ function admin_advising_settings_form() {
       $mark .= "" . $course->get_term_description(true) . ": <b>$course->term_id</b>, &nbsp; &nbsp; &nbsp;";
     }
     $mark .= "</div>";
-  }  
-  
-    
+  }
+
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => t(":المرجع السريع لرمز الفصل") . $mark,
   );
   */
-  
+
   $form["available_advising_term_ids"] = array(
     "type" => "textfield",
     "label" => t("رموز فصل الإرشاد المتاحة"),
     "value" => variable_get("available_advising_term_ids", ""),
     "description" => t(".FlightPath هذه هي الشروط التي يمكن للمرشدين الأكاديميين نصح الطلاب فيها بأخذ مساق. يجب أن يتبعوا الهيكل المحدد في صفحة إعدادات بيانات المدرسة. افصل معرف الفصل الدراسي بواسطة الفواصل. مثال: 200940, 200941, 200960. تأكد من الإدخال حسب ترتيب ظهورها في"),
-  );  
+  );
 
   $form["advising_term_id"] = array(
     "type" => "textfield",
     "label" => t("رمز فصل الإرشاد الأساسي"),
     "value" => variable_get("advising_term_id", ""),
     "description" => t("Of the available term ids above, this is the default that FlightPath is set to when an advisor logs in. Ex: 200940."),
-  );  
+  );
 
 
   $form["current_catalog_year"] = array(
@@ -814,7 +814,7 @@ function admin_advising_settings_form() {
     "label" => t("كتالوج العام الدراسي الحالي"),
     "value" => variable_get("current_catalog_year", ""),
     "description" => t("هذا هو العام الذي يحمل فيها ماذا لو درجات، بالإضافة إلى وظائف أخرى مهمة. بمجرد تغيير هذا فقط سيتم تحميل كتالوج سنة جديد"),
-  );  
+  );
 
   $form["current_draft_catalog_year"] = array(
     "type" => "textfield",
@@ -822,7 +822,7 @@ function admin_advising_settings_form() {
     "label" => t("المسودة الحالية لكتالوج العام"),
     "value" => variable_get("current_draft_catalog_year", ""),
     "description" => t("While in Draft mode, this is the year which Blank Degree Search loads degrees from. What If mode will always use the Current catalog year, set above. You may change this while working on a new catalog. It will not affect any other users of the system. While not working on a new catalog, set this to the same as the Current catalog year."),
-  );  
+  );
 
 
   $form["not_released_grades_terms"] = array(
@@ -830,11 +830,11 @@ function admin_advising_settings_form() {
     "label" => t("العلامات التي لم يتم إصدارها لهذا الفصل"),
     "value" => variable_get("not_released_grades_terms", ""),
     "description" => t("201240, 201240:S1 :أدخل رمز الفصل, مفصول بفواصل والذي لم يتم إصداره ويجب ألا يكون مرئيا لأي من المرشدين الأكاديميين أو الطلاب. المساقات في هذه الفصول سوف تظهر درجات منتصف الفصل فقط أو لا درجات على الإطلاق. على سبيل المثال") . "<br>" . t(".إذا تُركت فارغة ، فستكون الدرجات مرئية للطلاب والمستشارين بمجرد ظهورها في قاعدة البيانات"),
-  );  
+  );
 
 
-    
-  
+
+
   return $form;
 }
 
@@ -844,12 +844,12 @@ function admin_advising_settings_form() {
 /**
  * Convienence function to get semester's default regular name.
  */
-function admin_get_semester_name($semester_num) {    
-  
+function admin_get_semester_name($semester_num) {
+
   $semester = new Semester($semester_num);
   $title = $semester->title;
-  
-    
+
+
   /**
   $ar = array(t("السنة الدراسية الأولى"), t("السنة الدراسية الثانية"), t("trarabic_10529"), t("السنة الدراسية الرابعة"));
   $s = $ar[$semester_num];
@@ -858,7 +858,7 @@ function admin_get_semester_name($semester_num) {
     $s = t("السنة الدراسية") . " " . ($semester_num + 1);
   }
   */
-  
+
   return $title;
 }
 
@@ -869,29 +869,29 @@ function admin_get_semester_name($semester_num) {
  */
 function admin_apply_draft_changes_form() {
   $form = array();
-  
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => t("يمكنك استخدام هذا النموذج لتطبيق تغييرات المسودة على قاعدة بيانات الإنتاج ، وإجراء تغييرات على الدرجات والمساقات والمجموعات مرئية لجميع مستخدمي النظام"),
   );
-  
+
   $form["passcode"] = array(
     "type" => "password",
     "label" => t(":للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة"),
     "required" => TRUE,
     "description" => t("لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي FlightPath هذه كلمة مرور تم إعدادها في إعدادات"),
-        
+
   );
-  
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("تسليم"),
     "description" => t("!قد يستغرق هذا الاجراء عدة ثوان ليكتمل! انقر مرة واحدة"),
     "prefix" => "<hr>",
   );
-  
-  
-    
+
+
+
   return $form;
 }
 
@@ -901,23 +901,23 @@ function admin_apply_draft_changes_form() {
  */
 function admin_apply_draft_changes_form_submit($form, $form_submit) {
   $values = $form_submit["values"];
-  
+
   $db = get_global_database_handler();
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
   // Check to make sure they entered the transfer passcode correctly.
-    
+
   if ($values["passcode"] != variable_get("admin_transfer_passcode", "h24897Ewujflnb7 wy2896432hke w490ukj")) {
 
     form_error("passcode", t("أو تحقق من صفحات إعدادات المسؤول) لمعرفة كلمة المرور) FlightPath خطأ! كلمة المرور التي أدخلتها غير صحيحة. تحقق مع مسؤول"));
     return;
-    
+
   }
-   
+
 
   // First, set maintenance mode...
   variable_set("maintenance_mode", TRUE);
-  
+
   // Okay, so what we gotta do is truncate the production tables,
   // then copy the draft tables in.
   $table_array = array(
@@ -968,16 +968,16 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
   variable_set("maintenance_mode", FALSE);
 
   // Send emails to notify programmers...
-  $notify = variable_get("notify_apply_draft_changes_email_address", "");  
+  $notify = variable_get("notify_apply_draft_changes_email_address", "");
   if ($notify != "") {
     mail($notify, "FlightPath Apply Draft Changes", "Someone has applied draft changes to FlightPath, which updated degree plans, groups, and courses.");
   }
-  
+
   fp_add_message(t(".تم بنجاح تحديث قاعدة بيانات الإنتاج مع تغييرات المسودة. أصبحت التغييرات الآن مرئية لكل المستخدمين"));
 
   watchdog("admin", "Draft changes applied.");
- 
-  
+
+
 }
 
 
@@ -988,17 +988,17 @@ function admin_apply_draft_changes_form_submit($form, $form_submit) {
  * If it's not there or invalid, pull it from our system settings.
  */
 function admin_get_de_catalog_year($bool_set_earliest_if_blank = TRUE) {
-  
+
   $settings = fp_get_system_settings();
   $de_catalog_year = $_REQUEST["de_catalog_year"];
-  
+
   if ($bool_set_earliest_if_blank) {
     if (!$de_catalog_year || $de_catalog_year < $settings["earliest_catalog_year"]) {
       $de_catalog_year = $settings["earliest_catalog_year"];
     }
   }
-  
-  return $de_catalog_year;  
+
+  return $de_catalog_year;
 }
 
 
@@ -1007,12 +1007,12 @@ function admin_get_de_catalog_year($bool_set_earliest_if_blank = TRUE) {
  * It will search for and replace replacement patterns which we are aware of it in $str.
  */
 function admin_menu_handle_replacement_pattern($str) {
-  
+
   if (strpos($str, "%DE_CATALOG_YEAR%") !== 0) {
     // It contains this replacement pattern!
     $str = str_replace("%DE_CATALOG_YEAR%", admin_get_de_catalog_year(), $str);
   }
-  
+
   if (strpos($str, "%SEV_FILTER%") !== 0) {
     // It contains this replacement pattern!
     $str = str_replace("%SEV_FILTER%", $_GET["sev_filter"], $str);
@@ -1022,15 +1022,15 @@ function admin_menu_handle_replacement_pattern($str) {
     // It contains this replacement pattern!
     $str = str_replace("%TYPE_FILTER%", $_GET["type_filter"], $str);
   }
-  
-  
+
+
   if (strpos($str, "%PAGE%") !== 0) {
     // It contains this replacement pattern!
     $str = str_replace("%PAGE%", $_GET["page"], $str);
   }
-    
-  
-  
+
+
+
   return $str;
 }
 
@@ -1044,7 +1044,7 @@ function admin_perm() {
     "can_edit_urgent_message" => array(
       "title" => t("عدل رسالة عاجلة"),
       "description" => t("يمكن للمستخدم تعديل الرسالة العاجلة التي تظهر في أعلى الصفحات"),
-    ),    
+    ),
     "can_access_data_entry" => array(
       "title" => t("بيانات الدخول"),
       "description" => t("The user can access (view) the data-entry portion of the admin console. Degree plans, groups, and courses."),
@@ -1056,78 +1056,78 @@ function admin_perm() {
     "can_view_advanced" => array(
       "title" => t("عرض متقدم"),
       "description" => t("قد يرى المستخدم معلومات متقدمة على الشاشة ، على سبيل المثال ، أرقام الهوية الداخلية للشهادات الجامعية و المساقات."),
-    ),   
+    ),
     "can_apply_draft_changes" => array(
       "title" => t("تطبيق تغييرات المسودة"),
       "description" => t("يمكن للمستخدم نقل مسودة التغييرات إلى الإنتاج."),
-    ),   
+    ),
     "can_edit_advising_settings" => array(
       "title" => t("تحرير إعدادات الإرشاد"),
       "description" => t("يجوز للمستخدم تعديل إعدادات الإرشاد ، مثل معرّفات المصطلحات المتاحة وسنة الكتالوج الحالية."),
-    ),   
+    ),
     "display_watchdog" => array(
       "title" => t("عرض إدخالات سجل المراقبة"),
       "description" => t("يمكن للمستخدم عرض إدخالات سجل المراقبة الأخيرة. وهذا يمثل مشكلة أمنية ، لذا لا تعطيه إلا للمستخدمين الموثوق بهم."),
-    ),   
+    ),
 
-    
-            
+
+
   );
-} 
- 
+}
 
- 
+
+
 /**
  * Meant to be fed into "fp_system_settings_form()", this function
- * returns an array which will automatically save values to our "variables" table. 
+ * returns an array which will automatically save values to our "variables" table.
  */
 function admin_urgent_message_form() {
   $form = array();
 
-  
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<p>" . t("سيتم عرض أي رسالة تقوم بإدخالها في أعلى كل صفحة في النظام. يستخدم هذا لتنبيه المستخدمين بأن النظام على وشك أن يتم قطعه عن الاتصال، أو أي معلومات أخرى مطلوبة بشكل عاجل") . "</p>
                   <p>" . t("لحذف هذه الرسالة ، قم ببساطة بحذف كل النص الموجود في المربع وحفظه.") . "</p>",
   );
-  
+
   $form["urgent_msg"] = array(
     "type" => "textarea",
     "label" => "Urgent message:",
     "value" => variable_get("urgent_msg", ""),
   );
-  
+
   return $form;
 }
- 
-  
 
-  
-  
+
+
+
+
 /**
  * Display the details of a particular watchdog entry, specified by its table id.
  */
 function admin_display_watchdog_entry($wid) {
   $rtn = "";
-  
+
   fp_add_css(fp_get_module_path("admin") . '/css/admin.css');
-  
-  
+
+
   $severity_array = array(
     5 => "notice",
     1 => "alert",
     3 => "error",
     7 => "debug",
   );
-  
+
   $res = db_query("SELECT * FROM watchdog WHERE wid = '?' ", $wid);
   $cur = db_fetch_object($res);
-  
+
   $msg = t($cur->message, unserialize($cur->variables));
-  
+
   $severity = $severity_array[$cur->severity];
   $when = format_date($cur->timestamp, "short");
-    
+
   // Display
   $rtn .= "
     <br>
@@ -1141,13 +1141,13 @@ function admin_display_watchdog_entry($wid) {
         <label>Type:</label>
         $cur->type
       </div>
-      
+
 
       <div class='watchdog-field'>
         <label>Time:</label>
         $when ($cur->timestamp)
       </div>
-      
+
       <div class='watchdog-field'>
         <label>Severity:</label>
         $severity
@@ -1157,45 +1157,45 @@ function admin_display_watchdog_entry($wid) {
         <label>User:</label>
         $cur->user_name | id: $cur->user_id | cwid: $cur->cwid | is_student: $cur->is_student | is_faculty: $cur->is_faculty
       </div>
-      
+
       <div class='watchdog-field'>
         <label>IP:</label>
         $cur->ip
       </div>
-                              
+
       <div class='watchdog-field'>
         <label>Location:</label>
         $cur->location
       </div>
-                      
+
       <div class='watchdog-field'>
         <label>Ref:</label>
         $cur->referer
       </div>
 
       <hr>
-      
+
       <div class='watchdog-field'>
         <label class='block'>Message:</label>
         $msg
       </div>
-      
+
       <div class='watchdog-field'>
         <label class='block'>Extra:</label>
         $cur->extra_data
-      </div>      
-                                                            
-      
+      </div>
+
+
     </div>
   ";
-  
-  
-  
-  
+
+
+
+
   return $rtn;
-}  
-  
-  
+}
+
+
 
 
 /**
@@ -1203,30 +1203,30 @@ function admin_display_watchdog_entry($wid) {
  *
  */
 function admin_display_watchdog() {
-  
+
   fp_add_css(fp_get_module_path("admin") . '/css/admin.css');
-  
+
   $rtn = "";
 
   $rtn .= "<p>View recent watchdog entries</p>";
-  
+
   $severity_array = array(
     5 => "notice",
     1 => "alert",
     3 => "error",
     7 => "debug",
   );
-  
+
   $results_per_page = 50;
-  
-  
-  
+
+
+
   $type_line = $severity_line = $limit_start = "";
 
   $sev_filter = $_GET["sev_filter"];
   $type_filter = $_GET["type_filter"];
   $page = $_GET["page"];
-  
+
   $limit_start = 0;
   if ($page != "" && is_numeric($page)) {
     $limit_start = $results_per_page * ($page - 1);
@@ -1235,12 +1235,12 @@ function admin_display_watchdog() {
     $page = 1;
   }
 
-  
-  
+
+
   // Filters:
   $rtn .= "<form method='GET' action='" . fp_url("admin/config/watchdog") . "' class='watchdog-filters'>
             ";
-  
+
   $rtn .= "Filter by:
            <span class='type-filter'>
             Type:
@@ -1250,13 +1250,13 @@ function admin_display_watchdog() {
   while ($cur = db_fetch_object($res)) {
     $sel = ($type_filter == $cur->type) ? "selected" : "";
     $rtn .= "<option value='$cur->type' $sel>$cur->type</option>";
-  }  
-  
-  
+  }
+
+
   $rtn .= "</select>
             </span>";
 
-  
+
   $rtn .= "
             <span class='severity-filter'>
             Severity:
@@ -1265,32 +1265,32 @@ function admin_display_watchdog() {
   foreach ($severity_array as $key => $value) {
     $sel = "";
     if ($sev_filter == $key) $sel = "selected";
-     
+
     $rtn .= "<option value='$key' $sel>$value</option>";
-  }  
-  
+  }
+
   $rtn .= "</select>
             </span>";
-  
-  
-  
-  
+
+
+
+
   $rtn .= "<input type='submit' value='Go'>";
   // Hack if clean URLs are not enabled:
   $rtn .= "<input type='hidden' name='q' value='admin/config/watchdog'>";
-  
+
   $rtn .= "</form>";
-  
-  
+
+
   if ($_GET["sev_filter"] != "") {
     $severity_line = " AND severity = '" . mysql_real_escape_string($_GET["sev_filter"]) . "' ";
   }
-  
+
   if ($_GET["type_filter"] != "") {
     $type_line = " AND type = '" . mysql_real_escape_string($_GET["type_filter"]) . "' ";
   }
 
-  
+
   $rtn .= "<table class='watchdog-table' cellspacing='0' cellpadding='4'>
               <tr>
                 <th>ID</th>
@@ -1299,7 +1299,7 @@ function admin_display_watchdog() {
                 <th>Msg</th>
                 <th>User</th>
               </tr>";
-  
+
   // Okay, let's display the recent watchdog entries.
   $query = "SELECT * FROM watchdog
                    WHERE 1
@@ -1310,56 +1310,56 @@ function admin_display_watchdog() {
   $res = db_query($query . " LIMIT $limit_start, $results_per_page");
   while ($cur = db_fetch_object($res)) {
     $pol = ($pol == "even") ? "odd" : "even";
-    
+
     $o_msg = t($cur->message, unserialize($cur->variables));
     $o_type = $cur->type;
-    
+
     // shorten msg if necessary
     $msg = substr($o_msg, 0, 120);
     if ($msg != $o_msg) {
       $msg = trim($msg) . "...";
     }
-    
+
     $type = substr($o_type, 0, 15);
     if ($type != $o_type) {
       $type = trim($type) . "...";
     }
 
-    
-    
+
+
     $severity = $severity_array[$cur->severity];
     $when = format_date($cur->timestamp, "short");
-    
-        
+
+
     $rtn .= "
-              <tr class='row-$pol row-$severity'>                
+              <tr class='row-$pol row-$severity'>
                 <td valign='top'>" . l($cur->wid, "admin/config/watchdog/$cur->wid", "sev_filter=$sev_filter&type_filter=$type_filter&page=$page") . "</td>
                 <td valign='top'>$when</td>
-                <td valign='top'>$type</td>                
-                <td valign='top'>$msg</td>                
-                <td valign='top'>$cur->user_name</td>                
-              
-              </tr>    
-    
+                <td valign='top'>$type</td>
+                <td valign='top'>$msg</td>
+                <td valign='top'>$cur->user_name</td>
+
+              </tr>
+
             ";
-    
+
   }
-  
-  
+
+
   $rtn .= "</table>";
-  
+
   // Now, do the page
-  
+
   // Figure out the total number of results
   $total = db_result(db_query("SELECT count(wid) as count
                                FROM watchdog WHERE 1 $type_line $severity_line "));
-  
-  
+
+
   // Now, divide by the number of results per page.
   $pages = ceil($total / $results_per_page);
 
   $base_query = "sev_filter=$sev_filter&type_filter=$type_filter";
-   
+
   $rtn .= "<div class='fp-pager'>";
   if ($page > 1) {
     $rtn .= "<span class='pager-link pager-first'>" . l("&laquo; first", "admin/config/watchdog", $base_query . "&page=1") . "</span>";
@@ -1367,53 +1367,53 @@ function admin_display_watchdog() {
   }
   else {
     $rtn .= "<span class='pager-link pager-first'>&laquo; first</span>";
-    $rtn .= "<span class='pager-link pager-prev'>&lt; prev</span>";    
+    $rtn .= "<span class='pager-link pager-prev'>&lt; prev</span>";
   }
-   
+
   // page numbers here
   // Let's get the previous X page numbers, and next X (if possible)
   $start_page_num = $page - 5;
   if ($start_page_num < 1) $start_page_num = 1;
   $end_page_num = $page + 5;
   if ($end_page_num > $pages) $end_page_num = $pages;
-  
+
   if ($start_page_num > 1) {
     $rtn .= "<span class='pager-elip'>...</span>";
   }
-  
+
   for ($t = $start_page_num; $t <= $end_page_num; $t++) {
     if ($page == $t) {
       // current page
-      $rtn .= "<span class='pager-link pager-number pager-current'>$t</span>";      
+      $rtn .= "<span class='pager-link pager-number pager-current'>$t</span>";
     }
     else {
       $rtn .= "<span class='pager-link pager-number'>" . l($t, "admin/config/watchdog", $base_query . "&page=$t") . "</span>";
     }
-  } 
+  }
 
-  
+
   if ($end_page_num < $pages) {
     $rtn .= "<span class='pager-elip'>...</span>";
   }
-  
-  
-   
+
+
+
   if ($page < $pages) {
     $rtn .= "<span class='pager-link pager-next'>" . l("next &gt;", "admin/config/watchdog", $base_query . "&page=" . ($page + 1)) . "</span>";
     $rtn .= "<span class='pager-link pager-last'>" . l("last &raquo;", "admin/config/watchdog", $base_query . "&page=$pages") . "</span>";
   }
   else {
     $rtn .= "<span class='pager-link pager-next'>next &gt;</span>";
-    $rtn .= "<span class='pager-link pager-last'>last &raquo;</span>";    
+    $rtn .= "<span class='pager-link pager-last'>last &raquo;</span>";
   }
-  
+
   $rtn .= "</div>";
-  
-  
-  
-  
+
+
+
+
   return $rtn;
-  
+
 }
 
 
@@ -1430,17 +1430,17 @@ function admin_display_watchdog() {
  */
 function admin_display_main() {
   $de_catalog_year = admin_get_de_catalog_year(FALSE);
-  
+
   // Has the system cron been run recently?
-  $cron_last_run = variable_get("cron_last_run", 0);    
+  $cron_last_run = variable_get("cron_last_run", 0);
   if ($cron_last_run < strtotime("-7 DAY")) {
     // Warn admin that they need to have cron set up!  It's been over a week!
-    fpm(t(" .للحصول على الإرشادات @status_link أو الاطلاع على صفحة @run_link كثيرا. يمكنك  cron في العمل بشكل صحيح ، يتم تكوين عملية  FlightPath الخاصة بالنظام خلال أكثر من أسبوع لكي يستمر cron لم يتم تشغيل عملية", 
+    fpm(t(" .للحصول على الإرشادات @status_link أو الاطلاع على صفحة @run_link كثيرا. يمكنك  cron في العمل بشكل صحيح ، يتم تكوين عملية  FlightPath الخاصة بالنظام خلال أكثر من أسبوع لكي يستمر cron لم يتم تشغيل عملية",
             array("@status_link" => l(t("حالة النظام"), "admin/config/status"),
                   "@run_link" => l(t("run cron now"), "admin/config/run-cron"))));
   }
-  
-  
+
+
   $rtn = "";
 
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
@@ -1454,57 +1454,57 @@ function admin_display_main() {
             </td>
             <td valign='top' width='50%'>
               ";
-              
+
 
   // Advising Settings
   $rtn .= fp_render_curved_line("Advising Settings");
   $rtn .= "<div class='admin-advising-settings'>
-             
+
        <ul>
         <li>" . t("الفصول المتاحة لتقديم الإرشاد: %v", array("%v" => variable_get("available_advising_term_ids", ""))) . "</li>
-        <li>" . t("التقديم الإرشادي للفصل الدراسي الإفتراضي: %v", array("%v" => variable_get("advising_term_id", ""))) . "</li>          
-        <li>" . t("سنة كاتلوج الحالية: %v", array("%v" => variable_get("current_catalog_year", ""))) . "</li>       
-        <li>" . t("مسودة سنة كاتلوج الحالي: %v", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>             
-        <li>" . t("الدرجات التي لم تصدر للفصل الدراسي: %v", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>             
-        
+        <li>" . t("التقديم الإرشادي للفصل الدراسي الإفتراضي: %v", array("%v" => variable_get("advising_term_id", ""))) . "</li>
+        <li>" . t("سنة كاتلوج الحالية: %v", array("%v" => variable_get("current_catalog_year", ""))) . "</li>
+        <li>" . t("مسودة سنة كاتلوج الحالي: %v", array("%v" => variable_get("current_draft_catalog_year", ""))) . "</li>
+        <li>" . t("الدرجات التي لم تصدر للفصل الدراسي: %v", array("%v" => variable_get("not_released_grades_terms", ""))) . "</li>
+
       </ul>";
-  
+
   if (user_has_permission("can_edit_advising_settings")) {
     $rtn .= l(t("تحرير إعدادات الإرشاد"), "admin/edit-advising-settings");
   }
-  
-  $rtn .= "</div>";
-    
 
-                            
-              
+  $rtn .= "</div>";
+
+
+
+
   $rtn .= "</td>
-                        
+
            </tr>";
   $rtn .= "</table><br>"; // close table
 
 
   //$settings = fp_get_system_settings();
-  
+
   $current_catalog_year = variable_get("current_catalog_year", 2006);
   $earliest_catalog_year = variable_get("earliest_catalog_year", 2006);
-  
-  
+
+
   if (user_has_permission("can_access_data_entry")) {
     $rtn .= fp_render_curved_line("Data Entry");
-   
+
     $rtn .= "<div class='data-entry-cats'>";
 
     // Have a pulldown here of years, then use javascript to hide/show relavant groups.
     $rtn .= "&nbsp; &nbsp; &nbsp; " . t("اختر سنة كاتلوج") . ": <select id='data-entry-select-cats' onChange='adminHideDECats();'>";
     $selected_cat = ($de_catalog_year != "") ? $de_catalog_year : $current_catalog_year;
-    
+
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
       $sel = ($t == $selected_cat) ? "selected" : "";
       $rtn .= "<option value='$t' $sel>$t-" . ($t+1) . "</option>";
     }
     $rtn .= "</select>";
-    
+
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
       $rtn .= "<ul class='data-entry-for-cat data-entry-for-cat-$t'>";
       $rtn .= "<li>" . l(t("خطط شهادة جامعية لسنة @year", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
@@ -1512,16 +1512,16 @@ function admin_display_main() {
       $rtn .= "<li>" . l(t("@yearمساقات ل", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
       $rtn .= "</ul>";
     }
-        
+
     if (user_has_permission("can_edit_data_entry")) {
       $rtn .= "<b>" . t(":وظيفة المسؤول") . "</b><ul>
               <li>" . l(t("تكرار سنة كاملة من البيانات إلى السنة الجديدة"), "admin/duplicate-year") . "</li>
                 </ul>";
     }
-    
-    
+
+
     $rtn .= "</div>";
-    
+
     // Draft changes?
     $res = db_query("SELECT * FROM draft_instructions");
     if (db_num_rows($res) > 0) {
@@ -1531,21 +1531,17 @@ function admin_display_main() {
     $rtn .= "<ul class='data-entry-draft-waiting'>
               <li>" . l(t("تطبيق تغييرات المسودة"), "admin/apply-draft-changes") . "</li>
            </ul>";
-        
+
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
-    
+
+
+
+
+
+
+
+
+
   return $rtn;
 }
-
-
-
-

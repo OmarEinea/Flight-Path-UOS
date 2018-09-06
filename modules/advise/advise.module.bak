@@ -3,45 +3,45 @@
 
 function advise_menu() {
   $items = array();
-  
-  
+
+
   $items["admin-tools/toggle-draft"] = array(
     "title" => "Toggle Draft Mode",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("advise_toggle_draft_form"),
     "access_arguments" => array("toggle_draft"),
     "page_settings" => array(
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to Main",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "main",
         ),
-      ),          
+      ),
     ),
     "type" => MENU_TYPE_TAB,
     "tab_parent" => "main",
   );
-  
-  
+
+
  $items["admin-tools/clear-advising-cache"] = array(
-    "title" => "Clear advising cache",    
+    "title" => "Clear advising cache",
     "page_callback" => "advise_perform_clear_advising_cache",
     "access_arguments" => array("toggle_draft"),
     "type" => MENU_TYPE_NORMAL_ITEM,
-  );    
-  
-  
+  );
+
+
   $items["view"] = array(
     "title" => "View",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("view"),
-    "access_callback" => "advise_can_access_view",  
+    "access_callback" => "advise_can_access_view",
     "tab_family" => "system",
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "display_greeting" => TRUE,
       "page_has_search" => TRUE,
-    ),    
+    ),
     "weight" => 30,
     "type" => MENU_TYPE_TAB,
   );
@@ -51,19 +51,19 @@ function advise_menu() {
     "title" => "View",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("view"),
-    "access_callback" => TRUE,  
+    "access_callback" => TRUE,
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "bool_print" => TRUE,
       "screen_mode" => "not_advising",
-    ),    
+    ),
     "type" => MENU_TYPE_CALLBACK,
   );
-  
+
 
 
   $items["what-if"] = array(
-    "title" => "What If?", 
+    "title" => "What If?",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("what-if"),
     "access_callback" => "advise_can_access_view",
@@ -71,23 +71,23 @@ function advise_menu() {
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "display_greeting" => TRUE,
-      "page_has_search" => TRUE,      
-    ),    
+      "page_has_search" => TRUE,
+    ),
     "weight" => 60,
     "type" => MENU_TYPE_TAB,
   );
 
-  
+
   $items["what-if/print"] = array(
     "title" => "What If?",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("what-if"),
-    "access_callback" => TRUE,  
+    "access_callback" => TRUE,
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "bool_print" => TRUE,
       "screen_mode" => "not_advising",
-    ),    
+    ),
     "type" => MENU_TYPE_CALLBACK,
   );
 
@@ -102,17 +102,17 @@ function advise_menu() {
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "display_greeting" => TRUE,
-      "page_has_search" => TRUE,      
-    ),    
+      "page_has_search" => TRUE,
+    ),
     "weight" => 40,
     "type" => MENU_TYPE_TAB,
     "file" => menu_get_module_path("advise") . "/advise.history.inc",
   );
 
 
- 
+
   // My popups....
-  
+
 
   $items["advise/popup-display-summary"] = array(
     "title" => "Advising Summary",
@@ -122,13 +122,13 @@ function advise_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
       "bool_print" => TRUE,
-    ),   
+    ),
     "type" => MENU_TYPE_CALLBACK,
     "file" => menu_get_module_path("advise") . "/advise.history.inc",
-    
-  );     
-    
-  
+
+  );
+
+
   $items["advise/popup-change-term"] = array(
     "title" => "Change advising term",
     "page_callback" => "advise_display_popup_change_term",
@@ -139,7 +139,7 @@ function advise_menu() {
     ),
     "type" => MENU_TYPE_CALLBACK,
   );
-  
+
   $items["advise/popup-change-track"] = array(
     "title" => "Change advising track",
     "page_callback" => "advise_display_popup_change_track",
@@ -150,9 +150,9 @@ function advise_menu() {
     ),
     "type" => MENU_TYPE_CALLBACK,
   );
-  
-      
-  
+
+
+
   $items["advise/popup-course-description"] = array(
     "title" => "Description",
     "page_callback" => "advise_display_popup_course_description",
@@ -161,10 +161,10 @@ function advise_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
     ),
-    "weight" => 10,    
+    "weight" => 10,
   );
-  
-  
+
+
   $items["advise/popup-substitute-selected"] = array(
     "title" => "Substitute",
     "page_callback" => "advise_display_popup_substitute_selected",
@@ -173,7 +173,7 @@ function advise_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
     ),
-    "weight" => 10,    
+    "weight" => 10,
   );
 
 
@@ -185,9 +185,9 @@ function advise_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
     ),
-    "weight" => 10,    
+    "weight" => 10,
   );
-  
+
 
   // Toolbox...
 
@@ -204,7 +204,7 @@ function advise_menu() {
     "tab_family" => "advise-toolbox",
     "file" => menu_get_module_path("advise") . "/advise.toolbox.inc",
   );
-  
+
   $items["advise/popup-toolbox/substitutions"] = array(
     "title" => "Substitutions",
     "page_callback" => "advise_display_popup_toolbox_substitutions",
@@ -218,7 +218,7 @@ function advise_menu() {
     "tab_family" => "advise-toolbox",
     "file" => menu_get_module_path("advise") . "/advise.toolbox.inc",
   );
-    
+
   $items["advise/popup-toolbox/moved"] = array(
     "title" => "Moved",
     "page_callback" => "advise_display_popup_toolbox_moved",
@@ -232,7 +232,7 @@ function advise_menu() {
     "tab_family" => "advise-toolbox",
     "file" => menu_get_module_path("advise") . "/advise.toolbox.inc",
   );
-  
+
   $items["advise/popup-toolbox/courses"] = array(
     "title" => "Courses",
     "page_callback" => "advise_display_popup_toolbox_courses",
@@ -246,9 +246,9 @@ function advise_menu() {
     "tab_family" => "advise-toolbox",
     "file" => menu_get_module_path("advise") . "/advise.toolbox.inc",
   );
-    
-  
-  
+
+
+
   return $items;
 }
 
@@ -258,52 +258,52 @@ function advise_menu() {
  */
 function advise_can_access_view() {
   global $current_student_id, $user;
-  
+
   // must be logged in first...
   if (!user_has_permission("access_logged_in_content")) return FALSE;
 
-  
+
   if ($current_student_id != "") return TRUE;
-  
+
   return FALSE;
-  
+
 }
 
 
 function advise_toggle_draft_form() {
   $form = array();
-  
+
   $form["mark" . $m++] = array(
     "value" => "<p>" . t("By turning Draft Mode on, you will be able
                   to view degree plans which are still in 'Draft' mode
                   in both the regular View tab, as well as the Blank Degrees module,
                   if enabled.") . "</p>",
   );
-  
+
   $form["draft"] = array(
     "type" => "radios",
     "label" => t("Enable Draft Mode?"),
     "options" => array("yes" => t("Yes"), "no" => t("No")),
     "value" => $_SESSION["fp_draft_mode"],
   );
-  
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("Submit"),
     "prefix" => "<hr>",
   );
-  
+
   $form["#redirect"] = array(
     "path" => "main",
     "query" => "",
   );
-  
+
   return $form;
 }
 
 
 function advise_toggle_draft_form_submit($form, $form_state) {
-  fp_add_message(t("Draft mode successfully updated."));  
+  fp_add_message(t("Draft mode successfully updated."));
   $_SESSION["fp_draft_mode"] = $form_state["values"]["draft"];
 }
 
@@ -314,17 +314,17 @@ function advise_toggle_draft_form_submit($form, $form_state) {
 function advise_display_popup_change_track() {
   global $degree_plan, $student;
   $rtn = "";
-   
+
   advise_init_screen();
-  
+
   fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
-  
-  
+
+
 
   $degree_plan->load_descriptive_data();
   $rtn .= fp_render_curved_line(t("Select a Degree Option"));
   $rtn .= "<div class='tenpt'>
-      " . t("This major has one or more degree options, which affects which courses are required. 
+      " . t("This major has one or more degree options, which affects which courses are required.
       Please select a degree option (or track) from the list below.") . "
       <br><br>
       " . t("If you are unsure of what to do, simply close this window.");
@@ -396,9 +396,9 @@ function advise_display_popup_change_track() {
 
 
     $link = fp_get_js_confirm_link(t("Are you sure you wish to change degree options?"), "opener.changeTrack(\"$temp_tc\"); window.close(); ", $track_title);
-    
+
     if ($GLOBALS["fp_advising"]["advising_what_if"] == "yes") {
-      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("Are you sure you wish to change degree options?") . "\");'>$track_title</a>";      
+      $link = "<a href='javascript: popupChangeWhatIfTrack(\"$temp_tc\", \"" . t("Are you sure you wish to change degree options?") . "\");'>$track_title</a>";
     }
 
     $rtn .= "<li class='tenpt' style='padding:3px;'>
@@ -406,10 +406,10 @@ function advise_display_popup_change_track() {
 
   }
 
-  $rtn .= "</ul>";    
+  $rtn .= "</ul>";
 
 
-  
+
   return $rtn;
 }
 
@@ -420,12 +420,12 @@ function advise_display_popup_change_track() {
  */
 function advise_display_popup_change_term() {
   $rtn = "";
-  
+
   fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
-  
+
   $current_term_id = $_REQUEST["advising_term_id"];
   $current_term = get_term_description($current_term_id);
-  
+
 
   $rtn .= fp_render_curved_line(t("Select an Advising Term"));
   $rtn .= "<div>
@@ -441,7 +441,7 @@ function advise_display_popup_change_term() {
   for ($t = 0; $t < count($temp); $t++) {
     $term_id = trim($temp[$t]);
 
-    
+
     $term_desc = get_term_description($term_id);
     if ($term_id == $current_term_id) {
       $term_desc = "<b>$term_desc</b> - " . t("current");
@@ -453,9 +453,9 @@ function advise_display_popup_change_term() {
 
   }
 
-  $rtn .= "</ul>";    
-  
-  
+  $rtn .= "</ul>";
+
+
   return $rtn;
 }
 
@@ -469,11 +469,11 @@ function advise_display_popup_change_term() {
  */
 function advise_user_can_view_advising_session_access_callback() {
   global $user;
-     
+
   if (user_has_permission("view_any_advising_session")) {
     return TRUE;
   }
-    
+
   if (user_has_permission("view_own_advising_session")) {
     // The user is only allowed to view their OWN advising sessions.
     // So, make sure this advising session belongs to them!
@@ -483,11 +483,11 @@ function advise_user_can_view_advising_session_access_callback() {
     $res = db_query("SELECT student_id FROM advising_sessions
                      WHERE advising_session_id = '?' ", $advising_session_id);
     $cur = db_fetch_array($res);
-    if ($user->cwid == $cur["student_id"]) {    
+    if ($user->cwid == $cur["student_id"]) {
       return TRUE;
     }
   }
-  
+
   return FALSE;
 }
 
@@ -496,21 +496,21 @@ function advise_user_can_view_advising_session_access_callback() {
 function advise_display_popup_group_select() {
   global $current_student_id, $fp, $screen, $degree_plan;
   $rtn = "";
-  
+
   advise_init_screen();
   fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
-  
+
   $settings = fp_get_system_settings();
-  
+
   $blank_degree_id = trim($_GET["blank_degree_id"]);
   $course_id = trim($_GET["course_id"]);
   $group_id = trim(addslashes($_GET["group_id"]));
   $group_hours_remaining = trim(addslashes($_GET["group_hours_remaining"]));
   $semester_num = trim(addslashes($_GET["semester_num"]));
-  $perform_action2 = $_REQUEST["perform_action2"]; 
+  $perform_action2 = $_REQUEST["perform_action2"];
 
   // If this is a "blank" degree, make sure we set the degree_id correctly.
-  if($blank_degree_id != "") {    
+  if($blank_degree_id != "") {
     $degree_plan = new DegreePlan($blank_degree_id);
     $fp->degree_plan = $degree_plan;
     $screen->degree_plan = $degree_plan;
@@ -521,7 +521,7 @@ function advise_display_popup_group_select() {
     fpm("Could not find group $group_id in semester $semester_num.");
   }
 
-  if ($group_id == -88) { 
+  if ($group_id == -88) {
     // This is the Add a Course group.  We must initialize it, as it
     // does not exist yet.
     // We need to populate this group now.
@@ -551,7 +551,7 @@ function advise_display_popup_group_select() {
         $temp_course->bool_selected = true;
         //$temp_course->assigned_to_semester_num = $semester_num;
       }
-    }    
+    }
   }
 
   if ($perform_action2 == "" || $perform_action2 == "select") {
@@ -573,7 +573,7 @@ function advise_display_popup_group_select() {
 
   }
 
-  if ($perform_action2 == "describe_course") {    
+  if ($perform_action2 == "describe_course") {
     $rtn .= $screen->display_popup_course_description($course_id,null,$group, true);
     // Create the tabs for the page...
     $tab_array = array();
@@ -589,7 +589,7 @@ function advise_display_popup_group_select() {
       $tab_array[2]["title"] = "Substitute";
       $tab_array[2]["on_click"] = "popupSubstituteSelected(\"$course_id\",\"$group_id\",\"$semester_num\",\"group_hours_remaining=$group_hours_remaining\");";
     }
-   
+
 
   }
 
@@ -605,27 +605,27 @@ function advise_display_popup_group_select() {
 function advise_display_popup_substitute_selected() {
   global $current_student_id, $fp, $screen;
   $rtn = "";
-  
+
   advise_init_screen();
   fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
-  
+
   $sub_decimals_allowed = variable_get("sub_hours_decimals_allowed", 2);
   // Add our allowed substitution decimals as a js setting for later use.
   fp_add_js(array("subDecimalsAllowed" => $sub_decimals_allowed), "setting");
-  
-  
+
+
   $course_id = trim($_GET["course_id"]);
   $group_id = trim(addslashes($_GET["group_id"]));
   $semester_num = trim(addslashes($_GET["semester_num"]));
   $hours_avail = trim(addslashes($_GET["group_hours_remaining"]));
-  
+
   if ($_GET["hours_avail"] * 1 > 0) {
     $hours_avail = $_GET["hours_avail"] * 1;
   }
-  
-  $rtn .= $screen->display_popup_substitute($course_id, $group_id, $semester_num, $hours_avail);  
-   
-  
+
+  $rtn .= $screen->display_popup_substitute($course_id, $group_id, $semester_num, $hours_avail);
+
+
   return $rtn;
 }
 
@@ -635,44 +635,44 @@ function advise_display_popup_course_description() {
   $rtn = "";
 
   advise_init_screen();
-  
+
   fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
-  
+
   $data_string = trim($_GET["data_string"]);
   $course = new Course();
   if ($data_string != "")
-  {  
-    $course->load_course_from_data_string($data_string);  
+  {
+    $course->load_course_from_data_string($data_string);
   }
-  
+
   // Save the max hours from the data string here.  This is to fix a bug where we didn't keep track
   // of a course's remainder from a split substitution.  Due to pass-by-reference, it gets reset
   // in the display_popup_course_description function.
   $datastring_max_hours = $course->max_hours;
 
   $rtn .= $screen->display_popup_course_description("", $course);
-  
+
   // Create the tabs for the page...
   $tab_array = array();
   $tab_array[0]["title"] = "Description";
   $tab_array[0]["active"] = true;
 
   if (user_has_permission("can_substitute") && !$screen->bool_blank) {
-    if ($course->bool_substitution != true && $course->grade == "") { 
+    if ($course->bool_substitution != true && $course->grade == "") {
       // By checking grade, we are making sure this course has NOT already
       // been taken by the student.  In other words, verify that this course
-      // is an unfulfilled requirement on the degree plan ONLY.      
+      // is an unfulfilled requirement on the degree plan ONLY.
       $extra_vars = "hours_avail=$datastring_max_hours";
       $tab_array[1]["title"] = "Substitute";
       $tab_array[1]["on_click"] = "popupSubstituteSelected(\"$course->course_id\",\"$course->assigned_to_group_id\",\"$course->assigned_to_semester_num\",\"$extra_vars\");";
-      
+
     }
   }
 
   fp_set_page_tabs($tab_array);
 
   //$screen->page_tabs = $screen->draw_tabs($tab_array);
-  
+
   return $rtn;
 }
 
@@ -683,7 +683,7 @@ function advise_display_popup_course_description() {
  */
 function advise_perm() {
   $perms = array();
-  
+
   $perms["view_any_advising_session"] = array(
     "title" => t("View any advising session"),
     "description" => t("The user is allowed to view any advising sessions for any user.
@@ -695,9 +695,9 @@ function advise_perm() {
     "description" => t("The user is allowed to view their own advising sessions.
                         For example, the user is a student."),
   );
-  
 
-  
+
+
   $perms["can_advise_students"] = array(
     "title" => t("Can advise students"),
     "description" => t("The user is allowed to advise other students,
@@ -718,8 +718,8 @@ function advise_perm() {
                         in FlightPath."),
   );
 
-  
-  
+
+
   return $perms;
 }
 
@@ -727,14 +727,14 @@ function advise_perm() {
 /**
  * This is the page which actually displays the "view" for the user
  * to see their advising session, or for an advisor to advise them.
- * 
+ *
  */
 function advise_display_view($view = "view") {
   global $user, $fp, $degree_plan, $screen;
   $rtn = "";
 
   if ($view == "what-if") {
-    $GLOBALS["fp_advising"]["advising_what_if"] = "yes";  
+    $GLOBALS["fp_advising"]["advising_what_if"] = "yes";
     $_REQUEST["advising_what_if"] = "yes";
   }
   else {
@@ -743,8 +743,8 @@ function advise_display_view($view = "view") {
   }
 
   // Initialize everything we need to initialize for this advising session.
-  advise_init_screen();      
-  fp_add_js(fp_get_module_path("advise") . "/js/advise.js");  
+  advise_init_screen();
+  fp_add_js(fp_get_module_path("advise") . "/js/advise.js");
 
   // If we are on a print screen, we need to go out of our
   // way to set the screen mode, so we don't display certain things
@@ -759,7 +759,7 @@ function advise_display_view($view = "view") {
     // the user a selection screen.
     $screen->screen_mode = "not_advising";
     $rtn .= advise_display_what_if_selection();
-  } 
+  }
   else {
     // This is a normal advising screen.  Either View or WhatIf.
 
@@ -768,9 +768,9 @@ function advise_display_view($view = "view") {
     $screen->build_screen_elements();
 
     $form_token = md5("advise_display_view" . fp_token());
-        
-    $vurl = fp_url($view);    
-        
+
+    $vurl = fp_url($view);
+
     $rtn .= "<form id='mainform' method='POST' action='$vurl'>
              <input type='hidden' name='form_token' value='$form_token'>
              <table class='fp-semester-table'>";
@@ -778,27 +778,27 @@ function advise_display_view($view = "view") {
     $rtn .= "</table>";
     // Add in the required "advising variables"
     $rtn .= $screen->get_hidden_advising_variables("save_draft");
-        
+
     $rtn .= "</form>";
-    
+
     // Figure out what the page's sub-tabs should be, and set them.
-  
+
     $tab_array = array();
 //CODE-DELETE-START
 //MAKE "Display by Year","Display by Type" buttons dissappear from the View and What-If screens
   // $tab_array[0]["title"] = "Display by Year";
   //  $tab_array[0]["active"] = ($screen->view != "type");
   //  $tab_array[0]["on_click"] = "changeView(\"year\");";
-        
+
   //  $tab_array[1]["title"] = "Display by Type";
   //  $tab_array[1]["active"] = ($screen->view == "type");
   //  $tab_array[1]["on_click"] = "changeView(\"type\");";
-        
+
     //if (!fp_screen_is_mobile()) {
     //  $tab_array[2]["title"] = "Print";
-    //  $tab_array[2]["type"] = "link";    
+    //  $tab_array[2]["type"] = "link";
     //  $tab_array[2]["active"] = FALSE;
-    //  $tab_array[2]["on_click"] = "popupPrintWindow(\"" . fp_url("$view/print", "advising_view=$screen->view") . "\");";  
+    //  $tab_array[2]["on_click"] = "popupPrintWindow(\"" . fp_url("$view/print", "advising_view=$screen->view") . "\");";
     //}
 //CODE-DELETE-END
 
@@ -806,16 +806,16 @@ function advise_display_view($view = "view") {
 
     if (!fp_screen_is_mobile()) {
       $tab_array[0]["title"] = "Print";
-      $tab_array[0]["type"] = "link";    
+      $tab_array[0]["type"] = "link";
       $tab_array[0]["active"] = FALSE;
-      $tab_array[0]["on_click"] = "popupPrintWindow(\"" . fp_url("$view/print", "advising_view=$screen->view") . "\");";  
+      $tab_array[0]["on_click"] = "popupPrintWindow(\"" . fp_url("$view/print", "advising_view=$screen->view") . "\");";
     }
 //CODE-ADD-END
-    
+
     fp_set_page_sub_tabs($tab_array);
-    
+
     watchdog("view_by_$screen->view", "", array(), WATCHDOG_DEBUG);
-                    
+
   }
 
   // If we are in WhatIf mode, let's write something special to
@@ -827,7 +827,7 @@ function advise_display_view($view = "view") {
   }
 
 
-  
+
   //  print_pre($student->list_courses_taken->toString());
   // Should we re-cache the course inventory?  If there have been any changes
   // to it, then we will see that in a GLOBALS variable...
@@ -835,7 +835,7 @@ function advise_display_view($view = "view") {
   {
     $_SESSION["fp_cache_course_inventory"] = serialize($GLOBALS["fp_course_inventory"]);
   }
-   
+
   return $rtn;
 }
 
@@ -850,7 +850,7 @@ function advise_display_view($view = "view") {
  */
 function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
   global $screen, $current_student_id;
-    
+
   $rtn = "";
 
   if ($screen->bool_print) {
@@ -860,7 +860,7 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
   $db = get_global_database_handler();
 
   $url = fp_url("what-if");
-  
+
   $rtn .= "<form action='" . $url . "' id='mainform' method='POST'>";
   $rtn .= fp_render_curved_line("What if I change my major to...");
 
@@ -887,15 +887,12 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
 
   $rtn .= "
       <div align='right'>
-      " . fp_render_button("Try It Out!", "showUpdate(true);submitForm();") . "       
-   
+      " . fp_render_button("Try It Out!", "showUpdate(true);submitForm();") . "
+
       </div>
       <br><br>
       <div class='hypo tenpt'>
-       <b>Important Notice:</b> What If displays degree plans
-       from the most recent catalog year ($current_catalog_year-" . ($current_catalog_year + 1) . "), 
-       as any major change would place the student into the 
-       most recent catalog. 
+       .أي تغيير كبير من شأنه أن يضع الطالب في أحدث كتالوج ,($current_catalog_year-" . ($current_catalog_year + 1) . ") يظهر الخطط الدراسية من أحدث كتالوج العام What If <b>:ملاحظة مهمة</b>
       </div>";
 
 
@@ -907,7 +904,7 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
           <input type='hidden' id='perform_action' name='perform_action'>
           <input type='hidden' id='advising_what_if' name='advising_what_if' value='yes'>
           <input type='hidden' id='current_student_id' name='current_student_id' value='$current_student_id'>
-  
+
         ";
 
   $rtn .= "</form>
@@ -926,7 +923,7 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
  */
 function advise_init_advising_variables($bool_ignore_what_if_variables = FALSE) {
   global $user;
-    
+
   $vars = array();
 
   $student = null;
@@ -951,7 +948,7 @@ function advise_init_advising_variables($bool_ignore_what_if_variables = FALSE) 
   {
     $vars["advising_student_id"] = $_SESSION["advising_student_id$csid"];
     if ($vars["advising_student_id"] == "")
-    { // Default value...      
+    { // Default value...
       $vars["advising_student_id"] = $csid;
     }
   }
@@ -971,7 +968,7 @@ function advise_init_advising_variables($bool_ignore_what_if_variables = FALSE) 
   // Get the major_code.
   $vars["advising_major_code"] = $_REQUEST["advising_major_code"];
   if ($vars["advising_major_code"] == "")
-  {    
+  {
     $vars["advising_major_code"] = $_SESSION["advising_major_code$csid"];
     if ($vars["advising_major_code"] == "")
     { // Default value...
@@ -1151,7 +1148,7 @@ function advise_init_advising_variables($bool_ignore_what_if_variables = FALSE) 
 
 
   $GLOBALS["fp_advising"] = $vars;
-        
+
 }
 
 
@@ -1167,17 +1164,17 @@ function advise_init() {
   // he can only view his own.
   if (!user_has_permission("view_any_advising_session")) {
     $current_student_id = $user->cwid;
-    $_REQUEST["current_student_id"] = $current_student_id;    
-    $_REQUEST["advising_load_active"] = "yes";        
+    $_REQUEST["current_student_id"] = $current_student_id;
+    $_REQUEST["advising_load_active"] = "yes";
   }
-    
-    
+
+
   // Is draft mode enabled?
   if ($_SESSION["fp_draft_mode"] == "yes") {
     fp_add_message("<b>" . t("Draft mode") . "</b> " . t("is currently enabled, however, substitutions and advisings will
                       still be saved normally."), "status", TRUE);
   }
-          
+
 }
 
 
@@ -1192,9 +1189,9 @@ function advise_clear_cache() {
       $_SESSION[$key] = FALSE;
     }
   }
-      
+
   fp_add_message(t("Advising cache has been cleared."));
-  
+
 }
 
 
@@ -1211,29 +1208,29 @@ function advise_perform_clear_advising_cache() {
 
 
 function advise_init_screen() {
-  
+
   global $degree_plan, $student, $fp, $window_mode, $user, $current_student_id, $screen;
-  
+
   $db = get_global_database_handler();
-  
+
   // Insert our advising vars into the GLOBALS array for easy use later.
-  advise_init_advising_variables();    
-    
-    
+  advise_init_advising_variables();
+
+
   $perform_action = trim(addslashes($_REQUEST["perform_action"]));
 
   if ($_REQUEST["clear_session"] == "yes") {
     //advise_save_advising_variables_to_db();
     // reload our advising vars into the GLOBALS array for easy use later.
     //$GLOBALS["fp_advising"] = advise_load_advising_variables_from_db($current_student_id, $user->id);
-      
+
   }
 
   // Insert our advising vars into the GLOBALS array for easy use later.
   //$GLOBALS["fp_advising"] = advise_load_advising_variables_from_db($current_student_id, $user->id);
-   
+
   $bool_what_if = false;
-  
+
   $csid = $current_student_id;
 
   $cache = $_SESSION["cache_fp$csid"];
@@ -1246,9 +1243,9 @@ function advise_init_screen() {
   }
 
   $bool_draft = true;
-  
+
   //fpm($GLOBALS["fp_advising"]);
-  if ($GLOBALS["fp_advising"]["advising_load_active"] == "yes") { 
+  if ($GLOBALS["fp_advising"]["advising_load_active"] == "yes") {
     // If we are loading from Active, then rebuild the cache as well.
     $bool_draft = false;
     $GLOBALS["fp_advising"]["load_from_cache"] = "no";
@@ -1268,22 +1265,22 @@ function advise_init_screen() {
 
   $bool_loaded = FALSE;
   if ($GLOBALS["fp_advising"]["load_from_cache"] == "yes" && $cache != "" && $fp = unserialize($cache)) {
-    $bool_loaded = TRUE;    
+    $bool_loaded = TRUE;
     $fp->db = get_global_database_handler();
     $student = $fp->student;
     if ($student->student_id == "") $bool_loaded = FALSE;
     $degree_plan = $fp->degree_plan;
     $student->db = get_global_database_handler();
     $degree_plan->db = get_global_database_handler();
-  } 
-  
+  }
+
   if (!$bool_loaded) {
     $fp = new FlightPath();
-    $fp->init();    
+    $fp->init();
     $student = $fp->student;
     $degree_plan = $fp->degree_plan;
     $GLOBALS["fp_advising"]["load_from_cache"] = "no";
-    $bool_loaded = TRUE;    
+    $bool_loaded = TRUE;
   }
 
   // Should we update the USER settings for anything?
@@ -1303,13 +1300,13 @@ function advise_init_screen() {
       as possibly being an invalid or forged submission.  This may constitute a bug
       in the system.  Please report this error to your Systems Administrator."));
     }
-    
+
     // Save, then reload the student.
     $adv_id_array = $fp->save_advising_session_from_post(0,true);
-    
+
     // Look for hook_save_advising_session()...
     invoke_hook("save_advising_session", $adv_id_array);
-    
+
     $bool_draft = TRUE;  // load draft, since we just saved it (and changed something)
     //fpm("saved draft");
 
@@ -1320,13 +1317,13 @@ function advise_init_screen() {
       as possibly being an invalid or forged submission.  This may constitute a bug
       in the system.  Please report this error to your Systems Administrator."));
     }
-    
+
     // Save, then go to the history screen.
     $adv_id_array = $fp->save_advising_session_from_post(0,false);
-    
+
     // Look for hook_save_advising_session()...
     invoke_hook("save_advising_session", $adv_id_array);
-    
+
     // Use an fp_goto command here to go to the History screen
     // Serialize the adv_id_array so we can send it along in our fp_goto command...
     $adv_id_serialized = serialize($adv_id_array);
@@ -1345,7 +1342,7 @@ function advise_init_screen() {
     $screen = new AdvisingScreenTypeView("", $fp);
     $screen->view = "type";
 
-  } 
+  }
   else {
     // Default advising view.  "View by Year"
     $screen = new AdvisingScreen("", $fp);
@@ -1357,7 +1354,7 @@ function advise_init_screen() {
     $screen->bool_blank = TRUE;
   }
 
-  
+
   if ($bool_what_if == true && $GLOBALS["fp_advising"]["what_if_major_code"] == "")  {
     // In other words, we are on the WhatIf tab, but we have not
     // selected a major.  So, just exit out.  We will give the user
@@ -1366,39 +1363,39 @@ function advise_init_screen() {
   }
 
 
-  if ($GLOBALS["fp_advising"]["load_from_cache"] != "yes") { 
+  if ($GLOBALS["fp_advising"]["load_from_cache"] != "yes") {
     // do not load from cache....
     $student->load_student();
     $student->load_student_substitutions();
     $student->load_unassignments();
-    
-    
+
+
     /*
     // Should we sort alphabetical order, or should we sort best grade first?  This is a setting the admin
     // can configure on the Configure School Data settings screen (admin/config/school-data)
     $sort_policy = variable_get("initial_student_course_sort_policy", "alpha"); // will either be "alpha" or "grade"
     if ($sort_policy == "grade") {
-      $student->list_courses_taken->sort_best_grade_first();  
+      $student->list_courses_taken->sort_best_grade_first();
     }
     else {
       // It's alpha!
-      $student->list_courses_taken->sort_alphabetical_order();  
+      $student->list_courses_taken->sort_alphabetical_order();
     }
-    
-    
+
+
     // DEV
-    $student->list_courses_taken->sort_best_grade_first();  
+    $student->list_courses_taken->sort_best_grade_first();
     */
-    
+
     //   DEV, REMOVE: $student->list_courses_taken->sort_most_recent_first();
     //  print_pre($student->list_courses_taken->toString());
 
 
     $fp->flag_outdated_substitutions();
-    
+
     $fp->assign_courses_to_semesters(); // bare degree plan. not groups.
     $fp->assign_courses_to_groups();
-    
+
     ////////////
      /*
     // Good place to output a serialization, in case we need it for testing.
@@ -1407,26 +1404,26 @@ function advise_init_screen() {
     $temp = serialize($screen);
     file_put_contents(fp_get_files_path() . "/test.txt", $temp);
     /////////////*/
-    
-    
-    
-    
+
+
+
+
   }
   else {
-    
-    
+
+
   }
 
   if ($GLOBALS["fp_advising"]["save_to_cache"] != "no" && $window_mode != "popup") {
-    if ($bool_what_if == false) { 
+    if ($bool_what_if == false) {
       // NOT in whatIf mode.  Normal.
 
       $_SESSION["cache_fp$csid"] = serialize($fp);
-            
-    } 
+
+    }
     else {
       // We are in WhatIf mode.
-      $_SESSION["cache_what_if$csid"] = serialize($fp);      
+      $_SESSION["cache_what_if$csid"] = serialize($fp);
 
 
     }
@@ -1435,29 +1432,29 @@ function advise_init_screen() {
   // We shouldn't supply the advising_term_id, so that it will load all terms available.
   $fp->load_advising_session_from_database(0,"",$bool_what_if,$bool_draft,0);
 
-  
+
   // Once we have loaded the advising session, we should always try to load
   // from draft from then on out.
   $GLOBALS["fp_advising"]["advising_load_active"] = "";
-  
-  
+
+
 }
 
 
 
 
 
-/** 
+/**
  * This is a hook which developers may use to add custom blocks (or perform other operations)
  * onto the advising View or What If screen.
- * 
+ *
  * This is called AFTER the AdvisingScreen class has called it's build_screen_elements()
  * function, which draws the various semester blocks, footnotes, etc, onto the screen.
- * 
- * This gives other modules a chance to alter the screen, or to add a custom block to the 
+ *
+ * This gives other modules a chance to alter the screen, or to add a custom block to the
  * bottom of the screen.  Note that the $screen element is sent by reference.  Any changes
  * you make to it will be instant; there is no need to return anything.
- * 
+ *
  * To see how these blocks are best set up, look at AdvisingScreen->build_excess_credit(), or
  * AdvisingScreen->displaySemester() for inspiration.
  *
@@ -1466,23 +1463,22 @@ function advise_init_screen() {
 function hook_advise_build_screen_elements(&$screen) {
 
   $html = "";
-  $html .= $screen->draw_semester_box_top("Sample", TRUE); // pass TRUE to hide the "headers" 
+  $html .= $screen->draw_semester_box_top("Sample", TRUE); // pass TRUE to hide the "headers"
   $html .= "<tr><td colspan='8'>";  // required after the top!
-              
+
   ////////////////
   // The content...
   $html .= "<b>Hello World!</b>";
-  
+
   ///////////////////
-  
+
   // All done, time to tidy up...
   $html .= "</td></tr>";  // required before the bottom!
   $html .= $screen->draw_semester_box_bottom();
 
-   
-  
+
+
   // Add to the screen as a "semester block".
   $screen->add_to_screen($html);
-  
-}
 
+}

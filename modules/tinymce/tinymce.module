@@ -7,24 +7,24 @@
  */
 
 function tinymce_init() {
-  
+
   $bool_activate = FALSE;
-  
+
   $include_paths = explode("\n", variable_get("tinymce_include_on_paths", ""));
   $include_paths = array_map("trim", $include_paths);
-  
+
   // Wildcards are allowed at the END of the path.
   // So, "content/edit*"  would be OK.  We need to go through
   // our paths and look at this.
   foreach($include_paths as $ipath) {
-    
+
     if ($ipath == "") continue;
-    
+
     if ($ipath == $_REQUEST["q"]) {
       $bool_activate = TRUE;
       break;
     }
-    
+
     // Contains a wildcard!  So, is the ipath partially in the request?
     if (strstr($ipath, "*")) {
       $ipath = str_replace("*", "", $ipath);
@@ -33,16 +33,16 @@ function tinymce_init() {
         break;
       }
     }
-    
-  } 
 
-  
+  }
+
+
   if ($bool_activate) {
-    fp_add_js(array("tinymceModulePath" => fp_get_module_path("tinymce")), "setting");  
-    
+    fp_add_js(array("tinymceModulePath" => fp_get_module_path("tinymce")), "setting");
+
     fp_add_js(fp_get_module_path("tinymce") . "/inc/tiny_mce/tiny_mce.js");
     fp_add_js(fp_get_module_path("tinymce") . "/js/tinymce_module.js");
-    
+
     // Set to TRUE for pages where tinymce is in use.
     $GLOBALS["tinymce_active"] = TRUE;
   }
@@ -54,8 +54,8 @@ function tinymce_init() {
  */
 function tinymce_menu() {
   $items = array();
-  
-  
+
+
   $items["admin/config/tinymce"] = array(
     "title" => "TinyMCE Settings",
     "description" => "Administer settings for the TinyMCE WYSIWYG editor",
@@ -67,26 +67,26 @@ function tinymce_menu() {
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
       "menu_icon" => fp_theme_location() . "/images/tiny.png",
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );     
-  
-  
+    "tab_parent" => "admin-tools/admin",
+  );
+
+
   return $items;
 }
 
 
 function tinymce_config_form() {
   $form = array();
-  
+
   $form["tinymce_include_on_paths"] = array(
     "label" => t("Include on paths:"),
     "type" => "textarea",
@@ -94,8 +94,8 @@ function tinymce_config_form() {
     "description" => t("أدخل مسارات FlightPath ، واحدة لكل سطر ، حيث يجب تضمين المكون الإضافي TinyMCE. مثال: التعليقات<br/>أحرف البدل مسموح بها أيضًا في نهاية المسار فقط. مثال: Content / * "),
   );
 
-  
-  
+
+
   return $form;
 }
 
@@ -115,12 +115,12 @@ function tinymce_perm() {
  * Implementation of hook_form_alter
  */
 function tinymce_form_alter(&$form, $form_id) {
-  
+
   // if tinymce is active, add instrcutions under the textareas.
   if ($GLOBALS["tinymce_active"]) {
-    
+
     fp_add_css(fp_get_module_path("tinymce") . "/css/tinymce.css");
-    
+
     foreach($form as $key=>$val) {
       if ($form[$key]["type"] == "textarea") {
         $form[$key]["description"] .= "<div class='tinymce-extra-instructions'>
@@ -128,5 +128,5 @@ function tinymce_form_alter(&$form, $form_id) {
       }
     }
   }
-  
+
 }

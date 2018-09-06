@@ -3,10 +3,10 @@
 /**
  * @file
  * This is the Oracle API module's primary module file.
- * 
+ *
  * This module is designed for use by programmers for interacting with Oracle
  * more smoothly.
- * 
+ *
  * It does provide a settings page, where users can set up a default oracle connection
  */
 
@@ -17,9 +17,9 @@
  *
  */
 function oracleapi_menu() {
-  
+
   $items = array();
-  
+
   $items["admin/config/oracleapi"] = array(
     "title" => "Oracle API settings",
     "page_callback" => "fp_render_form",
@@ -29,20 +29,20 @@ function oracleapi_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );       
-  
-  
+    "tab_parent" => "admin-tools/admin",
+  );
+
+
   return $items;
-  
+
 }
 
 
@@ -57,16 +57,16 @@ function oracleapi_perm() {
 
 /**
  * Implementation of hook_exit
- * 
+ *
  * If we have the default connection open, close it.
  *
  */
 function oracleapi_exit() {
-  
+
   if (isset($GLOBALS["oracleapi_global_conn"])) {
     oracleapi_close();
   }
-   
+
 }
 
 
@@ -77,10 +77,10 @@ function oracleapi_exit() {
  */
 function oracleapi_settings_form() {
   $form = array();
-  
+
   $form["mark" . $m++] = array(
     "value" => "<p>" . t("Use this form to set up the default Oracle connection
-                  and settings for your site.  Please remember, this module is meant to 
+                  and settings for your site.  Please remember, this module is meant to
                   provide functionality for other modules.  If you have no other modules
                   installed which make use of Oracle API, then making changes on this screen
                   will have no effect on FlightPath.") . "</p>",
@@ -91,7 +91,7 @@ function oracleapi_settings_form() {
     "label" => t("Default username:"),
     "value" => variable_get("oracleapi_username", ""),
   );
-  
+
   $enc_password = variable_get("oracleapi_enc_password", "");
   $password = "";
   if ($enc_password != "") {
@@ -110,7 +110,7 @@ function oracleapi_settings_form() {
                         and make sure your MySQL database is tightly restricted as well."),
   );
 
-  
+
   $form["oracleapi_server"] = array(
     "type" => "textfield",
     "label" => t("Default host server:"),
@@ -124,8 +124,8 @@ function oracleapi_settings_form() {
     "value" => variable_get("oracleapi_port", "1521"),
     "description" => t("Example:") . " 1521",
   );
-  
-  
+
+
   $form["oracleapi_sid"] = array(
     "type" => "textfield",
     "label" => t("Default SID:"),
@@ -133,7 +133,7 @@ function oracleapi_settings_form() {
     "description" => t("Example:") . " PROD",
   );
 
-  
+
   $form["oracleapi_email_error"] = array(
     "type" => "textfield",
     "label" => t("Email on errors:"),
@@ -142,16 +142,16 @@ function oracleapi_settings_form() {
                         address.  You may enter more than one address separated by a comma.
                         Leave blank to disable."),
   );
-  
-  
- 
+
+
+
   return $form;
 }
 
 
 /**
  * Validate handler for the settings form.
- * 
+ *
  * The primary thing I want to do here is prevent the password from being saved
  * in plain text.  We will replace it with an encoded version.
  *
@@ -159,10 +159,10 @@ function oracleapi_settings_form() {
  * @param unknown_type $form_state
  */
 function oracleapi_settings_form_validate($form, &$form_state) {
-  
+
   $password = $form_state["values"]["oracleapi_enc_password"];
   $enc_password = base64_encode($password);
-  
+
   $form_state["values"]["oracleapi_enc_password"] = $enc_password;
 
 }
@@ -185,13 +185,13 @@ function oracleapi_connect($username = "", $password = "", $server = "", $sid = 
     $sid = variable_get("oracleapi_sid", ""); */
 	//ORACLE DATABASE CONNECTION INFORMATION
 	//JPAZHAI_sme219ps	bantest.sharjah.uos.edu:1526/BANDEV
-/*	
+/*
 	$username="JPAZHAI";
 	$password="?????????????????????";
 	$server="bantest.sharjah.uos.edu";
 	$port="1526";
 	$sid="BANDEV";
-*/	
+*/
 
 
 	$username="JPAZHAI";
@@ -199,22 +199,22 @@ function oracleapi_connect($username = "", $password = "", $server = "", $sid = 
 	$server="192.168.30.177";
 	$port="1526";
 	$sid="PRODB";
-	
+
   }
-  
+
   if ($username == "") {
     // If it STILL is blank, then it hasn't been set up yet.
     fp_add_message(t("Oracle API default settings are not availabe.  Please make sure
                       they are set up correctly."), "error");
     return FALSE;
   }
-  
-  
-  $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $server)(PORT = $port)))(CONNECT_DATA=(SID=$sid)))"; 
+
+
+  $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = $server)(PORT = $port)))(CONNECT_DATA=(SID=$sid)))";
   $conn = oci_connect($username, $password, $db);
-  
+
   $GLOBALS["oracleapi_global_conn"] = $conn;
-  
+
   return $conn;
 
 }
@@ -225,20 +225,20 @@ function oracleapi_connect($username = "", $password = "", $server = "", $sid = 
 
 /**
  * Query the oracle database
- * 
+ *
  * Just like db_query, replacement patterns are allowed.  Ex:
  * oracleapi_query("SELECT * FROM table WHERE name = '?' ", $name);
- * 
+ *
  * You must escape non-replacement question marks with ??.
  *
  */
 function oracleapi_query($sql_query = "") {
-  
+
   $conn = $GLOBALS["oracleapi_global_conn"];
-    
-  
+
+
   // We need to go through our query and handle replacement patterns.
-  
+
   ////////////////////////////////////
   // (From _DatabaseHandler.php's db_query function)
 
@@ -255,80 +255,80 @@ function oracleapi_query($sql_query = "") {
   // The query may contain an escaped ?, meaning "??", so I will replace that with something
   // else first, then change it back afterwards.
   $sql_query = str_replace("??", "~ESCAPED_Q_MARK~", $sql_query);
-      
+
   // If $c (number of replacements performed) does not match the number of replacements
   // specified, warn the user.
   if (substr_count($sql_query, "?") != count($args)) {
     fpm("<br><b>WARNING:</b> Replacement count does not match what was supplied to oracle query: $sql_query<br><br>");
-  }    
-  
+  }
+
   if (count($args) > 0) {
     // Replace each occurance of "?" with what's in our array.
-    
+
     foreach ($args as $replacement) {
       // Escape the replacement...
       // The replacement might ALSO have a question mark in it.  Escape that too.
       if (strpos($replacement, "?") !== 0) {
         $replacement = str_replace("?", "~ESCAPED_Q_MARK~", $replacement);
       }
-      
+
       // Because mysql_real_escape_string will allow \' to pass through, I am going to
       // first use mysql_real_escape_string on all slashes.
       //$replacement = str_replace("\\" , mysql_real_escape_string("\\"), $replacement);
-      
+
       // Okay, perform the replacement
       $replacement = oracleapi_escape_string($replacement);
-      
-      $sql_query = preg_replace("/\?/", $replacement, $sql_query, 1);	    
+
+      $sql_query = preg_replace("/\?/", $replacement, $sql_query, 1);
     }
-    
+
   }
-  	  
-  $sql_query = str_replace("~ESCAPED_Q_MARK~", "?", $sql_query);	    
-  
-  //////////////////////////////////////////////  
-  
-  
-  
-  
+
+  $sql_query = str_replace("~ESCAPED_Q_MARK~", "?", $sql_query);
+
+  //////////////////////////////////////////////
+
+
+
+
   @$result = oci_parse($conn, $sql_query);
-  @oci_execute($result);  
-  
+  @oci_execute($result);
+
   $GLOBALS["oracleapi_global_last_result"] = $result;
-  
+
   // Check for errors.   If they exist, return FALSE!
   if ($err = oracleapi_error($result)) {
     $msg = "";
-    
+
     $msg .= t("An Oracle error has occured:") . " " . $err;
     $arr = debug_backtrace();
 
     fpm($msg . "<br><br>" . t("The backtrace:"));
     fpm($arr);
-       
+
     // Should we email anyone?
     $email_address = variable_get("oracleapi_email_error", "");
     if ($email_address != "") {
       $backtrace = print_r($arr, true);
       mail($email_address, "FlightPath OracleAPI error", $msg . "\n\nBacktrace:\n\n" . $backtrace);
     }
-    
+
     // Should we kill the script?
     if ($GLOBALS["fp_oracleapi_die_oracle_errors"] == TRUE) {
       print "\n<br>$msg<br>\n
              Please fix the error and try again.<br>\n";
       print "<br><br>Program backtrace:
               <pre>" . print_r($arr, true) . "</pre>";
-      die;      
+      die;
     }
-    
-    
+
+
     return FALSE;
   }
-  
-  
-  
-  return $result;  
+
+
+
+  return $result;
 }
 
 function oracleapi_fetch_array($result) {
@@ -336,13 +336,13 @@ function oracleapi_fetch_array($result) {
   return $row;
 }
 
-function oracleapi_affected_rows ($result) { 
-  return oci_num_rows($result); 
+function oracleapi_affected_rows ($result) {
+  return oci_num_rows($result);
 }
 
 
-function oracleapi_fetch_object ($result) { 
-  return oci_fetch_object($result); 
+function oracleapi_fetch_object ($result) {
+  return oci_fetch_object($result);
 }
 
 
@@ -351,18 +351,18 @@ function oracleapi_fetch_object ($result) {
  *
  * @param resourse $conn
  */
-function oracleapi_close ($conn = NULL) { 
+function oracleapi_close ($conn = NULL) {
   if ($conn == NULL) {
     $conn = $GLOBALS["oracleapi_global_conn"];
   }
-   
+
   if ($conn != NULL) {
     oci_close($conn);
   }
-  
+
   $GLOBALS["oracleapi_global_conn"] = NULL;
   unset($GLOBALS["oracleapi_global_conn"]);
-  
+
 }
 
 /**
@@ -375,11 +375,11 @@ function oracleapi_error($result = NULL) {
       $result = $GLOBALS["oracleapi_global_last_result"];
    }
    $arr = oci_error($result);
-   
+
    if (is_array($arr)) {
       return $arr["message"];
    }
-   
+
    return FALSE;  // no error!
 }
 
@@ -395,13 +395,13 @@ function oracleapi_errno($result = NULL) {
       $result = $GLOBALS["oracleapi_global_last_result"];
    }
    $arr = oci_error($result);
-   
+
    if (is_array($arr)) {
       return $arr["code"];
    }
-   
+
    return FALSE;  // no error!
-   
+
 }
 
 /**
@@ -413,13 +413,8 @@ function oracleapi_errno($result = NULL) {
 function oracleapi_escape_string($str) {
 
   // Escape single quotes ' with two of them ''
-  
+
   $str = str_replace("'", "''", $str);
-   
+
   return $str;
 }
-
-
-
-
-

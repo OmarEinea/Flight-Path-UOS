@@ -13,7 +13,7 @@ class _AdvisingScreen
 	public $theme_location, $page_content, $page_has_search, $page_tabs, $page_on_load;
 	public $page_hide_report_error, $page_scroll_top, $page_is_popup, $page_is_mobile;
 	public $page_title, $page_extra_css_files, $page_body_classes;
-  
+
 
 
 	/**
@@ -22,27 +22,27 @@ class _AdvisingScreen
 	 *
 	 * @param string $script_filename
 	 *   - This is the script which forms with POST to.  Ex: "advise.php"
-	 * 
-	 * @param FlightPath $flightpath   
-	 *   - FlightPath object.                                               
+	 *
+	 * @param FlightPath $flightpath
+	 *   - FlightPath object.
 	 *
 	 * @param string $screen_mode
-	 *   - A string describing what "mode" we are in.  
+	 *   - A string describing what "mode" we are in.
 	 *     - If left blank, we assume it is full-screen and normal.
 	 *     - If set to "popup" then we are in a popup window, and we will
 	 *       not draw certain elements.
-	 *  
+	 *
 	 */
 	function __construct($script_filename = "", FlightPath $flightpath = null, $screen_mode = "")
 	{
 		$this->width_array = Array("10%", "8%","8%", "17%", "26%", "10%", "10%", "9%");
 		$this->popup_width_array = Array("17%", "1%", "1%", "15%", "26%", "15%", "15%", "10%");
-		
+
 		$this->script_filename = $script_filename;
 		$this->is_on_left = true;
 		$this->box_array = array();
 		$this->footnote_array = array();
-		
+
 		$this->page_extra_css_files = array();
 
 		$this->flightpath = $flightpath;
@@ -61,14 +61,14 @@ class _AdvisingScreen
 		$this->screen_mode = $screen_mode;
 
 		//$this->settings = $this->db->get_flightpath_settings();
-	
+
 		$this->earliest_catalog_year = $GLOBALS["fp_system_settings"]["earliest_catalog_year"];
-		
+
 		$this->determine_mobile_device();
-				
+
 	}
 
-	
+
 
 	/**
 	 * This function will attempt to determine automatically
@@ -77,31 +77,31 @@ class _AdvisingScreen
 	 *
 	 */
 function determine_mobile_device(){
-  $user_agent = $_SERVER['HTTP_USER_AGENT']; 
+  $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
   $look_for = array(
-    "ipod", 
-    "iphone", 
-    "android", 
-    "opera mini", 
+    "ipod",
+    "iphone",
+    "android",
+    "opera mini",
     "blackberry",
     "(pre\/|palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine)",
     "(iris|3g_t|windows ce|opera mobi|windows ce; smartphone;|windows ce; iemobile)",
     "(smartphone|iemobile)",
     );
-  
-  foreach ($look_for as $test_agent) {   
+
+  foreach ($look_for as $test_agent) {
     if (preg_match('/' . $test_agent . '/i',$user_agent)) {
        $this->page_is_mobile = true;
        break;
     }
-  }  
-  
-  
+  }
+
+
   $GLOBALS["fp_page_is_mobile"] = $this->page_is_mobile;
-  
+
 } // ends function mobile_device_detect
-	
+
 
 
 /**
@@ -115,29 +115,29 @@ function determine_mobile_device(){
  */
 function draw_c_fieldset($content, $legend = "Click to expand/collapse", $bool_start_closed = false)
 {
-  
+
   // Create a random ID for this fieldset, js, and styles.
   $id = md5(rand(9,99999) . time());
-  
+
   $start_js_val = 1;
   $fsstate = "open";
   $content_style = "";
-  
+
   if ($bool_start_closed) {
     $start_js_val = 0;
     $fsstate = "closed";
     $content_style = "display: none;";
   }
-  
+
   $js = "<script type='text/javascript'>
-  
+
   var fieldset_state_$id = $start_js_val;
-  
+
   function toggle_fieldset_$id() {
-    
+
     var content = document.getElementById('content_$id');
     var fs = document.getElementById('fs_$id');
-      
+
     if (fieldset_state_$id == 1) {
       // Already open.  Let's close it.
       fieldset_state_$id = 0;
@@ -148,20 +148,20 @@ function draw_c_fieldset($content, $legend = "Click to expand/collapse", $bool_s
       // Was closed.  let's open it.
       fieldset_state_$id = 1;
       content.style.display = '';
-      fs.className = 'c-fieldset-open-$id';      
-    }  
-  }  
+      fs.className = 'c-fieldset-open-$id';
+    }
+  }
   </script>";
-  
-  $rtn = "  
+
+  $rtn = "
     <fieldset class='c-fieldset-$fsstate-$id' id='fs_$id'>
       <legend><a href='javascript: toggle_fieldset_$id();' class='nounderline'>$legend</a></legend>
       <div id='content_$id' style='$content_style'>
         $content
       </div>
     </fieldset>
-    $js  
-    
+    $js
+
   <style>
   fieldset.c-fieldset-open-$id {
     border: 1px solid;
@@ -171,18 +171,18 @@ function draw_c_fieldset($content, $legend = "Click to expand/collapse", $bool_s
     border: 1px solid;
     border-bottom-width: 0;
     border-left-width: 0;
-    border-right-width: 0;    
-  }  
+    border-right-width: 0;
+  }
 
   legend a {
     text-decoration: none;
   }
-  
+
   </style>
-    
+
   ";
-  
-  
+
+
   return $rtn;
 }
 
@@ -195,11 +195,11 @@ function draw_c_fieldset($content, $legend = "Click to expand/collapse", $bool_s
  * @return string
  */
 function draw_menu_item($url, $target, $icon_img, $title, $description = "") {
-  
+
   $rtn = "";
-  
+
   if (!$description) $extra_class = "fp-menu-item-tight";
-  
+
   $rtn .= "<div class='fp-menu-item $extra_class'>
             <div class='fp-menu-item-link-line'>
               <a href='$url' target='$target'>$icon_img $title</a>
@@ -208,8 +208,8 @@ function draw_menu_item($url, $target, $icon_img, $title, $description = "") {
   if ($description) {
     $rtn .= " <div class='fp-menu-item-description'>$description</div>";
   }
-  $rtn .= "</div>";  
-  
+  $rtn .= "</div>";
+
   return $rtn;
 }
 
@@ -218,7 +218,7 @@ function draw_menu_item($url, $target, $icon_img, $title, $description = "") {
  * Uses the draw_menu_item method to draw the HTML for
  * all the supplied menu items, assuming the user has
  * permission to view them.
- * 
+ *
  * Returns the HTML or "" if no menus could be drawn.
  *
  * @param unknown_type $menu_array
@@ -226,10 +226,10 @@ function draw_menu_item($url, $target, $icon_img, $title, $description = "") {
 function draw_menu_items($menu_array) {
 
   $rtn = "";
-  
+
   if (count($menu_array) == 0) return "";
-  
-  
+
+
   foreach($menu_array as $item) {
     $url = $item["url"];
     $target = $item["target"];
@@ -240,38 +240,38 @@ function draw_menu_items($menu_array) {
     else {
       $icon_img = "<span class='fp-menu-item-no-icon'></span>";
     }
-    
+
     $title = $item["title"];
     $description = $item["description"];
-    
+
     // Make sure they have permission!
     if ($item["permission"] != "") {
       if (!user_has_permission($item["permission"])) {
         // User did NOT have permission to view this link.
         continue;
       }
-    }    
-    
+    }
+
     $rtn .= $this->draw_menu_item($url, $target, $icon_img, $title, $description);
-    
-  }      
-  
+
+  }
+
   return $rtn;
-  
+
 }
 
-	
+
 	/**
 	 * This method outputs the screen to the browser by performing
 	 * an include(path-to-theme-file.php).  All necessary information
 	 * must be placed into certain variables before the include happens.
-	 * 
+	 *
 	 */
 	function output_to_browser()
 	{
 		// This method will output the screen to the browser.
 		// outputs the $page_content variable.
-				
+
 		$page_content = $this->page_content;
 		$page_tabs = $this->page_tabs;
 		$page_has_search = $this->page_has_search;
@@ -280,13 +280,13 @@ function draw_menu_items($menu_array) {
 		$page_is_popup = $this->page_is_popup;
 		$page_title = $this->page_title;
 		$page_body_classes = $this->page_body_classes;
-		
-  	if ($page_title == "") { 
+
+  	if ($page_title == "") {
   	  // By default, page title is this...
 			$page_title = $GLOBALS["fp_system_settings"]["school_initials"] . " FlightPath";
 		}
 
-		
+
 		$page_hide_report_error = $this->page_hide_report_error;
 
 		$print_option = "";
@@ -297,60 +297,60 @@ function draw_menu_items($menu_array) {
 		if ($this->page_is_mobile == true) {
 		  $print_option = "mobile_";
 		}
-					
+
 		// A dummy query-string is added to filenames, to gain control over
     // browser-caching. The string changes on every update or full cache
     // flush, forcing browsers to load a new copy of the files, as the
     // URL changed.
     $page_css_js_query_string = variable_get('css_js_query_string', '0');
-		
-				
-    // Add extra JS files.    
+
+
+    // Add extra JS files.
     if (is_array($GLOBALS["fp_extra_js"]) && count($GLOBALS["fp_extra_js"]) > 0) {
      foreach ($GLOBALS["fp_extra_js"] as $js_file_name) {
        $page_extra_js_files .= "<script type='text/javascript' src='$js_file_name?$page_css_js_query_string'></script> \n";
-     }        
-    } 		
-	
-	
-	  
+     }
+    }
+
+
+
 	  // Load any extra CSS files which addon modules might have added.
 	  if (is_array($GLOBALS["fp_extra_css"]) && count($GLOBALS["fp_extra_css"]) > 0) {
 	   foreach ($GLOBALS["fp_extra_css"] as $css_file_name) {
 	     $page_extra_css_files .= "<link rel='stylesheet' type='text/css' href='$css_file_name?$page_css_js_query_string' /> \n";
 	   }
-	  }		
-		
-		
+	  }
+
+
 	  // Javascript settings...
     $page_extra_js_settings .= "var FlightPath = new Object();   \n";
-    $page_extra_js_settings .= " FlightPath.settings = new Object();   \n";      
+    $page_extra_js_settings .= " FlightPath.settings = new Object();   \n";
     foreach ($GLOBALS["fp_extra_js_settings"] as $key => $val) {
       $page_extra_js_settings .= "FlightPath.settings.$key = '$val';  \n";
-    }	 
-	 
-    // Scrolling somewhere?  Add it to the page_on_load...    
-	  if (trim($page_scroll_top != "")) {		  
+    }
+
+    // Scrolling somewhere?  Add it to the page_on_load...
+	  if (trim($page_scroll_top != "")) {
 		  $page_on_load .= " scrollTo(0, $page_scroll_top);";
 	  }
-    
+
 	  // Add in our hidden divs which we will sometimes display...
 	  $page_content .= "<div id='updateMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحديث") . "</div>
 								<div id='loadMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحميل") . "</div>";
-	  
-		
+
+
 		include($GLOBALS["fp_system_settings"]["theme"] . "/fp_" . $print_option . "template.php");
 	}
 
-	
-	
+
+
 	/**
 	 * This function simply adds a reference for additional CSS to be
 	 * link'd in to the theme.  It is used by add-on modules.
-	 * 
+	 *
 	 * The filename needs to be from the reference of the base
 	 * FlightPath install.
-	 * 
+	 *
 	 * Ex:  $screen->add_css("modules/course_search/css/style.css");
 	 *
 	 * @param String $filename
@@ -358,11 +358,11 @@ function draw_menu_items($menu_array) {
 	function add_css($filename) {
 
 	  $this->page_extra_css_files[] = $filename;
-	  
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Converts a string containing BBCode to the equivalent HTML.
 	 *
@@ -495,10 +495,10 @@ function draw_menu_items($menu_array) {
 				<td colspan='10'>
 				<div class='tenpt' style='margin-top: 10px; padding: 3px;'>
 				<b>*</b> Courses marked with an asterisk (*) have
-					equivalencies at {$GLOBALS["fp_system_settings"]["school_initials"]}.  
+					equivalencies at {$GLOBALS["fp_system_settings"]["school_initials"]}.
 					Click on the course for more
-					details.			
-				</div>		
+					details.
+				</div>
 				</td>
 				</tr>
 				";
@@ -549,7 +549,7 @@ function draw_menu_items($menu_array) {
 		}
 
     $notice = trim(variable_get("graduate_credits_block_notice", t("لا يمكن استخدام هذه المساقات لدرجة البكالوريوس")));
-		
+
     // Do we have a notice to display?
 		if ($notice != "")
 		{
@@ -559,8 +559,8 @@ function draw_menu_items($menu_array) {
 					</div>
 					</td></tr>";
 		}
-		
-		
+
+
 		$pC .= $this->draw_semester_box_bottom();
 
 		if (!$is_empty)
@@ -570,9 +570,9 @@ function draw_menu_items($menu_array) {
 
 	}
 
-	
-	
-	
+
+
+
 
 	/**
 	 * Constructs the HTML to show which courses have been added
@@ -608,15 +608,15 @@ function draw_menu_items($menu_array) {
 		// Should we exclude graduate credits from this list?
 		$bool_grad_credit_block = (variable_get("display_graduate_credit_block", "yes") == "yes") ? TRUE : FALSE;
 		$graduate_level_codes_array = csv_to_array(variable_get("graduate_level_codes", "GR"));
-			
+
 		// Basically, go through all the courses the student has taken,
 		// selecting out the ones that are not fulfilling any
 		// requirements.
-		
+
 		$this->student->list_courses_taken->sort_alphabetical_order();
 		$this->student->list_courses_taken->reset_counter();
 		while($this->student->list_courses_taken->has_more())
-		{		  
+		{
 			$course = $this->student->list_courses_taken->get_next();
 
 			if ($course->bool_has_been_displayed == true)
@@ -635,14 +635,14 @@ function draw_menu_items($menu_array) {
 			{
 				continue;
 			}
-      
-			
+
+
 			// Exclude graduate credits?
-			if ($bool_grad_credit_block && $course->level_code != "" && in_array($course->level_code, $graduate_level_codes_array)) {			  			  
+			if ($bool_grad_credit_block && $course->level_code != "" && in_array($course->level_code, $graduate_level_codes_array)) {
 			  continue;
 			}
-			
-			
+
+
 			$pC .= $this->draw_course_row($course,"","",false,false);
 			$is_empty = false;
 		}
@@ -676,7 +676,7 @@ function draw_menu_items($menu_array) {
 					";
 		$fn_type_array = array("substitution","transfer");
 		$fn_char = array("substitution" => "S", "transfer"=>"T");
-		$fn_name = array("substitution" => t("بدائل"), 
+		$fn_name = array("substitution" => t("بدائل"),
 		                "transfer" => t("هوامش معادلة النقل"));
 		$fn_between = array("substitution" => t("إلى"),
 		                   "transfer" => t("إلى") . " {$GLOBALS["fp_system_settings"]["school_initials"]}'s");
@@ -738,7 +738,7 @@ function draw_menu_items($menu_array) {
 			$pC .= "</div>";
 		}
 
-		
+
 		//////////////////////////////
 		/// Unassigned transfer eqv's
 		$this->student->list_transfer_eqvs_unassigned->load_descriptive_transfer_data();
@@ -747,7 +747,7 @@ function draw_menu_items($menu_array) {
 		$ut_is_empty = TRUE;
 		$pC .= "<!--TRANS_UN_COURSES-->";
 		while ($this->student->list_transfer_eqvs_unassigned->has_more()) {
-      
+
 		  $c = $this->student->list_transfer_eqvs_unassigned->get_next();
 
     	$l_si = $c->subject_id;
@@ -758,15 +758,15 @@ function draw_menu_items($menu_array) {
 			                                 margin-left: 1.5em; text-indent: -1.5em;'>
 							$l_si $l_cn (" . $c->get_hours() . " " . t("ساعات") . ") from <em>$c->institution_name</em>.
 								";
-			
-  		
+
+
   		$pC .= "</div>";
-  		
+
   		$ut_is_empty = false;
 			$is_empty = false;
 		}
-		
-		
+
+
     if ($ut_is_empty == false)
 		{
 			$mtitle = "<div style='padding-bottom: 10px;'>
@@ -775,9 +775,9 @@ function draw_menu_items($menu_array) {
 				" . t(".تمت إزالة معادلات التحويل الافتراضية لهذه المساقات") . "</div>";
 			$pC = str_replace("<!--TRANS_UN_COURSES-->",$mtitle,$pC);
 			$pC .= "</div>";
-		}		
-		
-		
+		}
+
+
 
 		////////////////////////////////////
 		////  Moved Courses...
@@ -803,7 +803,7 @@ function draw_menu_items($menu_array) {
 			                                   margin-left: 1.5em; text-indent: -1.5em;'>
 							$l_s_i $l_c_n ($c->hours_awarded " . t("ساعات") . ") - $c->grade - $l_term
 								";
-			
+
 			$c->group_list_unassigned->reset_counter();
 			while($c->group_list_unassigned->has_more())
 			{
@@ -843,8 +843,8 @@ function draw_menu_items($menu_array) {
 		if (user_has_permission("can_substitute") && $bool_include_box_top) {
 			if ($this->bool_print != true)
 			{// Don't display in print view.
-			  $purl = fp_url("advise/popup-toolbox/transfers"); 
-				$pC .= "<div style='tenpt'>				
+			  $purl = fp_url("advise/popup-toolbox/transfers");
+				$pC .= "<div style='tenpt'>
 					<a href='javascript: popupWindow2(\"" . $purl . "\",\"\");'><img src='" . fp_theme_location() . "/images/toolbox.gif' border='0'>" . t("إعدادات المشرفين") . "</a>
 				</div>";
 				$is_empty = false;
@@ -857,12 +857,12 @@ function draw_menu_items($menu_array) {
   	if ($bool_include_box_top) {
 		  $pC .= $this->draw_semester_box_bottom();
   	}
-  	
+
 		if (!$is_empty)
 		{
 			$this->add_to_screen($pC);
 		}
-		
+
 		// Return so other functions can use this output, if needed.
 		return $pC;
 	}
@@ -934,10 +934,10 @@ function draw_menu_items($menu_array) {
 			$by = $this->db->get_faculty_name($temp["faculty_id"], false);
 			$remarks = $temp["remarks"];
 			$ondate = format_date($temp["posted"]);
-			
+
 			if ($by != "")
 			{
-				$by = " <br>&nbsp; &nbsp; " . t("البديل") . " $by. 
+				$by = " <br>&nbsp; &nbsp; " . t("البديل") . " $by.
 						<br>&nbsp; &nbsp; <i>$ondate.</i>";
 			}
 
@@ -949,9 +949,9 @@ function draw_menu_items($menu_array) {
       // If the sub'd course had ghost hours, make a note of that.
       if ($subbed_course->bool_ghost_hour) {
         $subbed_course->substitution_hours = "0 (1 ghost) ";
-      }			
-			
-			
+      }
+
+
 			if ($substitution->bool_outdated)
 			{
 				$extra .= " <span style='color:red'>[OUTDATED: ";
@@ -976,7 +976,7 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "</div>";
 
-    watchdog("toolbox", "substitutions", array(), WATCHDOG_DEBUG);    
+    watchdog("toolbox", "substitutions", array(), WATCHDOG_DEBUG);
 
 		return $pC;
 	}
@@ -1001,8 +1001,8 @@ function draw_menu_items($menu_array) {
 		$is_empty = true;
 
 		$retake_grades = csv_to_array(variable_get("retake_grades", "F,W"));
-		
-		
+
+
 		$this->student->list_courses_taken->sort_alphabetical_order(false, true);
 		$this->student->list_courses_taken->reset_counter();
 		while($this->student->list_courses_taken->has_more())
@@ -1107,7 +1107,7 @@ function draw_menu_items($menu_array) {
 		}
 
 		$pC .= "<div class='tenpt'>
-				" . t(".تحميلها FlightPath تعرض هذه النافذة جميع المساقات للطالب التي يمكن لـ") . "					
+				" . t(".تحميلها FlightPath تعرض هذه النافذة جميع المساقات للطالب التي يمكن لـ") . "
 				<br><br>
 				" . t(": رتب حسب") . " &nbsp; &nbsp;";
     $pC .= l(t("الاسم"), "advise/popup-toolbox/courses", "order=name&current_student_id=$csid", array("style" => $ns)) . "&nbsp; &nbsp;";
@@ -1160,7 +1160,7 @@ function draw_menu_items($menu_array) {
 			if ($c->bool_ghost_hour) {
 			  $h .= "(" . t("شبح") . "<a href='javascript:alertSubGhost()'>?</a>)";
 			}
-			
+
 			$pC .= "<tr>
 						<td valign='top' class='tenpt'>$l_s_i</td>
 						<td valign='top' class='tenpt'>$l_c_n</td>
@@ -1210,8 +1210,8 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "</div>";
 
-    watchdog("toolbox", "courses", array(), WATCHDOG_DEBUG);		
-		
+    watchdog("toolbox", "courses", array(), WATCHDOG_DEBUG);
+
 		return $pC;
 	}
 
@@ -1263,7 +1263,7 @@ function draw_menu_items($menu_array) {
 			if ($c->bool_ghost_hour) {
 			  $h .= " [" . t("شبح") . "<a href='javascript:alertSubGhost();'>?</a>] ";
 			}
-			
+
 			$pC .= "<div class='tenpt' style='padding-bottom: 15px;'>
 							<b>$l_s_i $l_c_n</b> ($h " . t("ساعات") . ") - $c->grade - $l_term
 								";
@@ -1327,14 +1327,14 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "<tr><td colspan='8' class='tenpt'>
 					";
-    
+
     $fsC = "";
-    
+
     // Go through and find all the test scores for the student...
 		$this->student->list_standardized_tests->reset_counter();
 		while($this->student->list_standardized_tests->has_more()) {
 			$st = $this->student->list_standardized_tests->get_next();
-      
+
 			$dt = strtotime($st->date_taken);
 			$ddate = format_date($dt, "just_date");
 
@@ -1394,23 +1394,23 @@ function draw_menu_items($menu_array) {
 		$this->build_transfer_credit();
 
 		// Should we add the graduate credit block?
-		
+
 		if (variable_get("display_graduate_credit_block", "yes") == "yes") {
 		  $this->build_graduate_credit();
 		}
-		
-		
-		
+
+
+
 		if (!$this->bool_blank)
 		{ // Don't show if this is a blank degree plan.
 			$this->build_footnotes();
 			$this->build_added_courses();
 		}
 
-		// invoke a hook, to give custom modules the chance to perform actions 
+		// invoke a hook, to give custom modules the chance to perform actions
 		// (or add blocks) to the advise screen after we have run this function.
 		invoke_hook("advise_build_screen_elements", array(&$this));
-		
+
 	}
 
 
@@ -1422,7 +1422,7 @@ function draw_menu_items($menu_array) {
 	 * with a percentage.
 	 *
 	 * @param string $title
-	 * 
+	 *
 	 * @param float $top_value
 	 *         - The top part of a ratio.  Ex: for 1/2, $top_value = 1.
 	 *
@@ -1441,50 +1441,50 @@ function draw_menu_items($menu_array) {
 	 *         - If $pal is left blank, the value here will be used for the "back" or "unfinished" color.
 	 * @param string $fore_col
 	 *         - If $pal is left blank, the value here will be used for the "foreground" or "progress" color.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return string
 	 */
 	function draw_pie_chart_box($title, $top_value, $bottom_value, $pal = "", $back_col = "", $fore_col = "")
 	{
 		$rtn = "";
 
-				
+
 		if ($bottom_value > 0) {
 			$val = round(($top_value / $bottom_value)*100);
 		}
 		if ($val > 100) { $val = 99; }
-    
+
 		$leftval = 100 - $val;
-		
+
 		if ($back_col == "") $back_col = "660000";
 		if ($fore_col == "") $fore_col = "FFCC33";
-		
+
     if ($pal == "major") {
     	$fore_col = "93D18B";
     }
-    
+
     if ($pal == "cumulative") {
     	$fore_col = "5B63A5";
     }
-    
+
     // Remove # from colors, if needed.
     $fore_col = str_replace("#", "", $fore_col);
     $back_col = str_replace("#", "", $back_col);
-    
-    
+
+
     $vval = $val;
     if ($vval < 1) $vval = 1;
-    
-		// Create a graph using our built-in pchart api:		
+
+		// Create a graph using our built-in pchart api:
 		// First, establish a token to we know the script is being called from US:
 		if (!isset($_SESSION["fp_pie_chart_token"])) {
 		  $_SESSION["fp_pie_chart_token"] = md5(fp_token());
 		}
 		//old Google API url: $pie_chart_url = "https://chart.googleapis.com/chart?cht=p&chd=t:$vval,$leftval&chs=75x75&chco=$fore_col|$back_col&chp=91.1";
 		$pie_chart_url = $GLOBALS["fp_system_settings"]["base_path"] . "/inc/pchart/fp_pie_chart.php?progress=$vval&unfinished=$leftval&unfinished_col=$back_col&progress_col=$fore_col&token=" . $_SESSION["fp_pie_chart_token"];
-		
-		
+
+
 		$rtn .= "<table border='0' width='100%'  height='100' class='elevenpt blueBorder' cellpadding='0' cellspacing='0' >
  						<tr>
   							<td class='blueTitle' align='center' height='20'>
@@ -1494,7 +1494,7 @@ function draw_menu_items($menu_array) {
  						<tr>
  							<td>
  								<table border='0'>
- 								<td> 									
+ 								<td>
  									<img src='$pie_chart_url'>
  								</td>
  								<td class='elevenpt'>
@@ -1502,7 +1502,7 @@ function draw_menu_items($menu_array) {
  								    ( <span style='color: blue;'>$top_value</span>
  									 / <span style='color: gray;'>$bottom_value " . t("ساعات") . "</span> )
  									 ";
-	
+
 		$rtn .= "
 								</td>
 								</table>
@@ -1514,8 +1514,8 @@ function draw_menu_items($menu_array) {
 		return $rtn;
 	}
 
-	
-	
+
+
 
 	/**
 	 * This function calls drawPieChart to construct the student's 3
@@ -1534,35 +1534,35 @@ function draw_menu_items($menu_array) {
 		if ($this->degree_plan->total_degree_hours < 1)
 		{
 			$this->degree_plan->calculate_progress_hours();
-			$this->degree_plan->calculate_progress_quality_points();			
+			$this->degree_plan->calculate_progress_quality_points();
 		}
 
 		// Create a holding array for later use.
 		$pie_chart_html_array = array();
-		
+
 		// Get the requested piecharts from our config...
 		$temp = variable_get("pie_chart_config", "c ~ Core Requirements\nm ~ Major Requirements\ndegree ~ Degree Progress");
 		$lines = explode("\n", $temp);
 		foreach ($lines as $line) {
 		  if (trim($line) == "") continue;
-		  
+
 		  $temp = explode("~", $line);
 		  $requirement_type = trim($temp[0]);
-		  $label = trim($temp[1]);		  
+		  $label = trim($temp[1]);
 		  $unfinished_col = trim($temp[2]);
 		  $progress_col = trim($temp[3]);
-		  
+
 		  if ($unfinished_col == "") $unfinished_col = "660000";
 		  if ($progress_col == "") $progress_col = "FFCC33";
 		  // TODO:  get 2 colors as well.
-		  
+
 		  // Okay, let's see if this degreeplan even has any data on this requirement type.
 		  $total_hours = $this->degree_plan->gpa_calculations[$requirement_type]["total_hours"]*1;
 		  $fulfilled_hours = $this->degree_plan->gpa_calculations[$requirement_type]["fulfilled_hours"]*1;
 		  $qpts = $this->degree_plan->gpa_calculations[$requirement_type]["qpts"]*1;
-		  
+
 		  if ($total_hours < 1) continue;  // no hours for this requirement type!
-		  
+
 		  // If we are here, then there is indeed enough data to create a piechart!
 		  // Generate the pie chart and add to our array, for later display.
 		  $html = $this->draw_pie_chart_box($label,$fulfilled_hours, $total_hours, "", $unfinished_col, $progress_col);
@@ -1571,36 +1571,36 @@ function draw_menu_items($menu_array) {
 		    "pie" => $html,
 		    "hide_pie" => $hide_pie_html,
 		   );
-		  
+
 		}
-		
-		
-		
+
+
+
 		$rtn .= "<tr><td colspan='2'>
 				";
 
 		if (!$this->db) {
 		  $this->db = get_global_database_handler();
 		}
-		
+
     $user->settings = $this->db->get_user_settings($user->id);
 
 	  if (count($pie_chart_html_array) > 0) {
 	    $td_width = round(100 / count($pie_chart_html_array));
 	  }
-    
-    
+
+
 		if ($this->bool_force_pie_charts || ($user->settings["hide_charts"] != "hide" && $this->bool_print == false && $this->bool_blank == false && $this->page_is_mobile == false))
 		{ // Display the pie charts
 
-		  
-		
+
+
 			$rtn .= "
 				<div style='margin-bottom: 10px;'>
 				<table class='pie-chart-table' width='100%' cellspacing='0' cellpadding='0' border='0'>
 				<tr>
 				";
-			
+
 			$c = 0;
 			foreach ($pie_chart_html_array as $val) {
 			  $html = $val["pie"];
@@ -1610,24 +1610,24 @@ function draw_menu_items($menu_array) {
 				         </td>";
         $c++;
 			}
-			
-				
-				
+
+
+
 			$rtn .= "</table>";
 
 			if (!$this->bool_force_pie_charts) {
-  			$rtn .= "				
+  			$rtn .= "
   				<div style='font-size: 8pt; text-align:right;'>
   					<a href='javascript:hideShowCharts(\"hide\");'>" . t("إخفاء الرسوم البيانية") . "</a>
   				</div>";
 			}
 			$rtn .= "</div>";
-			
-		} 
+
+		}
 		else {
 			// Hide the charts!  Show a "show" link....
 			$rtn .= "
- 			<table border='0' width='100%'  class='pie-chart-table-hide-charts 
+ 			<table border='0' width='100%'  class='pie-chart-table-hide-charts
  			                                elevenpt blueBorder' cellpadding='0' cellspacing='0' >
  			<tr>
   				<td colspan='10' class='blueTitle' align='center' height='20'>
@@ -1638,13 +1638,13 @@ function draw_menu_items($menu_array) {
 
 			$c = 0;
 			foreach ($pie_chart_html_array as $val) {
-			  $html = $val["hide_pie"];			  
+			  $html = $val["hide_pie"];
 			  $rtn .= "<td width='$td_width%' align='center'>
 					         " . $html . "
 				         </td>";
         $c++;
 			}
- 				
+
  			$rtn .= "
  			  </tr>
 
@@ -1669,9 +1669,9 @@ function draw_menu_items($menu_array) {
 		return $rtn;
 	}
 
-	
-	
-	
+
+
+
 
 	/**
 	 * This function calls drawPieChart to construct the student's 3
@@ -1690,10 +1690,10 @@ function draw_menu_items($menu_array) {
 		if ($this->degree_plan->total_degree_hours < 1)
 		{
 			$this->degree_plan->calculate_progress_hours();
-			$this->degree_plan->calculate_progress_quality_points();			
+			$this->degree_plan->calculate_progress_quality_points();
 		}
 
-		
+
 		$total_major_hours = $this->degree_plan->total_major_hours;
 		$total_core_hours = $this->degree_plan->total_core_hours;
 		$total_degree_hours = $this->degree_plan->total_degree_hours;
@@ -1703,43 +1703,43 @@ function draw_menu_items($menu_array) {
     $major_qpts = $this->degree_plan->major_qpts;
     $degree_qpts = $this->degree_plan->degree_qpts;
     $core_qpts = $this->degree_plan->core_qpts;
-		
-    
+
+
 		$rtn .= "<tr><td colspan='2'>
 				";
 
 		if (!$this->db) {
 		  $this->db = get_global_database_handler();
 		}
-		
+
     $user->settings = $this->db->get_user_settings($user->id);
-				
+
 		if ($user->settings["hide_charts"] != "hide" && $this->bool_print == false && $this->bool_blank == false && $this->page_is_mobile == false)
 		{ // Display the pie charts unless the student's settings say to hide them.
 
-		
+
 			$rtn .= "
 				<div style='margin-bottom: 10px;'>
 				<table width='100%' cellspacing='0' cellpadding='0' border='0'>
 				<td width='33%' style='padding-right:5px;'>
 					" . $this->draw_pie_chart_box(t("التقدم - المساقات الأساسية"),$fulfilled_core_hours, $total_core_hours, "core") . "
 				</td>
-				
+
 				<td width='33%' style='padding-right: 5px;'>
 					" . $this->draw_pie_chart_box(t("التقدم - مساقات التخصص"),$fulfilled_major_hours, $total_major_hours, "major") . "
 				</td>
-				
+
 				<td width='33%'>
 					" . $this->draw_pie_chart_box(t("التقدم - الدرجة العلمية"),$fulfilled_degree_hours, $total_degree_hours, "cumulative") . "
 				</td>
-				
 
-				
+
+
 				</table>
 				";
 
 			$rtn .= "
-				
+
 				<div style='font-size: 8pt; text-align:right;'>
 					<a href='javascript:hideShowCharts(\"hide\");'>" . t("إخفاء الرسوم البيانية") . "</a>
 				</div>";
@@ -1765,7 +1765,7 @@ function draw_menu_items($menu_array) {
  				<td class='tenpt' width='33%' align='center'>
  					" . t(": الدرجة العلمية") . " $fulfilled_degree_hours / $total_degree_hours
  				</td>
- 				
+
  			</tr>
 
 			</table>
@@ -1814,7 +1814,7 @@ function draw_menu_items($menu_array) {
 		$pC = "";
 
 		$pC .= "<tr><td colspan='8'>
-					<div class='tenpt' 
+					<div class='tenpt'
 						style='border: 5px double #C1A599;
 								padding: 5px;
 								margin: 10px;'>
@@ -1827,15 +1827,15 @@ function draw_menu_items($menu_array) {
 
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * This function generates the HTML to display the screen.  Should
 	 * be used in conjunction with output_to_browser()
 	 *
 	 * @return string
-	 */	
+	 */
 	function display_screen()
 	{
 		// This will generate the html to display the screen.
@@ -1845,34 +1845,34 @@ function draw_menu_items($menu_array) {
 		if (!$this->db) {
 		  $this->db = get_global_database_handler();
 		}
-		
+
 
 		if ($this->bool_hiding_grades && !$this->bool_print && $GLOBALS["fp_system_settings"]["hiding_grades_message"] != "")
 		{
 		  // Display the message about us hiding grades.
 		  $pC .= "
           <tr><td colspan='2'>
-          			<div class='tenpt hypo' style='margin-top: 4px; margin-bottom: 4px; 
+          			<div class='tenpt hypo' style='margin-top: 4px; margin-bottom: 4px;
           			 padding: 2px; border: 1px solid maroon;'>
           			<table border='0' cellspacing='0' cellpadding='0'>
           			<td valign='top'>
-          				<img src='" . fp_theme_location() . "/images/alert_lg.gif' >	
+          				<img src='" . fp_theme_location() . "/images/alert_lg.gif' >
           			</td>
           			<td valign='middle' class='tenpt' style='padding-left: 8px;'>
           			{$GLOBALS["fp_system_settings"]["hiding_grades_message"]}
           			</td>
           			</table>
           			</div>
-          </td></tr>		  
+          </td></tr>
 		  ";
 		}
-		
-		
+
+
 		//$pC .= $this->draw_currently_advising_box();
 		$pC .= $this->draw_progress_boxes();
-		
-    
-		
+
+
+
 		$pC .= $this->draw_public_note();
 
 		for ($t = 0; $t < count($this->box_array); $t++)
@@ -1884,17 +1884,17 @@ function draw_menu_items($menu_array) {
 				$pC .= "<tr>";
 				$align= "left";
 			}
-			
+
 			$pC .= "<td valign='top' align='$align' class='fp-boxes'>";
 			$pC .= $this->box_array[$t];
 			$pC .= "</td>";
-			
+
 			if (fp_screen_is_mobile()) {
 			 // If we are on a mobile device, force it to use
-			 // only one column. 
+			 // only one column.
 			 $this->is_on_left = false;
 			}
-			
+
 			if (!$this->is_on_left) // on right of page
 			{
 				$pC .= "</tr>";
@@ -1912,25 +1912,25 @@ function draw_menu_items($menu_array) {
 		{
 			if (!$this->bool_print && !$this->bool_blank)
 			{
-      
+
 			  $pC .= "<tr>";
-			  
+
         if (!fp_screen_is_mobile()) {
           $pC .= "<td>&nbsp;</td>";
         }
-			  
+
 				$pC .= "<td align='center'>
 						<div class='tenpt' style='margin-top:35px; margin-bottom:10px; padding: 10px; width: 200px;'>
-						" . fp_render_button(t("تسليم"),"submitSaveActive();") . "					
+						" . fp_render_button(t("تسليم"),"submitSaveActive();") . "
 						</div>
 						</td></tr>
-						";		
+						";
 
 
 				//$this->add_to_screen("<input type='button' value='Submit' onClick='submitSaveActive();'>");
 			}
 		}
-    
+
 		return $pC;
 
 	}
@@ -1957,7 +1957,7 @@ function draw_menu_items($menu_array) {
 					";
 
 		if ($this->page_is_mobile) $on_mouse = "";  // Causes problems for some mobile devices.
-		
+
 		if ($bool_padd)
 		{
 			$padd = "&nbsp; &nbsp;";
@@ -1979,7 +1979,7 @@ function draw_menu_items($menu_array) {
 	 *
 	 */
 	function build_semester_list() {
-	  
+
 		$list_semesters = $this->degree_plan->list_semesters;
 		// Go through each semester and add it to the screen...
 		$list_semesters->reset_counter();
@@ -2001,28 +2001,28 @@ function draw_menu_items($menu_array) {
 	}
 
 
-	
+
 	/**
 	 * This function is called when we know we are on a mobile
 	 * browser.  We have to handle tab rendering differently
-	 * in order to make them all fit. 
+	 * in order to make them all fit.
 	 *
 	 * @param unknown_type $tab_array
 	 */
 	function z__draw_mobile_tabs($tab_array) {
-	  
+
 	  $rtn = "";
-	  
+
 	  $js_vars = "var mobileTabSelections = new Array(); ";
 
 	  if (count($tab_array) <= 1) return "";
-	  
-	  
+
+
 	  $rtn .= "<table border='0' width='200' cellpadding='0' cellspacing='0' class='fp-mobile-tabs'>
 	           <td>
 	           <b>Display: </b>";
-	  
-	  
+
+
 /*	  if (count($tab_array) == 1) {
 	    // Just one element, no need to render the select list.
 	    $rtn .= $tab_array[0]["title"];
@@ -2030,9 +2030,9 @@ function draw_menu_items($menu_array) {
 	    return $rtn;
 	  }
 */
-	  
+
 	  $rtn .= "<select onChange='executeSelection()' id='mobileTabsSelect'>";
-	  
+
 	  for ($t = 0; $t < count($tab_array); $t++)
 		{
 			$title = $tab_array[$t]["title"];
@@ -2044,40 +2044,40 @@ function draw_menu_items($menu_array) {
 				continue;
 			}
 			$sel = ($active == true) ? $sel = "selected":"";
-			
+
 			$rtn .= "<option $sel value='$t'>$title</option>";
-						
+
 			$js_vars .= "mobile_tab_selections[$t] = '$on_click'; \n";
-			
-		}	  
-	  
+
+		}
+
 		$rtn .= "</select>
 		          </td></table>";
-	  				
-		
+
+
 		$rtn .= '
 		  <script type="text/javascript">
-		  ' . $js_vars . '		  
-		  
+		  ' . $js_vars . '
+
 		  function executeSelection() {
 		    var sel = document.getElementById("mobileTabsSelect").value;
-		    
+
 		    var statement = mobile_tab_selections[sel];
 		    // Lets execute the statement...
 		    eval(statement);
-		    
+
 		  }
-		  
-		  
+
+
 		  </script>
 		';
-		
+
 	  return $rtn;
-	  
+
 	}
-	
-	
-	
+
+
+
 
   /**
    * Displays the contents of the Descripton tab for the course popup.
@@ -2085,37 +2085,37 @@ function draw_menu_items($menu_array) {
    * @param int $course_id
    *        - The course_id of the course to show.  Leave blank if supplying
    *          the object instead.
-   * 
+   *
    * @param Course $course
    *        - The course object to display.  Leave as NULL if supplying
    *          the course_id instead.
-   * 
+   *
    * @param Group $group
    *        - The Group object that this course has been placed into.
-   * 
+   *
    * @param bool $show_advising_buttons
    *        - Should we show the advising buttons in this popup?  Would be
    *          set to false for student view, or for anyone who is not
    *          allowed to advise this course into a group for the student.
-   * 
+   *
    * @return string
    */
 	function display_popup_course_description($course_id = "", Course $course = null, $group = null, $show_advising_buttons = false)
 	{
 		$pC = "";
 
-		if ($course_id != "" && $course_id != 0) {		  
+		if ($course_id != "" && $course_id != 0) {
 			$course = new Course($course_id);
 		}
 
 		// Keep up with original max hours, in case this is from a substitution split.
 		$datastring_max_hours = $course->max_hours;
 		$datastring_bool_new_from_split = $course->bool_substitution_new_from_split;
-		
-		
+
+
 		$db_group_requirement_id = $_REQUEST["db_group_requirement_id"];
-		
-  
+
+
 
 		if ($course == null)
 		{
@@ -2129,7 +2129,7 @@ function draw_menu_items($menu_array) {
 
 		$advising_term_id = $GLOBALS["fp_advising"]["advising_term_id"];
 
-    
+
 		$course->load_descriptive_data();
 
 		$course_hours = $course->get_hours();
@@ -2158,28 +2158,28 @@ function draw_menu_items($menu_array) {
 		$course->fix_title();
 
     $initials = $GLOBALS["fp_system_settings"]["school_initials"];
-		
+
 		$pC .= fp_render_curved_line("$course->subject_id $course->course_num$other_valid_names <!--EQV1-->");
 		$bool_transferEqv = true;
 		if ($course->bool_transfer)
 		{
 			// This is a transfer course.  Begin by displaying the transfer credit's
 			// information.
-			
+
 			$course->course_transfer->load_descriptive_transfer_data($this->student->student_id);
 			$hrs = $course->course_transfer->get_hours()*1;
 			if ($hrs == 0)
 			{
 				$hrs = $course->get_hours();
 			}
-						
+
 			// make transfer course titles all caps.
 			$course->course_transfer->title = strtoupper($course->course_transfer->title);
 
 			$pC .= "<div style='margin-top: 13px;' class='tenpt'>
 				<b>" . t("معلومات الرصيد المنقول") . "</b><br>
 				<div style='margin-left: 20px;' class='tenpt'>
-					" . t(": المساق") . " " . $course->course_transfer->subject_id . " " . $course->course_transfer->course_num . " 
+					" . t(": المساق") . " " . $course->course_transfer->subject_id . " " . $course->course_transfer->course_num . "
 					- " . $course->course_transfer->title . " ($hrs hrs)<br>
 					" . t(": المؤسسة") . " " . $this->fix_institution_name($course->course_transfer->institution_name) . "<br>
 					" . t(": الفصل") . " " . $course->get_term_description() . "<br>
@@ -2221,7 +2221,7 @@ function draw_menu_items($menu_array) {
 		{
 			$pC .= "<div class='tenpt' style='margin-bottom:5px;'>
 						<i>" . t("تم فصل ساعات هذا المساق في بديل");
-			
+
 			if ($datastring_bool_new_from_split) {
 			  $pC .= "<br>" . t(": الساعات المتبقية بعد الفصل") . " " . $datastring_max_hours . " hrs.";
 			}
@@ -2230,7 +2230,7 @@ function draw_menu_items($menu_array) {
 			  $pC .= "<br>" . t(": الساعات الأصلية للمساق") . " " . $course->max_hours . " hrs.";
 			}
 			*/
-			
+
 			$pC .= "</i>
 						<a href='javascript: alertSplitSub();'>?</a>
 					</div>";
@@ -2245,7 +2245,7 @@ function draw_menu_items($menu_array) {
 					$course->description
 				</div>
 			</div>
-				"; 
+				";
 		}
 
 		if ($course->bool_transfer == true && $course->course_id < 1 && $course->bool_substitution == false)
@@ -2263,10 +2263,10 @@ function draw_menu_items($menu_array) {
 			if (!$bool_transferEqv)
 			{
 				$t_msg = t("مكافئ، أو تمت إزالة معادلة هذا الطالب. اسأل مرشدك الأكاديمي إذا كان سيتم احتساب هذا المساق نحو شهادتك @initials لا يحتوي هذا المساق على ", array("@initials" => $initials)) . "
-					</div>"; 
+					</div>";
 			} else {
 				$t_msg = t("على خطة درجة الطالب، أو تمت إزالة المعادلة لهذا الطالب. اسأل مرشدك الأكاديمي إذا كان سيتم احتساب هذا المساق نحو شهادتك @initials تعيين هذا المساق إلى معادلة FlightPath لا يمكن ل ", array("@initials" => $initials)) . "
-					</div>"; 				
+					</div>";
 			}
 
 			$pC .= $t_msg;
@@ -2353,16 +2353,16 @@ function draw_menu_items($menu_array) {
 
 		// Substitutors get extra information:
 		if (user_has_permission("can_substitute") && $course->assigned_to_group_id > 0) {
-			
-			
+
+
 			$pC .= "<div class='tenpt' style='margin-top: 20px;'>
 					<b>" . t("المعلومات الإدارية الخاصة:") . "</b>
-					
+
 				<span id='viewinfolink'
 				onClick='document.getElementById(\"admin_info\").style.display=\"\"; this.style.display=\"none\"; '
 				class='hand' style='color: blue;'
-				> - " . t("انقر للإظهار") . " -</span>					
-					
+				> - " . t("انقر للإظهار") . " -</span>
+
 					<div style='padding-left: 20px; display:none;' id='admin_info'>
 					";
 
@@ -2371,20 +2371,20 @@ function draw_menu_items($menu_array) {
   			$group = new Group();
   			$group->group_id = $course->assigned_to_group_id;
   			$group->load_descriptive_data();
-  			
+
   			$pC .= "
   					" . t(":المساق مخصص للمجموعة") . "<br>
   					&nbsp; " . t(": رمز المجموعة") . " $group->group_id<br>
   					&nbsp; " . t(": العنوان") . " $group->title<br>";
 				$pC .= "&nbsp; <i>" . t(": الاسم الداخلي") . " $group->group_name</i><br>";
-  			
+
   			$pC .= "&nbsp; " . t(": كتالوج العام") . " $group->catalog_year
   			";
 			}
 			$pC .= "
 					</div>
-					
-					</div>";								
+
+					</div>";
 		}
 
 
@@ -2396,8 +2396,8 @@ function draw_menu_items($menu_array) {
 			$by = $db->get_faculty_name($temp["faculty_id"], false);
 			$remarks = $temp["remarks"];
 			$ondate = format_date($temp["posted"], "", "n/d/Y");
-			
-			
+
+
 			if ($by != "")
 			{
 				$by = " by $by, on $ondate.";
@@ -2408,7 +2408,7 @@ function draw_menu_items($menu_array) {
 				$remarks = " " . t(":ملاحظات التبديل") . " <i>$remarks</i>.";
 			}
 
-			$forthecourse = t("لمتطلبات المساق الأصلي") . " <b>" . $course->course_substitution->subject_id . " 
+			$forthecourse = t("لمتطلبات المساق الأصلي") . " <b>" . $course->course_substitution->subject_id . "
 						" . $course->course_substitution->course_num . "</b>";
 			if ($temp["required_course_id"]*1 == 0)
 			{
@@ -2419,7 +2419,7 @@ function draw_menu_items($menu_array) {
 						<b>" . t(": ملاحظة") . "</b> " . t("تم استبدال هذا المساق في الخطة الدراسية") . " $forthecourse
 						$by$remarks";
 
-			
+
 			if (user_has_permission("can_substitute")) {
 				$pC .= "<div align='left' class='tenpt' style='padding-left: 10px;'>
 					<b>" . t("وظيفة إدارية خاصة:") . "</b>
@@ -2437,13 +2437,13 @@ function draw_menu_items($menu_array) {
 					<center>
 					<select name='selHours' id='selHours' onChange='popupSetVarHours();'>
 					";
-			
+
 			// Correct for ghost hours, if they are there.
 			$min_h = $course->min_hours*1;
 			$max_h = $course->max_hours*1;
 			if ($course->bool_ghost_min_hour) $min_h = 0;
 			if ($course->bool_ghost_hour) $max_h = 0;
-			
+
 			for($t = $min_h; $t <= $max_h; $t++)
 			{
 				$sel = "";
@@ -2451,7 +2451,7 @@ function draw_menu_items($menu_array) {
 				$pC .= "<option value='$t' $sel>$t</option>";
 			}
 			$pC .= "</select> " . t("الساعات") . "<br>
-					
+
 					</center>
 					</div>";
 
@@ -2476,10 +2476,10 @@ function draw_menu_items($menu_array) {
 				$pC .= "<div style='margin-top: 20px;'>
 				" . fp_render_button(t("اختر المساق"), "popupAssignSelectedCourseToGroup(\"$group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"$db_group_requirement_id\");", true, "style='font-size: 10pt;'") . "
 				</div>
-				
+
 				";
 			}
-		} 
+		}
 		else if ($show_advising_buttons == false && $course->has_variable_hours() == true && $course->grade == "" && user_has_permission("can_advise_students") && !$this->bool_blank) {
 			// Show an "update" button, and use the course's assigned_to_group_id and
 			// assigned_to_semester_num.
@@ -2502,22 +2502,22 @@ function draw_menu_items($menu_array) {
 	 * Simple function to make an institution name look more pretty, because
 	 * all institution names pass through ucwords(), sometimes the capitalization
 	 * gets messed up.  This function tries to correct it.
-	 * 
+	 *
 	 * Feel free to override it and add to it, if needed.
 	 *
 	 * @param string $str
 	 * @return string
 	 */
 	function fix_institution_name($str)
-	{	 
-	   
+	{
+
 	  // Should we do this at all?  We will look at the "autocapitalize_institution_names" setting.
     $auto = $GLOBALS["fp_system_settings"]["autocapitalize_institution_names"];
     if ($auto == "no") {
-      // Nope!  Just return.      
+      // Nope!  Just return.
       return $str;
     }
-	  
+
 		$str = str_replace("-", " - ", $str);
 		$str = ucwords(strtolower($str));
 		$str = str_replace(" Of ", " of ", $str);
@@ -2527,12 +2527,12 @@ function draw_menu_items($menu_array) {
 		$str = str_replace("_sat", "SAT", $str);
 		$str = str_replace("Ap ", "AP ", $str);
 		$str = str_replace("_dsst", "DSST", $str);
-		
+
 		// Fix school initials.
 		// Turns "Ulm" into "ULM"
 	  $school_initials = $GLOBALS["fp_system_settings"]["school_initials"];
-		$str = str_replace(ucwords(strtolower($school_initials)), $school_initials, $str);		
-		
+		$str = str_replace(ucwords(strtolower($school_initials)), $school_initials, $str);
+
 
 		if ($str == "")
 		{
@@ -2571,7 +2571,7 @@ function draw_menu_items($menu_array) {
 	 *       - If set to TRUE, it will display a small "hour count" message
 	 *         at the bottom of each semester, showing how many hours are in
 	 *         the semester.  Good for debugging purposes.
-	 * 
+	 *
 	 * @return string
 	 */
 	function display_semester(Semester $semester, $bool_display_hour_count = false)
@@ -2652,7 +2652,7 @@ function draw_menu_items($menu_array) {
 		{
 			$pC .= "<tr><td colspan='8'>
 					<div class='hypo tenpt' style='margin-top: 15px; padding: 5px;'>
-						<b>Important Notice:</b> $semester->notice
+						 $semester->notice <b>:ملاحظة مهمة</b>
 					</div>
 					</td></tr>";
 		}
@@ -2689,7 +2689,7 @@ function draw_menu_items($menu_array) {
 			return;
 		}
 
-		
+
 
 
 		$title = $group->title;
@@ -2700,7 +2700,7 @@ function draw_menu_items($menu_array) {
 		// of the group.
 
 		$display_semesterNum = $place_group->assigned_to_semester_num;
-		
+
 
 		$group->list_courses->remove_unfulfilled_and_unadvised_courses();
 		$group->list_courses->reset_counter();
@@ -2791,7 +2791,7 @@ function draw_menu_items($menu_array) {
 						$c->icon_filename = $group->icon_filename;
 						$c->title_text = "This course is a member of $group->title." . "($place_group->requirement_type)";
             $c->requirement_type = $place_group->requirement_type;
-						
+
 						if (!$display_course_list->find_match($c))
 						{ // Make sure it isn't already in the display list.
 
@@ -2846,15 +2846,15 @@ function draw_menu_items($menu_array) {
 
 		$fulfilled_hours = $display_course_list->count_hours("", false, false, true);
 		$fulfilled_credit_hours = $display_course_list->count_credit_hours("",false,true);
-		
+
 
 		$test_hours = $fulfilled_hours;
 		// if the fulfilledCreditHours is > than the fulfilledHours,
 		// then assign the fulfilledCreditHours to the testHours.
 		if ($fulfilled_credit_hours > $fulfilled_hours)
-		{ // done to fix a bug involving splitting hours in a substitution.		  
+		{ // done to fix a bug involving splitting hours in a substitution.
 			$test_hours = $fulfilled_credit_hours;
-		} 
+		}
 		// If there are any remaining hours in this group,
 		// draw a "blank" selection row.
 		$remaining = $place_group->hours_required - $test_hours;
@@ -2908,12 +2908,12 @@ function draw_menu_items($menu_array) {
 
 
   /**
-   * Displays all the courses in a CourseList object, using 
+   * Displays all the courses in a CourseList object, using
    * the draw_course_row function.
-   * 
+   *
    * It looks like the group and semester_num are not being used
    * anymore.
-   * 
+   *
    * @todo Check on unused variables.
    *
    * @param CourseList $course_list
@@ -2935,7 +2935,7 @@ function draw_menu_items($menu_array) {
 			// Doesn't matter if its a specified repeat or not.  Just
 			// mark it as having been displayed.
 			$course->bool_has_been_displayed = true;
-			
+
 		}
 		return $pC;
 
@@ -2958,7 +2958,7 @@ function draw_menu_items($menu_array) {
       				onmouseout=\"style.backgroundColor='white'\" ";
 
 		if ($this->page_is_mobile) $on_mouse_over = "";  // Causes problems for some mobile devices.
-		
+
 		$w1_1 = $this->width_array[0];
 		$w1_2 = $this->width_array[1];
 		$w1_3 = $this->width_array[2];
@@ -3014,9 +3014,9 @@ function draw_menu_items($menu_array) {
       		<td width='$w1_3' align='left' onClick='$js_code'>$select_icon</td>
       		<td align='left' colspan='5' class='tenpt underline' onClick='$js_code'>
       		$row_msg
-       				
+
      	</tr>
-     	</table>";		
+     	</table>";
 
 
 
@@ -3068,14 +3068,14 @@ function draw_menu_items($menu_array) {
 	 * @param string $title
 	 * @param bool $hideheaders
 	 *       - If TRUE, then the course/hrs/grd headers will not be displayed.
-	 * 
+	 *
 	 * @param int $table_width
 	 *       - The HTML table width, in pixels.  If not set, it will default
 	 *         to 300 pixels wide.
-	 * 
+	 *
 	 * @return string
 	 */
-	function draw_box_top($title, $hideheaders=false, $table_width = 300){ 
+	function draw_box_top($title, $hideheaders=false, $table_width = 300){
 	  // returns the beginnings of the year tables...
 
 		// Get width values from width_array (supplied by calling function,
@@ -3139,7 +3139,7 @@ function draw_menu_items($menu_array) {
     			<td width='$w1_3' align='left'>
      			&nbsp;
     			</td>
-    
+
         		<td align='left' width='$w2'>
      				<font size='2'><b>$headers[0]</b></font>
 	    		</td>
@@ -3173,17 +3173,17 @@ function draw_menu_items($menu_array) {
 	 * @param bool $js_toggle_and_save
 	 *         - If set to TRUE, when the checkbox next to this course is clicked,
 	 *           the page will be submitted and a draft will be saved.
-	 * 
+	 *
 	 * @param bool $bool_display_check
 	 *         - If set to FALSE, no checkbox will be displayed for this course row.
-	 * 
+	 *
 	 * @param bool $bool_add_footnote
 	 * @param bool $bool_add_asterisk_to_transfers
 	 *
 	 * @return string
 	 */
 	function draw_course_row(Course $course, $icon_filename = "", $title_text = "", $js_toggle_and_save = false, $bool_display_check = true, $bool_add_footnote = true, $bool_add_asterisk_to_transfers = false)
-	{ 
+	{
 		// Display a course itself...
 		$pC = "";
 		$w1_1 = $this->width_array[0];
@@ -3196,15 +3196,15 @@ function draw_menu_items($menu_array) {
 		$w6 = $this->width_array[7];
 
 		$img_path = fp_theme_location() . "/images";
-		
+
 		// The current term we are advising for.
 		$advising_term_id = $GLOBALS["fp_advising"]["advising_term_id"];
-		
-    if (!$advising_term_id) {      
+
+    if (!$advising_term_id) {
       $advising_term_id = 0;
     }
 
-        
+
 		$course->assign_display_status();
 		// If the course has already been advised in a different semester,
 		// we should set the advising_term_id to that and disable unchecking.
@@ -3222,7 +3222,7 @@ function draw_menu_items($menu_array) {
 
 
 		$subject_id = $course->subject_id;
-		$course_num = $course->course_num; 
+		$course_num = $course->course_num;
 
 
 		$o_subject_id = $subject_id;
@@ -3277,8 +3277,8 @@ function draw_menu_items($menu_array) {
 				if (is_object($course->course_substitution))
 				{
 					$course->course_substitution->load_descriptive_data();
-				} 
-				
+				}
+
 			}
 
 			$o_subject_id = $course->course_substitution->subject_id;
@@ -3298,7 +3298,7 @@ function draw_menu_items($menu_array) {
 				$course->substitution_footnote = $fcount;
 				$footnote .= "$fcount</span>";
 				$this->footnote_array["substitution"][$fcount] = "$o_subject_id $o_course_num ~~ $subject_id $course_num ~~ $course->substitution_hours ~~ $course->assigned_to_group_id";
-				
+
 			}
 		}
 
@@ -3312,13 +3312,13 @@ function draw_menu_items($menu_array) {
 		$hours = $hours * 1;  // force numeric, trim extra zeros.
 
 		$var_hour_icon = "&nbsp;";
-		
-		
+
+
 		if ($course->has_variable_hours() == true && !$course->bool_taken)
 		{
 		  // The bool_taken part of this IF statement is because if the course
 		  // has been completed, we should only use the hours_awarded.
-		  
+
 			$var_hour_icon = "<img src='" . fp_theme_location() . "/images/var_hour.gif'
 								title='" . t("لدى هذا المساق ساعات متغيرة") . "'
 								alt='" . t("لدى هذا المساق ساعات متغيرة") . "'>";
@@ -3332,7 +3332,7 @@ function draw_menu_items($menu_array) {
 		  // set to 1.  So, let's just make the display be 0.
 		  $hours = "0";
 		}
-		
+
 		$grade = $course->grade;
 
 		$dispgrade = $grade;
@@ -3349,7 +3349,7 @@ function draw_menu_items($menu_array) {
 		  $dispgrade = "--";
 		  $this->bool_hiding_grades = true;
 		}
-		
+
 		$display_status =  $course->display_status;
 
 		if ($display_status == "completed")
@@ -3365,15 +3365,15 @@ function draw_menu_items($menu_array) {
 
 		$unique_id = $course_id . "_" . $semester_num . "_" . mt_rand(1,9999);
 		$hid_name = "advcr_$course_id" . "_$semester_num" . "_$group_id" . "_$advised_hours" . "_$random_id" . "_$advising_term_id" . "_r" . mt_rand(1,9999);
-		
+
 		// Due to an interesting bug, the hid_name cannot contain periods.  So, if a course
 		// has decimal hours, we need to replace the decimal with a placeholder.
 		if (strstr($hid_name, ".")) {
 		  $hid_name = str_replace(".", "DoT", $hid_name);
 		}
-		
-		
-		
+
+
+
 		$hid_value = "";
 		$opchecked = "";
 		if ($course->bool_advised_to_take == true)
@@ -3466,7 +3466,7 @@ function draw_menu_items($menu_array) {
       				onmouseout=\"style.backgroundColor='white'\" ";
 
 		if (fp_screen_is_mobile()) $on_mouse_over = "";  // Causes problems for some mobile devices.
-		
+
 		$hand_class = "hand";
 
 		if ($bool_display_check == false) {
@@ -3491,7 +3491,7 @@ function draw_menu_items($menu_array) {
 				$course_num = "&nbsp;";
 			}
 
- 
+
 			$pC .= "
    		<table border='0' cellpadding='0' width='100%' cellspacing='0' align='left'>
      	<tr height='20' class='$hand_class $display_status'
@@ -3501,7 +3501,7 @@ function draw_menu_items($menu_array) {
       		<td style='width:$w1_3; white-space:nowrap;' align='left' onClick='$js_code'>&nbsp;$ast</td>
       		<td align='left' style='width:$w2; white-space:nowrap;' class='tenpt underline' onClick='$js_code'>
        				$subject_id</td>
-       		<td class='tenpt underline' style='width:$w3; white-space:nowrap;' align='left' 
+       		<td class='tenpt underline' style='width:$w3; white-space:nowrap;' align='left'
        			onClick='$js_code'>
         			$course_num$footnote</td>
 	       <td class='tenpt underline' style='width:$w4; max-width:36px; white-space:nowrap;' onClick='$js_code'>$hours$var_hour_icon</td>
@@ -3527,7 +3527,7 @@ function draw_menu_items($menu_array) {
 	       			&nbsp; ($hours " . t("ساعات متبقية") . ")
        	   	</td>
      	</tr>
-     	</table>";		
+     	</table>";
 
 		}
 
@@ -3540,7 +3540,7 @@ function draw_menu_items($menu_array) {
 
 	/**
 	 * Calculate the quality points for a grade and hours.
-	 * 
+	 *
 	 * This function is very similar to the one in the Course class.
 	 * It is only slightly different here.  Possibly, the two functions should be
 	 * merged.
@@ -3553,43 +3553,43 @@ function draw_menu_items($menu_array) {
 
     $pts = 0;
 		$qpts_grades = array();
-	  
+
 	  // Let's find out what our quality point grades & values are...
 	  if (isset($GLOBALS["qpts_grades"])) {
 	    // have we already cached this?
 	    $qpts_grades = $GLOBALS["qpts_grades"];
-	  }	
+	  }
 	  else {
 	    $tlines = explode("\n", variable_get("quality_points_grades", "A ~ 4\nB ~ 3\nC ~ 2\nD ~ 1\nF ~ 0\nI ~ 0"));
       foreach ($tlines as $tline) {
-        $temp = explode("~", trim($tline));      
+        $temp = explode("~", trim($tline));
         if (trim($temp[0]) != "") {
           $qpts_grades[trim($temp[0])] = trim($temp[1]);
         }
       }
-    
+
       $GLOBALS["qpts_grades"] = $qpts_grades;  // save to cache
 	  }
-    
+
 	  // Okay, find out what the points are by multiplying value * hours...
-    
+
     if (isset($qpts_grades[$grade])) {
 	   $pts = $qpts_grades[$grade] * $hours;
     }
-	  
-		
+
+
 		return $pts;
-	  
+
 	}
 
 
   /**
-   * Used in the group selection popup, this will display a course with 
+   * Used in the group selection popup, this will display a course with
    * a radio button next to it, so the user can select it.
    *
    * @param Course $course
    * @param int $group_hours_remaining
-   * 
+   *
    * @return string
    */
 	function draw_popup_group_select_course_row(Course $course, $group_hours_remaining = 0)
@@ -3659,9 +3659,9 @@ function draw_menu_items($menu_array) {
 
 		$on_mouse_over = " onmouseover=\"style.backgroundColor='#FFFF99'\"
       				onmouseout=\"style.backgroundColor='white'\" ";
-		
+
 		if ($this->page_is_mobile) $on_mouse_over = "";  // Causes problems for some mobile devices.
-		
+
 		$hand_class = "hand";
 		$extra_style = "";
 
@@ -3683,17 +3683,17 @@ function draw_menu_items($menu_array) {
       		<td width='$w1_1' align='left'>$op$hid</td>
       		<td width='$w1_2' align='left' onClick='$js_code'>$icon_link</td>
       		<td width='$w1_3' align='left' onClick='$js_code'>&nbsp;</td>
-      		<td align='left' width='$w2' class='tenpt underline' 
+      		<td align='left' width='$w2' class='tenpt underline'
       				onClick='$js_code' $extra_style>
        				$subject_id</td>
-       		<td class='tenpt underline' $extra_style width='$w3' align='left' 
+       		<td class='tenpt underline' $extra_style width='$w3' align='left'
        			onClick='$js_code'>
         			$course_num</td>
         	";
 		if ($repeats > 0)
 		{
 			$pC .= "
-				<td class='tenpt underline' style='color: gray;' 
+				<td class='tenpt underline' style='color: gray;'
 					onClick='$js_code' colspan='3'>
 				<i>" . t("قد يستغرق ما يصل إلى") . " <span style='color: blue;'>" . ($repeats + 1) . "</span> " . t("مرات.") . "</i>
 				</td>
@@ -3709,7 +3709,7 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "
      	</tr>
-     	</table>";		
+     	</table>";
 
 
 		return $pC;
@@ -3725,7 +3725,7 @@ function draw_menu_items($menu_array) {
 	 * @param int $group_id
 	 * @param int $semester_num
 	 * @param int $hours_avail
-	 * 
+	 *
 	 * @return string
 	 */
 	function display_popup_substitute($course_id = 0, $group_id, $semester_num, $hours_avail = "")
@@ -3751,10 +3751,10 @@ function draw_menu_items($menu_array) {
 			$checked = "";
 			if ($bool_sub_add == true){$checked = "checked disabled";}
 			$extra = " " . t(" %newg في المجموعة", array("%newg" => $new_group->title)) . "
-			" . t(":إضافة فقط") . " <input type='checkbox' id='cbAddition' value='true' $checked> 
+			" . t(":إضافة فقط") . " <input type='checkbox' id='cbAddition' value='true' $checked>
 			   <a href='javascript: alertSubAddition();'>?</a>";
 		}
- 
+
 		$c_hours = $course->max_hours*1;
 		$c_ghost_hour = "";
 		if ($course->bool_ghost_hour == TRUE) {
@@ -3767,7 +3767,7 @@ function draw_menu_items($menu_array) {
 			// Use the remaining hours if we have fewer hours left in
 			// the group than the course we are subbing for.
 			$c_hours = $hours_avail;
-		} 
+		}
 
 		if ($hours_avail == "" || $hours_avail*1 <= 0)
 		{
@@ -3778,27 +3778,27 @@ function draw_menu_items($menu_array) {
 					" . t("%course الرجاء اختيار مساق بديل ل", array("%course" => "$course->subject_id $course->course_num ($c_hours $c_ghost_hour " . t("ساعات") . ")")) . "$extra
 				</div>
 				";
-		
-				
+
+
 		// If this course has ghost hours, and if we've set that you can only sub ghost hours
 		// for other ghost hours, then display a message here explaining that.
 		$bool_ghost_for_ghost = (variable_get("restrict_ghost_subs_to_ghost_hours", "yes") == "yes" && $course->bool_ghost_hour);
-		
+
 		if ($bool_ghost_for_ghost) {
 		  $pC .= "<div class='tenpt'>" . t("(يجب أن تكون قيمة المساقات التي يمكن استبدالها وحدها تساوي الصفر (ساعة وهمية واحدة FlightPath حسب الإعداد في <b>:ملاحظة</b>") . "</div>";
 		}
-				
-		
-		
+
+
+
 		$pC .= "
-				<div class='tenpt' 
+				<div class='tenpt'
 					style='height: 175px; overflow: auto; border:1px inset black; padding: 5px;'>
 					<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-					
+
 					";
-    
+
 		$this->student->list_courses_taken->sort_alphabetical_order(false, true);
-    
+
 		for ($t = 0; $t <= 1; $t++)
 		{
 			if ($t == 0) {$the_title = "{$GLOBALS["fp_system_settings"]["school_initials"]} " . t("الرصيد"); $bool_transferTest = true;}
@@ -3811,26 +3811,26 @@ function draw_menu_items($menu_array) {
 				<td class='tenpt' valign='top' >" . t("العلامة") . "</td>
 				<td class='tenpt' valign='top' >" . t("الفصل") . "</td>
 				</tr>";
-			
+
 			$is_empty = true;
 			$this->student->list_courses_taken->reset_counter();
 			while($this->student->list_courses_taken->has_more())
 			{
 				$c = $this->student->list_courses_taken->get_next();
-				
+
 				if ($c->bool_transfer == $bool_transferTest)
 				{
 					continue;
 				}
 
-				
+
 				if (!$c->meets_min_grade_requirement_of(null, variable_get("minimum_substitutable_grade", "D")))
 				{// Make sure the grade is OK.
 					continue;
 				}
 
 				$bool_disable_selection = $disabled_msg = FALSE;
-				
+
 				// Should we skip this course, because of a ghost_for_ghost requirement?
 				if ($bool_ghost_for_ghost && !$c->bool_ghost_hour) {
 				  continue;
@@ -3840,14 +3840,14 @@ function draw_menu_items($menu_array) {
 				if (variable_get("restrict_ghost_subs_to_ghost_hours", "yes") == "yes"
 				    && $course->bool_ghost_hour != TRUE
 				    && $c->bool_ghost_hour == TRUE) {
-				      
+
 				  $bool_disable_selection = TRUE;
 				  $disabled_msg = t("يمكن استبدال المساقات التي تبلغ قيمتها صفر فقط بمتطلبات مساق قيمتها تساوي صفر FlightPath تم تعطيل بديل هذا المساق؟ وفقا لإعدادات في");
-				     
+
 				}
-				
-				
-				
+
+
+
 				$t_flag = 0;
 				if ($c->bool_transfer == true)
 				{
@@ -3910,13 +3910,13 @@ function draw_menu_items($menu_array) {
 							 onClick='popupUpdateSubData(\"$m_hours\",\"$c->term_id\",\"$t_flag\",\"$hours_avail\",\"$c->hours_awarded\");'
 							 ";
 					if ($bool_disable_selection) $pC .= "disabled=disabled";
-					
+
 					$pC .= "	 >";
-					
+
 					if ($disabled_msg) {
 					  $pC .= fp_get_js_alert_link(fp_reduce_whitespace(str_replace("\n", " ", $disabled_msg)), "?");
 					}
-					
+
 					$pC .= "
 						</td>
 						<td valign='top' class='tenpt underline' width='13%'>
@@ -3925,7 +3925,7 @@ function draw_menu_items($menu_array) {
 						<td valign='top' class='tenpt underline' width='15%'>
 							$course_num
 						</td>
-						
+
 
 						<td valign='top' class='tenpt underline' width='10%'>
 							$h
@@ -3937,7 +3937,7 @@ function draw_menu_items($menu_array) {
 							" . $c->get_term_description(true) . "
 						</td>
 
-						
+
 					</tr>
 					";
 				} else {
@@ -3968,14 +3968,14 @@ function draw_menu_items($menu_array) {
 						 " . t("فرعي:") . "
 						</td>
 						<td valign='top' class='tenpt' colspan='5'>
-							$subject_id 
-						
+							$subject_id
+
 							$course_num ($c->substitution_hours)
 							 -> " . $c->course_substitution->subject_id . "
 							 " . $c->course_substitution->course_num . "$extra
 						</td>
 
-						
+
 					</tr>
 					";
 
@@ -4003,22 +4003,22 @@ function draw_menu_items($menu_array) {
 				<option value=''>" . t("لا شيء محدد") . "</option>
 			</select>
 			";
-		
+
 		// If we have entered manual hours (like for decimals), they go here:
-		// The subManual span will *display* them, the hidden field keeps them so they can be transmitted.		
+		// The subManual span will *display* them, the hidden field keeps them so they can be transmitted.
 		$pC .= "
-			<span id='subManual' style='font-style:italic; display:none;'></span>			  
+			<span id='subManual' style='font-style:italic; display:none;'></span>
 			<input type='hidden' id='subManualHours' value=''>
 
-			
+
 		</div>
 		<input type='hidden' name='subTransferFlag' id='subTransferFlag' value=''>
 		<input type='hidden' name='subTermID' id='subTermID' value=''>
 		<input type='button' value='Save Substitution' onClick='popupSaveSubstitution(\"$course_id\",\"$group_id\",\"$semester_num\");'>
-		
-		<div class='tenpt' style='padding-top: 5px;'><b>" . t("اختياري") . "</b> - " . t(":أدخل ملاظات") . " 
+
+		<div class='tenpt' style='padding-top: 5px;'><b>" . t("اختياري") . "</b> - " . t(":أدخل ملاظات") . "
 		<input type='text' name='subRemarks' id='subRemarks' value='' size='30' maxlength='254'>
-		
+
 		</div>
 		";
 
@@ -4127,10 +4127,10 @@ function draw_menu_items($menu_array) {
 				}
 			}
 
-			$new_course_list->reset_counter();			
+			$new_course_list->reset_counter();
 			$new_course_list->sort_alphabetical_order();
 
-			
+
 
 			$final_course_list->add_list($new_course_list);
 		}
@@ -4210,7 +4210,7 @@ function draw_menu_items($menu_array) {
 				}
 
 			}
-			
+
 			if ($all_zero == true)
 			{
 				// Meaning, all of the branches had 0 matches,
@@ -4244,7 +4244,7 @@ function draw_menu_items($menu_array) {
 			$new_course_list->assign_semester_num($display_semesterNum);
 
 			$final_course_list->add_list($new_course_list);
-			
+
 		}
 
 
@@ -4291,7 +4291,7 @@ function draw_menu_items($menu_array) {
 			$pC .= "<tr>
 					<td colspan='8'>
 						<div class='tenpt'>
-						<b>Please Note:</b> 
+						<b>Please Note:</b>
 						" . t("من العثور على أي مساقات مؤهلة لعرضها لهذه القائمة. اسأل مرشدك الأكاديمي إذا كنت قد أكملت الدورات المساقات، أو يمكنك التسجيل في المساقات، والتي يمكن عرضها هنا FlightPath لم يتمكن");
 
 			if (user_has_permission("can_advise_students")){
@@ -4322,7 +4322,7 @@ function draw_menu_items($menu_array) {
 			}
 		}
 
-		if ($group_hours_remaining < 100 && $bool_no_courses != true)	{ 
+		if ($group_hours_remaining < 100 && $bool_no_courses != true)	{
 		  // Don't show for huge groups (like add-a-course)
 			$pC .= "<div class='elevenpt' style='margin-top:5px;'>
 					" . t("من هذه القائمة hour$s<b>@hrs</b> يمكنك اختيار", array("@hrs" => $group_hours_remaining)) . "$unselectable_notice</div>";
@@ -4333,8 +4333,8 @@ function draw_menu_items($menu_array) {
 			if (user_has_permission("can_advise_students")) {
 				$pC .= "<input type='hidden' name='varHours' id='varHours' value=''>
 					<div style='margin-top: 20px;'>
-					
-					
+
+
 				" . fp_render_button(t("اختر مساق"), "popupAssignSelectedCourseToGroup(\"$place_group->assigned_to_semester_num\", \"$group->group_id\",\"$advising_term_id\",\"-1\");", true, "style='font-size: 10pt;'") . "
 					</div>
 				";
@@ -4347,12 +4347,12 @@ function draw_menu_items($menu_array) {
 		{
 			$pC .= "<div class='tenpt' style='margin-top: 20px;'>
 					<b>" . t(":المعلومات الإدارية الخاصة") . "</b>
-					
+
 				<span id='viewinfolink'
 				onClick='document.getElementById(\"admin_info\").style.display=\"\"; this.style.display=\"none\"; '
 				class='hand' style='color: blue;'
-				> - " . t("انقر للاظهار") . " -</span>					
-					
+				> - " . t("انقر للاظهار") . " -</span>
+
 					<div style='padding-left: 20px; display:none;' id='admin_info'>
 					" . t(":معلومات عن هذه المجموعة") . "<br>
 					&nbsp; " . t(":رمز المجموعة") . " $group->group_id<br>
@@ -4361,8 +4361,8 @@ function draw_menu_items($menu_array) {
 
 			$pC .= "&nbsp; " . t(":كتالوج العام") . " $group->catalog_year
 					</div>
-					
-					</div>";						
+
+					</div>";
 		}
 
 
@@ -4374,7 +4374,7 @@ function draw_menu_items($menu_array) {
 				$blank_degree_id = $this->degree_plan->degree_id;
 			}
 			$back_link = "<span class='tenpt'>
-						<a href='" . fp_url("advise/popup-group-select", "window_mode=popup&group_id=$group->group_id&semester_num=$display_semesterNum&group_hours_remaining=$group_hours_remaining&current_student_id=$csid&blank_degree_id=$blank_degree_id") . "' 
+						<a href='" . fp_url("advise/popup-group-select", "window_mode=popup&group_id=$group->group_id&semester_num=$display_semesterNum&group_hours_remaining=$group_hours_remaining&current_student_id=$csid&blank_degree_id=$blank_degree_id") . "'
 						class='nounderline'>" . t("انقر هنا للعودة إلى اختيار المواضيع") . "</a></span>";
 			$pC = str_replace("<!--MSG2-->",$back_link,$pC);
 		}
@@ -4405,9 +4405,9 @@ function draw_menu_items($menu_array) {
 		{
 			$blank_degree_id = $this->degree_plan->degree_id;
 		}
-    
+
     $clean_urls = variable_get("clean_urls", FALSE);
-    
+
 		$pC .= "<tr><td colspan='8' class='tenpt'>";
 		$pC .= "<form action='" . fp_url("advise/popup-group-select") . "' method='GET' style='margin:0px; padding:0px;' id='theform'>
 					<input type='hidden' name='window_mode' value='popup'>
@@ -4416,12 +4416,12 @@ function draw_menu_items($menu_array) {
       // Hack so that non-clean URLs sites still work
       $pC .= "<input type='hidden' name='q' value='advise/popup-group-select'>";
     }
-    $pC .= "					
+    $pC .= "
 					<input type='hidden' name='semester_num' value='$semester_num'>
 					<input type='hidden' name='group_hours_remaining' value='$group_hours_remaining'>
 					<input type='hidden' name='current_student_id' value='$csid'>
 					<input type='hidden' name='blank_degree_id' value='$blank_degree_id'>
-		
+
 					" . t("يرجى البدء باختيار موضوع من القائمة أدناه") . "
 					<br><br>
 					<select name='selected_subject'>
@@ -4437,7 +4437,7 @@ function draw_menu_items($menu_array) {
 			} else {
 			  $new_array[] = "$subject_id ~~ $subject_id";
 			}
-			
+
 		}
 
 		sort($new_array);
@@ -4455,7 +4455,7 @@ function draw_menu_items($menu_array) {
 				" . fp_render_button(t("التالي") . " ->","document.getElementById(\"theform\").submit();") . "
 				</div>
 					<!-- <input type='submit' value='submit'> -->
-					
+
 			  			</form>
 			  ";
 		$pC .= "</td></tr>";
@@ -4465,7 +4465,7 @@ function draw_menu_items($menu_array) {
 
 
 	/**
-	 * Accepts a CourseList object and draws it out to the screen. Meant to 
+	 * Accepts a CourseList object and draws it out to the screen. Meant to
 	 * be called by display_popup_group_select();
 	 *
 	 * @param CourseList $course_list
@@ -4502,7 +4502,7 @@ function draw_menu_items($menu_array) {
 			{ // So, only display if it has not been fulfilled by anything.
 				$pC .= $this->draw_popup_group_select_course_row($course, $group_hours_remaining);
 				$old_course = $course;
-			} 
+			}
 			$pC .= "</td></tr>";
 		}
 
@@ -4520,7 +4520,7 @@ function draw_menu_items($menu_array) {
 	 * @param string $perform_action
 	 *       - Used for when we submit the form, so that FlightPath will
 	 *         know what action we are trying to take.
-	 * 
+	 *
 	 * @return string
 	 */
 	function get_hidden_advising_variables($perform_action = "")
@@ -4528,14 +4528,14 @@ function draw_menu_items($menu_array) {
 		$rtn = "";
 
 		$rtn .= "<span id='hidden_elements'>
-		
+
 			<input type='hidden' name='perform_action' id='perform_action' value='$perform_action'>
 			<input type='hidden' name='perform_action2' id='perform_action2' value=''>
 			<input type='hidden' name='scroll_top' id='scroll_top' value=''>
 			<input type='hidden' name='load_from_cache' id='load_from_cache' value='yes'>
-			<input type='hidden' name='print_view' id='print_view' value='{$GLOBALS["print_view"]}'>			
+			<input type='hidden' name='print_view' id='print_view' value='{$GLOBALS["print_view"]}'>
 			<input type='hidden' name='hide_charts' id='hide_charts' value=''>
-			
+
 			<input type='hidden' name='advising_load_active' id='advising_load_active' value='{$GLOBALS["fp_advising"]["advising_load_active"]}'>
 			<input type='hidden' name='advising_student_id' id='advising_student_id' value='{$GLOBALS["fp_advising"]["advising_student_id"]}'>
 			<input type='hidden' name='advising_term_id' id='advising_term_id' value='{$GLOBALS["fp_advising"]["advising_term_id"]}'>
@@ -4549,9 +4549,9 @@ function draw_menu_items($menu_array) {
 
 			<input type='hidden' name='current_student_id' id='current_student_id' value='{$GLOBALS["fp_advising"]["current_student_id"]}'>
 			<input type='hidden' name='log_addition' id='log_addition' value=''>
-			
+
 			<input type='hidden' name='fp_update_user_settings_flag' id='fp_update_user_settings_flag' value=''>
-			
+
 			</span>
 			";
 
@@ -4560,4 +4560,3 @@ function draw_menu_items($menu_array) {
 
 
 }
-

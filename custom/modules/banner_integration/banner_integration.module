@@ -14,11 +14,11 @@ require_once('C:\xampp\htdocs\flightpath\custom\modules\oracleapi-4.x-1.1\oracle
  *
  */
 function banner_integration_menu() {
-   
+
   $items = array();
-  
+
   $items["admin/config/banner"] = array(
-    "title" => "Banner settings",
+    "title" => "Banner إعدادات ال",
     "description" => "Administer Banner-related settings",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("banner_integration_settings_form", "system_settings"),
@@ -27,20 +27,20 @@ function banner_integration_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_links" => array(         
+      "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),
-    ),    
+    ),
     "type" => MENU_TYPE_NORMAL_ITEM,
-    "tab_parent" => "admin-tools/admin",    
-  );       
-  
-  
+    "tab_parent" => "admin-tools/admin",
+  );
+
+
   return $items;
-  
+
 }
 
 
@@ -68,9 +68,9 @@ function banner_integration_settings_form() {
     "description" => t(".في حال تحديده, ستحاول هذه الوحدة تحميل المساقات الخاصة بالطالب المسجل فيها حاليا, بالإضافة إلى المساقات السابقة من التاريخ عند اختيار الطالب لتقديم المشورة"),
     "options" => array("yes" => t(".نعم, حمل المساقات المحلية من الانر لكل طالب")),
     "value" => variable_get("banner_integration_load_student_local_courses", array()),
-  ); 
-  
-  
+  );
+
+
   $form["banner_integration_enrolled_grade"] = array(
     "type" => "textfield",
     "label" => t(":درجة المساقات المحلية المسجل بها"),
@@ -78,8 +78,8 @@ function banner_integration_settings_form() {
     "description" => t("'E' الموجود في صفحة إعدادات النظام. على سبيل المثال, يمكنك استخدام درجة مسجلة حالية أو إنشاء واحدة جديدة. إذا لم تكن متأكدا مما يجب وضعه هنا فاستخدم 'Enrolled grades (CSV)' في حال تحميل المساقات من البانر (انظر الخيار أعلاه). سيتم منح المساقات المسجلة حاليا هذه العلامة. يجب أن يكون هذا التصنيف مدرجا في إعداد"),
     "value" => variable_get("banner_integration_enrolled_grade", "E"),
   );
-  
-  
+
+
   $form["banner_integration_exclude_historical_courses_code"] = array(
     "label" => t("SHRTCKN_REPEAT_COURSE_IND code لاستبعاد الدورات التدريبية من طلب البحث التاريخي:"),
     "type" => "textfield",
@@ -87,7 +87,7 @@ function banner_integration_settings_form() {
     "value" => variable_get("banner_integration_exclude_historical_courses_code", "E"),
     "description" => t("'NOT_USED' إذا كنت لا ترغب في استخدام هذا, فلا تقم بتعيينه فارغا بدلا من ذلك اضبطه على رمز غير مستخدم. على سبيل المثال <b>:هام</b>الذي يتم تحديده عند تحميل الدورات المساقات التاريخية للطالب من البانر. يستخدم هذا عادة للإشارة إلى التجديد الأكاديمي عند استبعاد الدورة التدريبية <b>shrtckn_repeat_course_ind</b> هذا يشير إلى الحقل "),
   );
-  
+
   $form["banner_integration_exclude_transfer_courses_code"] = array(
     "label" => t("SHRTRCE_REPEAT_COURSE code لاستبعاد الدورات التدريبية من طلب النقل:"),
     "type" => "textfield",
@@ -95,16 +95,16 @@ function banner_integration_settings_form() {
     "value" => variable_get("banner_integration_exclude_transfer_courses_code", "E"),
     "description" => t("'NOT_USED' إذا كنت لا ترغب في استخدامه, فلا تقم بتركه فارغا. بدلا من ذلك, اضبطه على رمز غير مستخدم. على سبيل المثال: <b>:هام</b> الذي يتم فحصه عندما نمر خلال روتين المساقات المنقولة للطالب. يستخدم هذا عادة للإشارة إلى التجديد الأكاديمي, عند استبعاد مساق<b>shrtrce_repeat_course</b> مثل الإعداد أعلاه, يشير هذا إلى الحقل"),
   );
-    
-  
-  
-  
+
+
+
+
   $form["mark" . $m++] = array(
     "value" => "<hr><h3>" . t("الإعدادات الروتينية") . "</h3>
                 <p style='font-size:0.8em;'>" . t("للحصول على إرشادات حول إعداد روتين ليلي README.txt راجع ملف banner_integration.routines.inc هذه الإعدادات تؤثر على الروتينات الليلية الموجودة في ملف") . "</p>",
   );
 
-  
+
   // import local courses...
   $options = array(
     "skip_if_exists" => t("FlightPath تخط-لا تقم بالتعديل- المساقات المحلية إذا كانت متواجدة في قاعجة بيانات") . "
@@ -113,7 +113,7 @@ function banner_integration_settings_form() {
                          what is in Banner.  We will look for the course's subject_id and course_num only, with
                          no concern for hour counts or catalog year.
                          <br>
-                         If unsure what to select, leave this CHECKED.</div>",  
+                         If unsure what to select, leave this CHECKED.</div>",
     "update_prod_and_draft" => t("تحديث البيانات والمسودة") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
                          If NOT checked, then all modifications will happen to FlightPath's draft_courses
@@ -126,16 +126,16 @@ function banner_integration_settings_form() {
                          If unsure what to select, leave this UNCHECKED.
                          </div>",
   );
-  
+
   $form["banner_integration_routines_import_local_courses_settings"] = array(
     "type" => "checkboxes",
     "label" => "Settings for the ...import_local_courses routine:",
     "options" => $options,
     "value" => variable_get("banner_integration_routines_import_local_courses_settings", array()),
   );
-  
-  
-   
+
+
+
   return $form;
 }
 
@@ -154,7 +154,7 @@ function banner_integration_connect_if_not_connected() {
   if (!isset($GLOBALS["oracleapi_global_conn"]) || $GLOBALS["oracleapi_global_conn"] == NULL) {
     oracleapi_connect();
   }
-  
+
 }
 
 
@@ -162,25 +162,25 @@ function banner_integration_connect_if_not_connected() {
 
 /**
  * Given a catalog_year_term from Banner (for a student), figure out the catalog year.
- * 
+ *
  * By default, this function will simply take the year portion of the term.
- * 
+ *
  * To customize for your site, you need to create a hook in a custom module, called:
  *    hook_banner_integration_get_catalog_year_for_term($term)
  * Quite a mouthfull, I know.  If such a function exists, we will return the
  * results of THAT function instead.
  *
  * @see hook_banner_integration_get_catalog_year_for_term
- * 
+ *
  * @param unknown_type $catalog_year_term
  * @return $catalog_year
  */
 function banner_integration_get_catalog_year_for_catalog_term($catalog_year_term) {
-  
-  
+
+
   $cyear = substr($catalog_year_term, 0, 4);
   $csemester = substr($catalog_year_term, 4, 2);
-  
+
   $catalog_year = $cyear;
 
 
@@ -192,10 +192,10 @@ function banner_integration_get_catalog_year_for_catalog_term($catalog_year_term
       $catalog_year = $val;
     }
   }
-    
-  
+
+
   return $catalog_year;
-  
+
 }
 
 
@@ -204,47 +204,47 @@ function banner_integration_get_catalog_year_for_catalog_term($catalog_year_term
 
 /**
  * Get the current term's details from Banner.
- * 
+ *
  * Will return an array which looks like this:
  *    $rtn["term_id"] = actual term ID
  *    $rtn["desc"] = Description of term. Ex:  Summer of 2006
- * 
+ *
  * This function requires a little bit of computation to work.  It is adapted
  * from PLSQL code from ULM:
- * 
+ *
  * FUNCTION F_ULM_CURRENT_TERM RETURN VARCHAR2 IS
  * curterm VARCHAR2(6) := NULL;
  * trmcount number(2) := 0;
  * BEGIN
- * 
+ *
  * select count(stvterm_code)
  *   into trmcount
  *   from stvterm
  *  where stvterm_end_date >= trunc(sysdate)
  *    and stvterm_start_date <= trunc(sysdate);
- * 
+ *
  * if trmcount > 0 then
- *   select stvterm_code 
+ *   select stvterm_code
  *     into curterm
  *    from stvterm
  *   where stvterm_end_date >= trunc(sysdate)
  *   and stvterm_start_date <= trunc(sysdate);
- * else  
+ * else
  *     select min(stvterm_code)
  *     into curterm
  *     from stvterm
  *    where stvterm_start_date > trunc(sysdate);
  * end if;
- * 
+ *
  *   RETURN curterm;
  * END F_ULM_CURRENT_TERM;
  *
  */
 function banner_integration_get_current_term_details() {
-  
+
   // Connect to Banner's oracle db
   banner_integration_connect_if_not_connected();
-  
+
   $rtn = array();
   $curterm = "";
   $trmcount = 0;
@@ -252,30 +252,30 @@ function banner_integration_get_current_term_details() {
   $res = oracleapi_query("SELECT stvterm_code, stvterm_desc
                           FROM stvterm
                           WHERE stvterm_end_date >= trunc(sysdate)
-                            AND stvterm_start_date <= trunc(sysdate)");  
+                            AND stvterm_start_date <= trunc(sysdate)");
   $cur = oracleapi_fetch_array($res);
-  if (trim($cur["STVTERM_CODE"]) != "") {    
+  if (trim($cur["STVTERM_CODE"]) != "") {
     $rtn["term_id"] = $cur["STVTERM_CODE"];
     $rtn["desc"] = $cur["STVTERM_DESC"];
   }
-  else {    
+  else {
     $res = oracleapi_query("SELECT min(stvterm_code) as stvterm_code
                             FROM stvterm
                             WHERE stvterm_start_date > trunc(sysdate)");
     $cur = oracleapi_fetch_array($res);
     $rtn["term_id"] = $cur["STVTERM_CODE"];
     // Now get the desc...
-    $res = oracleapi_query("SELECT stvterm_desc 
+    $res = oracleapi_query("SELECT stvterm_desc
                             FROM stvterm
                             WHERE stvterm_code = '?' ", $rtn["term_id"]);
     $cur = oracleapi_fetch_array($res);
     $rtn["desc"] = $cur["STVTERM_DESC"];
   }
-  
-  
+
+
   return $rtn;
-  
-  
+
+
 }
 
 
@@ -291,24 +291,24 @@ function banner_integration_get_pidm_for_cwid($cwid) {
     // Return from cache because that will be faster that a whole other query.
   if (isset($GLOBALS["bi_pidm_for_cwid"][$cwid])) {
     return $GLOBALS["bi_pidm_for_cwid"][$cwid];
-  }  
-  
+  }
+
   // Connect to Banner's oracle db
   banner_integration_connect_if_not_connected();
 
   $rtn = "";
-  
+
   $res = oracleapi_query("SELECT spriden_pidm
                           FROM spriden
                           WHERE spriden_id = '?'
                           AND spriden_change_ind IS NULL ", $cwid);
   $cur = oracleapi_fetch_array($res);
-  
+
   // Add to cache for faster loading later.
   $GLOBALS["bi_pidm_for_cwid"][$cwid] = $cur["SPRIDEN_PIDM"];
-  
-  return $cur["SPRIDEN_PIDM"];    
-  
+
+  return $cur["SPRIDEN_PIDM"];
+
 }
 
 
@@ -324,48 +324,48 @@ function banner_integration_get_cwid_for_pidm($pidm) {
   if (isset($GLOBALS["bi_cwid_for_pidm"][$pidm])) {
     return $GLOBALS["bi_cwid_for_pidm"][$pidm];
   }
-  
+
   // Connect to Banner's oracle db
   banner_integration_connect_if_not_connected();
 
   $rtn = "";
-  
+
   $res = oracleapi_query("SELECT spriden_id
                           FROM spriden
                           WHERE spriden_pidm = '?'
                           AND spriden_change_ind IS NULL ", $pidm);
   $cur = oracleapi_fetch_array($res);
-  
+
   // Add to our cache for later.
   $GLOBALS["bi_cwid_for_pidm"][$pidm] = $cur["SPRIDEN_ID"];
-  
-  return $cur["SPRIDEN_ID"];    
-  
+
+  return $cur["SPRIDEN_ID"];
+
 }
 
 
 
 /**
  * Returns the SBGI (institution code) hour multiplier for a given sbgi_institution_code and term_code
- * 
- * 
- * 
+ *
+ *
+ *
  *
  */
 function banner_integration_get_sbgi_institution_multiplier($sbgi_institution_code, $term_code) {
   // This function is based on this PLSQL code:
-  
+
   /*
-  FUNCTION                      F_GET_SBGI_MULTIPLIER 
+  FUNCTION                      F_GET_SBGI_MULTIPLIER
   (
     P_sbgi_CODE IN VARCHAR2,
     P_term_CODE IN VARCHAR2
-  ) RETURN NUMBER IS 
-  
-    v_multiplier NUMBER(6,3) := 1; 
-  
+  ) RETURN NUMBER IS
+
+    v_multiplier NUMBER(6,3) := 1;
+
   BEGIN
-  
+
   SELECT stvcald_multiplier INTO v_multiplier
       FROM sorbtag a, stvcald
         where a.sorbtag_sbgi_code = p_sbgi_code
@@ -375,22 +375,22 @@ function banner_integration_get_sbgi_institution_multiplier($sbgi_institution_co
                                            where b.sorbtag_sbgi_code = a.sorbtag_sbgi_code
                                              and b.sorbtag_term_code_eff <= P_term_CODE
                                          );
-  
+
     RETURN v_multiplier;
     EXCEPTION WHEN OTHERS THEN RETURN 1;
   */
 
-  
+
   // We will keep a "cache" in GLOBALS, so we don't have to make a query for something
   // we've already figured out.
-  
+
   if (isset($GLOBALS["sbgi_mult_$sbgi_institution_code~$term_code"])) {
     return $GLOBALS["sbgi_mult_$sbgi_institution_code~$term_code"];
   }
-  
-  
-  
-  
+
+
+
+
   $res = oracleapi_query("
     SELECT stvcald_multiplier as v_multiplier
         FROM sorbtag a, stvcald
@@ -403,14 +403,14 @@ function banner_integration_get_sbgi_institution_multiplier($sbgi_institution_co
                                            )
   ", $sbgi_institution_code, $term_code);
   $cur = oracleapi_fetch_array($res);
-  
+
   $mult = $cur["V_MULTIPLIER"];
 
   // Store in temporary cache variable
   $GLOBALS["sbgi_mult_$sbgi_institution_code~$term_code"] = $mult;
-  
-  return $mult; 
-  
+
+  return $mult;
+
 }
 
 
@@ -420,38 +420,38 @@ function banner_integration_get_sbgi_institution_multiplier($sbgi_institution_co
 
 /**
  * Implementation of hook_student_load.
- * 
+ *
  * This will be called when a student object is created, and is an opportunity
  * for us to load into the object our data from Banner.
- * 
+ *
  * @see hook_student_load
  *
  */
 function banner_integration_student_load(&$student) {
-  
+
   // Should we load local courses?
   $load_them = variable_get("banner_integration_load_student_local_courses", array());
-  
+
   if ($load_them["yes"] == "yes") {
-    banner_integration_student_load_local_courses($student);    
-        
+    banner_integration_student_load_local_courses($student);
+
     // If we are supposed to set cumulative hours and gpa, perform that
 	  // operation now.
 	  if (variable_get("calculate_cumulative_hours_and_gpa", FALSE)) {
   		$arr = $student->calculate_cumulative_hours_and_gpa();
-  		$student->cumulative_hours = $arr["cumulative_total_hours"];		
-  		$student->gpa = $arr["cumulative_gpa"];		
+  		$student->cumulative_hours = $arr["cumulative_total_hours"];
+  		$student->gpa = $arr["cumulative_gpa"];
 	  }
-  
-    
+
+
   }
-  
+
 }
 
 
 /**
  * Loads our local courses as course objects for the student.
- * 
+ *
  * Called by hook_student_load.  We will be using our ...get_student_local_courses function
  * to add proper course objects to our student object.
  *
@@ -459,18 +459,18 @@ function banner_integration_student_load(&$student) {
  */
 function banner_integration_student_load_local_courses(&$student, $dropped_grade = "W") {
 
-  global $user;  	
+  global $user;
 
   // This will create and load the listCoursesTaken list.
   $retake_grades = csv_to_array(variable_get("retake_grades", ""));
-	 
+
   $not_released_grades_terms = csv_to_array(variable_get("not_released_grades_terms", ""));
- 
+
   $all_courses = banner_integration_get_student_local_courses($student->student_id, $dropped_grade);
 
   $enrolled_grade = variable_get("banner_integration_enrolled_grade", "E");
-  
-  foreach ($all_courses as $cur) {  
+
+  foreach ($all_courses as $cur) {
 
     // Create a course object for this course...
 		$is_transfer = false;
@@ -486,28 +486,28 @@ function banner_integration_student_load_local_courses(&$student, $dropped_grade
 		$show_grades_right_away = array($dropped_grade);
 		if (in_array($term_id, $not_released_grades_terms) && !in_array($cur["grade"], $show_grades_right_away)) {
 		  $cur["grade"] = "";
-		}		
-		
-		
+		}
+
+
 		// Is the student currently enrolled in this course?
 		// If their grade and mid_grade are both blank, then yes (set to E)
 		if ($cur["grade"] == "" && $cur["mid_grade"] == "") {
 		  $cur["grade"] = $enrolled_grade;
 		}
-		
+
 		// Does this person have a mid_term grade assigned?
 		if ($cur["grade"] == "" && $cur["mid_grade"] != "") {
 		  $cur["grade"] = $cur["mid_grade"] . "MID";
 		}
-		  		
-		
+
+
 		if (!$course_id)
 		{
 			fpm("Course not found while trying to load student data: {$cur["dept_id"]} {$cur["course_num"]}");
 			continue;
 		}
 
-		
+
 		//$newCourse = new Course($courseID, $isTransfer, $student->db);
 		$new_course = new Course();
 		$new_course->course_id = $course_id;
@@ -529,33 +529,33 @@ function banner_integration_student_load_local_courses(&$student, $dropped_grade
 		{
 		  $new_course->bool_hide_grade = true;
 		}
-		
-		
+
+
 		$new_course->hours_awarded = trim($cur["hours"]);
 		$new_course->display_status = "completed";
 		$new_course->bool_taken = true;
-		
+
 		// Was this course worth 0 hours but they didn't fail it?
 		// If so, we need to set it to actually be 1 hour, and
 		// indicate this is a "ghost hour."
-		if (!in_array($new_course->grade, $retake_grades) 
-		     && $new_course->hours_awarded == 0) 			
+		if (!in_array($new_course->grade, $retake_grades)
+		     && $new_course->hours_awarded == 0)
 		{
 		  $new_course->hours_awarded = 1;
 		  $new_course->bool_ghost_hour = TRUE;
-		}			
-		
-		
-		
+		}
+
+
+
 		// Now, add the course to the list_courses_taken...
 		$student->list_courses_taken->add($new_course);
 		$student->array_significant_courses[$course_id] = true;
-				
-	}   
-  
+
+	}
+
 	// And we are done!
-	
-  
+
+
 }
 
 
@@ -563,54 +563,54 @@ function banner_integration_student_load_local_courses(&$student, $dropped_grade
 
 /**
  * Get the student's courses taken at this university.
- * 
+ *
  * Returns an array from Banner containing a student's enrolled courses, as well
  * as their courses from history.  It does NOT contain any transfer courses, just local
  * courses at THIS university.
- * 
+ *
  * It will return the courses in an array structure for simplicity, with all of the banner
  * field names converted to lowercase.
- * 
+ *
  * This function is ment to be used in conjunction with a hook_student_load() function.
- * 
+ *
  * @param $cwid
  *   The student's CWID to look up.
  * @param $dropped_grade
  *   What grade is considered "dropped"?  By default, this is set to W.  Its used in this function
  *   to decide if a grade should be displayed or not.
- * 
+ *
  * @see hook_student_load
  */
 
 function banner_integration_get_student_local_courses($cwid, $dropped_grade = "W") {
-  
-  
-  $rtn = array();  
-    
+
+
+  $rtn = array();
+
   if ($cwid == "") {
     // Blank student object maybe?  Just return an empty array.
     return $rtn;
   }
-    
+
   // Let's find out the user's pidm based on their cwid.
   $pidm = banner_integration_get_pidm_for_cwid($cwid);
-  
+
   if ($pidm == "" || $pidm == FALSE || $pidm == NULL) {
     // pidm for this student couldn't be found in Banner, so we might as well
     // stop here and just return our empty array.
     return $rtn;
   }
-  
-  
+
+
   /////////////////////////
   // Find out the current or next upcoming term...
   $cur_term_details = banner_integration_get_current_term_details();
   $cur_term = $cur_term_details["term_id"];
   // Now that we have the pidm, let's look up courses for this student.
   // First, look up currently enrolled courses...
-  
-  $query = "  
-  
+
+  $query = "
+
      select sfrstcr_crn as crn,
             sfrstcr_term_code as term_id,
             sfrstcr_ptrm_code as part_of_term,
@@ -623,105 +623,105 @@ function banner_integration_get_student_local_courses($cwid, $dropped_grade = "W
             ssbsect_insm_code as course_type,
             sfrstcr_pidm as pidm
        from ssbsect,
-            sfrstcr a            
+            sfrstcr a
     where sfrstcr_pidm = '?'
-      and ssbsect_crn = sfrstcr_crn      
+      and ssbsect_crn = sfrstcr_crn
       and ssbsect_term_code = sfrstcr_term_code
       and sfrstcr_rsts_code in ('RE','RW','DA','DC','DG','DS','WB','WD')
-      
+
   ";
-  
+
   $res = oracleapi_query($query, $pidm) or die("Oracle query failed.  Banner (student database) might be down temporarily.  Please try again later. Err:" . oracleapi_error());
   while($cur = oracleapi_fetch_array($res)) {
-    // convert all the keys of $cur to lowercase.    
-    $new_cur = array_change_key_case($cur);    
+    // convert all the keys of $cur to lowercase.
+    $new_cur = array_change_key_case($cur);
 
     // The term_if should NOT be greater than the current term. If it is, we skip it!
     if ($new_cur["term_id"] > $cur_term) continue;
-    
+
     // If the grade is anything OTHER than a "W" (dropped) then we don't
-    // want to display it.  This is so that at the end of the year, when 
+    // want to display it.  This is so that at the end of the year, when
     // final grades are turned on, no grade will be shown that hasn't been rolled to
     // history (ie, finalized).  But, if it IS a W, then we want to show that right away.
     if ($new_cur["grade"] != $dropped_grade) {
-      $new_cur["grade"] = ""; 
+      $new_cur["grade"] = "";
     }
-    
-    
-    // add to array to return.    
+
+
+    // add to array to return.
     $rtn[$new_cur["term_id"] . "_" . $new_cur["crn"]] = $new_cur;
 
-    
+
   }
-  
-  
-    
+
+
+
   ///////////////////////////////
   // Historical query...  gets courses previous to the ones which are
   // enrolled.
-  
+
   // What code should we look for which means "exclude this course"?  From our settings page.
   $exclude_repeat_course_ind = variable_get("banner_integration_exclude_historical_courses_code", "E");
-  
+
   $query = "
-  
+
       select shrtckn_crn as crn,
                 shrtckn_term_code as term_id,
-                shrtckn_ptrm_code as part_of_term,          
+                shrtckn_ptrm_code as part_of_term,
                 shrtckg_grde_code_final as grade,
-                shrtckg_credit_hours as hours,                
+                shrtckg_credit_hours as hours,
                 shrtckl_levl_code as level_code,
                 shrtckn_subj_code as subject_id,
                 shrtckn_crse_numb as course_num,
                 ssbsect_insm_code as course_type,
-                shrtckn_repeat_course_ind as repeat_course_ind     
+                shrtckn_repeat_course_ind as repeat_course_ind
           from shrtckn, shrtckg, ssbsect, shrtckl
           where shrtckn_pidm = shrtckg_pidm
             and shrtckl_pidm = shrtckg_pidm
             and shrtckl_term_code = shrtckn_term_code
             and shrtckl_tckn_seq_no = shrtckn_seq_no
-            and shrtckg_tckn_seq_no = shrtckn_seq_no      
+            and shrtckg_tckn_seq_no = shrtckn_seq_no
             and shrtckg_term_code = shrtckn_term_code
             and ssbsect_term_code(+) = shrtckn_term_code
-            and ssbsect_crn(+) = shrtckn_crn      
+            and ssbsect_crn(+) = shrtckn_crn
             and shrtckg_pidm = '?'
-  
+
     ";
 
   $res = oracleapi_query($query, $pidm) or die("Oracle query failed.  Banner (student database) might be down temporarily.  Please try again later. Err:" . oracleapi_error());
   while($cur = oracleapi_fetch_array($res)) {
 
-    // convert all the keys of $cur to lowercase.    
+    // convert all the keys of $cur to lowercase.
     $new_cur = array();
-    $new_cur = array_change_key_case($cur);    
-    
+    $new_cur = array_change_key_case($cur);
+
     // The term_id should NOT be greater than the current term!  If it is, skip it.
     if ($new_cur["term_id"] > $cur_term) continue;
 
     // If the "repeat_course_ind" is our settings' exclude code, then we should skip it.
     if ($new_cur["repeat_course_ind"] == $exclude_repeat_course_ind) continue;
-    
+
     // add to array to return.
     $rtn[$new_cur["term_id"] . "_" . $new_cur["crn"]] = $new_cur;
-    
-    
+
+
   }
-  
+
   return $rtn;
-  
+
 }
 
 
 
 /**
  * This hook allowes other modules to specify what the catalog year is, based on the catalog year term.
- * 
+ *
  * For example, if the term is 200840, the catalog year might be "2008".
  * It is expected to return the catalog year.
- * 
+ *
  * To use in your module, replace the "hook" with the name of your module.  It will be called
  * by the banner_integration_get_catalog_year_for_catalog_term function.
- * 
+ *
  * @see banner_integration_get_catalog_year_for_catalog_term
  *
  * @param unknown_type $catalog_year_term
@@ -731,9 +731,9 @@ function hook_banner_integration_get_catalog_year_for_term ($catalog_year_term) 
   // Example code...
   $cyear = substr($catalog_year_term, 0, 4);
   $csemester = substr($catalog_year_term, 4, 2);
-  
+
   $catalog_year = $cyear;
-  
+
   return $catalog_year;
 }
 
@@ -741,10 +741,10 @@ function hook_banner_integration_get_catalog_year_for_term ($catalog_year_term) 
 
 /**
  * This hook allowes modules to modify a record from the import_student_transfer_credit_routine
- * 
+ *
  * Notice that the $db_row is being passed by reference.  This way, if modules need to
  * modify a row once it is pulled from Banner, they may do so.
- * 
+ *
  * They may also set if this row should be skipped or treated differently, by adding fields
  * to the db_row like so:
  *    - $db_row["SHOULD_SKIP_ROW"] = TRUE;  // ignore this row and move on to the next
@@ -756,9 +756,7 @@ function hook_banner_integration_routines_transfer_credit_record_alter(&$db_row)
   if ($db_row["attn_period"] == "NOTFOUND") {
     $db_row["SHOULD_SKIP_ROW"] = TRUE;
   }
-  
+
   // No need to return anything, the db_row variable is passed by reference.
-  
+
 }
-
-

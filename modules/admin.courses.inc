@@ -42,9 +42,9 @@ function admin_display_courses() {
   $_SESSION["dec_lr"] = $lr;
 
 
-  fp_set_title(t("trarabic_10044", array("@year" => $de_catalog_year)));
+  fp_set_title(t("@year المساقات للسنة الدراسية", array("@year" => $de_catalog_year)));
 
-  $rtn .= "<h2 class='title'>" . t("trarabic_10045", array("@year" => $de_catalog_year)) . "</h2>";
+  $rtn .= "<h2 class='title'>" . t("@year المساقات للسنة الدراسية", array("@year" => $de_catalog_year)) . "</h2>";
 
   $letter_ranges = array(
     "A" => array("A", "AZZZZ"),
@@ -77,7 +77,7 @@ function admin_display_courses() {
 $rtn .= "</div>                       
         <div class='tenpt'>             
         <div style='padding: 5px;'>          
-        " . l(t("trarabic_10046", array("@year" => $de_catalog_year)), "admin/courses/edit-course", "course_id=new&de_catalog_year=$de_catalog_year") . "
+        " . l(t("@year أضف مساق للسنة الدراسية", array("@year" => $de_catalog_year)), "admin/courses/edit-course", "course_id=new&de_catalog_year=$de_catalog_year") . "
         </div>          
                        Legend:  <br>&nbsp; &nbsp;[e] = Course has at least one add'l excluded name.  
                             &nbsp; &nbsp;[v] = Course has at least one add'l valid name.
@@ -88,15 +88,15 @@ $rtn .= "</div>
 
   $exclude_line = "and exclude != 1";
   if ($show_hidden == "yes") {
-    $rtn .= "<div class='tenpt'><b>" . t("trarabic_10047") . " ";
-    $rtn .= l(t("trarabic_10048"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=no");
+    $rtn .= "<div class='tenpt'><b>" . t("إظهار المساقات الخارجية") . " ";
+    $rtn .= l(t("إخفاء؟"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=no");
     $rtn .= "</b></div>";
     $exclude_line = "";
 
   }  
   else {
-    $rtn .= "<div class='tenpt'><b>" . t("trarabic_10049") . " ";
-    $rtn .= l(t("trarabic_10050"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=yes");
+    $rtn .= "<div class='tenpt'><b>" . t("حاليا يتم إخفاء المساقات الخارجية.") . " ";
+    $rtn .= l(t("إظهار؟"), "admin/courses", "de_catalog_year=$de_catalog_year&show_hidden=yes");
     $rtn .= "</b></div>";   
   }
 
@@ -207,7 +207,7 @@ function admin_edit_course_form() {
   $subject_id = str_replace("_A_","&",$subject_id);  
   $course_num = $_REQUEST["course_num"];
   
-  fp_set_title(t("trarabic_10051", array("@course" => "$subject_id $course_num ($de_catalog_year)")));
+  fp_set_title(t("@course عدل المساق", array("@course" => "$subject_id $course_num ($de_catalog_year)")));
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
        
@@ -270,7 +270,7 @@ function admin_edit_course_form() {
   
   $form["course_names"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10052"),
+    "label" => t(": أسماء المساقات"),
     "required" => TRUE,
     "value" => $all_names,
     "popup_description" => t(".ملاحظة مهمة: يتم تحديث أسماء المساقات لكل الأعوام الدراسية لمساق معين .ACCT 110, MATH 110A exclude :مثال .FlightPath لمنع الاسم الثاني من الظهور في قائمة المساقات في 'exclude' أضف كلمة  .ACCT 110, MATH 110A :يجب عليك وضع رمز المادة ورقم المساق. إذا كان المساق معروف باسم آخر -مساوي له- أدخله مع فاصلة بين الاسمين؟ مثال .ACCT 110 :هذه أسماء عرض محتملة بهذا المساق. عادة يوجد اسم واحد, مثال"),
@@ -278,14 +278,14 @@ function admin_edit_course_form() {
   
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10053"),
+    "label" => t(": العنوان"),
     "value" => $course->title,
-    "popup_description" => t("trarabic_10054"),
+    "popup_description" => t("FlightPath عنوان المساق معروض في"),
   );  
   
   $form["min_hours"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10055"),
+    "label" => t(": عدد الساعات الأدنى"),
     "size" => 10,
     "value" => $course->min_hours,
     "popup_description" => t(".عادة يكون عدد الساعات الأدنى و الأقصى لمساق معين هو نفس الرقم. مثال: 3. إذا حصل اختلاف, فإن ذلك يعني أن للمساق ساعات متغيرة. على سبيل المثال, إذا كان لديك مساق قيمته 1-6 ساعات, أدخل 1 للأدنى و 6 للأقصى"),
@@ -294,7 +294,7 @@ function admin_edit_course_form() {
 
   $form["max_hours"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10056"),
+    "label" => t(": عدد الساعات الأقصى"),
     "size" => 10,
     "value" => $course->max_hours,
     "popup_description" => t(".عادة يكون عدد الساعات الأدنى و الأقصى لمساق معين هو نفس الرقم. مثال: 3. إذا حصل اختلاف, فإن ذلك يعني أن للمساق ساعات متغيرة. على سبيل المثال, إذا كان لديك مساق قيمته 1-6 ساعات, أدخل 1 للأدنى و 6 للأقصى"),
@@ -302,7 +302,7 @@ function admin_edit_course_form() {
 
   $form["repeat_hours"] = array(
     "type" => "textfield",
-    "label" => t("trarabic_10057"),
+    "label" => t(":ساعات الإعادة"),
     "size" => 10,
     "value" => $course->repeat_hours,
     "popup_description" => t(".عدد الساعات لمساق قد يكون متكررا لرصيد. على سبيل المثال, إذا كانت قيمة المساق 3 ساعات, لكن يمكن أن يتكرر إلى 9 ساعات من الرصيد, أدخل 9 في هذا الفراغ. إن كان ليس بالإمكان إعادة المساق للرصيد, يمكن أن يكون الرقم نفس عدد الساعات الأدنى والأقصى, أو اتركه فارغا. اذا لست متأكد مما تريد إدخاله, اتركه فارغا"),
@@ -311,7 +311,7 @@ function admin_edit_course_form() {
     
   $form["description"] = array(
     "type" => "textarea",
-    "label" => t("trarabic_10058"),
+    "label" => t("الوصف"),
     "value" => $course->description,
     "rows" => 4,
     "cols" => 80,    
@@ -319,7 +319,7 @@ function admin_edit_course_form() {
      
   $form["all_years"] = array(
     "type" => "checkboxes",
-    "label" => t("trarabic_10059"),
+    "label" => t("تحديث لكل الأعوام الدراسية؟"),
     "options" => array("yes" => t(" تحديث العنوان, الوصف, والمعلومات الساعات لكل الأعوام الدراسية لهذا المساق")),    
     "popup_description" => t(".حدد هذا المربع واضغط على تسليم لتحديث العنوان, الوصف ومعلومات الساعات لكل الأعوام المتوفرة لهذا المساق. لاحظ بأن اسم المساق يتم تحديثه لكل الأعوام بغض النظر إذا قمت بتحديد هذا المربع أم لا"),
   );   
@@ -337,14 +337,14 @@ function admin_edit_course_form() {
   
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("trarabic_10062", array("@year" => $de_catalog_year)),
+    "value" => t("@year احفظ ل", array("@year" => $de_catalog_year)),
     "prefix" => "<hr>",
   );
   
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<div align='right'>
-                      " . t("trarabic_10063") . " <input type='button' value='X'
+                      " . t("احذف المساق؟") . " <input type='button' value='X'
                       onClick='adminDeleteCourse(\"$course_id\",\"$de_catalog_year\",\"$warn_eqv\");'>
                     </div>", 
   );
@@ -408,7 +408,7 @@ function admin_edit_course_form_submit(&$form, $form_submit) {
           ";
     $res = db_query($query);
     
-    fp_add_message(t("trarabic_10064", array("%course" => $course_names, "%year" => $de_catalog_year)));
+    fp_add_message(t("%year بنجاح ل %course  تم حذف المساق", array("%course" => $course_names, "%year" => $de_catalog_year)));
     // Redirect us to the list of courses.
     $form["#redirect"] = array(
       "path" => "admin/courses",

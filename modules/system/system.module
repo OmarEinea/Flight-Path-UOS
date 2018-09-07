@@ -52,8 +52,8 @@ function system_perm() {
       "description" => t("يمكن لهذا المستخدم بعرض حالة التحديث و المتطلبات الأخرى للنظام."),
     ),
 
-    "execute_php" => array(
-      "title" => t("تنفيذ PHP code"),
+    "execute_php" => array (
+      "title" => t("PHP code تنفيذ"),
       "description" => t("تحذير: هذا إذن قوي جدا وخطير. قم بإعطائها للمطورين فقط. سيظهر رابط 'تنفيذ PHP' في قائمة الإدارة ، مما يتيح للمستخدم تنفيذ أي شفرة PHP عشوائية."),
     ),
 
@@ -212,14 +212,14 @@ function system_menu() {
   );
 
   $items["login"] = array(
-    "title" => "Login",
+    "title" => "تسجيل الدخول",
     "page_callback" => "system_display_login_page",
     "access_callback" => TRUE,
     "type" => MENU_TYPE_NORMAL_ITEM,
   );
 
  $items["admin-tools/clear-cache"] = array(
-    "title" => "Clear all cache",
+    "title" => "مسح كل ذاكرة التخزين المؤقت",
     "page_callback" => "system_perform_clear_cache",
     "access_arguments" => array("administer_modules"),
     "type" => MENU_TYPE_NORMAL_ITEM,
@@ -238,7 +238,7 @@ function system_menu() {
   );
 
   $items["admin/config/status"] = array(
-    "title" => "System status",
+    "title" => "حالة النظام",
     "description" => "View important notifications and updates for your installation of FlightPath",
     "page_callback" => "system_display_status_page",
     "access_arguments" => array("view_system_status"),
@@ -269,7 +269,7 @@ function system_menu() {
 
 
   $items["admin/completed-db-updates"] = array(
-    "title" => "Database updates completed",
+    "title" => "اكتملت تحديثات قاعدة البيانات",
     "page_callback" => "system_display_completed_db_updates",
     "access_arguments" => array("administer_modules"),
     "page_settings" => array(
@@ -280,7 +280,7 @@ function system_menu() {
 
 
   $items["admin/config/system-settings"] = array(
-    "title" => "System settings",
+    "title" => "إعدادات النظام",
     "description" => "Configure settings for FlightPath",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_settings_form", "system_settings"),
@@ -304,7 +304,7 @@ function system_menu() {
 
 
   $items["admin/config/school-data"] = array(
-    "title" => "Configure school data",
+    "title" => "تكوين بيانات الجامعة",
     "description" => "Configure school-specific data and settings",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_school_data_form", "system_settings"),
@@ -329,7 +329,7 @@ function system_menu() {
 
 
   $items["admin/config/modules"] = array(
-    "title" => "Modules",
+    "title" => "الوحدات",
     "description" => "Manage which modules are enabled for your site",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_modules_form"),
@@ -361,7 +361,7 @@ function system_menu() {
 
 
   $items["admin/config/clear-menu-cache"] = array(
-    "title" => "Clear menu cache",
+    "title" => "مسح ذاكرة التخزين المؤقت للقائمة",
     "description" => "Clear and rebuild menus and URLs",
     "page_callback" => "system_perform_clear_menu_cache",
     "access_arguments" => array("administer_modules"),
@@ -369,7 +369,7 @@ function system_menu() {
     "page_settings" => array(
       "menu_icon" => fp_theme_location() . "/images/clear.png",
     ),
-  );  
+  );
 
   $items["system-handle-form-submit"] = array(
     "page_callback" => "system_handle_form_submit",
@@ -378,7 +378,7 @@ function system_menu() {
   );
 
   $items["logout"] = array(
-    "title" => "Logout",
+    "title" => "تسجيل الخروج",
     "page_callback" => "system_handle_logout",
     "access_callback" => TRUE,
     "type" => MENU_TYPE_CALLBACK,
@@ -387,7 +387,7 @@ function system_menu() {
 
 
   $items["popup-report-contact"] = array(
-    "title" => "Report/Contact",
+    "title" => "تقرير / تواصل",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_popup_report_contact_form"),
     "access_callback" => TRUE,
@@ -400,7 +400,7 @@ function system_menu() {
 
 
   $items["popup-contact-form/thank-you"] = array(
-    "title" => "Report/Contact",
+    "title" => "تقرير / تواصل",
     "page_callback" => "system_popup_report_contact_thank_you",
     "access_callback" => TRUE,
     "page_settings" => array(
@@ -422,8 +422,8 @@ function system_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_icon" => fp_theme_location() . "/images/php.png",      
-      "menu_links" => array(         
+      "menu_icon" => fp_theme_location() . "/images/php.png",
+      "menu_links" => array(
         0 => array(
           "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
@@ -706,7 +706,7 @@ function system_popup_report_contact_form() {
 
 function system_popup_report_contact_form_submit($form, $form_state) {
   global $user;
-  
+
   $category = strip_tags($form_state["values"]["category"]);
   $comment = strip_tags($form_state["values"]["comment"]);
 
@@ -734,12 +734,12 @@ function system_popup_report_contact_form_submit($form, $form_state) {
 
     $msg = addslashes($msg);
     $to = variable_get("contact_email_address", "");
-    
+
     if ($to != "") {
       //mail($to,$subject,$msg,$headers);
       mail($to,$subject,$msg);
     }
-  } 
+  }
 
   $_SESSION["da_error_report_md5"] = $themd5;
 

@@ -34,7 +34,7 @@ function blocks_menu() {
       "menu_icon" => fp_theme_location() . "/images/blocks.png",
       "menu_links" => array(
         0 => array(
-          "text" => "Back to main menu",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),

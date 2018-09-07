@@ -7,7 +7,7 @@ function sample_data_menu() {
   $items = array();
 
   $items["admin/config/sample-data"] = array(
-    "title" => "Sample Data",
+    "title" => "عينة بيانات",
     "description" => "Load sample data into FlightPath's database.",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("sample_data_install_form"),
@@ -18,7 +18,7 @@ function sample_data_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),

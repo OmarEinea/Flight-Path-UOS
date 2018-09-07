@@ -6,14 +6,14 @@ function advise_menu() {
 
 
   $items["admin-tools/toggle-draft"] = array(
-    "title" => "Toggle Draft Mode",
+    "title" => "تغيير وضع المسودة",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("advise_toggle_draft_form"),
     "access_arguments" => array("toggle_draft"),
     "page_settings" => array(
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "main",
         ),
       ),
@@ -32,7 +32,7 @@ function advise_menu() {
 
 
   $items["view"] = array(
-    "title" => "View",
+    "title" => "إظهار",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("view"),
     "access_callback" => "advise_can_access_view",
@@ -48,7 +48,7 @@ function advise_menu() {
 
 
   $items["view/print"] = array(
-    "title" => "View",
+    "title" => "إظهار",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("view"),
     "access_callback" => TRUE,
@@ -95,7 +95,7 @@ function advise_menu() {
 
 
   $items["history"] = array(
-    "title" => "History",
+    "title" => "التاريخ",
     "page_callback" => "advise_display_history",
     "access_callback" => "advise_can_access_view",
     "tab_family" => "system",
@@ -115,7 +115,7 @@ function advise_menu() {
 
 
   $items["advise/popup-display-summary"] = array(
-    "title" => "Advising Summary",
+    "title" => "ملخص المشورة",
     "page_callback" => "advise_popup_display_summary",
     "access_callback" => "advise_user_can_view_advising_session_access_callback",
     "page_settings" => array(
@@ -130,7 +130,7 @@ function advise_menu() {
 
 
   $items["advise/popup-change-term"] = array(
-    "title" => "Change advising term",
+    "title" => "تغيير فصل المشورة",
     "page_callback" => "advise_display_popup_change_term",
     "access_arguments" => array("can_advise_students"),
     "page_settings" => array(
@@ -141,7 +141,7 @@ function advise_menu() {
   );
 
   $items["advise/popup-change-track"] = array(
-    "title" => "Change advising track",
+    "title" => "تغيير مسار المشورة",
     "page_callback" => "advise_display_popup_change_track",
     "access_arguments" => array("access_logged_in_content"),
     "page_settings" => array(
@@ -154,7 +154,7 @@ function advise_menu() {
 
 
   $items["advise/popup-course-description"] = array(
-    "title" => "Description",
+    "title" => "الوصف",
     "page_callback" => "advise_display_popup_course_description",
     "access_callback" => TRUE,
     "page_settings" => array(
@@ -166,7 +166,7 @@ function advise_menu() {
 
 
   $items["advise/popup-substitute-selected"] = array(
-    "title" => "Substitute",
+    "title" => "تبديل",
     "page_callback" => "advise_display_popup_substitute_selected",
     "access_arguments" => array("can_substitute"),
     "page_settings" => array(
@@ -178,7 +178,7 @@ function advise_menu() {
 
 
   $items["advise/popup-group-select"] = array(
-    "title" => "Select",
+    "title" => "تحديد",
     "page_callback" => "advise_display_popup_group_select",
     "access_callback" => TRUE,
     "page_settings" => array(
@@ -192,7 +192,7 @@ function advise_menu() {
   // Toolbox...
 
   $items["advise/popup-toolbox/transfers"] = array(
-    "title" => "Transfers",
+    "title" => "التحويلات",
     "page_callback" => "advise_display_popup_toolbox_transfers",
     "access_arguments" => array("can_substitute"),
     "page_settings" => array(
@@ -206,7 +206,7 @@ function advise_menu() {
   );
 
   $items["advise/popup-toolbox/substitutions"] = array(
-    "title" => "Substitutions",
+    "title" => "بدائل",
     "page_callback" => "advise_display_popup_toolbox_substitutions",
     "access_arguments" => array("can_substitute"),
     "page_settings" => array(
@@ -220,7 +220,7 @@ function advise_menu() {
   );
 
   $items["advise/popup-toolbox/moved"] = array(
-    "title" => "Moved",
+    "title" => "انتقل",
     "page_callback" => "advise_display_popup_toolbox_moved",
     "access_arguments" => array("can_substitute"),
     "page_settings" => array(
@@ -234,7 +234,7 @@ function advise_menu() {
   );
 
   $items["advise/popup-toolbox/courses"] = array(
-    "title" => "Courses",
+    "title" => "المساقات",
     "page_callback" => "advise_display_popup_toolbox_courses",
     "access_arguments" => array("can_substitute"),
     "page_settings" => array(
@@ -685,37 +685,31 @@ function advise_perm() {
   $perms = array();
 
   $perms["view_any_advising_session"] = array(
-    "title" => t("View any advising session"),
-    "description" => t("The user is allowed to view any advising sessions for any user.
-                        For example, the user is an advisor."),
+    "title" => t("عرض أي جلسة تقديم المشورة"),
+    "description" => t("يُسمح للمستخدم بمشاهدة أي جلسات إرشادية لأي مستخدم. على سبيل المثال ، المستخدم هو مرشد أكاديمي"),
   );
 
   $perms["view_own_advising_session"] = array(
-    "title" => t("View own advising session"),
-    "description" => t("The user is allowed to view their own advising sessions.
-                        For example, the user is a student."),
+    "title" => t("عرض جلسة المشورة الخاصة"),
+    "description" => t("يُسمح للمستخدم بمشاهدة جلسات المشورة الخاصة به. على سبيل المثال ، يكون المستخدم طالبًا. "),
   );
 
 
 
   $perms["can_advise_students"] = array(
-    "title" => t("Can advise students"),
-    "description" => t("The user is allowed to advise other students,
-                      by clicking a checkbox next to a course, or by selecting
-                      a course from an elective group."),
+    "title" => t("يمكن أن ينصح الطلاب"),
+    "description" => t("يُسمح للمستخدم بنصح الطلاب الآخرين ، عن طريق النقر على مربع اختيار بجوار مساق ، أو عن طريق اختيار مساق من مجموعة اختيارية"),
   );
 
   $perms["can_substitute"] = array(
-    "title" => t("Can substitute"),
-    "description" => t("The user is allowed to substitute courses on a student's
-                        degree plan."),
+    "title" => t("يمكن التبديل"),
+    "description" => t("يُسمح للمستخدم باستبدال الدورات الدراسية بخطة درجة الطالب."),
   );
 
 
   $perms["toggle_draft"] = array(
-    "title" => t("Toggle draft mode"),
-    "description" => t("The user toggle 'draft' mode, so they can view draft degree plans
-                        in FlightPath."),
+    "title" => t("تبديل وضع المسودة "),
+    "description" => t("FlightPath تبديل وضع مسودة المستخدم ، حتى يتمكن من عرض خطط درجة المسودة في"),
   );
 
 

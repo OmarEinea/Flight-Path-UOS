@@ -8,9 +8,9 @@
 
 function comments_menu() {
   $items = array();
-  
+
   $items["comments"] = array(
-    "title" => "Comments",
+    "title" => "تعليقات",
     "page_callback" => "comments_display_main",
     "access_callback" => "comments_can_access_comments",
     "type" => MENU_TYPE_TAB,
@@ -18,9 +18,9 @@ function comments_menu() {
     "page_settings" => array (
       "display_currently_advising" => TRUE,
       "display_greeting" => TRUE,
-      "page_has_search" => TRUE,      
-    ),        
-    "weight" => 35,         
+      "page_has_search" => TRUE,
+    ),
+    "weight" => 35,
   );
 
   $items["comments/save-comment"] = array(
@@ -37,7 +37,7 @@ function comments_menu() {
 
 
   $items["comments/popup-display-all-comments"] = array(
-    "title" => "Comments",
+    "title" => "تعليقات",
     "page_callback" => "comments_popup_display_all_comments",
     "access_arguments" => array("view_comments"),
     "page_settings" => array(
@@ -45,13 +45,13 @@ function comments_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
       "bool_print" => TRUE,
-    ),   
+    ),
     "type" => MENU_TYPE_CALLBACK,
-  );     
+  );
 
 
   $items["comments/popup-display-comment"] = array(
-    "title" => "Comment",
+    "title" => "تعليق",
     "page_callback" => "comments_popup_display_comment",
     "access_arguments" => array("view_comments"),
     "page_settings" => array(
@@ -59,25 +59,25 @@ function comments_menu() {
       "page_is_popup" => TRUE,
       "page_hide_report_error" => TRUE,
       "bool_print" => TRUE,
-    ),   
+    ),
     "type" => MENU_TYPE_CALLBACK,
-  );     
-  
+  );
+
   return $items;
-} 
+}
 
 
 function comments_popup_display_comment() {
   $rtn = "";
-  
+
   fp_add_css(fp_get_module_path("comments") . "/css/comments.css");
-  
+
   $id = $_REQUEST["id"];
-  
+
   // Try to render this comment id.
   $comment = comments_get_comment($id);
   $rtn .= comments_render_comment($comment);
-      
+
   return $rtn;
 }
 
@@ -87,15 +87,15 @@ function comments_popup_display_comment() {
  */
 function comments_can_access_comments() {
   global $current_student_id, $user;
-  
+
   // must be logged in first...
   if (!user_has_permission("access_logged_in_content")) return FALSE;
 
   // Do they have the correct permission to view comments?
   if (!user_has_permission("view_comments")) return FALSE;
-    
+
   if ($current_student_id != "") return TRUE;
-  
+
   return FALSE;
 }
 
@@ -105,11 +105,11 @@ function comments_can_access_comments() {
  */
 function comments_perform_delete_comment() {
   global $current_student_id, $user;
-  
+
   $comment_id = $_REQUEST["comment_id"];
   // Let's get some details about the comment to make sure this user can delete it.
-  $comment = comments_get_comment($comment_id); 
-  
+  $comment = comments_get_comment($comment_id);
+
   if ($comment["faculty_id"] == $user->cwid && user_has_permission("can_delete_own_comments_3_months")) {
     // TODO:  We should really ALSO check to make sure it's been less than 3 months.
     db_query("UPDATE advising_comments
@@ -117,16 +117,16 @@ function comments_perform_delete_comment() {
                WHERE `id` = '?' ", $comment_id);
     fp_add_message(t("تم حذف التعليق بنجاح."));
   }
-  
-  
+
+
   if ($_GET["destination"] != "") {
     fp_goto($_GET["destination"]);
   }
-  else {  
+  else {
     fp_goto("comments");
   }
-  
-  
+
+
 }
 
 
@@ -136,7 +136,7 @@ function comments_comment_form_submit($form, $form_state) {
   $type = $form_state["values"]["type"];
   $term_id = $form_state["values"]["term_id"];
   $comment = trim($form_state["values"]["comment"]);
-    
+
   // Perform the save!
   if ($comment) {
     db_query("INSERT INTO advising_comments
@@ -145,7 +145,7 @@ function comments_comment_form_submit($form, $form_state) {
                 VALUES
                 ('?', '?', '?', '?', '?', '?')
                 ", $current_student_id, $faculty_cwid, $term_id, $comment, time(), $type);
-/*				
+/*
 	 $res = db_query("SELECT * FROM advising_comments
                    WHERE student_id = '?'
                    $deleted_line
@@ -156,7 +156,7 @@ function comments_comment_form_submit($form, $form_state) {
   }
 */
 		//CODE-ADD-START - 2017-10-09 To send email on student advising
-		
+
 		$email_list = "jpazhai.sharjah@gmail.com";
 		//$email_list = $current_student_id . "@sharjah.ac.ae";
 		//watchdog("EMAIL LIST-1",$email_list);
@@ -167,18 +167,18 @@ function comments_comment_form_submit($form, $form_state) {
 					$email_list = $email_list . "," . $facarr["email"];
 					//watchdog("EMAIL LIST-2",$email_list);
 					//watchdog("CURRENT STUDENT",$current_student_id);
-	 
+
 	 //Added code to get emails for chair on 30 October 2017
 	 $res2 = db_query("SELECT dept_chair_email FROM dept_chair
                    WHERE major_code = (select major_code from students where cwid = '?')", $current_student_id);
 					$facarr1 = db_fetch_array($res2);
-					$email_list = $email_list . "," . $facarr1["dept_chair_email"];					
+					$email_list = $email_list . "," . $facarr1["dept_chair_email"];
 
 					//watchdog("EMAIL LIST-3",$email_list);;
-	//Added code to get emails for chair on 30 October 2017-end			
+	//Added code to get emails for chair on 30 October 2017-end
 				/*if isset($res1["email"])
 				{
-					
+
 				}*/
 			mail($email_list, "Advising comments for $current_student_id by $user->f_name $user->l_name", $comment);
 		}
@@ -190,8 +190,8 @@ function comments_comment_form_submit($form, $form_state) {
 	fp_add_message(t("تم حفظ التعليق بنجاح."));
   }
 
-  watchdog("save_comment", "Comment saved");  
-  
+  watchdog("save_comment", "Comment saved");
+
 }
 
 
@@ -200,41 +200,41 @@ function comments_comment_form_submit($form, $form_state) {
  */
 function comments_comment_form() {
   global $current_student_id;
-  
+
   $term_id = variable_get("advising_term_id");
-    
-  fp_set_title("");  
-    
+
+  fp_set_title("");
+
   $form = array();
-  
+
   $form["type"] = array(
     "type" => "radios",
     "label" => t(":مرئي ل"),
     "options" => array("public" => t("الجميع (شامل الطلبة)"), "faculty" => t("أعضاء هيئة التدريس/الموظفين فقط")),
     "value" => "faculty",
   );
-  
+
   $form["term_id"] = array(
     "type" => "hidden",
     "value" => $term_id,
   );
-  
+
   $form["current_student_id"] = array(
     "type" => "hidden",
     "value" => $current_student_id,
   );
-  
+
   $form["comment"] = array(
     "type" => "textarea",
   );
-  
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => t("حفظ"),
-  );   
-  
+  );
 
-  
+
+
   return $form;
 }
 
@@ -250,23 +250,23 @@ function comments_comment_form() {
 function comments_display_main() {
   global $current_student_id;
   $rtn = "";
-  
+
   fp_add_js(fp_get_module_path("comments") . "/js/comments.js");
   fp_add_css(fp_get_module_path("comments") . "/css/comments.css");
-  
+
   if (user_has_permission("can_save_comments")) {
-         
+
     $form = fp_render_form("comments_comment_form");
-  
+
     $rtn .= fp_render_c_fieldset($form, t("اضغط لإدخال تعليق"), true);
   }
-    
+
   $access_types = (user_has_permission("view_faculty_comments")) ? array("faculty", "public") : array("public");
-    
+
   $comments = comments_get_comments($current_student_id, FALSE, $access_types);
   //fpm($comments);
   foreach($comments as $comment) {
-      
+
     $delete_link = "";
     // Should we present a "delete link" to the user for this comment?
     if (user_has_permission("can_delete_own_comments_3_months")) {
@@ -274,17 +274,17 @@ function comments_display_main() {
       $del_range = strtotime("-3 month");
       $then = $comment["posted"];
 
-      
+
       if ($then > $del_range) {
         $delete_link = fp_render_button("Delete", "deleteComment(\"{$comment["id"]}\");");
-      }      
-    }  
-      
-    
+      }
+    }
+
+
     $rtn .= comments_render_comment($comment, $delete_link);
   }
-  
-  
+
+
   return $rtn;
 }
 
@@ -294,20 +294,20 @@ function comments_display_main() {
  * Displays all comments for a student in a popup window, meant for printing.
  */
 function comments_popup_display_all_comments() {
-  global $current_student_id;  
+  global $current_student_id;
   $rtn = "";
-  
+
   fp_add_css(fp_get_module_path("comments") . "/css/comments.css");
-  
+
   $access_types = (user_has_permission("view_faculty_comments")) ? array("faculty", "public") : array("public");
-  
+
   $comments = comments_get_comments($current_student_id, FALSE, $access_types);
 
-  foreach($comments as $comment) {    
+  foreach($comments as $comment) {
     $rtn .= comments_render_comment($comment, $delete_link);
   }
-  
-  
+
+
   return $rtn;
 }
 
@@ -325,7 +325,7 @@ function comments_render_comment($comment, $delete_link = "") {
     return "<p>" . t("عذراً, لست مصرح لعرض التعليقات.") . "</p>";
   }
   if ($comment["access_type"] == "faculty" && !user_has_permission("view_faculty_comments")) {
-    return "<p>" . t("عذرًا ، ولكن ليس لديك إذن لعرض التعليق المطلوب (مسموح لأعضاء هيئة التدريس فقط).") . "</p>";    
+    return "<p>" . t("عذرًا ، ولكن ليس لديك إذن لعرض التعليق المطلوب (مسموح لأعضاء هيئة التدريس فقط).") . "</p>";
   }
 
 
@@ -339,8 +339,8 @@ function comments_render_comment($comment, $delete_link = "") {
   }
   $rtn .= "
             </div>";
-  
-    
+
+
   return $rtn;
 }
 
@@ -350,15 +350,15 @@ function comments_render_comment($comment, $delete_link = "") {
  */
 function comments_get_comments($student_id, $bool_included_deleted = FALSE, $access_types = array()) {
   $rtn = array();
-  
-  
+
+
   $deleted_line = "AND delete_flag = 0";
   if ($bool_included_deleted) {
     $deleted_line = "";
   }
-  
+
   $access_type_line = "";
-  
+
   // Build up the "access_type_line" for the query, based on the values
   // in the access_types array.
   if (count($access_types) > 0) {
@@ -366,17 +366,17 @@ function comments_get_comments($student_id, $bool_included_deleted = FALSE, $acc
     foreach ($access_types as $access_type) {
       $access_type_line .= " access_type = '$access_type' OR";
     }
-    
+
     // remove the last OR
     $access_type_line = substr($access_type_line, 0, -2);
-    
+
     $access_type_line .= ")";
   }
-  
+
   //if ($access_type == "public" || $access_type == "faculty") {
   //  $access_type_line = "AND access_type = '$access_type' ";
   //}
-  
+
   $res = db_query("SELECT * FROM advising_comments
                    WHERE student_id = '?'
                    $deleted_line
@@ -385,20 +385,20 @@ function comments_get_comments($student_id, $bool_included_deleted = FALSE, $acc
   while ($cur = db_fetch_array($res)) {
     $rtn[$cur["id"]] = $cur;
   }
-    
+
   return $rtn;
 }
 
 
 function comments_get_comment($comment_id) {
   $rtn = array();
-  
-  
+
+
   $res = db_query("SELECT * FROM advising_comments
                    WHERE `id` = '?'
                    ", $comment_id);
   $cur = db_fetch_array($res);
-    
+
   return $cur;
 }
 
@@ -416,7 +416,7 @@ function comments_perm() {
     "view_faculty_comments" => array(
       "title" => t("عرض تعليقات 'هيئة التدريس'"),
       "description" => t("يسمح للمستخدم بعرض تعليقات 'هيئة التدريس'"),
-    ),      
+    ),
     "can_save_comments" => array(
       "title" => t("يمكنه حفظ التعليق"),
       "description" => t("يسمح للمستخدم بحفظ التعليقات الجديدة, المرئية للجميع أو لهيئة التدريس/الموظفين فقط."),
@@ -425,15 +425,9 @@ function comments_perm() {
       "title" => t("يمكن حذف التعليقات الخاصة لمدة 3 أشهر"),
       "description" => t(".يمكن للمستخدم حذف التعليقات التي قام بها لمدة تصل إلى 3 أشهر. بعد 3 أشهر ، لن يتمكنوا من حذف تعليقهم"),
     ),
-    
+
   );
-  
-  
-  
+
+
+
 }
-
-
-
-
-
-

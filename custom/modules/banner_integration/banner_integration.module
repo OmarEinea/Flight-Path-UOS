@@ -29,7 +29,7 @@ function banner_integration_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),

@@ -19,7 +19,7 @@ function admin_menu() {
   $items = array();
 
   $items["admin-tools/admin"] = array(
-     "title" => "FlightPath Admin Console",
+     "title" => "FlightPath وحدة تحكم مشرف",
      "page_callback" => "admin_display_main",
      "access_arguments" => array("can_access_admin"),
      "tab_family" => "admin",
@@ -33,7 +33,7 @@ function admin_menu() {
   );
 
   $items["admin/config/urgent-message"] = array(
-    "title" => "Edit urgent message",
+    "title" => "تحرير رسالة عاجلة",
     "description" => "Set a message which will be displayed to all users on every page",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_urgent_message_form", "system_settings"),
@@ -45,7 +45,7 @@ function admin_menu() {
       "menu_icon" => fp_theme_location() . "/images/urgent.png",
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -70,7 +70,7 @@ function admin_menu() {
       "menu_icon" => fp_theme_location() . "/images/log.png",
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -94,7 +94,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" =>"العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -113,7 +113,7 @@ function admin_menu() {
 
 
   $items["admin/duplicate-year"] = array(
-    "title" => "Duplicate entire catalog year",
+    "title" => "تكرار كامل كتالوج العام",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_duplicate_year_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -123,7 +123,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -136,7 +136,7 @@ function admin_menu() {
 
 
   $items["admin/edit-advising-settings"] = array(
-    "title" => "Edit advising settings",
+    "title" => "تعديل إعدادات الاستشارة",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_advising_settings_form", "system_settings"),
     "access_arguments" => array("can_edit_advising_settings"),
@@ -146,7 +146,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -158,7 +158,7 @@ function admin_menu() {
 
 
   $items["admin/apply-draft-changes"] = array(
-    "title" => "Apply draft changes",
+    "title" => "تطبيق تغييرات المسودة",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_apply_draft_changes_form"),
     "access_arguments" => array("can_apply_draft_changes"),
@@ -168,7 +168,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -182,7 +182,7 @@ function admin_menu() {
   ////////////////////// Degree Editing ///////////////////
 
   $items["admin/degrees"] = array(
-    "title" => "Degrees",
+    "title" => "الدرجات العلمية",
     "page_callback" => "admin_display_degrees",
     "access_arguments" => array("can_access_data_entry"),
     "page_settings" => array(
@@ -191,7 +191,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -203,7 +203,7 @@ function admin_menu() {
   );
 
   $items["admin/degrees/edit-degree"] = array(
-    "title" => "Edit Degree",
+    "title" => "تعديل الدرجات العلمية",
     "page_callback" => "admin_display_edit_degree",
     "access_arguments" => array("can_edit_data_entry"),
     "page_settings" => array(
@@ -212,12 +212,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Degrees list",
+          "text" => "العودة إلى قائمة الدرجات العلمية",
           "path" => "admin/degrees",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -237,7 +237,7 @@ function admin_menu() {
 
 
   $items["admin/degrees/popup-add-group"] = array(
-    "title" => "Add Group",
+    "title" => "إضافة مجموعة",
     "page_callback" => "admin_display_degrees_popup_add_group",
     "access_arguments" => array("can_edit_data_entry"),
     "page_settings" => array(
@@ -251,7 +251,7 @@ function admin_menu() {
 
 
   $items["admin/degrees/add-degree"] = array(
-    "title" => "Add Degree",
+    "title" => "إضافة درجة علمية",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_add_degree_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -261,12 +261,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Degrees list",
+          "text" => "العودة إلى قائمة الدرجات العلمية",
           "path" => "admin/degrees",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -278,7 +278,7 @@ function admin_menu() {
   );
 
   $items["admin/degrees/copy-degree"] = array(
-    "title" => "Copy Degree",
+    "title" => "نسخ درجة علمية",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_copy_degree_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -288,12 +288,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Degrees list",
+          "text" => "العودة إلى قائمة الدرجات العلمية",
           "path" => "admin/degrees",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -310,7 +310,7 @@ function admin_menu() {
   ////////////////////// Group Editing ///////////////////
 
   $items["admin/groups"] = array(
-    "title" => "Groups",
+    "title" => "المجموعات",
     "page_callback" => "admin_display_groups",
     "access_arguments" => array("can_access_data_entry"),
     "page_settings" => array(
@@ -319,7 +319,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -331,7 +331,7 @@ function admin_menu() {
   );
 
   $items["admin/groups/edit-group"] = array(
-    "title" => "Edit Group",
+    "title" => "تعديل المجموعة",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_edit_group_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -341,7 +341,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" =>"العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -359,7 +359,7 @@ function admin_menu() {
 
 
   $items["admin/groups/popup-select-icon"] = array(
-    "title" => "Select Icon",
+    "title" => "اختيار أيقونة",
     "page_callback" => "admin_display_groups_popup_select_icon",
     "access_arguments" => array("can_edit_data_entry"),
     "page_settings" => array(
@@ -372,7 +372,7 @@ function admin_menu() {
   );
 
   $items["admin/groups/popup-edit-definition"] = array(
-    "title" => "Edit Definition",
+    "title" => "تعديل التعريف",
     "page_callback" => "admin_display_groups_popup_edit_definition",
     "access_arguments" => array("can_edit_data_entry"),
     "page_settings" => array(
@@ -385,7 +385,7 @@ function admin_menu() {
   );
 
   $items["admin/groups/popup-show-group-use"] = array(
-    "title" => "Group Use",
+    "title" => "استخدام المجموعة",
     "page_callback" => "admin_display_groups_popup_show_group_use",
     "access_arguments" => array("can_edit_data_entry"),
     "page_settings" => array(
@@ -398,7 +398,7 @@ function admin_menu() {
   );
 
   $items["admin/groups/process-all-definitions"] = array(
-    "title" => "Process all Definitions",
+    "title" => "معالجة كل التعاريف",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_process_all_definitions_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -408,12 +408,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" =>"العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Groups list",
+          "text" => "العودة إلى قائمة المجموعات",
           "path" => "admin/groups",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -428,7 +428,7 @@ function admin_menu() {
   /////////////////////////////////////////////////
   /////////////////// Courses editing ////////////////
   $items["admin/courses"] = array(
-    "title" => "Courses",
+    "title" => "المساقاتs",
     "page_callback" => "admin_display_courses",
     "access_arguments" => array("can_access_data_entry"),
     "page_settings" => array(
@@ -437,7 +437,7 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" =>"العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -449,7 +449,7 @@ function admin_menu() {
   );
 
   $items["admin/courses/edit-course"] = array(
-    "title" => "Edit Course",
+    "title" => "تعديل المساق",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_edit_course_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -459,12 +459,12 @@ function admin_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Courses list",
+          "text" => "العودة إلى قائمة المساقات",
           "path" => "admin/courses",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),

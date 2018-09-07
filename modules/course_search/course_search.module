@@ -11,7 +11,7 @@ function course_search_menu() {
   $items = array();
 
   $items["tools/course-search"] = array(
-    "title" => "Course Search",
+    "title" => "بحث المساق",
     "description" => "Use this tool to view course descriptions, sample syllabi, and projected course offering schedules.",
     "page_callback" => "course_search_display_search",
     "access_callback" => TRUE,
@@ -27,7 +27,7 @@ function course_search_menu() {
 
 
   $items["course-search/get-syllabus"] = array(
-    "title" => "Course Search",
+    "title" => "بحث المساق",
     "page_callback" => "course_search_download_syllabus",
     "access_callback" => TRUE,
     "type" => MENU_TYPE_CALLBACK,
@@ -36,7 +36,7 @@ function course_search_menu() {
 
 
   $items["admin/config/course-search"] = array(
-    "title" => "Course Search Settings",
+    "title" => "إعدادات بحث المساق",
     "description" => "Administer the Course Search module's settings",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("course_search_settings_form", "system_settings"),
@@ -58,7 +58,7 @@ function course_search_menu() {
   );
 
   $items["tools/course-search/courses"] = array(
-    "title" => "Course Search",
+    "title" => "بحث المساق",
     "page_callback" => "course_search_display_courses",
     "access_callback" => TRUE,
     "page_settings" => array(
@@ -71,14 +71,14 @@ function course_search_menu() {
 
 
   $items["tools/course-search/edit-list"] = array(
-    "title" => "Update Course Information",
+    "title" => "تحديث معلومات المساق",
     "page_callback" => "course_search_display_edit_courses",
     "access_arguments" => array("can_update_course_info_details"),
     "page_settings" => array(
       "page_has_search" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to Course Search",
+          "text" => "العودة إلى بحث المساقات",
           "path" => "tools/course-search",
         ),
       ),
@@ -89,7 +89,7 @@ function course_search_menu() {
 
 
   $items["tools/course-search/edit-info-details"] = array(
-    "title" => "Edit Course Info Details",
+    "title" => "تعديل تفاصيل معلومات المساق",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("course_search_edit_course_details_form"),
     "access_arguments" => array("can_update_course_info_details"),
@@ -98,11 +98,11 @@ function course_search_menu() {
       "page_banner_is_link" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to Course Search",
+          "text" => "العودة إلى بحث المساقات",
           "path" => "tools/course-search",
         ),
         1 => array(
-          "text" => "Back to Course Edit List",
+          "text" => "العودة إلى قائمة تعديل المساقات",
           "path" => "tools/course-search/edit-list",
         ),
       ),
@@ -112,18 +112,18 @@ function course_search_menu() {
   );
 
   $items["tools/course-search/view-reports"] = array(
-    "title" => "View Reports",
+    "title" => "أظهار التقارير",
     "page_callback" => "course_search_display_view_reports",
     "access_arguments" => array("can_update_course_info_details"),
     "page_settings" => array(
       "page_has_search" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "Back to Course Search",
+          "text" => "العودة إلى بحث المساقات",
           "path" => "tools/course-search",
         ),
         1 => array(
-          "text" => "Back to Course Edit List",
+          "text" =>  "العودة إلى قائمة تعديل المساقات",
           "path" => "tools/course-search/edit-list",
         ),
       ),

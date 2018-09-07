@@ -9,7 +9,7 @@ function content_menu() {
   $items = array();
 
   $items["admin/config/content"] = array(
-    "title" => "Content",
+    "title" => "محتوى",
     "description" => "Manage content in FlightPath. Ex: Announcements, Pages, etc.",
     "page_callback" => "content_display_content_admin_list",
     "access_arguments" => array("admin_content"),
@@ -21,7 +21,7 @@ function content_menu() {
       "menu_icon" => fp_theme_location() . "/images/content.png",
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -57,12 +57,12 @@ function content_menu() {
         "page_hide_report_error" => TRUE,
         "menu_links" => array(
           0 => array(
-            "text" => "Back to main menu",
+            "text" => "العودة إلى القائمة الرئيسية",
             "path" => "admin-tools/admin",
             "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
           ),
           1 => array(
-            "text" => "Back to content list",
+            "text" => "العودة إلى قائمة المحتويات",
             "path" => "admin/config/content",
             "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
           ),
@@ -87,12 +87,12 @@ function content_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to content list",
+          "text" => "العودة إلى قائمة المحتويات",
           "path" => "admin/config/content",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -115,12 +115,12 @@ function content_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to content list",
+          "text" => "العودة إلى قائمة المحتويات",
           "path" => "admin/config/content",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -143,7 +143,7 @@ function content_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
           0 => array(
-            "text" => "Edit this content",
+            "text" => "عدل هذا المحتوى",
             "path" => "content/%CONTENT_CID%/edit",
             "query" => "",
           ),

@@ -6,7 +6,7 @@ function student_search_menu() {
 
 
   $items["admin/config/student-search-settings"] = array(
-    "title" => "Student Search settings",
+    "title" => "إعدادات بحث الطالب",
     "description" => "Configure settings for the Student Search function",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("student_search_settings_form", "system_settings"),
@@ -190,7 +190,7 @@ function student_search_render_small_search() {
   $rtn .= "<form action='" . $url . "' method='post' id='small-search-form'
               style='padding:0; margin:0; padding-bottom: 5px;'>
                      <input type='text' class='smallinput' size='20' name='search_for' id='search_bar_value'
-                        placeholder = '" . t("cwid بحث بالاسم أو ") . "'>                     
+                        placeholder = '" . t("cwid بحث بالاسم أو ") . "'>
                      <input type='submit' name='submit' value='Go' class='smallinput'>
                      <input type='hidden' name='current_student_id' value='$current_student_id'>
                      <input type='hidden' name='did_search' value='true'>
@@ -252,19 +252,19 @@ function student_search_perm() {
       "description" => t("تكوين الإعدادات لوحدة بحث الطالب"),
     ),
     "display_search_subtab" => array(
-      "title" => t("Display Search subtab"),
+      "title" => t("عرض علامة التبويب الفرعية للبحث"),
       "description" => t("The user may view the Search subtab under the Advisees tab."),
     ),
     "display_my_advisees_subtab" => array(
-      "title" => t("Display My Advisees subtab"),
+      "title" => t("عرض علامة التبويب الفرعية لطلابي"),
       "description" => t("The user may view the My Advisees subtab under the Advisees tab."),
     ),
     "display_my_majors_subtab" => array(
-      "title" => t("Display My Majors subtab"),
+      "title" => t("عرض علامة التبويب الفرعية لتخصصاتي"),
       "description" => t("The user may view the My Majors subtab under the Advisees tab."),
     ),
     "display_majors_subtab" => array(
-      "title" => t("Display Majors subtab"),
+      "title" => t("عرض علامة التبويب الفرعية للتخصصات"),
       "description" => t("The user may view the Majors (search) subtab under the Advisees tab."),
     ),
   );
@@ -451,7 +451,7 @@ function student_search_display_search() {
   // Get search results from POST -or- past search attempts
   // from the session.
   $search_for = trim($_REQUEST["search_for"]);
- 
+
 
 /*  if ($search_for == "") {
     $search_for = trim($_SESSION["student_search_for"]);
@@ -482,7 +482,7 @@ function student_search_display_search() {
     <table style='text-align: left; width: 100%; height: 60px;'
     border='0' cellpadding='0' cellspacing='0'>
       <tr>
-      <td width='30%' align='right'><font size='2'><b>" . t("بحث عن طلبة مشرف عليهم") . "&nbsp;&nbsp;</b></td> 
+      <td width='30%' align='right'><font size='2'><b>" . t("بحث عن طلبة مشرف عليهم") . "&nbsp;&nbsp;</b></td>
       <td width='30%'><input name='search_for' ID='input_search_for' TYPE='text' SIZE='$isize' value='$o_search_for' placeholder='cwid أدخل الاسم أو'></font>
               <input type='hidden' name='did_search' id='input_did_search' value='true'></td>
       <td class='tenpt'>";
@@ -541,12 +541,12 @@ function student_search_display_search() {
   }
     $query = "SELECT u.user_id, f_name, u.cwid, l_name, major_code, rank_code, a.catalog_year, a.gpa
               FROM users u, students a, advisor_student c
-              WHERE 
+              WHERE
                  c.faculty_id = '$faculty_cwid'
                  AND c.student_id = a.cwid
                  AND u.cwid = a.cwid
                  AND u.is_student = 1
-                 AND u.is_disabled = 0                           
+                 AND u.is_disabled = 0
                  $search_action
         ";
     if (!$bool_bypass_extra_search_conditions) {
@@ -563,7 +563,7 @@ function student_search_display_search() {
               ";
 
     $adv_array = student_search_query_advisees($query);
-  
+
 
   $s = (count($adv_array) == 1) ? "" : "s";
 
@@ -769,9 +769,9 @@ function student_search_render_advisees($adv_array, $title) {
 function student_search_query_advisees($sql) {
 
   $rank_in = "( '" . join("', '", csv_to_array($GLOBALS["fp_system_settings"]["allowed_student_ranks"])) . "' )";
-    
+
   $order_by = " a.gpa, major_code, f_name, l_name ";
-  
+
   // Replace the replacement portion with our derrived variables.
   $sql = str_replace("%RANKIN%", $rank_in, $sql);
   $sql = str_replace("%ORDERBY%", $order_by, $sql);

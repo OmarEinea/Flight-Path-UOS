@@ -470,14 +470,14 @@ function hook_menu() {
   );
 
   $items["login"] = array(
-    "title" => "Login",
+    "title" => "تسجيل الدخول",
     "page_callback" => "system_display_login_page",
     "access_callback" => TRUE,
     "type" => MENU_TYPE_NORMAL_ITEM,
   );
 
  $items["admin-tools/clear-cache"] = array(
-    "title" => "Clear all cache",
+    "title" => "مسح كل ذاكرة التخزين المؤقت",
     "page_callback" => "system_perform_clear_cache",
     "access_arguments" => array("administer_modules"),
     "type" => MENU_TYPE_NORMAL_ITEM,
@@ -485,7 +485,7 @@ function hook_menu() {
 
 
   $items["admin/db-updates"] = array(
-    "title" => "Run DB updates?",
+    "title" => "تشغيل تحديثات قاعدة البيانات",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_confirm_db_updates_form"),
     "access_arguments" => array("administer_modules"),
@@ -494,7 +494,7 @@ function hook_menu() {
 
 
   $items["admin/config/system-settings"] = array(
-    "title" => "System settings",
+    "title" => "إعدادات النظام",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_settings_form", "system_settings"),
     "access_arguments" => array("de_can_administer_system_settings"),
@@ -505,7 +505,7 @@ function hook_menu() {
       "menu_icon" => fp_theme_location() . "/images/toolbox.gif",
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -516,7 +516,7 @@ function hook_menu() {
   );
 
   $items["admin-tools/admin"] = array(
-     "title" => "FlightPath Admin Console",
+     "title" => "FlightPath وحدة تحكم مشرف",
      "page_callback" => "admin_display_main",
      "access_arguments" => array("can_access_admin"),
      "tab_family" => "admin",
@@ -530,7 +530,7 @@ function hook_menu() {
   );
 
   $items["admin/config/modules"] = array(
-    "title" => "Modules",
+    "title" => "الوحدات",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_modules_form"),
     "access_arguments" => array("administer_modules"),
@@ -540,7 +540,7 @@ function hook_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -552,7 +552,7 @@ function hook_menu() {
 
 
  $items["view/print"] = array(
-    "title" => "View",
+    "title" => "إظهار",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("view"),
     "access_callback" => TRUE,
@@ -567,7 +567,7 @@ function hook_menu() {
 
 
   $items["admin/config/clear-menu-cache"] = array(
-    "title" => "Clear menu cache",
+    "title" => "مسح قائمة ذاكرة التخزين المؤقت",
     "page_callback" => "system_perform_clear_menu_cache",
     "access_arguments" => array("administer_modules"),
     "type" => MENU_TYPE_NORMAL_ITEM,
@@ -580,7 +580,7 @@ function hook_menu() {
   );
 
   $items["logout"] = array(
-    "title" => "Logout",
+    "title" => "تسجيل الخروج",
     "page_callback" => "system_handle_logout",
     "access_callback" => TRUE,
     "type" => MENU_TYPE_CALLBACK,
@@ -589,7 +589,7 @@ function hook_menu() {
 
 
   $items["popup-report-contact"] = array(
-    "title" => "Report/Contact",
+    "title" => "تقرير / تواصل",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("system_popup_report_contact_form"),
     "access_callback" => TRUE,
@@ -602,18 +602,18 @@ function hook_menu() {
 
 
   $items["popup-contact-form/thank-you"] = array(
-    "title" => "Report/Contact",
+    "title" => "تقرير / تواصل",
     "page_callback" => "system_popup_report_contact_thank_you",
     "access_callback" => TRUE,
     "page_settings" => array(
       "page_is_popup" => TRUE,
       "page_hide_report_error" => FALSE,
-    ),   
+    ),
     "type" => MENU_TYPE_CALLBACK,
   );
 
   $items["admin/degrees/add-degree"] = array(
-    "title" => "Add Degree",
+    "title" => "إضافة درجة علمية",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("admin_add_degree_form"),
     "access_arguments" => array("can_edit_data_entry"),
@@ -623,12 +623,12 @@ function hook_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to Degrees list",
+          "text" => "العودة إلى قائمة الدرجات العلمية",
           "path" => "admin/degrees",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -640,7 +640,7 @@ function hook_menu() {
   );
 
   $items["admin/config/content"] = array(
-    "title" => "Content",
+    "title" => "محتوى",
     "page_callback" => "content_display_content_admin_list",
     "access_arguments" => array("admin_content"),
     "page_settings" => array(
@@ -650,7 +650,7 @@ function hook_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -672,7 +672,7 @@ function hook_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
           0 => array(
-            "text" => "Edit this content",
+            "text" => "تعديل هذا المحتوى",
             "path" => "content/%CONTENT_CID%/edit",
             "query" => "",
           ),
@@ -693,12 +693,12 @@ function hook_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
         1 => array(
-          "text" => "Back to content list",
+          "text" => "العدوة إلى قائمة المحتويات",
           "path" => "admin/config/content",
           "query" => "de_catalog_year=%DE_CATALOG_YEAR%",
         ),
@@ -729,7 +729,7 @@ function hook_menu_handle_replacement_pattern($str) {
    *
    * An example menu item which uses this replacement pattern would be this:
    * $items["admin/config/urgent-message"] = array(
-   *   "title" => "Edit urgent message",
+   *   "title" => "تحرير رسالة عاجلة",
    *   "page_callback" => "fp_render_form",
    *   "page_arguments" => array("admin_urgent_message_form", "system_settings"),
    *   "access_arguments" => array("can_edit_urgent_message"),
@@ -739,7 +739,7 @@ function hook_menu_handle_replacement_pattern($str) {
    *     "page_hide_report_error" => TRUE,
    *     "menu_links" => array(
    *       0 => array(
-   *         "text" => "Back to main menu",
+   *         "text" => "العودة إلى القائمة الرئيسية",
    *         "path" => "admin-tools/admin",
    *        "query" => "de_catalog_year=%DE_CATALOG_YEAR%",  // RIGHT HERE!
    *       ),

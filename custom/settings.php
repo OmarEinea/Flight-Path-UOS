@@ -44,19 +44,19 @@ $system_settings["GRANT_FULL_ACCESS"] = FALSE;
 // use the following line to help you figure out the fileSystemPath, by seeing
 // what the path is to this file:
 // print "<br>System path to settings.php: " . __FILE__ . "<br><br>";
-$system_settings["file_system_path"] = "C:/wamp64/www/FPArabicNew";
+$system_settings["file_system_path"] = "C:/wamp64/www/Flight-Path-UOS";
 
 // The base URL is the actual URL a user would type to visit your site.
 // Do NOT enter a trailing slash!
 // Ex:  http://localhost/flightpath
-$system_settings["base_url"] = "http://localhost/FPArabicNew";
+$system_settings["base_url"] = "http://localhost/Flight-Path-UOS";
 
 // The basePath is related to the baseURL.  It is the part of the URL which comes after
 // your domain name.
 // It MUST begin with a preceeding slash.
 // Ex: If your site is example.com/dev/flightpath, then you should
 // enter  "/dev/flightpath" 
-$system_settings["base_path"] = "/FPArabicNew";
+$system_settings["base_path"] = "/Flight-Path-UOS";
 
 
 ////////////////////////////////////
@@ -106,7 +106,7 @@ $system_settings["load_course_inventory_on_login_number"] = 2000;
 // running cron.php, and is REQUIRED!
 // For example, if the token is "qwss34frwquu" then to run the script you would need
 // to use:   http://url/cron.php?t=CRON_TOKEN  (use wget to access from a system cron job.)
-$system_settings["cron_security_token"] = "afa4c8f39c67983b20153556fc94a222";
+$system_settings["cron_security_token"] = "31f7a113d7a1569e7d919617111e7f0d";
 
 
 /////////////////////////////////////

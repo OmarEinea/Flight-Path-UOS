@@ -11,7 +11,7 @@ function ldap_menu() {
   $items = array();
 
   $items["admin/config/ldap"] = array(
-    "title" => "LDAP settings",
+    "title" => "LDAP إعدادات",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("ldap_settings_form", "system_settings"),
     "access_arguments" => array("administer_ldap"),
@@ -21,7 +21,7 @@ function ldap_menu() {
       "page_hide_report_error" => TRUE,
       "menu_links" => array(
         0 => array(
-          "text" => "العودة إلى الصفحة الرئيسية",
+          "text" => "العودة إلى القائمة الرئيسية",
           "path" => "admin-tools/admin",
         ),
       ),
@@ -38,7 +38,7 @@ function ldap_menu() {
 function ldap_perm() {
   return array(
     "administer_ldap" => array(
-      "title" => t("إدارة LDAP"),
+      "title" => t("LDAP إدارة"),
       "description" => t("تكوين إعدادات LDAP."),
     ),
   );

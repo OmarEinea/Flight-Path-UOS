@@ -19,7 +19,7 @@ function stats_menu() {
   $items = array();
 
   $items["admin-tools/stats"] = array(
-    "title" => "Usage Stats & Reports",
+    "title" => "إحصائيات و تقارير الاستخدام",
     "page_callback" => "stats_display_main",
     "access_arguments" => array("can_access_stats"),
     "page_settings" => array(
@@ -32,7 +32,7 @@ function stats_menu() {
 
 
   $items["stats/reports/access"] = array(
-    "title" => "Access Stats",
+    "title" => "إحصائيات الوصول",
     "description" => "See recent access within the system.  This can be useful to see if anyone is currently using the system.",
     "page_callback" => "stats_report_access_stats",
     "access_arguments" => array("can_access_stats"),
@@ -41,7 +41,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -61,7 +61,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -72,7 +72,7 @@ function stats_menu() {
 
 
   $items["stats/reports/selected-degree-options"] = array(
-    "title" => "Selected Degree Options",
+    "title" => "خيارات درجة مختارة",
     "description" => "This report will display information about which degree options students/advisors are selecting for particular majors
                     (ex: General Studies)",
     "page_callback" => "stats_report_selected_degree_options",
@@ -82,7 +82,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -97,7 +97,7 @@ function stats_menu() {
 
 
   $items["stats/reports/advisor-use"] = array(
-    "title" => "Advisor Use",
+    "title" => "استخدام المرشد الأكاديمي",
     "description" => "How many students an advisor has advised over a specified time range.",
     "page_callback" => "stats_report_advisor_use",
     "access_arguments" => array("can_access_stats"),
@@ -106,7 +106,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -118,7 +118,7 @@ function stats_menu() {
 
 
   $items["stats/reports/student-course-list"] = array(
-    "title" => "Student Course List",
+    "title" => "قائمة مساقات الطالب",
     "description" => "List courses a student has taken, which FlightPath is aware of.",
     "page_callback" => "stats_report_student_course_list",
     "access_arguments" => array("can_access_stats"),
@@ -127,7 +127,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" =>"القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -140,7 +140,7 @@ function stats_menu() {
 
 
   $items["stats/reports/flightpath-use-summary"] = array(
-    "title" => "FlightPath Use Summary",
+    "title" => "FlightPath ملخص استخدام",
     "description" => "A detailed report on how FlightPath is being used over a specified time range.",
     "page_callback" => "stats_report_flightpath_use_summary",
     "access_arguments" => array("can_access_stats"),
@@ -149,7 +149,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" =>"القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -169,7 +169,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),
@@ -182,7 +182,7 @@ function stats_menu() {
 
 
   $items["stats/reports/course-use-summary"] = array(
-    "title" => "Course Use Summary",
+    "title" => "ملخص استخدام المساق",
     "description" => "A report of everywhere a particular course is used in FlightPath (groups or degrees).",
     "page_callback" => "stats_report_course_use_summary",
     "access_arguments" => array("can_access_stats"),
@@ -191,7 +191,7 @@ function stats_menu() {
       "bool_print" => FALSE,
       "menu_links" => array(
         0 => array(
-          "text" => "الصفحة الرئيسية",
+          "text" => "القائمة الرئيسية",
           "path" => "admin-tools/stats",
         ),
       ),

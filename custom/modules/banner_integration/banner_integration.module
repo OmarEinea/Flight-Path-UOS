@@ -517,6 +517,7 @@ function banner_integration_student_load_local_courses(&$student, $dropped_grade
 		// when the student took it.
 		$new_course->subject_id = $cur["subject_id"];
 		$new_course->course_num = $cur["course_num"];
+    $new_course->title = $cur["title"];
 		$new_course->grade = trim($cur["grade"]);
 		$new_course->level_code = $cur["level_code"];
 		$new_course->term_id = $term_id;

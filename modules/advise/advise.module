@@ -755,9 +755,12 @@ function advise_display_view($view = "view") {
     $screen->build_screen_elements();
 
     $form_token = md5("advise_display_view" . fp_token());
-
-    $vurl = fp_url($view);
-
+        
+    advise_init_advising_variables();
+     $query .= "advising_student_id=$student_id&current_student_id=$student_id&advising_major_code=$major&advising_what_if=$advising_what_if";
+    $query .= "&what_if_major_code=$what_if_major_code&what_if_track_code=$what_if_track_code&advising_load_active=yes";
+    
+    $vurl = fp_url($view, $query);
     $rtn .= "<form id='mainform' method='POST' action='$vurl'>
              <input type='hidden' name='form_token' value='$form_token'>
              <table class='fp-semester-table'>";
@@ -791,8 +794,8 @@ function advise_display_view($view = "view") {
 //CODE-ADD-START -20170810 Same code as above for "Print", with changed array index
 
     if (!fp_screen_is_mobile()) {
-      $tab_array[0]["title"] = "Print";
-      $tab_array[0]["type"] = "link";
+      $tab_array[0]["title"] = "<img src='" . fp_theme_location() . "/images/print.png' style='vertical-align: top; padding-left: 3px; padding-right:3px'>"."Print";
+      $tab_array[0]["type"] = "link";    
       $tab_array[0]["active"] = FALSE;
       $tab_array[0]["on_click"] = "popupPrintWindow(\"" . fp_url("$view/print", "advising_view=$screen->view") . "\");";
     }
@@ -949,7 +952,7 @@ function advise_init_advising_variables($bool_ignore_what_if_variables = FALSE) 
   { // values will either be "yes" or "" (any other value than "yes" is
     // considered to be negative.
     // Default value...
-    $vars["advising_load_active"] = "";
+    $vars["advising_load_active"] = "yes";
 
   }
 

@@ -607,8 +607,8 @@ function hook_menu() {
     "access_callback" => TRUE,
     "page_settings" => array(
       "page_is_popup" => TRUE,
-      "page_hide_report_error" => TRUE,
-    ),
+      "page_hide_report_error" => FALSE,
+    ),   
     "type" => MENU_TYPE_CALLBACK,
   );
 

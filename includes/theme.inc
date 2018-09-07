@@ -504,7 +504,7 @@ function fp_build_tab_array($page) {
       // If this is an advisor or above
       $furl = fp_url("advise/popup-change-term");
       $for_term .= "<span style='font-size: 8pt; font-weight:normal;'>
-             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color:blue; background-color: white; border: 1px solid black; padding-left: 3px; padding-right: 3px;'>" . t("تغيير") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' height='13' border='0' style='vertical-align: bottom;'></a>
+             - <a href='javascript: popupWindow2(\"" . $furl . "\",\"advising_term_id=$t_term_id\");' style='color: white; padding-left: 3px; padding-right: 3px;'>" . t("تغيير الفصل") . "<img src='" . fp_theme_location() . "/images/calendar1.jpg' style='vertical-align: bottom; padding-left: 3px; padding-right:3px'></a>
             </span>";
 
 
@@ -530,6 +530,7 @@ function fp_build_tab_array($page) {
       $ca = t("تفاصيل الطالب");
     }
 
+    
     if ($bool_blank == true) {
       $ca = t("عرض خطة دراسية فارغة");
     }
@@ -644,10 +645,17 @@ function fp_build_tab_array($page) {
     }
     array_push($display_array, t(":كتالوج السنة الدراسية") . " ~~ " . $cat_year);
     if (!$bool_blank) {
-      array_push($display_array, t(":تراكمي") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 3) . " " . t("المعدل التراكمي"));
+      array_push($display_array, t(":تراكمي") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 2) . " " . t("المعدل التراكمي"));
     }
 
-    if ($student->student_id > 1 || $bool_blank == true)
+  
+  //CODE-DELETE-START  - for the disappearing 6 attributes of students - name, major etc. on the advising screen
+  //if ($student->student_id > 1 || $bool_blank == true)
+  //CODE-DELETE-END
+  
+  //CODE-ADD-START -2017XXXX changed the logic from > 1 to isset as we do not have numeric student_id
+  if (isset($student->student_id) && $student->student_id != "" || $bool_blank == true)
+  //CODE-ADD-END
     { // Make sure we have selected a student! (or are viewing a blank plan)
       // Now, go through the array and display it.
       for ($t = 0; $t < count($display_array); $t = $t + 2)
@@ -783,6 +791,7 @@ function fp_render_greeting() {
 
   $rtn .= "<div class='flightpath-greeting-message'>"
              . l("تسجيل الخروج؟", "logout") . "   $today اليوم هو    !$dname أهلا بك
+
           </div>";
 
   return $rtn;
@@ -1202,3 +1211,7 @@ function fp_render_menu_item($item, $bool_check_user_access = TRUE) {
 function pretty_print($var) {
   print "<pre>" . print_r($var, true) . "</pre>";
 }
+
+?>
+
+<STYLE>A {text-decoration: none;} </STYLE>

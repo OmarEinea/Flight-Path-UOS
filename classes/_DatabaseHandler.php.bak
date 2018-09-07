@@ -169,18 +169,21 @@ class _DatabaseHandler
 	}
 
 	//CODE-ADD-START - 20171011 - Added method to get user details on basis of cwid
-	function get_user_cwid($p_cwid)
+	/*
+	function get_user_cwid($cw_id)
 	{
-		// return an array of this user's details.
-		$cur = array();
+		// return an array of this user's current settings.
+
 		$res = $this->db_query("SELECT * FROM users
 									WHERE 
-									cwid = '?' ", $p_cwid);
-		$cur = $this->db_fetch_array($res);
+									cwid = '?' ", $cw_id);
+		$cur = $this->db_fetch_array($res)
     return $cur;
     
 	}
+	*/
 	//CODE-ADD-END - 20171011
+	
 	
 	
 	function get_developmental_requirements($student_cwid)
@@ -347,7 +350,7 @@ class _DatabaseHandler
     if ($GLOBALS["fp_system_settings"]["notify_mysql_error_email_address"] != "")
     {
       $server = $_SERVER["SERVER_NAME"];
-    	$email_msg = t(" :MYSQL في FlightPath لقد حدث خطأ") . "  
+    	$email_msg = t("A MYSQL error has occured in FlightPath.") . "  
     	Server: $server
     	
     	Timestamp: $when_ts ($when_english)
@@ -364,7 +367,7 @@ class _DatabaseHandler
     	mail($GLOBALS["fp_system_settings"]["notify_mysql_error_email_address"], "FlightPath MYSQL Error Reported on $server", $email_msg);
     }
     
-    fpm(t(":MySQL حدث خطأ في") . " $mysql_err<br><br>" . t(":التقفي"));
+    fpm(t("A MySQL error has occured:") . " $mysql_err<br><br>" . t("The backtrace:"));
     fpm($arr);
 
     if ($GLOBALS["fp_die_mysql_errors"] == TRUE) {

@@ -315,7 +315,9 @@ class _DegreePlan
         $old_semester = $semester_num;
         $obj_semester = new Semester($semester_num);
         $obj_semester->title = trim($this->array_semester_titles[$semester_num]);
-        if ($obj_semester->title == "") { $obj_semester->assign_title(); }
+        //CODE-DELETE-START -20170807 Removing "Freshman Year" labels from advising screen
+		//if ($obj_semester->title == "") { $obj_semester->assign_title(); }
+		//CODE-DELETE-END
         $this->list_semesters->add($obj_semester);
       }
 
@@ -614,6 +616,7 @@ class _DegreePlan
 
   function add_semester_courses_added()
   {
+    /*
     // The "Add a Course" box on screen is really just a
     // semester, with the number -88, with a single group,
     // also numbered -88.
@@ -636,7 +639,7 @@ class _DegreePlan
 
     // Also, add it to the list of groups OUTSIDE of semesters.
     $this->list_groups->add($g);
-
+*/
   }
 
 

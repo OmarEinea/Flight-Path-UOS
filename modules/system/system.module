@@ -233,8 +233,8 @@ function system_menu() {
     "access_arguments" => array("run_cron"),
     "type" => MENU_TYPE_NORMAL_ITEM,
     "page_settings" => array(
-    "menu_icon" => fp_theme_location() . "/images/cron.png",
-    )
+      "menu_icon" => fp_theme_location() . "/images/cron.png",
+    ),
   );
 
   $items["admin/config/status"] = array(
@@ -366,10 +366,10 @@ function system_menu() {
     "page_callback" => "system_perform_clear_menu_cache",
     "access_arguments" => array("administer_modules"),
     "type" => MENU_TYPE_NORMAL_ITEM,
-     "page_settings" => array(
+    "page_settings" => array(
       "menu_icon" => fp_theme_location() . "/images/clear.png",
-    )
-  );
+    ),
+  );  
 
   $items["system-handle-form-submit"] = array(
     "page_callback" => "system_handle_form_submit",
@@ -422,8 +422,8 @@ function system_menu() {
       "page_has_search" => FALSE,
       "page_banner_is_link" => TRUE,
       "page_hide_report_error" => TRUE,
-      "menu_icon" => fp_theme_location() . "/images/php.png",
-      "menu_links" => array(
+      "menu_icon" => fp_theme_location() . "/images/php.png",      
+      "menu_links" => array(         
         0 => array(
           "text" => "العودة إلى الصفحة الرئيسية",
           "path" => "admin-tools/admin",
@@ -700,14 +700,13 @@ function system_popup_report_contact_form() {
   );
 
   $form["#redirect"] = array("path" => "popup-contact-form/thank-you");
-
   return $form;
 }
 
 
 function system_popup_report_contact_form_submit($form, $form_state) {
   global $user;
-  echo "<script>alert('no');</script>";
+  
   $category = strip_tags($form_state["values"]["category"]);
   $comment = strip_tags($form_state["values"]["comment"]);
 
@@ -729,17 +728,19 @@ function system_popup_report_contact_form_submit($form, $form_state) {
 
   $themd5 = md5($user->name . $user->cwid . $comment . $user_roles . $category);
 
+  if ($_SESSION["da_error_report_md5"] != $themd5)
+  {  // Helps stop people from resubmitting over and over again
+    // (by hitting refresh, or by malicious intent)..
 
     $msg = addslashes($msg);
     $to = variable_get("contact_email_address", "");
-    echo $to;
+    
     if ($to != "") {
       //mail($to,$subject,$msg,$headers);
       mail($to,$subject,$msg);
+    }
+  } 
 
-
-
-  }
   $_SESSION["da_error_report_md5"] = $themd5;
 
 }
@@ -2022,7 +2023,7 @@ function system_render_block($delta) {
   }
 
   if ($delta == "login_form") {
-    $block["title"] = t("...الرجاء تسجيل الدخول أدناه");
+    $block["title"] = t("تسجيل الدخول");
     $block["body"] = fp_render_form("system_login_form");
   }
 

@@ -1,5 +1,20 @@
 # Flight-Path
 
+Flightpath v 0.3
+
+Make sure to import the variables.sql and blocks.sql file into the database
+
+Updates - 
+
+1. Disabled "Blank Degree Search" and "Course Search" options
+2. Disabled "My Majors", "Majors" tab in Advisor interface. Advisor can view and search his own Advisees only
+3. Advisees are listed according to their GPA based on a flagging system
+4. Course names are displayed on Advising Screen
+5. Disabled "Administrator's Toolbox" on Advising Screen  
+6. Disabled "Courses Added By Advisor" section on Advising Screen 
+7. UI enhancements
+
+
 Flightpath v 0.1
 
 Updates – Admin Interface
@@ -10,3 +25,4 @@ Updates – Admin Interface
 4.	UI enhancements and grammatical corrections
 5.	Modified list view for Users under Admin Console menu
 6.	Filter functionality fixed in Content under Admin Console menu
+

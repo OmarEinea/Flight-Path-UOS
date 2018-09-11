@@ -746,7 +746,7 @@ function admin_display_groups_popup_select_icon() {
 
   foreach($files as $file) {
     $rtn .= "<div style='padding: 5px;'>
-        <input type='button' value='Select -> ' onClick='adminPopupSelectIcon(\"$file\");' >
+        <input type='button' value='Select' onClick='adminPopupSelectIcon(\"$file\");' >
         &nbsp; &nbsp;
         <img src='" . fp_theme_location() . "/images/icons/$file' width='19'>
         $file</div>";

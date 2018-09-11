@@ -526,10 +526,13 @@ function course_search_display_courses() {
             <div id='$rnd_div_id' style='display: $s_disp; margin-left: $mleft;'>
             <table border='1' width='$twidth' class='fp-course-search-avail'>
               <tr>
-               <td>" . t("سنة") . "</td>
+               <td><b>" . t("سنة") . "</b></td>
+               <td><b>" . t("10") . "</b></td>
+               <td><b>" . t("20") . "</b></td>
+               <td><b>" . t("30") . "</b></td>
               ";
         foreach ($th as $header_text) {
-          $schedule_text .= "<td>" . trim($header_text) . "</td>";
+       //   $schedule_text .= "<td>" . trim($header_text) . "</td>";
         }
         $schedule_text .= "      </tr>";
 
@@ -553,7 +556,6 @@ function course_search_display_courses() {
               //fpm("here for $x");
               $the_term_id = ($t + 1) . $x;
             }
-
 
             if (in_array($the_term_id, $full_schedule_array))
             {
@@ -862,7 +864,7 @@ function course_search_display_search() {
     $rtn .= "</select>
       </td>
       <td valign='bottom'>
-        <input type='submit' value='Select ->'>
+        <input type='submit' value='Select'>
       </td>
       </table>";
 
@@ -946,7 +948,7 @@ function course_search_display_search() {
           <input type='hidden' name='mode' value='$mode'>
           </div><br><br><br>
           <div align='right'>
-          <input type='submit' value='Select ->'>
+          <input type='submit' value='Select'>
         </div>";
     }
 

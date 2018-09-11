@@ -547,7 +547,7 @@ function content_display_content_admin_list() {
   $clean_urls = variable_get("clean_urls", FALSE);
   if (!$clean_urls) {
     // Hack to support non-clean URL sites
-    $rtn .= "<input type='hidden' name='q' value='admin/users/students'>";
+    $rtn .= "<input type='hidden' name='q' value='admin/config/content'>";
   }
   $rtn .="<input type='submit' value='Go'> </form>";
 

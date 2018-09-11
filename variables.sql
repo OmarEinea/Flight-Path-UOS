@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 24, 2018 at 07:31 PM
+-- Generation Time: Aug 27, 2018 at 09:04 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `flightpath`
+-- Database: `fp`
 --
 
 -- --------------------------------------------------------
@@ -43,7 +43,7 @@ INSERT INTO `variables` (`name`, `value`) VALUES
 ('#submit_handlers', 'N;'),
 ('#validate_handlers', 'N;'),
 ('admin_transfer_passcode', 's:11:\"apply_draft\";'),
-('advising_term_id', 's:4:\"2017\";'),
+('advising_term_id', 's:6:\"201730\";'),
 ('allowed_student_ranks', 's:53:\"C1,C2,C3,DR,FY,GR,IE,M1,M2,M3,M4,M5,Y1,Y2,Y3,Y4,Y5,Y6\";'),
 ('autocapitalize_course_titles', 's:3:\"yes\";'),
 ('autocapitalize_institution_names', 's:3:\"yes\";'),
@@ -62,7 +62,7 @@ INSERT INTO `variables` (`name`, `value`) VALUES
 ('course_search_avail_term_headers', 's:0:\"\";'),
 ('course_search_avail_term_id_suffix_order', 's:8:\"10,20,30\";'),
 ('course_search_avail_term_mobile_headers', 's:0:\"\";'),
-('cron_last_run', 'i:1533713874;'),
+('cron_last_run', 'i:1535354118;'),
 ('css_js_query_string', 's:6:\"pdjpkk\";'),
 ('current_catalog_year', 's:4:\"2017\";'),
 ('current_draft_catalog_year', 's:0:\"\";'),
@@ -109,7 +109,7 @@ INSERT INTO `variables` (`name`, `value`) VALUES
 ('system_execute_php', 's:12:\"echo \"Test\";\";'),
 ('term_id_structure', 's:1114:\"[2007]10, 2007 Fall\r\n[2007]15, 2007 Full-Year\r\n[2007]20, 2007 Spring\r\n[2007]30, 2007 Summer\r\n[2008]10, 2008 Fall\r\n[2008]15, 2008 Full-Year\r\n[2008]20, 2008 Spring\r\n[2008]30, 2008 Summer\r\n[2009]10, 2009 Fall\r\n[2009]15, 2009 Full-Year\r\n[2009]20, 2009 Spring\r\n[2009]30, 2009 Summer\r\n[2010]10, 2010 Fall\r\n[2010]15, 2010 Full-Year\r\n[2010]20, 2010 Spring\r\n[2010]30, 2010 Summer\r\n[2011]10, 2011 Fall\r\n[2011]15, 2011 Full-Year\r\n[2011]20, 2011 Spring\r\n[2011]30, 2011 Summer\r\n[2012]10, 2012 Fall\r\n[2012]15, 2012 Full-Year\r\n[2012]20, 2012 Spring\r\n[2012]30, 2012 Summer\r\n[2013]10, 2013 Fall\r\n[2013]15, 2013 Full-Year\r\n[2013]20, 2013 Spring\r\n[2013]30, 2013 Summer\r\n[2014]10, 2014 Fall\r\n[2014]15, 2014 Full-Year\r\n[2014]20, 2014 Spring\r\n[2014]30, 2014 Summer\r\n[2015]10, 2015 Fall\r\n[2015]15, 2015 Full-Year\r\n[2015]20, 2015 Spring\r\n[2015]30, 2015 Summer\r\n[2016]10, 2016 Fall\r\n[2016]15, 2016 Full-Year\r\n[2016]20, 2016 Spring\r\n[2016]30, 2016 Summer\r\n[2017]10, 2017 Fall\r\n[2017]15, 2017 Full-Year\r\n[2017]20, 2017 Spring\r\n[2017]30, 2017 Summer\r\n[2018]10, 2018 Fall\r\n[2018]15, 2018 Full-Year\r\n[2018]20, 2018 Spring\r\n[2018]30, 2018 Summer\";'),
 ('theme', 's:14:\"themes/classic\";'),
-('update_status_last_run', 'i:1533713874;'),
+('update_status_last_run', 'i:1535354118;'),
 ('update_status_need_updates_modules', 'N;'),
 ('update_status_need_updates_release_types', 'N;'),
 ('withdrew_grades', 's:12:\"W, WF, WP, I\";');

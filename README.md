@@ -1,5 +1,17 @@
 # Flight-Path
 
+Flightpath v 0.4
+
+Make sure to import the variables.sql and blocks.sql file into the database
+
+Updates - 
+
+1. Fixed display issue in "Blank Degree" View
+2. Fixed display issue in "Course Search" view
+3. Fixed display issue in popup for course selection
+3. Fixed errors that appeared after posting a comment
+
+
 Flightpath v 0.3
 
 Make sure to import the variables.sql and blocks.sql file into the database

@@ -3712,6 +3712,7 @@ function draw_menu_items($menu_array) {
 		} else {
 
 			$pC .= "
+		   <td class='tenpt underline' onClick='$js_code' width='$w4'>&nbsp&nbsp</td>
 	       <td class='tenpt underline' width='$w4' onClick='$js_code' $extra_style>$hours&nbsp;$var_hour_icon</td>
        	   <td class='tenpt underline' width='$w5' onClick='$js_code'>$grade&nbsp;</td>
        	   <td class='tenpt underline' width='$w6' onClick='$js_code'>$pts&nbsp;</td>
@@ -4467,7 +4468,7 @@ function draw_menu_items($menu_array) {
 
 		$pC .= "</select>
 				<div style='margin: 20px;' align='left'>
-				" . fp_render_button(t("التالي") . " ->","document.getElementById(\"theform\").submit();") . "
+				" . fp_render_button(t("التالي") ,"document.getElementById(\"theform\").submit();") . "
 				</div>
 					<!-- <input type='submit' value='submit'> -->
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 26, 2018 at 03:10 PM
+-- Generation Time: Aug 27, 2018 at 09:02 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `flightpath`
+-- Database: `fp`
 --
 
 -- --------------------------------------------------------
@@ -37,19 +37,20 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   `delta` varchar(255) NOT NULL DEFAULT '',
   `weight` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`bid`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `blocks`
 --
 
 INSERT INTO `blocks` (`bid`, `section`, `region`, `module`, `delta`, `weight`) VALUES
-(59, 'system_main', 'right_col', 'system', 'admin_tools', 1),
-(60, 'system_main', 'left_col', 'announcements', 'primary', 2),
-(61, 'system_main', 'right_col', 'blocks', 'block_1', 0),
-(62, 'system_main', 'left_col', 'blocks', 'block_2', 1),
 (66, 'system_login', 'top', 'system', 'login_form', 1),
-(67, 'system_login', 'top', 'blocks', 'block_2', 0);
+(67, 'system_login', 'top', 'blocks', 'block_2', 0),
+(73, 'system_main', 'left_col', 'system', 'tools', 3),
+(74, 'system_main', 'right_col', 'system', 'admin_tools', 1),
+(75, 'system_main', 'left_col', 'announcements', 'primary', 2),
+(76, 'system_main', 'right_col', 'blocks', 'block_1', 0),
+(77, 'system_main', 'left_col', 'blocks', 'block_2', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

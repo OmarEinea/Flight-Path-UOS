@@ -1,10 +1,10 @@
+<html dir="rtl">
 <?php
-
 /**
  * @file
  * The primary entry point for FlightPath.
- * 
- * This script will determine which page the user is trying to view, 
+ *
+ * This script will determine which page the user is trying to view,
  * and display it for them.
  */
 
@@ -39,10 +39,10 @@ require_once("bootstrap.inc");
 $page = menu_execute_page_request();
 
 if (!is_int($page)) {
-  // Display the page!  
+  // Display the page!
   fp_display_page($page);
 }
-else {  
+else {
   if ($page == MENU_NOT_FOUND) {
     display_not_found();
   }
@@ -52,6 +52,4 @@ else {
 }
 
 // Call hook_exit as we leave the page.
-invoke_hook("exit"); 
- 
- 
+invoke_hook("exit");

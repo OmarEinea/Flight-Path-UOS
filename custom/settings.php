@@ -106,7 +106,7 @@ $system_settings["load_course_inventory_on_login_number"] = 2000;
 // running cron.php, and is REQUIRED!
 // For example, if the token is "qwss34frwquu" then to run the script you would need
 // to use:   http://url/cron.php?t=CRON_TOKEN  (use wget to access from a system cron job.)
-$system_settings["cron_security_token"] = "31f7a113d7a1569e7d919617111e7f0d";
+$system_settings["cron_security_token"] = "9ed361b199dec64c58bb3164731e8222";
 
 
 /////////////////////////////////////

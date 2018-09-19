@@ -208,7 +208,7 @@ function comments_comment_form() {
     "type" => "radios",
     "label" => t("Visible to:"),
     "options" => array("public" => t("Anyone (including students)"), "faculty" => t("Faculty/Staff only")),
-    "value" => "faculty",
+    "value" => "هيئة التدريس",
   );
 
   $form["term_id"] = array(
@@ -227,7 +227,7 @@ function comments_comment_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Save"),
+    "value" => t("حفظ"),
   );
 
 
@@ -408,20 +408,19 @@ function comments_perm() {
   return array(
     "view_comments" => array(
       "title" => t("يمكن رؤية التعليقات"),
-      "description" => t("The user may view comments (only public by default)."),
+      "description" => t("يمكن للمستخدم إظهار التعليقات - عام بشكل افتراضي"),
     ),
     "view_faculty_comments" => array(
       "title" => t("إظهار تعليقات الهيئة التدريسية"),
-      "description" => t("The user is allowed to view 'Faculty' comments."),
+      "description" => t("يمكن للمستخدم إظهار تعليقات هيئة التدريس"),
     ),
     "can_save_comments" => array(
       "title" => t("يمكن حفظ التعليقات"),
-      "description" => t("The user may save new comments, visible to either everyone or only faculty/staff."),
+      "description" => t("يمكن للمستخدم حفظ تعليقات جديدة ، مرئية لأي شخص أو فقط أعضاء هيئة التدريس / الموظفين"),
     ),
     "can_delete_own_comments_3_months" => array(
       "title" => t("يمكن حذف التعليقات الخاصة بي لمدة 3 أشهر"),
-      "description" => t("The user may delete comments they have made for up to 3 months.  After 3 months, they
-                          will not be able to delete their comment."),
+      "description" => t("يمكن للمستخدم حذف التعليقات التي قام بها لمدة تصل إلى 3 أشهر. بعد 3 أشهر ، لن يتمكن من حذف تعليقه"),
     ),
 
   );

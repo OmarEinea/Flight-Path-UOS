@@ -19,7 +19,7 @@ function banner_integration_menu() {
 
   $items["admin/config/banner"] = array(
     "title" => "Banner إعدادات ال",
-    "description" => "Administer Banner-related settings",
+    "description" => "Banner إدارة الإعدادات المتعلقة ب",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("banner_integration_settings_form", "system_settings"),
     "access_arguments" => array("administer_banner_integration"),

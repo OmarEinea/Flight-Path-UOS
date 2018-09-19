@@ -456,7 +456,7 @@ function user_user_roles_form() {
 
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t("يمكن تعيين الأدوار للأذونات في FlightPath ، ومن ثم يتم تعيين هذه الأدوار للمستخدمين. لا يجوز لك إزالة الدورين 'المستخدم المجهول' و 'المستخدم المصادق عليه'. يتم تعيينها تلقائيًا عندما يسجل المستخدم الدخول أو الخروج. ومع ذلك ، يمكنك إضافة المزيد من الأدوار كما تشاء.")
+    "value" => t("ومن ثم يتم تعيين هذه الأدوار للمستخدمين. لا يجوز لك إزالة الدورين 'المستخدم المجهول' و 'المستخدم المصادق عليه'. يتم تعيينها تلقائيًا عندما يسجل المستخدم الدخول أو الخروج. ومع ذلك ، يمكنك إضافة المزيد من الأدوار كما تشاء.FlightPath يمكن تعيين الأدوار للأذونات في")
                 . "<br><br><b>" . t("الأدوار:") . "</b>
                 <table style='padding-left: 20px;'>",
   );
@@ -608,7 +608,7 @@ function user_edit_user_advisees_form() {
 
   // We are good to go... display the box for entering CWIDS
   $form["markup_explain"] = array(
-    "value" => "<p>" . t(" إذا كان هذا المستخدم مستشارًا من أعضاء هيئة التدريس  ، فيمكنك إدخال CWIDs الخاصة بالطلبة المشرف عليهم في المربع أدناه ، واحد في كل سطر. سيتم استخدام هذا لتعبئة جدول advisor_student. <br/><br/> <i>سيتم تجاهل أي شيء بعد علامة #. هو لصالحك فقط ، لن يتم حفظها.</i> <br/><br/> <b>مهم:</b> إذا كان لديك أي إجراءات تقوم بتعديل جدول advisor_student أو تحريره ، فستتم الكتابة فوق هذه البيانات.") . "</p>",
+    "value" => "<p>" . t(" أو تحريره ، فستتم الكتابة فوق هذه البيانات advisor_studentإذا كان لديك أي إجراءات تقوم بتعديل جدول <br/><br/> <b>:مهم</b> سيتم تجاهل أي شيء بعد علامة #. هو لصالحك فقط ، لن يتم حفظها advisor_student الخاصة بالطلبة المشرف عليهم في المربع أدناه ، واحد في كل سطر. سيتم استخدام هذا لتعبئة جدول CWIDs إذا كان هذا المستخدم مستشارًا من أعضاء هيئة التدريس  ، فيمكنك إدخال") . "</p>",
 
   );
 
@@ -634,18 +634,18 @@ function user_edit_user_advisees_form() {
     "value" => $contents,
     "rows" => 20,
     "cols" => 50,
-    "description" => t("Enter advisee student CWIDs for this faculty user, one per line."),
+    "description" => t("أدخل رمز المستخدم للطلاب لهذا المرشد الأكاديمي، واحد في كل سطر"),
   );
 
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("> حذرني إذا قمت بإدخال CWID الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),
-    "value" => "yes",
+    "label" => t("حذرني إذا قمت بإدخال CWID الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),
+    "value" => "نعم",
   );
 
   $form["submit_btn"] = array(
     "type" => "submit",
-    "value" => "Submit",
+    "value" => "تسليم",
   );
 
 
@@ -900,7 +900,7 @@ function user_edit_user_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => "Submit",
+    "value" => "تسليم",
     "prefix" => "<hr>",
   );
 
@@ -1199,7 +1199,7 @@ function user_display_student_users() {
   }
   $rtn .= "
                          " . t("بحث:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
-                        <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
+                        <input type='submit' name='searchsubmit' class='smallinput' value='الذهاب'>
 
                         &nbsp; &nbsp; " . t("أو") . "
                        <select name='major_code' class='smallinput'>
@@ -1207,7 +1207,7 @@ function user_display_student_users() {
                         <option value=''>--------------------------</option>
                     <!--MAJORCODESEARCH-->
                        </select>
-                       <input type='submit' name='major_code_submit' class='smallinput' value='Go'>
+                       <input type='submit' name='major_code_submit' class='smallinput' value='الذهاب'>
 
                        &nbsp; &nbsp; " . t("تعيين disp:") . "
                        <select name='set_disp'>
@@ -1215,7 +1215,7 @@ function user_display_student_users() {
                         <option value='only_inactive' $sel_only_inactive>" . t("غير النشط فقط") . "</option>
                         <option value='both' $sel_both>" . t("أظهر كلاهما") . "</option>
                        </select>
-                       <input type='submit' name='show_inactive_submit' class='smallinput' value='Go'>
+                       <input type='submit' name='show_inactive_submit' class='smallinput' value='الذهاب'>
 
                        </form>
                        </div>
@@ -1509,7 +1509,7 @@ function user_display_users() {
   $rtn .= "
                         <input type='hidden' name='performAction' value='editUsers'>
                          " . t("بحث:") . " <input type='text' class='smallinput' name='search' value='{$_GET["search"]}' size='15'>
-                        <input type='submit' name='searchsubmit' class='smallinput' value='Go'>
+                        <input type='submit' name='searchsubmit' class='smallinput' value='الذهاب'>
 
                         &nbsp;&nbsp;" . t("أو") . "
                        <select name='department' class='smallinput'>
@@ -1517,7 +1517,7 @@ function user_display_users() {
                         <option value=''>--------------------------</option>
                     <!--DEPTSEARCH-->
                        </select>
-                       <input type='submit' name='deptsubmit' class='smallinput' value='Go'>
+                       <input type='submit' name='deptsubmit' class='smallinput' value='الذهاب'>
 
                        &nbsp;&nbsp;" . t("أو") . "
                        <select name='role' class='smallinput'>
@@ -1547,7 +1547,7 @@ function user_display_users() {
   }
   $rtn .= "</select>
 
-                       <input type='submit' name='rolesubmit' class='smallinput' value='Go'>
+                       <input type='submit' name='rolesubmit' class='smallinput' value='الذهاب'>
 
                        </form>
                        </div>

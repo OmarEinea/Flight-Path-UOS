@@ -17,7 +17,7 @@ function announcements_content_register_content_type() {
   $arr = array(
     "announcement" => array(
       "title" => t("إعلان"),
-      "description" => t("هذا إعلان قصير للمستخدم, يقصد به أن يعرض مثل الأخير في Block."),
+      "description" => t(" هذا إعلان قصير للمستخدم, يقصد به أن يعرض مثل الأخير فيBlock"),
       "settings" => array(),
     ),
   );
@@ -98,7 +98,7 @@ function announcements_render_announcements() {
     // If we have not updated this announcement before, then print "posted",
     // else, print "updated" date.
     if ($announcement["updated"] > $announcement["posted"]) {
-      $rtn .=date("D, M jS Y - g:ia", $announcement["updated"]) . " " . t("محدث") ;      
+      $rtn .=date("D, M jS Y - g:ia", $announcement["updated"]) . " " . t("محدث") ;
     }
     else {
       $rtn .=  date("D, M jS Y - g:ia", $announcement["posted"]). " " .t("تم النشر");

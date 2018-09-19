@@ -169,14 +169,14 @@ function comments_comment_form_submit($form, $form_state) {
 					//watchdog("CURRENT STUDENT",$current_student_id);
 
 	 //Added code to get emails for chair on 30 October 2017
-	
+
   // $res2 = db_query("SELECT dept_chair_email FROM dept_chair
   //                 WHERE major_code = (select major_code from students where cwid = '?')", $current_student_id);
 	//		$facarr1 = db_fetch_array($res2);
-	//		$email_list = $email_list . "," . $facarr1["dept_chair_email"];					
-			
+	//		$email_list = $email_list . "," . $facarr1["dept_chair_email"];
+
   //  watchdog("EMAIL LIST-3",$email_list);;
-	//Added code to get emails for chair on 30 October 2017-end			
+	//Added code to get emails for chair on 30 October 2017-end
 
 				/*if isset($res1["email"])
 				{
@@ -413,7 +413,7 @@ function comments_perm() {
   return array(
     "view_comments" => array(
       "title" => t("يمكن عرض التعليقات"),
-      "description" => t("يمكن للمستخدم عرض التعليقات (عامة فقط بشكل افتراضي)."),
+      "description" => t("(يمكن للمستخدم عرض التعليقات (عامة فقط بشكل افتراضي"),
     ),
     "view_faculty_comments" => array(
       "title" => t("عرض تعليقات 'هيئة التدريس'"),

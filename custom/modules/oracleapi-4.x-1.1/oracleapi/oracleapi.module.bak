@@ -115,14 +115,14 @@ function oracleapi_settings_form() {
     "type" => "textfield",
     "label" => t("Default host server:"),
     "value" => variable_get("oracleapi_server", ""),
-    "description" => t("Example:") . " bb1.example.edu",
+    "description" => t(":مثال") . " bb1.example.edu",
   );
 
   $form["oracleapi_port"] = array(
     "type" => "textfield",
     "label" => t("Default port:"),
     "value" => variable_get("oracleapi_port", "1521"),
-    "description" => t("Example:") . " 1521",
+    "description" => " 1521" . t(":مثال"),
   );
 
 
@@ -130,7 +130,7 @@ function oracleapi_settings_form() {
     "type" => "textfield",
     "label" => t("Default SID:"),
     "value" => variable_get("oracleapi_sid", ""),
-    "description" => t("Example:") . " PROD",
+    "description" => t(":مثال") . " PROD",
   );
 
 

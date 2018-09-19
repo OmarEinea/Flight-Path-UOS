@@ -103,7 +103,7 @@ function blocks_manage_blocks_form() {
   // Tell the user how they can use the content module, if it is enabled.
   if (function_exists("content_menu")) {
     $form["mark" . $m++] = array(
-      "value" => t("لإضافة مجموعة مخصصة خاصة بك من المحتوى العام، استخدم وحدة المحتوى ") . "<br>" . l(t("blocksإضافة أو تحرير محتوى ال"), "admin/config/content"),
+      "value" => t("لإضافة مجموعة مخصصة خاصة بك من المحتوى العام، استخدم وحدة المحتوى ") . "<br>" . l(t("إضافة أو تحرير محتوى الblocks"), "admin/config/content"),
     );
   }
   else {
@@ -205,8 +205,8 @@ function blocks_manage_blocks_form() {
 function blocks_content_register_content_type() {
   $arr = array(
     "content_block" => array(
-      "title" => t("Blockمحتوى ال"),
-      "description" => t("Blocks هذا جزء من المحتوى يمكن استخدامه كBlock من صفحة ال"),
+      "title" => t("محتوى الBlock"),
+      "description" => t(" هذا جزء من المحتوى يمكن استخدامه كBlocks من صفحة ال Block"),
       "settings" => array(),
     ),
   );

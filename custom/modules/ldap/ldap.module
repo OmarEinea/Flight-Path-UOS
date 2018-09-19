@@ -39,7 +39,7 @@ function ldap_perm() {
   return array(
     "administer_ldap" => array(
       "title" => t("LDAP إدارة"),
-      "description" => t("تكوين إعدادات LDAP."),
+      "description" => t("LDAP تكوين إعدادات"),
     ),
   );
 }
@@ -327,8 +327,8 @@ function ldap_settings_form() {
     "label" => t(":رسالة للعرض إذا تعذر إيجاد رمز المستخدم"),
     "type" => "textarea",
     "rows" => 2,
-    "value" => variable_get("ldap_no_cwid_msg", t("لا يمكن العثور على CWID الخاص بالمستخدم في نتيجة LDAP. يرجى الرجوع إلى مسؤول النظام.")),
-    "description" => t("مثال: لا يمكن العثور على CWID لهذا المستخدم في نتيجة LDAP. يرجى الرجوع إلى مسؤول النظام."),
+    "value" => variable_get("ldap_no_cwid_msg", t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام CWID مثال: لا يمكن العثور على ")),
+    "description" => t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام CWID مثال: لا يمكن العثور على "),
   );
 
 

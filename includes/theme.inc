@@ -530,7 +530,7 @@ function fp_build_tab_array($page) {
       $ca = t("تفاصيل الطالب");
     }
 
-    
+
     if ($bool_blank == true) {
       $ca = t("عرض خطة دراسية فارغة");
     }
@@ -648,11 +648,11 @@ function fp_build_tab_array($page) {
       array_push($display_array, t(":تراكمي") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 2) . " " . t("المعدل التراكمي"));
     }
 
-  
+
   //CODE-DELETE-START  - for the disappearing 6 attributes of students - name, major etc. on the advising screen
   //if ($student->student_id > 1 || $bool_blank == true)
   //CODE-DELETE-END
-  
+
   //CODE-ADD-START -2017XXXX changed the logic from > 1 to isset as we do not have numeric student_id
   if (isset($student->student_id) && $student->student_id != "" || $bool_blank == true)
   //CODE-ADD-END
@@ -789,9 +789,8 @@ function fp_render_greeting() {
     $dname = trim($user->f_name . " " . $user->l_name) . " ($user->name)";
   }
 
-  $rtn .= "<div class='flightpath-greeting-message'>"
-             . l("تسجيل الخروج؟", "logout") . "   $today اليوم هو    !$dname أهلا بك
-
+  $rtn .= "<div class='flightpath-greeting-message'>
+              أهلا $dname! اليوم هو $today. " . l("تسجيل الخروج؟", "logout") . "
           </div>";
 
   return $rtn;

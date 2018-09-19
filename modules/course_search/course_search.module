@@ -12,7 +12,7 @@ function course_search_menu() {
 
   $items["tools/course-search"] = array(
     "title" => "بحث المساق",
-    "description" => "Use this tool to view course descriptions, sample syllabi, and projected course offering schedules.",
+    "description" => ".استخدم هذه الأداة لعرض أوصاف المقرر ، أو نموذج المناهج ، أو جداول العروض التقديمية المتوقعة",
     "page_callback" => "course_search_display_search",
     "access_callback" => TRUE,
     "page_settings" => array(
@@ -37,7 +37,7 @@ function course_search_menu() {
 
   $items["admin/config/course-search"] = array(
     "title" => "إعدادات بحث المساق",
-    "description" => "Administer the Course Search module's settings",
+    "description" => "إدارة إعدادات الوحدة النمطية لبحث المساق",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("course_search_settings_form", "system_settings"),
     "access_arguments" => array("administer_course_search"),

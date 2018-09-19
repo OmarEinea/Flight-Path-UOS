@@ -10,7 +10,7 @@ function content_menu() {
 
   $items["admin/config/content"] = array(
     "title" => "محتوى",
-    "description" => "Manage content in FlightPath. Ex: Announcements, Pages, etc.",
+    "description" => ".مثال: الإعلانات والصفحات وما إلى ذلك FlightPath إدارة المحتوى في",
     "page_callback" => "content_display_content_admin_list",
     "access_arguments" => array("admin_content"),
     "page_settings" => array(
@@ -291,7 +291,7 @@ function content_edit_content_form($type = "", $cid = "") {
 
   $form["title"] = array(
     "type" => "textfield",
-    "label" => t("عنوان:"),
+    "label" => t(":عنوان"),
     "value" => $content["title"],
     "required" => TRUE,
     "description" => t("To hide the title, you may start it with [hide]. For example: '[hide] this is a sample.'"),
@@ -511,7 +511,7 @@ function content_display_content_admin_list() {
   //fp_add_css(fp_get_module_path("content") . "/css/content.css");
 
 
-  $rtn .= "<br><b>" .t("Create new content:") . "</b>
+  $rtn .= "<br><b>" .t("نكوين محتوى جديد:") . "</b>
             <table border='1' width='100%' cellpadding='4'>";
   // Go through all available content types and provide a link.
   $types = content_get_types();

@@ -2504,7 +2504,7 @@ function draw_menu_items($menu_array) {
 	 * @param string $str
 	 * @return string
 	 */
-	
+
 	function fix_institution_name($str)
 	{
 
@@ -3222,11 +3222,11 @@ function draw_menu_items($menu_array) {
 			$course->load_descriptive_data();
 		}
 
-		
+
 		$subject_id = $course->subject_id;
 		$course_num = $course->course_num;
 
-		//CODE-ADD-START -20170813 Display Title on Advising Screen - 
+		//CODE-ADD-START -20170813 Display Title on Advising Screen -
 		$crs_title = $course->title;
 		$o_crs_title = $crs_title;
 		//CODE-ADD-END
@@ -3512,13 +3512,13 @@ function draw_menu_items($menu_array) {
        		<td class='tenpt underline' style='width:$w3; white-space:nowrap;' align='left'
        			onClick='$js_code'>
         			$course_num$footnote  &nbsp" . substr($crs_title,0,26) . "</td>
-			
+
 	       <td class='tenpt underline' style='width:$w4; max-width:36px; white-space:nowrap;' onClick='$js_code'>$hours$var_hour_icon</td>
        	   <td class='tenpt underline'  style='width:$w5; max-width:35px; white-space:nowrap;' onClick='$js_code'>$dispgrade&nbsp;</td>
        	   <td class='tenpt underline' style='width:$w6; max-width:31px; white-space:nowrap;' onClick='$js_code'>$pts&nbsp;</td>
      	</tr>
      	</table>";
-//CODE-ADD-END		
+//CODE-ADD-END
 
 		} else {
 			// These are the leftover hours from a partial substitution.
@@ -3882,7 +3882,7 @@ function draw_menu_items($menu_array) {
 						$subject_id = $c->course_transfer->subject_id;
 						$course_num = $c->course_transfer->course_num;
 						$tcourse_id = $c->course_transfer->course_id;
-						
+
 						$t_flag = 1;
 					}
 				}
@@ -3939,9 +3939,9 @@ function draw_menu_items($menu_array) {
 						</td>
 						<td valign='top' class='tenpt underline' width='15%'>
 							$course_num
-						</td>						
+						</td>
 						<td valign='top' class='tenpt underline' width='15%'>
-							$crs_title  
+							$crs_title
 						</td>
 						<td valign='top' class='tenpt underline' width='10%'>
 							$h
@@ -4143,7 +4143,7 @@ function draw_menu_items($menu_array) {
 				}
 			}
 
-			$new_course_list->reset_counter();			
+			$new_course_list->reset_counter();
 			$new_course_list->sort_alphabetical_order();
 
 
@@ -4470,7 +4470,7 @@ function draw_menu_items($menu_array) {
 				<div style='margin: 20px;' align='left'>
 				" . fp_render_button(t("التالي") ,"document.getElementById(\"theform\").submit();") . "
 				</div>
-					<!-- <input type='submit' value='submit'> -->
+					<!-- <input type='submit' value='تسليم'> -->
 
 			  			</form>
 			  ";

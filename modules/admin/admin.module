@@ -1093,7 +1093,7 @@ function admin_urgent_message_form() {
 
   $form["urgent_msg"] = array(
     "type" => "textarea",
-    "label" => "Urgent message:",
+    "label" => "رسالة عاجلة:",
     "value" => variable_get("urgent_msg", ""),
   );
 

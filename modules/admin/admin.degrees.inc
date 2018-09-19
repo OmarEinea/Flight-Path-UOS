@@ -5,16 +5,16 @@
 function admin_display_degrees_popup_add_group() {
   $semester_num = trim($_GET["semester_num"]);
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
    fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
-  
+
   $rtn = "";
 
   $rtn .= "<b>" . t("إضافة مجموعة اختيارية للفصل الدراسي: @semester_num في @de_catalog_year", array("@semester_num" => $semester_num, "@de_catalog_year" => $de_catalog_year)) . "</b><br>
         <span class='tenpt'>" . t(".استخدم اختصار لوحة المفاتيح CTRL-F للعثور على المجموعات بسرعة") . "</span>
         <br><br>
         First, select a group (from $de_catalog_year):
-        <div class='tenpt' 
+        <div class='tenpt'
           style='height:200px; overflow-y: scroll; border: 1px solid black;
           margin:5px;'>
         <table border='0' cellspacing='5'>";
@@ -31,9 +31,9 @@ function admin_display_degrees_popup_add_group() {
           $db_title<br><i>$db_group_name</i>
           </td>
         </tr>
-          
-        "; 
-  }                                                         
+
+        ";
+  }
 
 
   $rtn .= "</table></div>
@@ -48,7 +48,7 @@ function admin_display_degrees_popup_add_group() {
 			  <option value='C'>C</option>
               <option value='B'>B</option>
               <option value='A'>A</option>
-              
+
             </select>
       Type: <select name='type' id='type'>";
   // Get our list of requirement types from our settings.
@@ -72,9 +72,9 @@ function admin_display_degrees_popup_add_group() {
  */
 function admin_copy_degree_form() {
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
   fp_set_title(t("نسخ الشهادة الجامعية ل") . " $de_catalog_year");
-  
+
   $form = array();
 
   $form["mark" . $m++] = array(
@@ -86,7 +86,7 @@ function admin_copy_degree_form() {
   $form["de_catalog_year"] = array(
     "type" => "hidden",
     "value" => $de_catalog_year,
-  );  
+  );
 
 
   $form["source_major_code"] = array(
@@ -106,23 +106,23 @@ function admin_copy_degree_form() {
 
   $form["destination_major_code"] = array(
     "type" => "textfield",
-    "size" => 15,    
+    "size" => 15,
     "label" => t(" أدخل رمز DESTINATION الرئيسي الذي تريد إنشاء / استبدال:"),
     "required" => TRUE,
     "description" => t(".لا تدخل رموز أي مسارات أو تركيزات هنا. إذا كان تخصص الوجهة موجودا سيتم حذفه مع كل مساراته وتركيزاته لكتالوج هذا العام CHEM أو XYZ :مثال"),
   );
-  
-  
-  
+
+
+
   // Our submit button.
   $form["submit"] = array(
     "type" => "submit",
-    "value" => "Submit",
+    "value" => "تسليم",
     "prefix" => "<hr>",
   );
-    
-  
-  
+
+
+
   return $form;
 }
 
@@ -130,34 +130,34 @@ function admin_copy_degree_form() {
 
 function admin_copy_degree_form_submit($form, $form_submit) {
   //fpm($form_submit);
-  
+
   global $db;
-  
+
   $values = $form_submit["values"];
 
-  $de_catalog_year = $values["de_catalog_year"];  
-  
-    
+  $de_catalog_year = $values["de_catalog_year"];
+
+
   $source_major_code = trim(strtoupper($values["source_major_code"]));
   $destination_major_code = trim(strtoupper($values["destination_major_code"]));
   $include_tracks = $values["include_tracks"]["yes"];
-  
+
   // First thing's first.  Make sure the sourceMajorCode exists.
-  $res = db_query("SELECT * FROM draft_degrees 
+  $res = db_query("SELECT * FROM draft_degrees
                     WHERE (major_code = '?'
                     OR major_code LIKE '?|%')
                     AND catalog_year='?' ", $source_major_code, $source_major_code, $de_catalog_year) ;
   if (db_num_rows($res) == 0) {
     // Meaning, it could not be found.
-    
+
     form_error("source_major_code", t("%yearل %source لم يتم إيجاد المصدر الرئيسي ", array("%source" => $source_major_code, "%year" => $de_catalog_year)));
     return;
   }
 
-  // Alright, if we got to here, we can proceed.  We need to 
+  // Alright, if we got to here, we can proceed.  We need to
   // delete everything involving the destination major.
   // First, get the degree_id's in a select...
-  $res = db_query("SELECT * FROM draft_degrees 
+  $res = db_query("SELECT * FROM draft_degrees
                     WHERE (major_code = '?'
                     OR major_code LIKE '?|%')
                     AND catalog_year='?' ", $destination_major_code, $destination_major_code, $de_catalog_year) ;
@@ -166,31 +166,31 @@ function admin_copy_degree_form_submit($form, $form_submit) {
       $degree_id = $cur["degree_id"];
       $res2 = db_query("DELETE FROM draft_degree_requirements
                            WHERE degree_id='?' ", $degree_id) ;
-      
+
       $res2 = db_query("DELETE FROM draft_degrees
-                           WHERE degree_id = '?' ", $degree_id) ;      
+                           WHERE degree_id = '?' ", $degree_id) ;
     }
     // Now, delete the tracks.
     $res2 = db_query("DELETE FROM draft_degree_tracks
-                          WHERE major_code = '?' 
+                          WHERE major_code = '?'
                           AND catalog_year='?' ", $destination_major_code, $de_catalog_year) ;
   }
 
   // Okay, with the destination major good and deleted, we can proceed with
   // the copy.
-  
+
   // Let's build up an array of all the degrees we will be copying.
   $source_array = array();
   // First, the base degree...
-  $res = db_query("SELECT * FROM draft_degrees 
+  $res = db_query("SELECT * FROM draft_degrees
                     WHERE major_code = '?'
                     AND catalog_year='?' ", $source_major_code, $de_catalog_year) ;
   $cur = db_fetch_array($res);
   $source_array[] = $cur;
-  
+
   // Now, any tracks or concentrations?
   if ($include_tracks == "yes") {
-    $res = db_query("SELECT * FROM draft_degrees 
+    $res = db_query("SELECT * FROM draft_degrees
                       WHERE major_code LIKE '?|%'
                       AND catalog_year='?' ", $source_major_code, $de_catalog_year) ;
     while ($cur = db_fetch_array($res)) {
@@ -210,34 +210,34 @@ function admin_copy_degree_form_submit($form, $form_submit) {
         //the source.
         $dest_code = str_replace("$source_major_code|", "$destination_major_code|", $db_major_code);
       }
-      
+
       $res2 = db_query("INSERT INTO draft_degree_tracks
-                          (catalog_year, major_code, track_code, 
+                          (catalog_year, major_code, track_code,
                           track_title, track_short_title, track_description)
                           VALUES
                           ('?', '?', '?', '?', '?', '?') ",
-                          $de_catalog_year, $dest_code, $db_track_code, 
-                          $db_track_title, $db_track_short_title, 
+                          $de_catalog_year, $dest_code, $db_track_code,
+                          $db_track_title, $db_track_short_title,
                           $db_track_description) ;
-                          
-    }       
+
+    }
   }
-  
+
   $db = get_global_database_handler();
-  
+
   //var_dump($source_array);
   // Okay, now it's time to go through the sourceArray
   // and duplicate them.
   foreach ($source_array as $src) {
     extract($src, 3, "src");
-    
+
     $dest_code = $destination_major_code;
     if (strstr($src_major_code, "|")) {
       // We need to adjust the destCode to match
       //the source.
       $dest_code = str_replace("$source_major_code|", "$destination_major_code|", $src_major_code);
     }
-    
+
     //var_dump($dest_code);
     $dest_degree_id = $db->request_new_degree_id();
 
@@ -246,18 +246,18 @@ function admin_copy_degree_form_submit($form, $form_submit) {
                         (degree_id, major_code, degree_type, degree_class, title,
                          public_note, semester_titles_csv,
                          catalog_year, exclude)
-                         VALUES   
+                         VALUES
                         ('?', '?', '?', '?', '?', '?', '?', '?', '?') ",
                          $dest_degree_id, $dest_code, $src_degree_type, $src_degree_class, $src_title,
                          $src_public_note, $src_semester_titles_csv,
                          $de_catalog_year, $src_exclude);
-    
+
     // Now, go through the source's degree requirements and copy those over.
     $res = db_query("SELECT * FROM draft_degree_requirements
                          WHERE degree_id = '$src_degree_id' ");
     while ($cur = db_fetch_array($res)) {
       extract($cur, 3, "db");
-      
+
       $res2 = $db->db_query("INSERT INTO draft_degree_requirements
                           (degree_id, semester_num, group_id,
                            group_requirement_type,
@@ -279,44 +279,44 @@ function admin_copy_degree_form_submit($form, $form_submit) {
                            $db_course_min_grade,
                            $db_course_requirement_type,
                            $db_data_entry_value);
-                           
-    }  
-    
+
+    }
+
   }
-  
+
   // Make a - entry into the draft_instruction table so it will
   // remind the administrator to apply draft changes.
   $res = db_query("INSERT INTO draft_instructions
                         (instruction) VALUES ('-') ");
-  
+
   fp_add_message(t("%year ل %dest إلى %source تم نسخ الدرجة العلمية ",
                   array("%source" => $source_major_code, "%dest" => $destination_major_code, "%year" => $de_catalog_year)));
-                   
-                    
+
+
 }
 
 
 
 /**
- * This form lets the user add a degree to the database. 
+ * This form lets the user add a degree to the database.
  */
-function admin_add_degree_form() {  
+function admin_add_degree_form() {
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
   fp_set_title(t("اضف شهادة جامعية ل") . " " . $de_catalog_year);
-  
+
   $form = array();
-  
+
   $form["markup" . $m++] = array(
     "type" => "markup",
     "value" => t(".يمكنك استخدام هذه الشاشة لإضافة درجة علمية جديد, عبر إدخال تخصص جديد, تركيزات, أو مسار"),
   );
-  
+
 
   $form["de_catalog_year"] = array(
     "type" => "hidden",
     "value" => $de_catalog_year,
-  );  
+  );
 
   $form["new_major"] = array(
     "type" => "radios",
@@ -328,7 +328,7 @@ function admin_add_degree_form() {
     "required" => TRUE,
   );
 
-  
+
   $form["major_code"] = array(
     "type" => "textfield",
     "size" => 15,
@@ -364,10 +364,10 @@ function admin_add_degree_form() {
     "value" => "Submit",
     "prefix" => "<hr>",
   );
-  
-  
+
+
   return $form;
-   
+
 }
 
 
@@ -388,15 +388,15 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
   //////////////////////////////////////////////
 
-  if ($new_track == "new" && $track_code == "") {   
-    form_error("track_code", t(".لقد اخترت أضافة مسار, لكنك لم تحدد رمز المسار.")); 
+  if ($new_track == "new" && $track_code == "") {
+    form_error("track_code", t(".لقد اخترت أضافة مسار, لكنك لم تحدد رمز المسار."));
   }
 
   // Make sure user did not enter an underscore (_) in either
   // the track or major code!
   if (strstr($track_code, "_") || strstr($major_code, "_")) {
-        
-    form_error("major_code", t("(_) بإضافته لك. رجاء, أعد إدخال الدرجة العلمية الجديدة بدون استخدام FlightPath سيقوم  .(_) underscore غير مسموح لك استخدام رمز ال")); 
+
+    form_error("major_code", t("(_) بإضافته لك. رجاء, أعد إدخال الدرجة العلمية الجديدة بدون استخدام FlightPath سيقوم  .(_) underscore غير مسموح لك استخدام رمز ال"));
 
   }
 
@@ -416,18 +416,18 @@ function admin_add_degree_form_submit($form, $form_submit) {
   $res = db_query("SELECT * FROM draft_degrees
           WHERE catalog_year = '?'
           AND major_code = '?' ", $de_catalog_year, $major_code);
-  if (db_num_rows($res) > 0 && $new_major == "new") { 
+  if (db_num_rows($res) > 0 && $new_major == "new") {
     // Meaning, it already exists, yet we are trying to add it as a new
     // major.  This is an error!
     fp_add_message(t(">لا يمكنك إضافته كتخصص جديد.%year متواجد مسبقا لعام %major_code رمز التخصص", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
     return;
-    
+
   }
-  if (db_num_rows($res) == 0 && $new_major == "existing") { 
+  if (db_num_rows($res) == 0 && $new_major == "existing") {
     // This is another error.  We are trying to add a track to an existing
     // major code, but none was found.
-    
-    fp_add_message(t("ربما تحتاج إلى إضافته أولا؟ .%year في النظام لعام %major_code لم يتم أيجاد رمز التخصص ", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");    
+
+    fp_add_message(t("ربما تحتاج إلى إضافته أولا؟ .%year في النظام لعام %major_code لم يتم أيجاد رمز التخصص ", array("%major_code" => $major_code, "%year" => $de_catalog_year)), "error");
     return;
   }
   if (db_num_rows($res) == 0 && $new_major == "new") {
@@ -447,15 +447,15 @@ function admin_add_degree_form_submit($form, $form_submit) {
     // First, check to see if it exists...
     $res = db_query("SELECT * FROM draft_degree_tracks
           WHERE catalog_year = '?'
-          AND major_code = '?' 
-          AND track_code = '?' ", $de_catalog_year, $major_code, $track_code);  
+          AND major_code = '?'
+          AND track_code = '?' ", $de_catalog_year, $major_code, $track_code);
 
     if (db_num_rows($res) > 0) {
-      // Meaning, it already existed, so we can't create it.      
+      // Meaning, it already existed, so we can't create it.
       fp_add_message(t("لا يمكنك إضافته كتخصص جديد.%year متواجد مسبقا لعام %major_code ر", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)), "error");
-      return;      
-      
-    } 
+      return;
+
+    }
     else {
       // We can add it to the tracks table...
       $db2 = new DatabaseHandler();
@@ -468,7 +468,7 @@ function admin_add_degree_form_submit($form, $form_submit) {
       if (strstr($major_code, "|")) {
         // Already has a pipe, so it has a concentration.
         $new_major_code .= "_$track_code";
-      } 
+      }
       else {
         // No concentration...
         $new_major_code .= "|_$track_code";
@@ -486,9 +486,9 @@ function admin_add_degree_form_submit($form, $form_submit) {
 
   // Success!  We are done.
   fp_add_message(t(".يمكنك إضافة درجة علمية جديدة أو استخدم القائمة في أعلى لصفحة لتعود إلى قائمة الدرجات العلمية, لتبدأ بتعديل الدرجة العلمية. %year لعام %major_code تم إضافة الدرجة العلمية الجديدة ", array("%major_code" => "$major_code $track_code", "%year" => $de_catalog_year)));
-  
+
   clear_session_form_values("admin_add_degree_form");
-  
+
 }
 
 
@@ -497,19 +497,19 @@ function admin_add_degree_form_submit($form, $form_submit) {
  */
 function admin_display_degrees() {
   $de_catalog_year = admin_get_de_catalog_year();
-  $rtn = "";    
-    
+  $rtn = "";
+
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
 
-  $rtn .= "<h2 class='title'>" . t(" @year الدرجات العلمية لعام", array("@year" => $de_catalog_year)) . "</h2>";  
+  $rtn .= "<h2 class='title'>" . t(" @year الدرجات العلمية لعام", array("@year" => $de_catalog_year)) . "</h2>";
 
-  $rtn .= "<div class='admin-degrees-upper-links'>";  
+  $rtn .= "<div class='admin-degrees-upper-links'>";
   $rtn .= l("Add new degree plan (major, degree plan, or track)", "admin/degrees/add-degree", "de_catalog_year=$de_catalog_year");
   $rtn .= " &nbsp; &nbsp; | &nbsp; &nbsp; ";
   $rtn .= l("Copy a degree plan", "admin/degrees/copy-degree", "de_catalog_year=$de_catalog_year");
   $rtn .= "</div>";
-  
-  
+
+
   $rtn .= "<div class='list-degree-row-excluded'>
         " . t("Majors or Tracks marked as 'exclude' are shaded. You may pull up students with these majors in FlightPath, but they will not be options in the What If mode.") . "
       </div>
@@ -517,7 +517,7 @@ function admin_display_degrees() {
       <div class='tenpt' align='center'>
         " . t("استخدم CTRL-F للبحث عن الدرجات بسرعة أكبر.") . "
       </div>";
-  
+
 
   $res = db_query("SELECT * FROM draft_degrees
               WHERE catalog_year = '?'
@@ -543,7 +543,7 @@ function admin_display_degrees() {
     $outside = "";
 
     //if ($just_conc != "" && strstr($just_conc, "_"))
-    if (strstr($just_conc, "_")) {      
+    if (strstr($just_conc, "_")) {
       // If the concentration has an underscore, it's actually
       // a track.  Let's get the track title...
       $temp2 = explode("_",$just_conc);
@@ -553,7 +553,7 @@ function admin_display_degrees() {
       {
         $just_major .= "|" . trim($temp2[0]);
       }
-      
+
 
       $res2 = db_query("SELECT * FROM draft_degree_tracks
                 WHERE catalog_year = '?'
@@ -564,13 +564,13 @@ function admin_display_degrees() {
 
         $db_title = trim($cur2["track_title"]);
         $outside = "----&gt;";
-        if (strstr($just_major, "|")) { 
+        if (strstr($just_major, "|")) {
           // both a conc AND a track. Denote it special.
           $outside = ">>" . $outside;
         }
         $db_degree_type = "";
       }
-    } 
+    }
     else if($just_conc != "") {
       // Meaning, this is a concentration, NOT a track.
       $db_degree_type = "";
@@ -591,15 +591,15 @@ function admin_display_degrees() {
 //CODE-DELETE-START -2017XXXX replaced code above to only display the degree title
  //" . l("$db_degree_type $db_title $db_major_code", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => //"degree-$db_degree_class")) . "
 
- 
+
              //" . l(" $db_title ", "admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$db_major_code", array("class" => "degree-$db_degree_class")) . "
 
- 
+
  ///-------//CODE-DELETE-END
-  }    
-  
+  }
+
   return $rtn;
-    
+
 }
 
 
@@ -611,7 +611,7 @@ function admin_handle_edit_degree_submit() {
   // What courses should have their type overwritten as "x"?
   $ignore_courses = csv_to_array(variable_get("ignore_courses_from_hour_counts", ""));
 
-  
+
   // This will UPDATE a degree in the system with the courses
   // and groups that the user selected.
   $perform_action2 = trim($_POST["perform_action2"]);
@@ -652,7 +652,7 @@ function admin_handle_edit_degree_submit() {
       // Also need to get rid of the track, if there is one for this
       // degree.
       $res = db_query("DELETE FROM draft_degree_tracks
-                  WHERE major_code = '$degree->major_code' 
+                  WHERE major_code = '$degree->major_code'
                   AND track_code = '$degree->track_code'
                   AND catalog_year = '?' LIMIT 1", $de_catalog_year);
 
@@ -660,15 +660,15 @@ function admin_handle_edit_degree_submit() {
       // just the list of degrees.
       //display_edit_degrees("<font color='green'><b>The degree $major_code ($de_catalog_year) has been deleted.</b></font>");
       //die;
-      
+
       fp_add_message("The degree $major_code ($de_catalog_year) has been deleted.");
       fp_goto("admin/degrees", "de_catalog_year=$de_catalog_year");
-      return; 
-      
+      return;
+
     }
 
 
-  } 
+  }
   else {
     // We need to generate a new degreeID for this major_code and catalog_year,
     // because one does not already exist!
@@ -712,7 +712,7 @@ function admin_handle_edit_degree_submit() {
       $course_num = $tokens[1];
       $requirement_type = strtolower($tokens[2]);
 
-      if ($requirement_type == "") { 
+      if ($requirement_type == "") {
         // major type by default.
         $requirement_type = "m";
       }
@@ -722,8 +722,8 @@ function admin_handle_edit_degree_submit() {
       if (in_array("$subject_id $course_num", $ignore_courses)) {
         $requirement_type = "x";
       }
-      
-      
+
+
       $min_grade = strtoupper($tokens[3]);
 
       if (strstr($requirement_type, "(")) {
@@ -789,7 +789,7 @@ function admin_handle_edit_degree_submit() {
     }
 
     $adding_group = new Group($group_id);
-    
+
     // If this group is already saved in this degree elsewhere, and it has a different type or min_grade,
     // then we must display a warning message to the user.
     $res = db_query("SELECT * FROM draft_degree_requirements
@@ -803,10 +803,10 @@ function admin_handle_edit_degree_submit() {
                   with a different requirement type and/or min grade requirement.  FlightPath will not perform calculations correctly for courses assigned to this group.
                   You should either set the duplicate occurances of the group to the same type/min grade, or create a new group to handle these alternate requirements.</span>";
     }
-    
-    
-    
-    
+
+
+
+
     // We now have enough information to insert this group.
     //debugCT("group: $group_id $semester_num $hours $type");
     $query = "INSERT INTO draft_degree_requirements
@@ -828,10 +828,10 @@ function admin_handle_edit_degree_submit() {
     $hours = trim($temp[3]);
     $type = $temp[4];
     $min_grade = trim($temp[5]);
-    
-    
+
+
     $adding_group = new Group($group_id);
-    
+
     // If this group is already saved in this degree elsewhere, and it has a different type or min_grade,
     // then we must display a warning message to the user.
     $res = db_query("SELECT * FROM draft_degree_requirements
@@ -845,10 +845,10 @@ function admin_handle_edit_degree_submit() {
                   with a different requirement type and/or min grade requirement.  FlightPath will not perform calculations correctly for courses assigned to this group.
                   You should either set the duplicate occurances of the group to the same type/min grade, or create a new group to handle these alternate requirements.</span>";
     }
-    
-    
-    
-    
+
+
+
+
     $query = "INSERT INTO draft_degree_requirements
                     (`degree_id`,`semester_num`,`group_id`,
                     `group_requirement_type`,`group_hours_required`,`group_min_grade`)
@@ -900,7 +900,7 @@ function admin_handle_edit_degree_submit() {
                 SET `track_description`='?',
                 `track_title`='?'
                 WHERE `track_code`='?'
-                AND `major_code`='?' 
+                AND `major_code`='?'
                 AND `catalog_year`='?' ", $track_description, $track_title, $track, $major, $de_catalog_year);
   }
 
@@ -918,13 +918,13 @@ function admin_handle_edit_degree_submit() {
 
     $button_msg = urlencode("The degree plan was saved, but an error or warning has occured.  Please see error message at the top of the page.");
     $_REQUEST["scroll_top"] = 0;
-    
+
   }
 
 
   fp_goto("admin/degrees/edit-degree", "de_catalog_year=$de_catalog_year&major_code=$major_code&scroll_top=" . $_REQUEST["scroll_top"] . "&button_msg=" . $button_msg);
-  return;    
-    
+  return;
+
 }
 
 
@@ -935,15 +935,15 @@ function admin_handle_edit_degree_submit() {
 function admin_display_edit_degree() {
   $de_catalog_year = admin_get_de_catalog_year();
   $rtn = "";
-  
+
   $major_code = $_REQUEST["major_code"];
 
   // Add in our CSS and JS
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
 
-  $button_msg = trim(addslashes($_REQUEST["button_msg"]));  
-  
+  $button_msg = trim(addslashes($_REQUEST["button_msg"]));
+
   $db = get_global_database_handler();
 
   $degree_id = intval($db->get_degree_id($major_code, $de_catalog_year, true));
@@ -965,7 +965,7 @@ function admin_display_edit_degree() {
             <input type='hidden' name='perform_action2' id='perform_action2'>
             <input type='hidden' name='de_catalog_year' value='$de_catalog_year'>
             <input type='hidden' name='scroll_top' id='scroll_top' value=''>
-            <input type='hidden' name='major_code' value='$major_code'>                        
+            <input type='hidden' name='major_code' value='$major_code'>
             ";
 
   $rtn .= "<div style='font-size: 16pt; font-weight:bold; padding-top: 20px;'>$degree->degree_type $degree->title<br>$major_code ($de_catalog_year)</div>";
@@ -978,10 +978,10 @@ function admin_display_edit_degree() {
         <td valign='top' class='tenpt' width='15%'>" . t(":صنف الشهادة") . "</td>
         <td valign='top' class='tenpt'><input type='text' name='degree_class' value='$degree->degree_class' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_class\");'>?</a>
-        
+
         </td>
        </tr>
-        
+
        </tr>
        <tr>
         <td valign='top' class='tenpt'>" . t(":اسم الشهادة") . "</td>
@@ -992,9 +992,9 @@ function admin_display_edit_degree() {
         <td valign='top' class='tenpt' colspan='3'><input type='text' name='exclude' value='$degree->db_exclude' size='2' maxlength='1'>
         <a href='javascript: adminPopupAlertHelp(\"degree_exclude\");'>?</a></td>
        </tr>
-       
-       
-        
+
+
+
       </table> ";
 
   if (strstr($major_code, "_"))
@@ -1065,20 +1065,20 @@ function admin_display_edit_degree() {
       $group = $semester->list_groups->get_next();
       $group->load_descriptive_data();
       $rtn .= "<tr><td valign='middle'>
-      
+
             <a href='javascript: adminDelGroup(\"$group->group_id\",\"$semester->semester_num\");'><img src='" . fp_theme_location() . "/images/delete.png' border='0'></a>
-                  
+
             <td valign='top' class='tenpt'>
             $group->title<br><i>$group->group_name</i></td>
             <td valign='top' class='tenpt'>$group->hours_required</td>
             <td valign='top' class='tenpt'>$group->min_grade</td>
             <td valign='top' class='tenpt'>$group->requirement_type
             <input type='hidden' name='group_" . $group->group_id . "_" . rand(1,999999) . "' value='$group->group_id" . "_$semester->semester_num" . "_$group->hours_required" . "_$group->requirement_type" . "_$group->min_grade'>
-            </td>"; 
+            </td>";
     }
-    
+
     $url = fp_url("admin/degrees/popup-add-group", "semester_num=$semester->semester_num&de_catalog_year=$de_catalog_year");
-    
+
     $rtn .= "</table>
         <div style='margin-top: 10px; margin-left: 20px;'>
           <a href='javascript: adminPopupWindow(\"" . $url . "\");'>Add an elective group</a>
@@ -1087,10 +1087,10 @@ function admin_display_edit_degree() {
 
 
     $rtn .= "</table><br>
-        
+
     " . fp_render_button(t("حفظ ل @year", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
       <span class='admin-button-msg'>$button_msg</span>
-    
+
     </div>
     ";
     $s_count = $semester->semester_num+1;
@@ -1112,7 +1112,7 @@ function admin_display_edit_degree() {
           &nbsp; &nbsp;
           Override: <input type='text' name='semester_title_$sem' value='' size='20'>
           <a href='javascript: adminPopupAlertHelp(\"semester_title\");'>?</a>
-          
+
           <table border='1' width='100%'>
           ";
 
@@ -1132,7 +1132,7 @@ function admin_display_edit_degree() {
             </tr>";
 
     $url = fp_url("admin/degrees/popup-add-group", "semester_num=$sem&de_catalog_year=$de_catalog_year");
-            
+
     $rtn .= "</table>
         <div style='margin-top: 10px; margin-left: 20px;'>
           <a href='javascript: adminPopupWindow(\"" . $url . "\");'>Add an elective group</a>
@@ -1140,30 +1140,30 @@ function admin_display_edit_degree() {
 
 
     $rtn .= "</table><br>
-    
+
     " . fp_render_button(t("@year احفظ ل", array("@year" => $de_catalog_year)), "adminSubmitForm();") . "
         <span class='admin-button-msg'>$button_msg</span>
-    
+
     </div>";
 
   }
   $rtn .= "<div class='elevenpt'>If you need more semester boxes, simply save this page, and additional blank
       boxes will appear below.</div>
-      
+
       <br><br>
       <div class='elevenpt'><b>More Options:</b><br>
-      Enter a public note for this degree: 
+      Enter a public note for this degree:
        <a href='javascript: adminPopupAlertHelp(\"public_note\");'>(Help - Public Note)</a>
        " . fp_get_js_alert_link(t("يمكنك إدخال HTML بسيط في هذا الحقل ، مثل <b> غامق </b> أو <i> مائل </i>."), t("(مساعدة - تنسيق)")) . "
       <br>
       <textarea name='public_note' rows='4' cols='80'>$degree->public_note</textarea>
-      
-      
+
+
       </div>
-      
-      
-      
-      "; 
+
+
+
+      ";
 
 
 
@@ -1173,7 +1173,7 @@ function admin_display_edit_degree() {
   $rtn .= "        <div align='right'>
           Delete this degree? <input type='button' value='X'
                   onClick='adminDeleteDegree(\"$degree_id\");'>
-        </div>      
+        </div>
         ";
 
 
@@ -1183,9 +1183,8 @@ function admin_display_edit_degree() {
   if ($_REQUEST["serialize"] != "")
   {
     print "<br><textarea rows=20 cols=80>" . serialize($degree) . "</textarea>";
-  }  
-  
-  
+  }
+
+
   return $rtn;
 }
-

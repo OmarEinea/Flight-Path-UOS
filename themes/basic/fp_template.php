@@ -2,10 +2,10 @@
 /**
  * @file
  * This is the primary page template for FlightPath.
- * 
+ *
  * Certain variables are set by the AdvisingScreen class, in its output_to_browser() method, which
  * are available here:
- * 
+ *
  *
  * $page_content		The actual content of the page which appears in the
  *					center.
@@ -27,7 +27,7 @@
  * $page_extra_css_files      These are extra CSS files which other modules wish to include, using fp_add_css().
  * $page_extra_js_files       Similar to extra_css files, but for extra javascript files.
  * $page_body_classes         A string containing the CSS classes (space-separated) which should go on the body element.
- * 
+ *
  **/
 $theme_location = fp_theme_location();
 
@@ -38,71 +38,71 @@ if ($page_is_popup) {
 
 ?>
 <html>
-	<head>	
+	<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 		<script src="<?php print base_path() ?>/inc/jquery-1.8.3.min.js" type="text/javascript"></script>
 		<script src="<?php print base_path() ?>/inc/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 	  <link rel='stylesheet' type='text/css' href='<?php print base_path() ?>/inc/jqueryui-css/ui-lightness/jquery-ui-1.9.2.custom.min.css' />
-		
+
 		<script type='text/javascript'>
-    <?php print $page_extra_js_settings; ?>     
+    <?php print $page_extra_js_settings; ?>
     // perform any requested actions on page load...
 		$(document).ready(function() { <?php print $page_on_load; ?> });
 		</script>
-		
-		
-		
+
+
+
 		<?php
-		 // Add extra JS files.    
+		 // Add extra JS files.
      print $page_extra_js_files;
-		
+
 		 // Load this theme's CSS file(s)
 		 print "<link rel='stylesheet' type='text/css' href='$theme_location/style.css?$page_css_js_query_string' /> \n";
 		 print "<link rel='stylesheet' type='text/css' href='$theme_location/layout.css?$page_css_js_query_string' /> \n";
-		 
+
 		 // Load any extra CSS files which addon modules might have added.
 		 print $page_extra_css_files;
-		 
+
      // Load the custom.css file for this theme...
      print "<link rel='stylesheet' type='text/css' href='$theme_location/custom.css?$page_css_js_query_string' /> \n";
-     
+
 		?>
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-		
+
 		<title><?php print $page_title; ?></title>
 	</head>
-	
-	
+
+
 	<body class='<?php print $page_body_classes; ?>'>
-	
-	
+
+
 		<div class='top-banner'>
 			    <?php
-			    
-            
+
+
             // ***************** Header Content   *****************
             // *****************      *****************
             if ($page_banner_is_link == TRUE) {
               print "<a href='{$GLOBALS["fp_system_settings"]["self_url"]}' target='_blank'>";
             }
             ?>//<img src='<?php print "$theme_location/images/"; ?>fp_banner_default1.png' border='0'><?php
-						/* <img src='<?php print "$theme_location/images/"; ?>fp_banner_default.png' border='0'><?php */ 
+						/* <img src='<?php print "$theme_location/images/"; ?>fp_banner_default.png' border='0'><?php */
 						if ($page_banner_is_link == TRUE) {
               print "</a>";
-            }    
-            
-            
+            }
+
+
 			  ?>
       </div>
-	
-			
+
+
 			<!-- Page tabs and search -->
-			
+
 		    <table class='tabs-search-table'>
             <tr>
-            
-            
+
+
               <!-- ********** The tabs td ************-->
               <td class='tabs-td'>
                 <table class='tabs-table-tabs'>
@@ -110,60 +110,60 @@ if ($page_is_popup) {
                     <td align="left">
 
                     <?php print $page_tabs; ?>
-                    
+
                     </td>
                   </tr>
                 </table>
-              </td>                   
-      
+              </td>
+
           <!-- The possible search bar td -->
               <td class='search-td'>
               <?php
               // Insert a search bar if there is one.
 
               if ($page_has_search == TRUE && function_exists("student_search_menu")) {
-                
-                print student_search_render_small_search();                                
+
+                print student_search_render_small_search();
 
               }
 
               ?>
-              </td>              
+              </td>
             </tr>
-          </table>	
+          </table>
 
         <!-- Page content -->
-			
-			
+
+
           <div class='page-content'>
             <?php
-                // ***************** Page specific content will be in here *****************    
+                // ***************** Page specific content will be in here *****************
                 print $page_content;
                 // ***************** Page specific content was in here     *****************
             ?>
           </div>
-            
 
-		
+
+
 		<?php
 		//------------------------------------------------
 		// ------- MSG AT BOTTOM -------------------------
 		//------------------------------------------------
 		?>
-		
-		
+
+
 		<div class='fp-bottom-message'>
     <?php
       if ($page_hide_report_error != TRUE) {
-        print "<a class='nounderline' href='javascript: popupreportcontact()'>" . t("FlightPath تواصل مع فريق") . "</a>";
+        print "<a class='nounderline' href='javascript: popupreportcontact()'>" . t("تواصل مع فريقFlightPath") . "</a>";
       }
     ?>
     <!-- Optional copyright message could go here.
-      	<span>&copy; Date, Institution, etc.</span> -->	  
+      	<span>&copy; Date, Institution, etc.</span> -->
 		</div>
-		
-		
 
-		
+
+
+
 	</body>
 </html>

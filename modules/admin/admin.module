@@ -19,7 +19,7 @@ function admin_menu() {
   $items = array();
 
   $items["admin-tools/admin"] = array(
-     "title" => "FlightPath وحدة تحكم مشرف",
+     "title" => "وحدة تحكم مشرف FlightPath",
      "page_callback" => "admin_display_main",
      "access_arguments" => array("can_access_admin"),
      "tab_family" => "admin",

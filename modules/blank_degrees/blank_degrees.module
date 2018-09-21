@@ -79,7 +79,7 @@ function blank_degrees_display_blank_degree() {
   $blank_print = $_REQUEST["blank_print"];
   $blank_view = "type";
 
-  
+
   // If we used the word "current" for catalog_year, then find out what the current is.
   if (strtolower($blank_catalog_year) == "current") {
     $blank_catalog_year = variable_get("current_catalog_year", 2006);
@@ -191,7 +191,7 @@ function blank_degrees_display_blank_degree() {
   $tab_array[1]["title"] = "Display by Type";
   $tab_array[1]["active"] = ($screen->view != "type");
   $tab_array[1]["on_click"] = "window.location=\"" . fp_url("blank-degrees/display", "blank_degree_id=$blank_degree_id&blank_catalog_year=$blank_catalog_year&blank_view=type") . "\";";
-  */    
+  */
 
   if (!fp_screen_is_mobile()) {
     $tab_array[2]["title"] = "Print";
@@ -276,7 +276,7 @@ function blank_degrees_select_degree_form() {
     );
 
     $form["mark" . $m++] = array(
-      "value" => t("%year البحث عن الدرجات في", array("%year" => $blank_catalog_year . "-" . ($blank_catalog_year+1))) . "
+      "value" => t("البحث عن الدرجات في %year", array("%year" => $blank_catalog_year . "-" . ($blank_catalog_year+1))) . "
                    " . l(t("تغيير؟"), "tools/blank-degrees"),
     );
 

@@ -553,7 +553,7 @@ function draw_menu_items($menu_array) {
 		{
 			$pC .= "<tr><td colspan='8'>
 					<div class='hypo tenpt' style='margin-top: 15px; padding: 5px;'>
-						<b>" . t("Important Notice:") . "</b> $notice
+						<b>" . t("ملاحظة هامة:") . "</b> $notice
 					</div>
 					</td></tr>";
 		}
@@ -2665,7 +2665,7 @@ function draw_menu_items($menu_array) {
 		{
 			$pC .= "<tr><td colspan='8'>
 					<div class='hypo tenpt' style='margin-top: 15px; padding: 5px;'>
-						<b>Important Notice:</b> $semester->notice
+						<b>ملاحظة هامة:</b> $semester->notice
 					</div>
 					</td></tr>";
 		}

@@ -308,7 +308,7 @@ function ldap_settings_form() {
     "size" => 20,
     "value" => variable_get("ldap_uid_attr", "uid"),
     "description" => t("مثال: uid or cn, etc.") . "<br><b>
-                      " . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+                      " . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
@@ -318,8 +318,8 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 20,
     "value" => variable_get("ldap_user_dn_field_name", "dn"),
-    "description" => t("Ex: dn. This is the field name, returned by LDAP, which contains the user's full DN. In most cases, it is simply <em>dn</em>, though it might be <em>name</em> or something similar, depending on your set up. If you are not sure what to do, leave this as <em>dn</em>.") . "<br><b>
-                      " . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+    "description" => t("هذا هو اسم الحقل ، الذي تم إرجاعه بواسطة LDAP ، والذي يحتوي على الاسم المميز الكامل للمستخدم. في معظم الحالات ، يكون ببساطة <em>dn</ em> ، على الرغم من أنه قد يكون <em>name</ em> أو شيئًا مماثلاً ، بناءً على الإعداد الخاص بك. إذا لم تكن متأكدًا مما يجب فعله ، فاترك هذا <em>dn</ em>.") . "<br><b>
+                      " . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
@@ -342,8 +342,8 @@ function ldap_settings_form() {
     "size" => 30,
     "prefix" => "<hr>",
     "value" => variable_get("ldap_cwid_field", "employeenumber"),
-    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's CWID? Ex: employeenumber, userid, etc.") . "
-                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+    "description" => t("في مجموعة نتائج بحث المستخدم في LDAP ، ما هو الحقل الذي يحتوي على CWID الخاص بالمستخدم؟ على سبيل المثال: employeenumber ، userid ، إلخ.") . "
+                        <br><b>" . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
@@ -352,8 +352,8 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 30,
     "value" => variable_get("ldap_f_name_field", ""),
-    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's first name? Leave blank if not set.") . "
-                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+    "description" => t("في مجموعة نتائج بحث المستخدم في LDAP ، ما هو الحقل الذي يحتوي على الاسم الأول للمستخدم؟ اتركه فارغا إذا لم يتم ضبطه.") . "
+                        <br><b>" . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
   $form["ldap_l_name_field"] = array(
@@ -361,8 +361,8 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 30,
     "value" => variable_get("ldap_l_name_field", ""),
-    "description" => t("In the result set of a user's lookup in LDAP, what field contains the user's last name? Leave blank if not set.") . "
-                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+    "description" => t("في مجموعة نتائج بحث المستخدم في LDAP ، ما هو الحقل الذي يحتوي على اسم المستخدم الأخير؟ اتركه فارغا إذا لم يتم ضبطه.") . "
+                        <br><b>" . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
@@ -370,11 +370,11 @@ function ldap_settings_form() {
   $op_options = array(
     "contains" => t("يحتوي"),
     "does not contain" => t("لا يحتوي"),
-    "is numeric" => t("is numeric (value field ignored)"),
-    "is not numeric" => t("is not numeric (value field ignored)"),
-    "is blank" => t("is blank (value field ignored)"),
-    "is not blank" => t("is not blank (value field ignored)"),
-    "invoke hook" => t("invoke hook (for developers, see README.txt)"),
+    "is numeric" => t("رقمي (تم تجاهل حقل القيمة)"),
+    "is not numeric" => t("ليس رقميًا (تم تجاهل حقل القيمة)"),
+    "is blank" => t("فارغ (تم تجاهل حقل القيمة)"),
+    "is not blank" => t("غير فارغ (تم تجاهل حقل القيمة)"),
+    "invoke hook" => t("استدعاء hook (للمطورين ، راجع README.txt)"),
   );
 
 
@@ -382,7 +382,7 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 10,
     "value" => variable_get("ldap_is_student_field", "usertype"),
-    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم طالب") . "</b></p>" . t("If field name:") . " ",
+    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم طالب") . "</b></p>" . t("إذا كان اسم الحقل:") . " ",
   );
 
   $form["ldap_is_student_op"] = array(
@@ -397,8 +397,8 @@ function ldap_settings_form() {
     "size" => 15,
     "value" => variable_get("ldap_is_student_op_value", "student"),
     "prefix" => " " . t(":القيمة"),
-    "description" => t("This will determine if the user logging in should have their is_student flag set in the database.<br/>Ex: if <em>usertype</em> contains <em>student</em>. Case insensitive. You may also use the user's <em>dn</em> as a field name.") . "
-                        <br><b>" . t("Note that your field names may need to be all-lowercase, regardless of how it is represented in LDAP.") . "</b>",
+    "description" => t("سيحدد هذا ما إذا كان يجب أن يكون تسجيل دخول المستخدم هو علامة is_student المحددة في قاعدة البيانات. <br/> مثال: إذا احتوى <em>usertype</em> على <em>student</em>. حالة حساسة. يمكنك أيضًا استخدام <em>dn</em> للمستخدم كاسم حقل.") . "
+                        <br><b>" . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
@@ -407,7 +407,7 @@ function ldap_settings_form() {
     "type" => "text",
     "size" => 10,
     "value" => variable_get("ldap_is_faculty_field", "usertype"),
-    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم من هيئة التدريس") . "</b></p>" . t("If field name:") . " ",
+    "prefix" => "<p><b>" . t(":كيفية التحديد ما إذا كان المستخدم من هيئة التدريس") . "</b></p>" . t("إذا كان اسم الحقل:") . " ",
   );
 
   $form["ldap_is_faculty_op"] = array(

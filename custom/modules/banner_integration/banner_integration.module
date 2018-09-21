@@ -109,21 +109,18 @@ function banner_integration_settings_form() {
   $options = array(
     "skip_if_exists" => t("FlightPath تخط-لا تقم بالتعديل- المساقات المحلية إذا كانت متواجدة في قاعجة بيانات") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
-                         If NOT checked, we will overwrite whatever is in our MySQL database with
-                         what is in Banner.  We will look for the course's subject_id and course_num only, with
-                         no concern for hour counts or catalog year.
-                         <br>
-                         If unsure what to select, leave this CHECKED.</div>",
+
+ إذا لم يتم التحديد ، سنقوم بالكتابة فوق ما هو موجود في قاعدة بيانات MySQL مع ما يوجد في Banner. سنبحث عن subject_idو course_num للمقرر فقط ، دون القلق بشأن عدد الساعات أو سنة الكتالوج.
+ <br>
+                        إذا لم تكن متأكدًا مما تحدده ، فاترك هذا محدد.</div>",
     "update_prod_and_draft" => t("تحديث البيانات والمسودة") . "
                          <div style='font-size:.8em;padding-left: 40px;'>
-                         If NOT checked, then all modifications will happen to FlightPath's draft_courses
-                         table, and not the production courses table.  After running the routine, you
-                         would have the opportunity to review the draft data before applying it to production.
+
+إذا لم يتم التحديد ، فستحدث جميع التعديلات في جدول draft_courses الخاص بـ FlightPath ، وليس جدول المقررات للإنتاج. بعد تشغيل الروتين ، ستتاح لك الفرصة لمراجعة مسودة البيانات قبل تطبيقها على الإنتاج.<br>
+
+إذا تم تحديد هذا ، سيتم الانتقال إلى كل من جداول المسودة والإنتاج عند تشغيل الروتين.
                          <br>
-                         If this is checked, modification will go through to both draft and production
-                         tables when the routine is run.
-                         <br>
-                         If unsure what to select, leave this UNCHECKED.
+ إذا لم تكن متأكدًا مما تحدده ، فاترك هذا غير محدد.
                          </div>",
   );
 

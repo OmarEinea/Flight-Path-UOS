@@ -516,7 +516,7 @@ function hook_menu() {
   );
 
   $items["admin-tools/admin"] = array(
-     "title" => "FlightPath وحدة تحكم مشرف",
+     "title" => "test",
      "page_callback" => "admin_display_main",
      "access_arguments" => array("can_access_admin"),
      "tab_family" => "admin",

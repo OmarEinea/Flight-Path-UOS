@@ -491,20 +491,20 @@ function admin_duplicate_year_form() {
   $form = array();
 
   $form["mark" . $m++] = array(
-    "value" => "<p>" . t("يفضل عمل نسخة احتياطية من قاعدة البيانات الخاصة بك قبل المتابعة<br/><br/>حتى يتم تطبيق تغييرات المسودة FlightPath سيتم وضع العام الجديد في مسودة ولن يكون مرئيا في<br/>استخدمها بعناية<b>ستحذف بيانات السنة الوجهة بالكامل، إذا كانت موجودة بالفعل</b>سيسمح لك هذا النموذج بتكرار بيانات سنة كاملة (مساقات، درجات، مجموعات) إلى سنة جديدة. يستخدم هذا لإنشاء سنة جديدة من البيانات، على أساس السنة السابقة، على سبيل المثال") . "</p><hr>",
+    "value" => "<p>" . t("سيسمح لك هذا النموذج بتكرار بيانات سنة كاملة (مساقات, درجات, مجموعات) إلى سنة جديدة. يستخدم هذا لإنشاء سنة جديدة من البيانات, على أساس السنة السابقة, على سبيل المثال </b> ستحذف بيانات وجهة السنة بالكامل, إذا كانت موجودة بالفعل <b> استخدمها بعناية <br/>سيتم وضع العام الجديد في مسودة ولن يكون مرئيا في FlightPath حتى يتم تطبيق تغييرات المسودة <br/><br/> يفضل عمل نسخة احتياطية من قاعدة البيانات الخاصة بك قبل المتابعة") . "</p><hr>",
   );
 
   $form["source_year"] = array(
     "type" => "textfield",
-    "label" => t(": من"),
+    "label" => t("من:"),
     "size" => 10,
     "required" => TRUE,
-    "description" => t(".أدخل سنة المصدر المكونة من أربعة أرقام التي تقوم النسخ منها. على سبيل المثال: 2007, إذا كنت تقوم بالنسخ من 2007-2008, أدخل فقط 2007"),
+    "description" => t("أدخل سنة المصدر المكونة من أربعة أرقام التي تقوم النسخ منها. على سبيل المثال: 2007, إذا كنت تقوم بالنسخ من 2007-2008, أدخل فقط 2007."),
   );
 
   $form["destination_year"] = array(
     "type" => "textfield",
-    "label" => t(": إلى"),
+    "label" => t("إلى:"),
     "size" => 10,
     "required" => TRUE,
     "description" => t("إذا كنت تنسخ إلى 2009-2010, فقم فقط بإدخال 2009<b><u>.إذا كان هذا العام جاهزا بالكامل في النظام. فسيتم حذف البيانات لهذا العام</u></b>أدخل سنة المصدر المكونة من أربعة أرقام التي تنسخ إليها."),
@@ -512,9 +512,9 @@ function admin_duplicate_year_form() {
 
  $form["passcode"] = array(
     "type" => "password",
-    "label" => t(":للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة"),
+    "label" => t("للمزيد من الحماية, يجب عليك إدخال كلمة مرور تغيير المسودة:"),
     "required" => TRUE,
-    "description" => t(".لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي. لن تكون مشاريع التعديلات مطبقة بالفعل ، يتم استخدامها ببساطة كطبقة أمان إضافية FlightPath هذه كلمة مرور تم إعدادها في إعدادات"),
+    "description" => t("هذه كلمة مرور تم إعدادها في إعدادات FlightPath لتوفير طبقة إضافية من الأمان لهذا الإجراء القوي. لن تكون مشاريع التعديلات مطبقة بالفعل, يتم استخدامها ببساطة كطبقة أمان إضافية."),
 
   );
 
@@ -1275,7 +1275,7 @@ function admin_display_watchdog() {
 
 
 
-  $rtn .= "<input type='submit' value='Go'>";
+  $rtn .= "<input type='submit' value='الذهاب'>";
   // Hack if clean URLs are not enabled:
   $rtn .= "<input type='hidden' name='q' value='admin/config/watchdog'>";
 
@@ -1435,7 +1435,7 @@ function admin_display_main() {
   $cron_last_run = variable_get("cron_last_run", 0);
   if ($cron_last_run < strtotime("-7 DAY")) {
     // Warn admin that they need to have cron set up!  It's been over a week!
-    fpm(t(" .للحصول على الإرشادات @status_link أو الاطلاع على صفحة @run_link كثيرا. يمكنك  cron في العمل بشكل صحيح ، يتم تكوين عملية  FlightPath الخاصة بالنظام خلال أكثر من أسبوع لكي يستمر cron لم يتم تشغيل عملية",
+    fpm(t("لم يتم تشغيل عملية cron الخاصة بالنظام خلال أكثر من أسبوع لكي يستمر FlightPath في العمل بشكل صحيح,  يتم تكوين عملية cron كثيرا, يمكنك @run_link أو الاطلاع على صفحة @status_link للحصول على الإرشادات",
             array("@status_link" => l(t("حالة النظام"), "admin/config/status"),
                   "@run_link" => l(t("run cron now"), "admin/config/run-cron"))));
   }
@@ -1446,7 +1446,7 @@ function admin_display_main() {
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
 
-  $rtn .= "<h2>" . t("وحدة تحكم المشرف FlightPath - القائمة الرئيسية") . "</h2>";
+  $rtn .= "<h2>" . t("القائمة الرئيسية - وحدة تحكم المشرف FlightPath") . "</h2>";
   $rtn .= "<table class='fp-semester-table' cellpadding='5'>
            <tr>
             <td valign='top' width='50%'>
@@ -1514,7 +1514,7 @@ function admin_display_main() {
     }
 
     if (user_has_permission("can_edit_data_entry")) {
-      $rtn .= "<b>" . t(":وظيفة المسؤول") . "</b><ul>
+      $rtn .= "<b>" . t("وظيفة المسؤول:") . "</b><ul>
               <li>" . l(t("تكرار سنة كاملة من البيانات إلى السنة الجديدة"), "admin/duplicate-year") . "</li>
                 </ul>";
     }

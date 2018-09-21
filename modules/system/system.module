@@ -644,7 +644,7 @@ function system_display_install_finished_page() {
 function system_popup_report_contact_thank_you() {
   $rtn = "";
 
-  $rtn .= fp_render_curved_line(t("اتص بفريق انتاج @FlightPath"));
+  $rtn .= fp_render_curved_line(t("اتصل بفريق انتاج @FlightPath"));
   $rtn .= t("شكرا لتقديمك لفريق الإنتاج FlightPath. لقد تلقوا تعليقك وسنقوم بمراجعته بعد قليل.") . "<br><br>";
   $rtn .= t("يمكنك الان إغلاق هذه النافذة.");
 
@@ -662,7 +662,7 @@ function system_popup_report_contact_form() {
   fp_set_title("");
 
   $form["mark" . $m++] = array(
-    "value" => fp_render_curved_line(t("اتص بفريق انتاج @FlightPath")),
+    "value" => fp_render_curved_line(t("اتصل بفريق انتاج @FlightPath")),
   );
 
   if (!user_has_permission("access_logged_in_content")) {
@@ -678,10 +678,10 @@ function system_popup_report_contact_form() {
 
   $form["category"] = array(
     "type" => "select",
-    "label" => t("الرجاء قم بتجديد فئة:"),
+    "label" => t("الرجاء قم بتحديد فئة:"),
     "options" => array(
                      t("Advising") => t("Advising"),
-                     t("خطة الدرجةالتعليمية") => t("خطة الدرجةالتعليمية"),
+                     t("خطة الدرجة العلمية") => t("خطة الدرجة العلمية"),
                      t("ماذا لو؟") => t("ماذا لو؟"),
                      t("بحث") => t("بحث"),
                      t("تعليقات") => t("تعليقات"),
@@ -720,10 +720,10 @@ function system_popup_report_contact_form_submit($form, $form_state) {
   $subject = t("تقرير FLIGHTPATH ​​CONTACT") . " - $category ";
   $msg = "";
   $msg .= t("لقد تلقيت تقريرًا / جهة اتصال جديدة في") . " $datetime.\n";
-  $msg .= t(":الاسم") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t(":دور المستخدم") . " $user_roles \n\n";
-  $msg .= t(":فئة") . " $category  \n";
-  $msg .= t(":الطالب المحتمل") . " $possible_student  \n";
-  $msg .= t(":تعليق") . " \n $comment \n\n";
+  $msg .= t("الاسم:") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t("دور المستخدم:") . " $user_roles \n\n";
+  $msg .= t("فئة:") . " $category  \n";
+  $msg .= t("الطالب المحتمل:") . " $possible_student  \n";
+  $msg .= t("تعليق:") . " \n $comment \n\n";
   $msg .= "------------------------------------------------ \n";
 
   $themd5 = md5($user->name . $user->cwid . $comment . $user_roles . $category);
@@ -758,7 +758,7 @@ function system_school_data_form() {
 
   $form["course_repeat_policy"] = array(
     "type" => "select",
-    "label" => t(":سايسة تكرار المساق"),
+    "label" => t("سياسة تكرار المساق:"),
     "options" => array("most_recent_exclude_previous" => t("الأحدث, اسنتثناء المحاولات السابقة"),
                        "most_recent_do_not_exclude" => t("الأحدث, عدم استثناء المحاولات السابقة - (ميزة جديدة)")),
     "value" => variable_get("course_repeat_policy", "most_recent_exclude_previous"),
@@ -783,7 +783,7 @@ function system_school_data_form() {
     "label" => t("Structure of term ID's:"),
     "value" => variable_get("term_id_structure", ""),
     "description" => t("استخدم هذه المساحة لتحديد هياكل termID ، واحدة لكل سطر. الرجاء مراجعة <b><a href='http://getflightpath.com/node/1085' target='_blank'>وثائق FlightPath</a></b> حول كيفية إعداد هذا الحقل.") . "
-                <br>" . t(":مثال") . "
+                <br>" . t("مثال:") . "
                 <br>[Y4]60, Spring, Spring of [Y4], Spr '[Y2]
                 <br>[Y4]40, Fall, Fall of [Y4-1], Fall '[Y2-1]",
   );
@@ -815,7 +815,7 @@ function system_school_data_form() {
 
   $form["subjects"] = array(
     "type" => "textarea",
-    "label" => t(":المواضيع"),
+    "label" => t("المواضيع:"),
     "value" => $subjects,
     "rows" => 15,
     "description" => t("أدخل المواضيع المعروفة لـ FlightPath (للاستخدام في النوافذ المنبثقة وبحث للمقررات، على سبيل المثال) ، واحدة لكل سطر بهذا التنسيق:") . "<br>SUBJ ~ COLLEGE ~ Title<br>" . t(":على سبيل المثال") . "
@@ -832,9 +832,9 @@ function system_school_data_form() {
 
   $form["colleges"] = array(
     "type" => "textarea",
-    "label" => t(": لكليات"),
+    "label" => t("الكليات:"),
     "value" => $colleges,
-    "description" => t("أدخل الكليات المعروفة بـ FlightPath ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>COLLEGE_CODE ~ Title<br>" . t(":على سبيل المثال") . "
+    "description" => t("أدخل الكليات المعروفة بـ FlightPath ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>COLLEGE_CODE ~ Title<br>" . t("على سبيل المثال:") . "
                        <br>&nbsp; AE ~ College of Arts, Science, and Education
                        <br>&nbsp; PY ~ College of Pharmacy<br>" . t("لاحظ الفاصل بين الرمز والعنوان هو 1 التلدة (~). يتم تجاهل Whitespace."),
   );
@@ -861,10 +861,10 @@ function system_school_data_form() {
 
   $form["degree_college"] = array(
     "type" => "textarea",
-    "label" => t(":الدرجة العلمية للكليات"),
+    "label" => t("الدرجة العلمية للكليات:"),
     "value" => $degree_college,
     "rows" => 15,
-    "description" => t("أدخل كلية الشهادة الجامعية ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t(":على سبيل المثال") . "
+    "description" => t("أدخل كلية الشهادة الجامعية ، واحدة في كل سطر ، بهذا التنسيق: ") . "<br>MAJOR_CODE ~ COLLEGE_CODE<br>" . t("على سبيل المثال:") . "
                        <br>&nbsp; ACCT ~ AE
                        <br>&nbsp; BUSN ~ SB<br>" . t("لاحظ أن الفاصل بين الرموز هو 1 tilde (~). يتم تجاهل Whitespace. <br/><b>مهم:</b> لا يمكن إعداد هذا الحقل حتى يتم إدخال شهادتك الجامعية. بمجرد حدوث ذلك ، ستظهر رموز الشهادة الرئيسية تلقائيًا في هذا المربع ، حيث يمكنك عندئذٍ تعيين رمز الكلية. "),
   );
@@ -927,7 +927,7 @@ function system_school_data_form() {
 
   $form["grade_order"] = array(
     "type" => "textfield",
-    "label" => t("(CSV): ترتيب الدرجات"),
+    "label" => t("ترتيب الدرجات: CSV"),
     "value" => variable_get("grade_order", ""),
     "description" => t("سرد جميع الدرجات الممكنة ، مفصولة بفاصلة ، من الأعلى إلى الأدنى. هذا مطلوب فقط إذا قمت بتحديد سياسة الفرز 'أفضل درجة أولاً' أعلاه. <br/>مثال: AMID,BMID,CMID,DMID,FMID,A,B,C,D,F,W,I"),
   );
@@ -936,7 +936,7 @@ function system_school_data_form() {
 
   $form["retake_grades"] = array(
     "type" => "textfield",
-    "label" => t("(CSV): إستعادة الدرجات"),
+    "label" => t("إستعادة الدرجات: CSV"),
     "value" => variable_get("retake_grades", ""),
     "description" => t("تدرج الدرجات ، مفصولة بفاصلة ، مما يعني 'يجب على الطالب إعادة هذا المقرر. لم يكسب رصيد'. مثال: F,W,I"),
   );
@@ -957,29 +957,29 @@ function system_school_data_form() {
 
   $form["b_or_better"] = array(
     "type" => "textfield",
-    "label" => t("(CSV):أو أفضل B  درجات "),
+    "label" => t("درجات B أو أفضل: CSV "),
     "value" => variable_get("b_or_better", ""),
-    "description" => t("أو أفضل B سرد الدرجات ، مفصولة بفاصلة ، والتي تكون إما "),
+    "description" => t("سرد الدرجات، مفصولة بفاصلة ، والتي تكون إما B أو أفضل" ),
   );
 
   $form["c_or_better"] = array(
     "type" => "textfield",
-    "label" => t("(CSV): أو أفضل C درجات"),
+    "label" => t("درجات C أو أفضل: CSV"),
     "value" => variable_get("c_or_better", ""),
-    "description" => t(" أو أفضل C سرد الدرجات ، مفصولة بفاصلة ، والتي تكون إما"),
+    "description" => t("سرد الدرجات، مفصولة بفاصلة ، والتي تكون إما C أو أفضل"),
   );
 
   $form["d_or_better"] = array(
     "type" => "textfield",
-    "label" => t("(CSV): أفضل أو D درجات "),
+    "label" => t("درجات D أو أفضل: CSV"),
     "value" => variable_get("d_or_better", ""),
-    "description" => t("أو أفضل D سردالدرجات ، مفصولة بفاصلة ، والتي تكون إما "),
+    "description" => t("سرد الدرجات، مفصولة بفاصلة ، والتي تكون إما D أو أفضل"),
   );
 
   $form["minimum_substitutable_grade"] = array(
     "type" => "textfield",
     "size" => 3,
-    "label" => t(":الحد الأدنى من درجة الاستبدال"),
+    "label" => t("الحد الأدنى من درجة الاستبدال:"),
     "value" => variable_get("minimum_substitutable_grade", "D"),
     "description" => t("أدخل تقديرًا هو الحد الأدنى من الدرجات الذي يجب أن يحصل عليه الطالب للمقرر المسموح بها في الاستبدال. هذا سوف يؤثر على البدائل الجديدة ، وليس القديمة. إذا لم تكن متأكدًا ، فأدخل D."),
   );
@@ -1005,7 +1005,7 @@ function system_school_data_form() {
 
 
   $form["requirement_types"] = array(
-    "label" => t(":أنواع المتطلبات والرموز"),
+    "label" => t("أنواع المتطلبات والرموز:"),
     "type" => "textarea",
     "value" => variable_get("requirement_types", "g ~ General Requirements\nc ~ Core Requirements\ne ~ Electives\nm ~ Major Requirements\ns ~ Supporting Requirements\nx ~ Additional Requirements"),
     "description" => t("أدخل أكواد وأوصاف نوع المتطلبات ، مفصولة بعلامة التلدة (~) ، واحدة لكل سطر. <b>لا يجوز لك استخدام الكود 'u'</b> لأن هذا مخصص ل FlightPath. <b>يجب عليك تعريف معنى 'x'</b>, لكن كن على علم بأن الرمز 'x' سيعين دائمًا مقرر يجب تجاهل ساعاتها من حسابات GPA. <b>يجب عليك تحديد ما تعني 'm'</b>, لأن هذا هو الرمز الافتراضي المطبق على المتطلب إذا لم يتم إدخال واحد. <b>يجب عليك تحديد ما تعني  'e'</b>, لأن هذا هو أيضًا الرمز المعطى إلى المقررات التي لا نستطيع تحديد أنواعها ، ربما بسبب خطأ مطبعي أو عن قصد. مثال: Electives. تحدد هذه القائمة أيضًا الترتيب الذي تظهر به على الشاشة في Type View. حسب الاصطلاح ، يجب أن تكون الرموز أحرف مفردة أحادية.") . "
@@ -1036,7 +1036,7 @@ function system_school_data_form() {
 
 
   $form["pie_chart_config"] = array(
-    "label" => t(":تكوين الرسم البياني الدائري"),
+    "label" => t("تكوين الرسم البياني الدائري:"),
     "type" => "textarea",
     "value" => variable_get("pie_chart_config", "c ~ Core Requirements\nm ~ Major Requirements\ndegree ~ Degree Progress"),
     "description" => t("أدخل بيانات التكوين للمخططات الدائرية التي ترسم تقدم الطالب خلال شهادته. أدخل رمز نوع المتطلبات ، تسمية المخطط الدائري ، والألوان الاختيارية مفصولة بواسطة التلدة (~). سيتم تخطي أنواع المتطلبات غير الموجودة للطالب ولن يتم رسم المخطط. <b>أدخل 'degree' للتقدم الإجمالي.</b>") . "
@@ -1051,14 +1051,14 @@ function system_school_data_form() {
 
 
   $form["developmentals_title"] = array(
-    "label" => t(":عنوان block للفصل الدراسي التطوري"),
+    "label" => t("عنوان Block للفصل الدراسي التطوري:"),
     "type" => "textfield",
     "value" => variable_get("developmentals_title", t("متطلبات التطوير")),
     "description" => t("هذا عنوان كتلة الفصل الدراسي لمتطلبات التطوير ، والتي تظهر في خطة درجة الطالب ، بالقرب من الجزء السفلي ، عندما يكون لديهم دورات تصحيحية يجب عليهم اتخاذها. إذا لم تكن متأكدًا مما يجب إدخاله ، فاستخدم 'المتطلبات التنموية'."),
   );
 
   $form["developmentals_notice"] = array(
-    "label" => t(":نص إشعار التطوير"),
+    "label" => t("نص إشعار التطوير:"),
     "type" => "textarea",
     "value" => variable_get("developmentals_notice", t("وفقًا لسجلاتنا ، يُطلب منك إكمال الدورة (الدورات) المذكورة أعلاه. بالنسبة لبعض طلاب النقل ، قد لا يكون السجل الخاص بك مكتملاً. إذا كان لديك أي أسئلة ، يرجى سؤال المرشد الخاص بك.")),
     "description" => t("سيتم عرض النص الذي تقوم بإدخاله هنا أسفل كتلة فصول التطوير، موضحًا للطالب ما هذه المقررات. على سبيل المثال: 'وفقًا لسجلاتنا ، يجب عليك إكمال المقرر(ات) المذكورة أعلاه'."),
@@ -1589,7 +1589,7 @@ function system_handle_logout() {
 
   watchdog("logout", "@user has logged out", array("@user" => "$name ($uid)"));
 
-  fp_add_message(t("FlightPath لقد تم تسجيل خروجك من"));
+  fp_add_message(t("لقد تم تسجيل خروجك من FlightPath "));
   fp_goto("<front>");
 
 }
@@ -2101,7 +2101,7 @@ function system_modules_form() {
 
   $form["mark" . $m++] = array(
     "value" => t("استخدم هذا النموذج لتمكين أو تعطيل الوحدات.هذا يفحص مجلد modules ثم مجلد custom -> modules.") . "
-                  " . l(t("Run DB updates?"), "admin/db-updates") . "<br><br>",
+                  " . l(t("تشغيل تحديثات قاعدة البيانات؟"), "admin/db-updates") . "<br><br>",
   );
 
 

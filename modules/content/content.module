@@ -10,7 +10,7 @@ function content_menu() {
 
   $items["admin/config/content"] = array(
     "title" => "محتوى",
-    "description" => ".مثال: الإعلانات والصفحات وما إلى ذلك FlightPath إدارة المحتوى في",
+    "description" => ". إدارة المحتوى في FlightPath مثال: الإعلانات والصفحات وما إلى ذلك",
     "page_callback" => "content_display_content_admin_list",
     "access_arguments" => array("admin_content"),
     "page_settings" => array(
@@ -549,7 +549,7 @@ function content_display_content_admin_list() {
     // Hack to support non-clean URL sites
     $rtn .= "<input type='hidden' name='q' value='admin/config/content'>";
   }
-  $rtn .="<input type='submit' value='Go'> </form>";
+  $rtn .="<input type='submit' value='الذهاب'> </form>";
 
 
 

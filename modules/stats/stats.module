@@ -451,7 +451,7 @@ function stats_report_course_use_summary() {
             <input type='text' name='subject_id' placeholder='subject ID' size='10' value='$subject_id'> &nbsp;
             <input type='text' name='course_num' placeholder='course num' size='10' value='$course_num'> &nbsp;
             <input type='checkbox' name='draft' value='checked' $draft_check>Check draft tables? &nbsp;
-            <input type='submit' value='Search'>
+            <input type='submit' value='البحث'>
             <br><b>Note:</b> This may take up to a minute to run, please be patient.";
 
   $rtn .= "</form>";
@@ -948,7 +948,7 @@ function stats_report_flightpath_use_summary() {
   $u_staff = stats_get_log_count("course_search","",true,$start_date,$end_date,false);
   $t_staff = stats_get_log_count("course_search","",false,$start_date,$end_date,false);
   $tm_staff = stats_get_log_count("course_search","",false,$start_date,$end_date,false, true);
-  $rtn .= "<b>Course Search</b>
+  $rtn .= "<b>بحث المساق</b>
       <blockquote>
         Unique student users: $u_student    <span class='s-mobile'>($um_student mobile)</span><br>
         Total student uses: $t_student    <span class='s-mobile'>($tm_student mobile)</span><br>

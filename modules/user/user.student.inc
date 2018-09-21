@@ -409,12 +409,12 @@ function user_edit_student_user_form() {
   $user_name = $cur["user_name"];
   if ($user_name != "") {
     $form["mark" . $m++] = array(
-      "value" => "<p> $user_name <b> :رمز المستخدم</b></p>",
+      "value" => "<p> $user_name <b>رمز المستخدم:</b></p>",
     );
   }
 
   $form["new_password"] = array(
-    "label" => t(": أدخل كلمة سر جديدة لهذا المستخدم"),
+    "label" => t("أدخل كلمة سر جديدة لهذا المستخدم:"),
     "type" => "textfield",
     "size" => 20,
     "required" => ($student_cwid == "new") ? TRUE : FALSE,
@@ -422,25 +422,25 @@ function user_edit_student_user_form() {
   );
 
   $form["email"] = array(
-    "label" => t(": البريد الإلكتروني"),
+    "label" => t("البريد الإلكتروني:"),
     "type" => "textfield",
     "value" => $cur["email"],
   );
 
   $form["f_name"] = array(
-    "label" => t(": الاسم الأول"),
+    "label" => t("الاسم الأول:"),
     "type" => "textfield",
     "value" => $cur["f_name"],
   );
 
   $form["l_name"] = array(
-    "label" => t(": الاسم الأخير"),
+    "label" => t("الاسم الأخير:"),
     "type" => "textfield",
     "value" => $cur["l_name"],
   );
 
   $form["is_disabled"] = array(
-    "label" => t(":معطل"),
+    "label" => t("معطل:"),
     "type" => "textfield",
     "value" => $cur["is_disabled"],
     "size" => 5,
@@ -450,7 +450,7 @@ function user_edit_student_user_form() {
 
   // Unique to students...
   $form["cumulative_hours"] = array(
-    "label" => t(":الساعات التراكمية"),
+    "label" => t("الساعات التراكمية:"),
     "type" => "textfield",
     "value" => $cur["cumulative_hours"],
     "size" => 5,
@@ -458,7 +458,7 @@ function user_edit_student_user_form() {
   );
 
   $form["gpa"] = array(
-    "label" => t(":المعدل التراكمي"),
+    "label" => t("المعدل التراكمي:"),
     "type" => "textfield",
     "value" => $cur["gpa"],
     "size" => 5,
@@ -466,24 +466,24 @@ function user_edit_student_user_form() {
   );
 
   $form["rank_code"] = array(
-    "label" => t(": التصنيف أو المرتبة"),
+    "label" => t("التصنيف أو المرتبة:"),
     "type" => "textfield",
     "value" => $cur["rank_code"],
     "size" => 5,
-    "description" => t(".للسنة الأولى, السنة الثانية, السنة الثالثة, السنة الرابعة, تخرج GR, SR, JR, SO, FR على سبيل المثال ") . "
-                      <br><b>" . t(":مهم") . "</b> " . t(".FlightPath إذا لم تقم بذلك فلن تتمكن من البحث عن هذا الطالب في, FR يجب عليك إدخال رمز حقل (تصنيف الطلاب المسموح بهم) في نموذج (إعدادات النظام). على سبيل المثال ") . "<br>&nbsp; &nbsp; &nbsp;" . t(":القيمة الحالية لرتب الطلاب المسموح بها") . "
+    "description" => t("على سيل المثال GR, SR, JR, SO, FR للسنة الأولى, السنة الثانية, السنة الثالثة, السنة الرابعة, تخرج.") . "
+                      <br><b>" . t("مهم:") . "</b> " . t(".FlightPath إذا لم تقم بذلك فلن تتمكن من البحث عن هذا الطالب في, FR يجب عليك إدخال رمز حقل (تصنيف الطلاب المسموح بهم) في نموذج (إعدادات النظام). على سبيل المثال ") . "<br>&nbsp; &nbsp; &nbsp;" . t(":القيمة الحالية لرتب الطلاب المسموح بها") . "
                       <i>" . variable_get("allowed_student_ranks", "") . "</i>",
   );
 
   $form["major_code"] = array(
-    "label" => t(": رمز التخصص"),
+    "label" => t("رمز التخصص:"),
     "type" => "textfield",
     "value" => $cur["major_code"],
     "size" => 10,
   );
 
   $form["catalog_year"] = array(
-    "label" => t(": كتالوج العام"),
+    "label" => t("كتالوج العام:"),
     "type" => "textfield",
     "value" => $cur["catalog_year"],
     "size" => 10,
@@ -491,7 +491,7 @@ function user_edit_student_user_form() {
   );
 
   $form["is_active"] = array(
-    "label" => t(": نشط"),
+    "label" => t("نشط:"),
     "type" => "textfield",
     "value" => $cur["is_active"],
     "size" => 5,

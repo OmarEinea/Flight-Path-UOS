@@ -834,10 +834,10 @@ function course_search_display_search() {
   $rtn .= "";
 
   if (user_has_permission("can_update_course_info_details")) {
-    $rtn .= "<div>" . t(":المسؤولين") . " " . l(t("تحرير جداول المساقات والمناهج الدراسية"), "tools/course-search/edit-list") . "</div>";
+    $rtn .= "<div>" . t("المسؤولين:") . " " . l(t("تحرير جداول المساقات والمناهج الدراسية"), "tools/course-search/edit-list") . "</div>";
   }
 
-  $rtn .= fp_render_curved_line("Course Search");
+  $rtn .= fp_render_curved_line("بحث المساق");
 
 
   $settings = fp_get_system_settings();
@@ -850,8 +850,7 @@ function course_search_display_search() {
   if ($catalog_year == "")
   {
 
-    $rtn .= "Please select an available catalog year from the
-      list below.<br><br>
+    $rtn .= "يرجى تحديد مساق متاح من القائمة أدناه.<br><br>
       <form action='" . fp_url("tools/course-search") . "' method='GET' name='mainform' id='myform'>
       <table align='center'>
       <td width='150' valign='bottom'>
@@ -864,7 +863,7 @@ function course_search_display_search() {
     $rtn .= "</select>
       </td>
       <td valign='bottom'>
-        <input type='submit' value='Select'>
+        <input type='submit' value='اختيار'>
       </td>
       </table>";
 
@@ -879,10 +878,10 @@ function course_search_display_search() {
   else {
     // Catalog year has been selected.
 
-    $rtn .= "Current catalog year: <b>$catalog_year-" . ($catalog_year +1) . "</b>
+    $rtn .= "كتالوج العام الحالي: <b>$catalog_year-" . ($catalog_year +1) . "</b>
 
         <br><br>
-      Please select an available subject from the list below.<br>
+      يرجى تحديد مساق متاح من القائمة أدناه.<br>
       <br>
       <form action='" . fp_url("tools/course-search/courses") . "' method='GET' name='mainform' id='myform'>";
 
@@ -948,7 +947,7 @@ function course_search_display_search() {
           <input type='hidden' name='mode' value='$mode'>
           </div><br><br><br>
           <div align='right'>
-          <input type='submit' value='Select'>
+          <input type='submit' value='اختيار'>
         </div>";
     }
 

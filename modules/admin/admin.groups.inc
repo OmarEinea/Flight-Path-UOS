@@ -9,7 +9,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
   $values = $form_submit["values"];
   $de_catalog_year = $values["de_catalog_year"];
 
-  $db = get_global_database_handler();  
+  $db = get_global_database_handler();
   $db2 = new DatabaseHandler();
 
   $group_id = $values["group_id"];
@@ -24,7 +24,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
   $data_entry_comment = trim($values["data_entry_comment"]);
 
   // Save the entire post to the log.
- 
+
   // Since we are making a change to the draft table(s), let's add a row
   // to draft instructions.
   $db->add_draft_instruction("-");
@@ -34,7 +34,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
   if ($_POST["perform_action2"] == "delete_group") {
     $res = db_query("UPDATE draft_groups
                 SET delete_flag = '1'
-                WHERE group_id = '?' 
+                WHERE group_id = '?'
                 AND catalog_year = '?'
                 ", $group_id, $de_catalog_year);
     fp_add_message(t("تم حذف مجموعة @title (%name) بنجاح ل @year", array("@title" => $title, "%name" => $group_name, "@year" => $de_catalog_year)));
@@ -52,7 +52,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
     $form["#redirect"] = array(
       "path" => "admin/groups/edit-group",
       "query" => "group_id=$group_id&de_catalog_year=$de_catalog_year",
-    );    
+    );
   }
 
   $res = db_query("UPDATE draft_groups
@@ -62,7 +62,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
               icon_filename = '?',
               data_entry_comment = '?'
               WHERE
-                group_id = '?' ", 
+                group_id = '?' ",
               $group_name, $title, $priority, $icon_filename, $data_entry_comment, $group_id);
 
   // We need to delete all the existing course & subgroup requirements from this group.
@@ -107,7 +107,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
       $res = db_query("UPDATE draft_groups
               SET definition = ''
               WHERE
-                group_id = '?' ", $group_id);    
+                group_id = '?' ", $group_id);
   }
 
   // Okay, now we look at the actual "courses" box and assemble the group
@@ -130,7 +130,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
       // First, we need to request a new branchID for this new group.
       if (!$branch_id = $db->request_new_group_id()) {
         die ("Error.  Could not create new group (branch) ID.");
-      } 
+      }
       else {
         // Add this branch to the list of requirements for this group.
         $query = "INSERT INTO draft_group_requirements
@@ -174,10 +174,10 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
                     course_min_grade, course_repeats, data_entry_value)
                     values ('?','?','?','?','?~?') ";
           $res = db_query($query, $branch_id, $course_id, $min_grade, $course_repeats, $subject_id, $course_num);
-        } 
+        }
         else {
           // The course_id could not be found!
-          
+
           form_error("courses", t(".كمتطلب, لكن لم يتم إيجاد المساق في الكتالوج. لقد تم حذفه من قائمة المتطلبات. هل أنت متأكد من أنك قمت بكتابته بشكل صحيح؟ الرجاء التحقق من التهجئة و إضافة المساق مرة أخرى <b>%course</b> لم يتم إيجاد المساق! لقد حددت المساق", array("%course" => "$subject_id $course_num")));
 
         }
@@ -185,7 +185,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
       }
 
 
-    } 
+    }
     else {
       // Did NOT contain an ampersand (&), so this goes in the
       // regular course requirements.
@@ -220,8 +220,8 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
                     course_min_grade, course_repeats, data_entry_value)
                     values ('?','?','?','?','?~?') ";
         $res = db_query($query, $group_id, $course_id, $min_grade, $course_repeats, $subject_id, $course_num);
-        
-      } 
+
+      }
       else {
         // The course_id could not be found!
         form_error("courses", t(".كمتطلب, لكن لم يتم إيجاد المساق في الكتالوج. لقد تم حذفه من قائمة المتطلبات. هل أنت متأكد من أنك قمت بكتابته بشكل صحيح؟ الرجاء التحقق من التهجئة و إضافة المساق مرة أخرى <b>%course</b> لم يتم إيجاد المساق! لقد حددت المساق", array("%course" => "$subject_id $course_num")));
@@ -240,7 +240,7 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
   // Clear previous values to make sure the Required Courses box gets updated,
   // even if its set to readonly.
   clear_session_form_values("admin_edit_group_form");
-  
+
 }
 
 
@@ -250,20 +250,20 @@ function admin_edit_group_form_submit(&$form, $form_submit) {
  */
 function admin_edit_group_form() {
   $form = array();
-  
+
   $de_catalog_year = admin_get_de_catalog_year();
   $group_id = $_REQUEST["group_id"];
-  
+
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
-    
-  
+
+
   $form["#redirect"] = array(
     "path" => "admin/groups/edit-group",
     "query" => "group_id=$group_id&de_catalog_year=$de_catalog_year",
   );
-  
-  
+
+
   if (user_has_permission("can_view_advanced")) {
     $form["mark" . $m++] = array(
       "type" => "markup",
@@ -347,7 +347,7 @@ function admin_edit_group_form() {
                 ",
   );
 
-    
+
   $form["definition"] = array(
     "type" => "markup",
     "label" => t(":التعريف"),
@@ -356,14 +356,14 @@ function admin_edit_group_form() {
     "suffix" => "</div><a href='javascript: adminPopupWindow(\"" . fp_url("admin/groups/popup-edit-definition", "de_catalog_year=$de_catalog_year&group_id=$group_id") . "\");'
                             >[" . t("عدل التعريف") . "]</a>",
   );
- 
+
 
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<hr>",
   );
 
-  
+
   $courses = admin_get_group_courses($group);
   $form["courses"] = array(
     "type" => "textarea",
@@ -377,9 +377,9 @@ function admin_edit_group_form() {
     $form["courses"]["attributes"] = "readonly=readonly style='background-color: #ccc;' ";
     $form["courses"]["prefix"] = "<div class='admin-groups-courses-disabled'>
                                  " . t(".ملاحظة: لأنه تم تحديد تعريف, لا يمكنك إضافة تعديل المساقات المطلوبة مباشرة. قم بإدارة هذه المساقات مستخدما نافذة تعديل الوصف") . "</div>";
-                                 
+
   }
-  
+
 
 
   $form["data_entry_comment"] = array(
@@ -389,24 +389,24 @@ function admin_edit_group_form() {
     "cols" => 80,
     "value" => $group->data_entry_comment,
   );
- 
-  
+
+
   $form["submit"] = array(
     "type" => "submit",
     "value" => "Submit",
     "prefix" => "<hr>",
   );
-  
+
   $form["mark" . $m++] = array(
     "type" => "markup",
     "value" => "<div align='right'>
                       " . t("احذف هذه المجموعة؟") . " <input type='button' value='X'
                       onClick='adminDeleteGroup(\"$group_id\");'>
-                    </div>", 
+                    </div>",
   );
- 
- 
-  
+
+
+
   return $form;
 }
 
@@ -432,7 +432,7 @@ function admin_display_groups_popup_edit_definition() {
 
   $results = admin_get_courses_from_definition($definition);
 
-  
+
   // This text will be used to describe how the definition works in a javascript alert box:
   $tdef .= t(":أدخل,CSCI توفر التعريفات طريقة سريعة جدا لإضافة أو إزالة العديد من المساقات من مجموعة. على لى سبيل المثال, لإضافة جميع دورات ") . "\n";
   $tdef .= "       add CSCI.*\n";
@@ -443,9 +443,9 @@ function admin_display_groups_popup_edit_definition() {
   $tdef .= "       add *.*\n       rem *.1*\n       rem *.2*\n       rem *.3*\n";
   $tdef .= "\n\n" . t("يجب الإشارة إلى أن إضافة عبارات تتضمن المساقات التي تم تعليمها بالاستبعاد. وهذا عادي. تلك المساقات لن") . " ";
   $tdef .= t("تظهر في شاشات اختيار المجموعة ، ولكن سيتم إضافتها إلى مجموعة إذا كان الطالب قد أكمل هذه الدورة في الماضي.");
-  
-  
-  
+
+
+
   $rtn .= "<b>Edit Definition for $group->title ($de_catalog_year)<br><i>$group->group_name</i></b>
     <br><br><form action='" . fp_url("admin/groups/popup-edit-definition", "de_catalog_year=$de_catalog_year&group_id=$group_id") . "' method='POST' id='mainform'>
       <table border='0'>
@@ -469,23 +469,23 @@ function admin_display_groups_popup_edit_definition() {
       </table>
       </form>
       " . t(".إذا كنت راضيا عن نتائج هذا التعريف, انقر فوق زر حفظ إلى المجموعة. خلاف ذلك, ببساطة أغلق هذه النافذة ") . "
-      
-      
+
+
       <input type='button' value='Save to Group' onClick='adminPopupSaveDefinition(\"\");'>
-  
-    ";    
-    
-    
-     
-  
+
+    ";
+
+
+
+
   return $rtn;
 }
 
 
 
 
-function admin_get_course_array_from_course_id_array($course_idArray) {  
-  
+function admin_get_course_array_from_course_id_array($course_idArray) {
+
   // Convert an array of course_id's into their subject_id ~~ course_num format.
   // Pick non-excluded courses over excluded courses, when you have the option.
   $rtn_array = array();
@@ -510,8 +510,8 @@ function admin_get_course_array_from_course_id_array($course_idArray) {
 
 
 function admin_get_courses_from_definition($definition, $catalog_year = "") {
-   
-  
+
+
   $group_array = array();
 
   // Okay, first things first, let's trim this sucker and remove extra whitespace.
@@ -610,7 +610,7 @@ function admin_get_courses_from_definition($definition, $catalog_year = "") {
 
 
 function admin_get_course_id_array_from_course_array($course_array) {
-  
+
   $rtn_array = array();
   $db = new DatabaseHandler();
 
@@ -634,7 +634,7 @@ function admin_get_course_id_array_from_course_array($course_array) {
 
 
 function admin_get_course_array_from_definition_data($subject_data, $course_numData, $catalog_year = "") {
-  
+
    // Looks at the subjectData and course_numData fields, and constructs
   // a query to pull our every course which matches it.
 
@@ -648,9 +648,9 @@ function admin_get_course_array_from_definition_data($subject_data, $course_numD
     $catalog_line = "AND catalog_year = '$catalog_year'";
   }
 
-  
+
   $query = "SELECT * FROM draft_courses
-        WHERE 
+        WHERE
           subject_id LIKE '?'
         AND course_num LIKE '?'
         AND course_id > 0
@@ -660,10 +660,10 @@ function admin_get_course_array_from_definition_data($subject_data, $course_numD
   $res = db_query($query, $si, $cn) ;
   while ($cur = db_fetch_array($res)) {
     $course_id = $cur["course_id"];
-    
+
     if (in_array($course_id, $rtn_array)) continue;
     $rtn_array[] = $course_id;
-    
+
   }
 
   return $rtn_array;
@@ -676,8 +676,8 @@ function admin_get_course_array_from_definition_data($subject_data, $course_numD
  * version has a nasty bug where it doesn't work after a certain number of elements.
  */
 function admin_array_diff($array1, $array2) {
-  
-  
+
+
   // Return an array of values from array1 that
   // are NOT in array2.
   // This is my (Richard Peacock) own implementation of array_diff,
@@ -708,10 +708,10 @@ function admin_array_diff($array1, $array2) {
  */
 function admin_display_groups_popup_select_icon() {
   $rtn = "";
-  
+
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
-    
+
   $group_id = $_REQUEST["group_id"];
   $group = new Group();
   $group->group_id = $group_id;
@@ -746,7 +746,7 @@ function admin_display_groups_popup_select_icon() {
 
   foreach($files as $file) {
     $rtn .= "<div style='padding: 5px;'>
-        <input type='button' value='Select' onClick='adminPopupSelectIcon(\"$file\");' >
+        <input type='button' value='اختيار' onClick='adminPopupSelectIcon(\"$file\");' >
         &nbsp; &nbsp;
         <img src='" . fp_theme_location() . "/images/icons/$file' width='19'>
         $file</div>";
@@ -764,8 +764,8 @@ function admin_display_groups_popup_select_icon() {
  * Return back the courses in a group, suitable for the edit-group form.
  */
 function admin_get_group_courses(Group $group) {
-  
-  
+
+
   // Returns a plain text list of the courses in a group's requirements
   // for use in the editSpecificGroup page.
   $rtn = "";
@@ -868,12 +868,12 @@ function admin_get_group_courses(Group $group) {
  */
 function admin_display_groups() {
   $rtn = "";
-  
+
   $de_catalog_year = admin_get_de_catalog_year();
-  
+
   fp_add_css(fp_get_module_path("admin") . "/css/admin.css");
   fp_add_js(fp_get_module_path("admin") . "/js/admin.js");
-  
+
   $db2 = new DatabaseHandler();
 
   fp_set_title(t("تحرير المجموعات ل") . " $de_catalog_year");
@@ -881,7 +881,7 @@ function admin_display_groups() {
   $rtn .= "
       <h2 class='title'>" . t("تحرير المجموعات ل @de_catalog_year", array("@de_catalog_year" => $de_catalog_year)) . "</h2>
         Options:
-        <ul style='margin-top: 5px;'>          
+        <ul style='margin-top: 5px;'>
           <li>" . l(t("أضف مجموعة جديدة لهذا العام"), "admin/groups/edit-group", "de_catalog_year=$de_catalog_year&group_id=new") . "</li>
           <li>" . l(t(" معالجة جميع تعريفات المجموعة لهذا العام"), "admin/groups/process-all-definitions", "de_catalog_year=$de_catalog_year") . "</li>
           </li>
@@ -943,15 +943,15 @@ function admin_display_groups() {
             $use_count <a href='javascript: adminPopupWindow(\"" . fp_url("admin/groups/popup-show-group-use", "group_id=$db_group_id") . "\");'><img src='" . fp_theme_location() . "/images/popup.gif' border='0'></a>
           </td>
 
-          
-        </tr>"; 
+
+        </tr>";
   }
 
   $rtn .= "</table>";
-  
-  
-  
-  
+
+
+
+
   return $rtn;
 }
 
@@ -962,12 +962,12 @@ function admin_process_all_definitions_form() {
   $de_catalog_year = admin_get_de_catalog_year();
 
   fp_set_title(t("@year معالجة كل التعاريف لعام", array("@year" => $de_catalog_year)));
-  
+
   $form["mark" . $m++] = array(
     "type" => "markup",
-    "value" => t(".سيؤدي ذلك إلى إزالة جميع المجموعات ذات التعريفات وتعديل تعريفاتها. يمكن أن تستغرق هذه العملية عدة دقائق ، اعتمادًا على عدد المجموعات التي تحتوي على تعريفات لديك"), 
-  );  
-      
+    "value" => t(".سيؤدي ذلك إلى إزالة جميع المجموعات ذات التعريفات وتعديل تعريفاتها. يمكن أن تستغرق هذه العملية عدة دقائق ، اعتمادًا على عدد المجموعات التي تحتوي على تعريفات لديك"),
+  );
+
 
   $form["de_catalog_year"] = array(
     "type" => "hidden",
@@ -979,21 +979,21 @@ function admin_process_all_definitions_form() {
     "value" => t("معالجة التعاريف"),
     "description" => t("!يمكن أن يستغرق دقائق معدودة لعميل! اضغط مرة واحدة فقط"),
   );
-     
 
 
-    
+
+
   return $form;
-  
+
 }
 
 /**
  * Actually perform the refreshing of definitions.
  */
 function admin_process_all_definitions_form_submit($form, $form_submit) {
-  
+
   $values = $form_submit["values"];
-  
+
   $db = get_global_database_handler();
   $de_catalog_year = $values["de_catalog_year"];
 
@@ -1002,8 +1002,8 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
 
   // First, find every group which has a definition set.
   $res = db_query("SELECT * FROM draft_groups
-                       WHERE definition != '' 
-                       AND catalog_year = '?' 
+                       WHERE definition != ''
+                       AND catalog_year = '?'
                        AND delete_flag = 0 ", $de_catalog_year);
   while($cur = db_fetch_array($res)) {
     $def = $cur["definition"];
@@ -1067,8 +1067,8 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
                     values ('?','?',
                     '?','?','?~?') ";
           $res2 = db_query($query, $group_id, $course_id, $min_grade, $course_repeats, $subject_id, $course_num);
-          $ccount++;        
-        } 
+          $ccount++;
+        }
         else {
           // The course_id could not be found!
 
@@ -1078,11 +1078,11 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
       }
     }
 
-    fp_add_message(t("%name مساقات. تم معالجة تعريف ال %count تم إضافة", array("%name" => $group_name, "%count" => $ccount)));    
+    fp_add_message(t("%name مساقات. تم معالجة تعريف ال %count تم إضافة", array("%name" => $group_name, "%count" => $ccount)));
 
   }
-  
-    
+
+
   fp_add_message(t(" @year تم إعادة تشغيل تعريفات المجموعة لـ", array("@year" => $de_catalog_year)));
 }
 
@@ -1095,7 +1095,7 @@ function admin_process_all_definitions_form_submit($form, $form_submit) {
  */
 function admin_display_groups_popup_show_group_use() {
   $rtn = "";
-  
+
   $group_id = $_REQUEST["group_id"];
   $group = new Group();
   $group->group_id = $group_id;
@@ -1135,25 +1135,16 @@ function admin_display_groups_popup_show_group_use() {
           <td valign='top' class='tenpt' width='100'>
             $db_catalog_year
           </td>
-          
+
         </tr>
         ";
 
   }
 
 
-  $rtn .= "</table>";  
-  
-  
-  
+  $rtn .= "</table>";
+
+
+
   return $rtn;
 }
-
-
-
-
-
-
-
-
-

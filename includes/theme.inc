@@ -582,15 +582,15 @@ function fp_build_tab_array($page) {
     }
 
     if (!$bool_blank) {
-      array_push($display_array, t(": الاسم ") . " ~~ " . $student->name);
-      array_push($display_array, t(": رمز المستخدم") . " ~~ " . $student->student_id);
+      array_push($display_array, t("الاسم:") . " ~~ " . $student->name);
+      array_push($display_array, t("رمز المستخدم:") . " ~~ " . $student->student_id);
     }
 
     if ($screen_mode == "detailed") {
       $degree_title .= " ($degree_plan->major_code)";
     }
 
-    array_push($display_array, t(": التخصص") . " ~~ " . $degree_title);
+    array_push($display_array, t("التخصص:") . " ~~ " . $degree_title);
     // If this degree has tracks, we must display something about it here.
 
     if ($degree_plan->bool_has_tracks)
@@ -641,11 +641,11 @@ function fp_build_tab_array($page) {
       array_push($display_array, t(":خيار") . " ~~ " . $op_text);
     }
     if (!$bool_blank) {
-      array_push($display_array, t(":المرتبة") . " ~~ " . $student->rank);
+      array_push($display_array, t("المرتبة:") . " ~~ " . $student->rank);
     }
-    array_push($display_array, t(":كتالوج السنة الدراسية") . " ~~ " . $cat_year);
+    array_push($display_array, t("كتالوج السنة الدراسية:") . " ~~ " . $cat_year);
     if (!$bool_blank) {
-      array_push($display_array, t(":تراكمي") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 2) . " " . t("المعدل التراكمي"));
+      array_push($display_array, t("تراكمي:") . " ~~ " . $student->cumulative_hours . " " . t("ساعات") . ". &nbsp;" . fp_truncate_decimals($student->gpa, 2) . " " . t("المعدل التراكمي"));
     }
 
 
@@ -722,7 +722,7 @@ function fp_build_tab_array($page) {
       </td>
       <td valign='middle' class='tenpt' style='padding-left: 8px;'>
         <b>" . t("ملاحظة مهمة:") . " </b>
-        " . t("أعلاه للطالب, مما يعني أن خطة الدرجة العلمية أدناه قد لا تظهر متطلبات درجته العلمية بدقة @current كتالوج العام .@earliest إظهار خطط الدرجة العلمية من كتالوجات أقدم من FlightPath لا يمكن ل", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
+        " . t("لا يمكن ل FlightPath إظهار خطط الدرجة العلمية من كتالوجات أقدم من @earliest. كتالوج العام @current أعلاه للطالب, مما يعني أن خطة الدرجة  العلمية أدناه قد لا تظهر متطلبات درجته العلمية بدقة", array("@earliest" => $settings["earliest_catalog_year"] . "-" . ($settings["earliest_catalog_year"] + 1), "@current" => $cat_year)) . "
       </td>
       </table>
       </div>

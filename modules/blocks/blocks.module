@@ -188,7 +188,7 @@ function blocks_manage_blocks_form() {
 
   $form["submit"] = array(
     "type" => "submit",
-    "value" => t("Blockحفظ موقع ال"),
+    "value" => t("حفظ موقع الBlock"),
     "prefix" => "<hr>",
   );
 

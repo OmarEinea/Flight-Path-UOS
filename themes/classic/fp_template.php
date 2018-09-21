@@ -79,12 +79,12 @@ if ($page_is_popup) {
 
 		<table class='top-banner fp-layout-table'>
 			<tr>
-				<td class='corner-top-left'></td>
-	      <td class='layout-table-top'></td>
 				<td class='corner-top-right'></td>
+	      <td class='layout-table-top'></td>
+				<td class='corner-top-left'></td>
 			</tr>
 			<tr>
-			  <td class='layout-table-left'></td>
+			  <td class='layout-table-right'></td>
 			  <td class='layout-table-content'>
 			    <?php
 
@@ -103,14 +103,14 @@ if ($page_is_popup) {
 
 			  ?>
 			  </td>
-			  <td class='layout-table-right'></td>
+			  <td class='layout-table-left'></td>
 			</tr>
 			<tr>
-				<td class='corner-bottom-left'>
+				<td class='corner-bottom-right'>
 				  <div class='layout-table-spacer_33_36'></div>
 				</td>
 				<td class='layout-table-bottom'></td>
-				<td class='corner-bottom-right'>
+				<td class='corner-bottom-left'>
 					<div class='layout-table-spacer_33_36'></div>
 				</td>
 			</tr>
@@ -160,12 +160,12 @@ if ($page_is_popup) {
 			<tr>
 
 
-				<td class='corner-top-left'></td>
-				<td class='layout-table-top'></td>
 				<td class='corner-top-right'></td>
+				<td class='layout-table-top'></td>
+				<td class='corner-top-left'></td>
 			</tr>
 			<tr>
-				<td class='layout-table-left'></td>
+				<td class='layout-table-right'></td>
 				<td class='layout-table-content'>
 
           <div class='page-content'>
@@ -181,14 +181,14 @@ if ($page_is_popup) {
 
 
 
-				<td class='layout-table-right'></td>
+				<td class='layout-table-left'></td>
 			</tr>
 			<tr>
-				<td class='corner-bottom-left'>
+				<td class='corner-bottom-right'>
 					<div class='layout-table-spacer_33_36'></div>
 				</td>
 				<td class='layout-table-bottom'></td>
-				<td class='corner-bottom-right'>
+				<td class='corner-bottom-left'>
 					<div class='layout-table-spacer_33_36'></div>
 				</td>
 

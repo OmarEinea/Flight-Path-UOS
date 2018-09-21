@@ -999,19 +999,19 @@ function fp_render_tab_array($tab_array)
 
     <table align='left' cellpadding='0' onClick='$on_click' cellspacing='0' class='$theclass' onmouseover='this.className=\"$overclass\";' onmouseout='this.className=\"inactive_tab\";'>
     <tr>
-      <td class='tab_tl_i' align='left' valign='baseline'  width='12'></td>
+      <td class='tab_tr_i' align='right' valign='baseline'  width='12'></td>
       <td class='tab_top_i' valign='baseline' ></td>
-      <td class='tab_tr_i' valign='baseline' align='right' width='12'></td>
+      <td class='tab_tl_i' valign='baseline' align='left' width='12'></td>
     </tr>
     <tr>
-     <td class='tab_left_i' align='left' valign='baseline' width='12'>
-      <img src='$img_path/tab_left_i.gif' width='12' height='18'>
+     <td class='tab_right_i' align='right' valign='baseline' width='12'>
+      <img src='$img_path/tab_right_i.gif' width='12' height='18'>
     </td>
     <td align='left' nowrap class='tab_center_i'>
      <div style='padding-bottom: 3px; margin-top: -2px;' class='tab_text'>$title</div>
     </td>
-    <td class='tab_right_i' align='right' valign='baseline'>
-     <img src='$img_path/tab_right_i.gif' width='12' height='18'>
+    <td class='tab_left_i' align='left' valign='baseline'>
+     <img src='$img_path/tab_left_i.gif' width='12' height='18'>
     </td>
     </tr>
     </table>
@@ -1023,19 +1023,19 @@ function fp_render_tab_array($tab_array)
       $rtn .= "
     <table align='left' cellpadding='0' cellspacing='0' class='active_tab'>
       <tr>
-        <td class='tab_tl' align='left' valign='baseline' width='12'></td>
+        <td class='tab_tr' align='right' valign='baseline' width='12'></td>
         <td class='tab_top' valign='baseline'></td>
-        <td class='tab_tr' valign='baseline' align='right' width='12'></td>
+        <td class='tab_tl' valign='baseline' align='left' width='12'></td>
       </tr>
       <tr>
-        <td class='tab_left' align='left' valign='baseline' width='12'>
-        <img src='$img_path/tab_left.gif' width='12' height='18'>
+        <td class='tab_right' align='lright' valign='baseline' width='12'>
+        <img src='$img_path/tab_right.gif' width='12' height='18'>
         </td>
         <td align='left' nowrap class='tab_center'>
           <div style='padding-bottom: 3px; margin-top: -2px;' class='tab_text'>$title</div>
         </td>
-        <td class='tab_right' align='right' valign='baseline'>
-          <img src='$img_path/tab_right.gif' width='12' height='18'>
+        <td class='tab_left' align='left' valign='baseline'>
+          <img src='$img_path/tab_left.gif' width='12' height='18'>
         </td>
       </tr>
     </table>
@@ -1117,15 +1117,15 @@ function fp_render_curved_line($text) {
   $rtn = "
    <table border='0' class='blueTitle' width='100%' cellpadding='0' cellspacing='0'>
      <tr>
-      <td width='10%' align='left' valign='top'><img src='$img_path/images/corner_tl.gif'></td>
+      <td width='10%' align='right' valign='top'><img src='$img_path/images/corner_tr.gif'></td>
       <td width='80%' align='center' rowspan='2'>
        <span class='tenpt'><b>$text</b></span>
       </td>
-      <td width='10%' align='right' valign='top'><img src='$img_path/images/corner_tr.gif'></td>
+      <td width='10%' align='left' valign='top'><img src='$img_path/images/corner_tl.gif'></td>
      </tr>
      <tr>
-      <td align='left' valign='bottom'><img src='$img_path/images/corner_bl.gif'></td>
       <td align='right' valign='bottom'><img src='$img_path/images/corner_br.gif'></td>
+      <td align='left' valign='bottom'><img src='$img_path/images/corner_bl.gif'></td>
      </tr>
     </table>
 ";

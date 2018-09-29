@@ -583,7 +583,7 @@ function user_edit_user_advisees_form() {
     fp_set_title(t("إنشاء مستخدم جديد لأعضاء هيئة التدريس/الموظفين"));
     $form["mark_sorry"] = array(
       "type" => "markup",
-      "value" => "<p>" . t("عذرًا ، ولكن لا يمكنك إضافة طلبة مشرف عليهم إلى عضو هيئة التدريس هذا حتى يتم إنشاء عضو هيئة التدريس بشكل كامل (وتعطى CWID). استخدم الزر تحرير عضو هيئة التدريس-الموظفين أعلاه للرجوع إلى تلك الشاشة.") . "</p>",
+      "value" => "<p>" . t("عذرًا ، ولكن لا يمكنك إضافة طلبة مشرف عليهم إلى عضو هيئة التدريس هذا حتى يتم إنشاء عضو هيئة التدريس بشكل كامل (ويعطى رمز المستخدم). استخدم الزر تحرير عضو هيئة التدريس-الموظفين أعلاه للرجوع إلى تلك الشاشة.") . "</p>",
     );
     return $form;
   }
@@ -639,7 +639,7 @@ function user_edit_user_advisees_form() {
 
   $form["warn_me"] = array(
     "type" => "checkbox",
-    "label" => t("حذرني إذا قمت بإدخال CWID الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),
+    "label" => t("حذرني إذا قمت بإدخال رمز مستخدم الطالب غير موجود في جدول الطلاب / المستخدمين حتى الآن (جيد للقبض على الأخطاء المطبعية)"),
     "value" => "نعم",
   );
 
@@ -673,7 +673,7 @@ function user_edit_user_advisees_form_validate($form, $form_state) {
       // Otherwise, check that it exists.
       $uid = db_get_user_id_from_cwid($line, "student");
       if ($uid < 2 || !$uid) {
-        form_error("students", t("تعثر العثور على CWID %cwid في جدول المستخدمين كطالب.لم يتم حفظ بياناتك.", array("%cwid" => $line)));
+        form_error("students", t("تعثر العثور على رمز المستخدم %cwid في جدول المستخدمين كطالب.لم يتم حفظ بياناتك.", array("%cwid" => $line)));
       }
 
     }
@@ -806,7 +806,7 @@ function user_edit_user_form() {
   // Only if we are making a new user...
   if ($faculty_cwid == "new") {
     $form["new_faculty_cwid"] = array(
-      "label" => t("ادخل CWID جديدة, فريدة من نوعها لهيئة التدريس."),
+      "label" => t("ادخل رمز مستخدم جديد, فريد من نوعه لهيئة التدريس."),
       "type" => "textfield",
       "size" => 20,
       "required" => TRUE,
@@ -954,7 +954,7 @@ function user_edit_user_form_validate($form, $form_state) {
     /*   // CWIDs are no longer required to be numeric.
     // Check that cwid is numeric.
     if (!is_numeric($new_cwid)) {
-      form_error("new_faculty_cwid", t("إن cwid الذي أدخلته ليس رقميًا. يجب أن تحتوي CWID على أرقام فقط. يرجى اختيار cwid مختلفة."));
+      form_error("new_faculty_cwid", t("إن رمز المستخدم الذي أدخلته ليس رقميًا. يجب أن يحتوي  رمز المستخدم على أرقام فقط. يرجى اختيار رمز مستخدم مختلف."));
       return;
     }
     */
@@ -970,7 +970,7 @@ function user_edit_user_form_validate($form, $form_state) {
     // Check cwid isn't already in use.
     $test = db_result(db_query("SELECT cwid FROM users WHERE cwid = '?' AND is_faculty = '1'", $new_cwid));
     if ($test == $new_cwid) {
-      form_error("new_faculty_cwid", t("إن cwid الذي أدخلته مستخدم بالفعل. يرجى اختيار cwid مختلفة."));
+      form_error("new_faculty_cwid", t("إن رمز المستخدم الذي أدخلته مستخدم بالفعل. يرجى اختيار رمز المستخدم مختلفة."));
       return;
     }
 
@@ -1698,11 +1698,11 @@ function user_display_users() {
       <table border='0' width='100%' cellpadding='3' cellspacing='0' class='user-list'>
 
         <tr>
-          <th>CWID</th>
-          <th>Name</th>
+          <th>رمز المستخدم</th>
+          <th>الاسم</th>
           <th></th>
-          <th>Department</th>
-          <th>Roles</th>
+          <th>القسم</th>
+          <th>الأدوار</th>
           <th>&nbsp;</th>
         </tr>
 

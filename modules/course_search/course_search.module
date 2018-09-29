@@ -353,7 +353,7 @@ function course_search_display_courses() {
 
   if (fp_screen_is_mobile()) {
     // TODO:  implement the fieldset thingy.
-    //$pC .= $screen->draw_c_fieldset($important_notice, "View important notice", true);
+    //$pC .= $screen->draw_c_fieldset($important_notice, "أظهار ملاحظة مهمة", true);
   }
   else {
     $rtn .= $important_notice;

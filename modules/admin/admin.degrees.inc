@@ -511,7 +511,7 @@ function admin_display_degrees() {
 
 
   $rtn .= "<div class='list-degree-row-excluded'>
-        " . t("Majors or Tracks marked as 'exclude' are shaded. You may pull up students with these majors in FlightPath, but they will not be options in the What If mode.") . "
+        " . t("التخصصات أو المسارات التي تحمل علامة "استبعاد" مظللة. يمكنك سحب الطلاب بهذه التخصصات في FlightPath ، لكن لن يكونوا خيارات في وضع ماذا لو") . "
       </div>
       <br>
       <div class='tenpt' align='center'>

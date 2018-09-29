@@ -216,7 +216,7 @@ class _AdvisingScreenTypeView extends _AdvisingScreen
 		{
 			$pC .= "<tr><td colspan='8'>
 				<div class='tenpt' style='text-align:right; margin-top: 10px;'>
-				Completed hours: $count_hours_completed
+				الساعات المكتملة: $count_hours_completed
 				</div>
 				";
 			$pC .= "</td></tr>";

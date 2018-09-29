@@ -84,7 +84,7 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_username"] = array(
     "type" => "textfield",
-    "label" => t(":اسم المستخدم الأساسي"),
+    "label" => t("اسم المستخدم الأساسي:"),
     "value" => variable_get("oracleapi_username", ""),
   );
 
@@ -96,7 +96,7 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_enc_password"] = array(
     "type" => "password",
-    "label" => t(":كلمة السر الأساسية"),
+    "label" => t("كلمة السر الأساسية:"),
     "value" => $password,
     "description" => t("أيضا MySQL الخاص بك، وتأكد من تقييد قاعدة بيانات Oracle هذا فقط للحفاظ على كلمة المرور من اكتشاف المتطفلين لكلمة المرور في نص عادي. تأكد من أن المستخدم لديه مستوى وصول مقيد بشكل مناسب إلى خادم <b>هذا ليس آمن</b> base64 ملاحظة الأمان: سيتم حفظ كلمة المرور في قاعدة البيانات في نظام ترميز بسيط"),
   );
@@ -104,14 +104,14 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_server"] = array(
     "type" => "textfield",
-    "label" => t(":الخادم الاساسي"),
+    "label" => t("الخادم الاساسي:"),
     "value" => variable_get("oracleapi_server", ""),
     "description" => t(":مثال") . " bb1.example.edu",
   );
 
   $form["oracleapi_port"] = array(
     "type" => "textfield",
-    "label" => t(":المنفذ الأساسي"),
+    "label" => t("المنفذ الأساسي:"),
     "value" => variable_get("oracleapi_port", "1521"),
     "description" => t(":مثال") . " 1521",
   );
@@ -119,7 +119,7 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_sid"] = array(
     "type" => "textfield",
-    "label" => t(":رمز المستخدم الأساسي"),
+    "label" => t("رمز المستخدم الأساسي:"),
     "value" => variable_get("oracleapi_sid", ""),
     "description" => t(":مثال") . " PROD",
   );
@@ -127,7 +127,7 @@ function oracleapi_settings_form() {
 
   $form["oracleapi_email_error"] = array(
     "type" => "textfield",
-    "label" => t(":أرسل رسالة إلكترونية عند حدوث خطأ"),
+    "label" => t("أرسل رسالة إلكترونية عند حدوث خطأ:"),
     "value" => variable_get("oracleapi_email_error", ""),
     "description" => t(" فسيتم إرسال بريد إلكتروني إلى هذا العنوان. يمكنك إدخال أكثر من عنوان واحد مفصولة بفاصلة. اتركه فارغًا لتعطيله oracle إذا كان هناك خطأ في"),
   );

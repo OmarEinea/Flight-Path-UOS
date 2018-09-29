@@ -1,5 +1,6 @@
 <html dir="rtl">
 <?php
+header('Content-Type: text/html; charset=utf-8');
 /**
  * @file
  * The primary entry point for FlightPath.

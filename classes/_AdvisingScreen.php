@@ -332,7 +332,7 @@ function draw_menu_items($menu_array) {
 
 	  // Add in our hidden divs which we will sometimes display...
 	  $page_content .= "<div id='updateMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحديث") . "</div>
-								<div id='loadMsg' class='updateMsg' style='display: none;'>" . t("..يتم التحميل") . "</div>";
+								<div id='loadMsg' class='updateMsg' style='display: none;'>" . t("يتم التحميل...") . "</div>";
 
 
 		include($GLOBALS["fp_system_settings"]["theme"] . "/fp_" . $print_option . "template.php");

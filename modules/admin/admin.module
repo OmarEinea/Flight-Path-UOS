@@ -821,7 +821,7 @@ function admin_advising_settings_form() {
     "size" => 10,
     "label" => t("المسودة الحالية لكتالوج العام"),
     "value" => variable_get("current_draft_catalog_year", ""),
-    "description" => t("While in Draft mode, this is the year which Blank Degree Search loads degrees from. What If mode will always use the Current catalog year, set above. You may change this while working on a new catalog. It will not affect any other users of the system. While not working on a new catalog, set this to the same as the Current catalog year."),
+    "description" => t("أثناء استخدام وضع المسودة ، يكون هذا هو العام الذي يحمّل فيه البحث عن درجة فارغة. وضع ماذا لو سيستخدم دائمًا النشرة المصورة الحالية ، المعين أعلاه. يمكنك تغيير هذا أثناء العمل على كتالوج جديد. لن يؤثر على أي مستخدمين آخرين للنظام. بينما لا تعمل على كتالوج جديد ، تعيين هذا إلى نفس السنة كتالوج الحالي. "),
   );
 
 
@@ -1457,7 +1457,7 @@ function admin_display_main() {
 
 
   // Advising Settings
-  $rtn .= fp_render_curved_line("Advising Settings");
+  $rtn .= fp_render_curved_line("إعدادات الإرشاد");
   $rtn .= "<div class='admin-advising-settings'>
 
        <ul>
@@ -1508,8 +1508,8 @@ function admin_display_main() {
     for ($t = $current_catalog_year +1; $t >= $earliest_catalog_year; $t--) {
       $rtn .= "<ul class='data-entry-for-cat data-entry-for-cat-$t'>";
       $rtn .= "<li>" . l(t("خطط شهادة جامعية لسنة @year", array("@year" => "$t-" . ($t+1))), "admin/degrees", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("@yearمجموعات ل ", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
-      $rtn .= "<li>" . l(t("@yearمساقات ل", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("مجموعات ل @year", array("@year" => "$t-" . ($t+1))), "admin/groups", "de_catalog_year=$t") . "</li>";
+      $rtn .= "<li>" . l(t("مساقات ل @year", array("@year" => "$t-" . ($t+1))), "admin/courses", "de_catalog_year=$t") . "</li>";
       $rtn .= "</ul>";
     }
 

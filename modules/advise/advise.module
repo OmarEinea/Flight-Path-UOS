@@ -63,7 +63,7 @@ function advise_menu() {
 
 
   $items["what-if"] = array(
-    "title" => "What If?",
+    "title" => "ماذا لو؟",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("what-if"),
     "access_callback" => "advise_can_access_view",
@@ -79,7 +79,7 @@ function advise_menu() {
 
 
   $items["what-if/print"] = array(
-    "title" => "What If?",
+    "title" => "ماذا لو؟",
     "page_callback" => "advise_display_view",
     "page_arguments" => array("what-if"),
     "access_callback" => TRUE,
@@ -851,11 +851,11 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
   $url = fp_url("what-if");
 
   $rtn .= "<form action='" . $url . "' id='mainform' method='POST'>";
-  $rtn .= fp_render_curved_line("What if I change my major to...");
+  $rtn .= fp_render_curved_line("ماذا لو غيرت تخصصي إلى...");
 
   $rtn .= "<br>
       Major: <select name='what_if_major_code' class='what-if-selector'>
-        <option value=''>Please select a major</option>
+        <option value=''>رجاء اختر تخصص</option>
         <option value=''>------------------------------</option>\n
         ";
   $settings = fp_get_system_settings();
@@ -876,15 +876,14 @@ function advise_display_what_if_selection($bool_undergrad_only = TRUE) {
 
   $rtn .= "
       <div align='right'>
-      " . fp_render_button("Try It Out!", "showUpdate(true);submitForm();") . "
+      " . fp_render_button("قم بتجربته", "showUpdate(true);submitForm();") . "
 
       </div>
       <br><br>
       <div class='hypo tenpt'>
-       <b>:ملاحظة هامة</b> What If displays degree plans
-       from the most recent catalog year ($current_catalog_year-" . ($current_catalog_year + 1) . "),
-       as any major change would place the student into the
-       most recent catalog.
+       <b>ملاحظة هامة:</b> ماذا لو يعرض خطط الدرجة
+       من أحدث كتالوجات العام ($current_catalog_year-" . ($current_catalog_year + 1) . "),
+       مثل أي تغيير في التخصص من شأنه أن يضع الطالب في أحدث كتالوج
       </div>";
 
 

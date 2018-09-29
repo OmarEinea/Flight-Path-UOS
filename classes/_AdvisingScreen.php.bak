@@ -1758,13 +1758,13 @@ function draw_menu_items($menu_array) {
  			</tr>
  			<tr>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("Core:") . " $fulfilled_core_hours / $total_core_hours
+ 					" . t("الأساسي:") . " $fulfilled_core_hours / $total_core_hours
  				</td>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("Major:") . " $fulfilled_major_hours / $total_major_hours
+ 					" . t("التخصص:") . " $fulfilled_major_hours / $total_major_hours
  				</td>
  				<td class='tenpt' width='33%' align='center'>
- 					" . t("Degree:") . " $fulfilled_degree_hours / $total_degree_hours
+ 					" . t("الدرجة العلمية:") . " $fulfilled_degree_hours / $total_degree_hours
  				</td>
 
  			</tr>
@@ -1819,7 +1819,7 @@ function draw_menu_items($menu_array) {
 						style='border: 5px double #C1A599;
 								padding: 5px;
 								margin: 10px;'>
-					<b>" . t("Important Message:") . "</b> $public_note
+					<b>" . t("رسالة مهمة:") . "</b> $public_note
 					</div>
 					</td></tr>";
 

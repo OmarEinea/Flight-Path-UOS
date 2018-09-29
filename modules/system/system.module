@@ -720,7 +720,7 @@ function system_popup_report_contact_form_submit($form, $form_state) {
   $subject = t("تقرير FLIGHTPATH ​​CONTACT") . " - $category ";
   $msg = "";
   $msg .= t("لقد تلقيت تقريرًا / جهة اتصال جديدة في") . " $datetime.\n";
-  $msg .= t("الاسم:") . " $user->f_name $user->l_name ($user->name)  CWID: $user->cwid  \n" . t("دور المستخدم:") . " $user_roles \n\n";
+  $msg .= t("الاسم:") . " $user->f_name $user->l_name ($user->name)  رمز المستخدم: $user->cwid  \n" . t("دور المستخدم:") . " $user_roles \n\n";
   $msg .= t("فئة:") . " $category  \n";
   $msg .= t("الطالب المحتمل:") . " $possible_student  \n";
   $msg .= t("تعليق:") . " \n $comment \n\n";
@@ -1912,7 +1912,7 @@ function system_login_form_submit($form, &$form_state) {
   // Set the $account to the SESSION.
   $_SESSION["fp_user_object"] = $account;
 
-  watchdog("login", "@user has logged in. CWID: @cwid", array("@user" => "$account->name ($account->id)", "@cwid" => $account->cwid));
+  watchdog("login", "@user has logged in. رمز المستخدم: @cwid", array("@user" => "$account->name ($account->id)", "@cwid" => $account->cwid));
 
   fp_goto("<front>");
 

@@ -303,7 +303,7 @@ function ldap_settings_form() {
 
 
   $form["ldap_uid_attr"] = array(
-    "label" => t(":صفة اسم المستخدم:"),
+    "label" => t("صفة اسم المستخدم:"),
     "type" => "text",
     "size" => 20,
     "value" => variable_get("ldap_uid_attr", "uid"),
@@ -327,8 +327,8 @@ function ldap_settings_form() {
     "label" => t(":رسالة للعرض إذا تعذر إيجاد رمز المستخدم"),
     "type" => "textarea",
     "rows" => 2,
-    "value" => variable_get("ldap_no_cwid_msg", t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام CWID مثال: لا يمكن العثور على ")),
-    "description" => t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام CWID مثال: لا يمكن العثور على "),
+    "value" => variable_get("ldap_no_cwid_msg", t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام رمز المستخدم مثال: لا يمكن العثور على ")),
+    "description" => t("LDAPلهذا المستخدم في نتيجة . يرجى الرجوع إلى مسؤول النظام رمز المستخدم مثال: لا يمكن العثور على "),
   );
 
 
@@ -337,18 +337,18 @@ function ldap_settings_form() {
 
 
   $form["ldap_cwid_field"] = array(
-    "label" => t("حقل CWID المستخدم:"),
+    "label" => t("حقل رمز المستخدم:"),
     "type" => "text",
     "size" => 30,
     "prefix" => "<hr>",
     "value" => variable_get("ldap_cwid_field", "employeenumber"),
-    "description" => t("في مجموعة نتائج بحث المستخدم في LDAP ، ما هو الحقل الذي يحتوي على CWID الخاص بالمستخدم؟ على سبيل المثال: employeenumber ، userid ، إلخ.") . "
+    "description" => t("في مجموعة نتائج بحث المستخدم في LDAP ، ما هو الحقل الذي يحتوي على رمز المستخدم الخاص بالمستخدم؟ على سبيل المثال: employeenumber ، userid ، إلخ.") . "
                         <br><b>" . t("لاحظ أن أسماء الحقول قد تحتاج إلى أن تكون صغيرة إلى حد ما ، بغض النظر عن كيفية تمثيلها في LDAP.") . "</b>",
   );
 
 
   $form["ldap_f_name_field"] = array(
-    "label" => t(":الاسم الاول للمستخدم"),
+    "label" => t("الاسم الاول للمستخدم:"),
     "type" => "text",
     "size" => 30,
     "value" => variable_get("ldap_f_name_field", ""),
@@ -357,7 +357,7 @@ function ldap_settings_form() {
   );
 
   $form["ldap_l_name_field"] = array(
-    "label" => t(":الاسم الأخير للمستخدم"),
+    "label" => t("الاسم الأخير للمستخدم:"),
     "type" => "text",
     "size" => 30,
     "value" => variable_get("ldap_l_name_field", ""),

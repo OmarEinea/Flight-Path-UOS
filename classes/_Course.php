@@ -45,7 +45,7 @@ class _Course
   public $bool_unselectable;
   public $bool_hide_grade, $bool_ghost_hour, $bool_ghost_min_hour;
 
-  
+
 
 
 /**
@@ -54,25 +54,25 @@ class _Course
  * @param int $course_id
  *        - Numeric course_id of the course to try to load.  Leave blank
  *          if you simply wish to instantiate a course object.
- * 
+ *
  * @param bool $is_transfer
  *        - Is this course a transfer course?  Meaning, from another
  *          school.
- * 
+ *
  * @param DatabaseHandler $db
  * @param bool $is_blank
  * @param int $catalog_year
  *        - What catalog_year does this Course belong to?  This is
- *          used later when we call load_descriptive_data() to get its 
+ *          used later when we call load_descriptive_data() to get its
  *          description, hour count, etc.
- * 
+ *
  * @param bool $bool_use_draft
  */
   function __construct($course_id = "", $is_transfer = false, DatabaseHandler $db = NULL, $is_blank = false, $catalog_year = "", $bool_use_draft = false)
   {
-    
+
     $this->advised_hours = -1;
-        
+
     if ($is_blank == true)
     { // Do nothing if this is a "blank" course.
       return;
@@ -94,7 +94,7 @@ class _Course
     $this->course_list_fulfilled_by = new CourseList();
     $this->group_list_unassigned = new ObjList();
     $this->bool_use_draft = $bool_use_draft;
-	
+
 
     // Always override if the global variable is set.
     if ($GLOBALS["fp_advising"]["bool_use_draft"] == true) {
@@ -124,13 +124,13 @@ class _Course
    * serialize, as I have to call this for every course on the screen,
    * and the page load time was too long when using serialize, probably
    * because of all the extra fields which I did not need.
-   * 
+   *
    * The string returned will be used to send information about this
    * course to a popup window.
-   * 
+   *
    * Important details about the course are put into a particular order,
    * separated by commas.  Booleans are converted to either 1 or 0.
-   * 
+   *
    * This function is the mirror of load_course_from_data_string().
    *
    * @return string
@@ -185,10 +185,10 @@ class _Course
     $rtn .= intval($this->bool_has_been_assigned) . "~";
 
     $rtn .= $this->display_status . "~";
-    
+
     $rtn .= intval($this->bool_ghost_hour) . "~";
-    
-    
+
+
 
 
     return $rtn;
@@ -200,17 +200,17 @@ class _Course
    * match the original object.  It is a poor man's
    * unserialize.  See to_data_string()'s description for a fuller
    * picture of what is going on.
-   * 
-   * To use:  
+   *
+   * To use:
    *  - $newCourse = new Course();
    *  - $newCourse->load_course_from_data_string($data);
-   *          
+   *
    *
    * @param string $str
    */
   function load_course_from_data_string($str)
   {
-    
+
     $temp = explode("~",$str);
 
     $this->course_id = 				$temp[0];
@@ -268,7 +268,7 @@ class _Course
   /**
    * This function will return a CSV string of all the possible
    * names for this course, in alphabetical order.
-   * 
+   *
    * This function is used by DataEntry primarily.
    *
    * @param bool $bool_add_white_space
@@ -287,7 +287,7 @@ class _Course
     // because we don't care what catalog year it comes from...
     $res = $this->db->db_query("SELECT * FROM $table_name
 						WHERE course_id = '?'
-						AND delete_flag = '0' 
+						AND delete_flag = '0'
 						ORDER BY subject_id, course_num ", $this->course_id);
     while($cur = $this->db->db_fetch_array($res))
     {
@@ -323,16 +323,16 @@ class _Course
 
   /**
    * The function returns either an integer of the the number of
-   * hours the course is worth, or, a range in the form of 
+   * hours the course is worth, or, a range in the form of
    * min-max (if the course has variable hours)
-   * 
+   *
    * Examples: 3 or 1-6
    *
    * @return string
    */
   function get_catalog_hours()
   {
-    
+
     if (!$this->has_variable_hours())
     {
       return $this->min_hours*1;
@@ -341,18 +341,18 @@ class _Course
 
       $min_h = $this->min_hours*1;
       $max_h = $this->max_hours*1;
-      
-      
+
+
       // Convert back from ghosthours.
       if ($this->bool_ghost_min_hour) {
         $min_h = 0;
       }
-      
+
       if ($this->bool_ghost_hour) {
         $max_h = 0;
-      }    
-        
-      
+      }
+
+
       return "$min_h-$max_h";
     }
   }
@@ -376,13 +376,13 @@ class _Course
     } else {
       // No, the user has not selected any hours yet.  So,
       // just display the min_hours.
-      
+
       // Correct for ghost hours, if any.
       $min_h = $this->min_hours * 1;
       if ($this->bool_ghost_min_hour) {
         $min_h = 0;
       }
-      
+
       return $min_h;
     }
 
@@ -416,15 +416,15 @@ class _Course
     }
   }
 
-  
+
   /**
-   * Returns TRUE if the student has completed the course 
+   * Returns TRUE if the student has completed the course
    * (and did not make a failing grade on it).
-   * 
-   * 
+   *
+   *
    *
    * @return bool
-   */  
+   */
   function is_completed()
   {
     // returns true if the course has been completed.
@@ -461,11 +461,11 @@ class _Course
    * @param Course $course_req
    *      - The Course object who has the min grade requirement.
    *        Set to NULL if using $m_grade.
-   * 
+   *
    * @param string $m_grade
    *      - The min grade which $this must meet.  Do not use if using
    *        $course_req.
-   * 
+   *
    * @return bool
    */
   function meets_min_grade_requirement_of(Course $course_req = NULL, $m_grade = "")
@@ -533,21 +533,21 @@ class _Course
    */
   function has_variable_hours()
   {
-    
+
     $min_h = $this->min_hours;
     $max_h = $this->max_hours;
-    
-    
+
+
     // Convert back from ghosthours, for the comparison.
     if ($this->bool_ghost_min_hour) {
       $min_h = 0;
     }
-    
+
     if ($this->bool_ghost_hour) {
       $max_h = 0;
     }
-    
-    
+
+
     if ($min_h == $max_h)
     {
       return false;
@@ -577,8 +577,8 @@ class _Course
       $h = 0;
       return $h;
     }
-    
-       
+
+
     // Do they have any hours_awarded? (because they completed
     // the course)
     if ($this->hours_awarded > 0)
@@ -587,13 +587,13 @@ class _Course
       return $h;
     }
 
-    
+
     if ($this->has_variable_hours() && $this->advised_hours > -1) {
       return $this->advised_hours * 1;
     }
-    
-    
-    
+
+
+
 
 
 
@@ -604,7 +604,7 @@ class _Course
   }
 
 
-  
+
 	/**
 	 * Calculate the quality points for this course's grade and hours.
 	 *
@@ -616,53 +616,53 @@ class _Course
 
 	  $hours = $this->get_hours();
 	  $grade = $this->grade;
-	  
+
 	  $pts = 0;
 		$qpts_grades = array();
-	  
+
 	  // Let's find out what our quality point grades & values are...
 	  if (isset($GLOBALS["qpts_grades"])) {
 	    // have we already cached this?
 	    $qpts_grades = $GLOBALS["qpts_grades"];
-	  }	
+	  }
 	  else {
 	    $tlines = explode("\n", variable_get("quality_points_grades", "A ~ 4\nB ~ 3\nC ~ 2\nD ~ 1\nF ~ 0\nI ~ 0"));
       foreach ($tlines as $tline) {
-        $temp = explode("~", trim($tline));      
+        $temp = explode("~", trim($tline));
         if (trim($temp[0]) != "") {
           $qpts_grades[trim($temp[0])] = trim($temp[1]);
         }
       }
-    
+
       $GLOBALS["qpts_grades"] = $qpts_grades;  // save to cache
 	  }
-    
+
 	  // Okay, find out what the points are by multiplying value * hours...
-    
+
     if (isset($qpts_grades[$grade])) {
 	   $pts = $qpts_grades[$grade] * $hours;
     }
-	  
-		
+
+
 		return $pts;
 
-	}  
-  
-  
-  
-  
-  
-  
+	}
+
+
+
+
+
+
   /**
    * This function is used for comparing a course name to the subject_id
-   * and course_num of $this.  
+   * and course_num of $this.
    * We expect a space between the subject_id and CourseNum in $str.
-   * 
+   *
    * For example: MATH 1010
-   * 
+   *
    * You may also ONLY specify a subject, ex: BIOL.  If you do that,
    * then only the subject will be compared.
-   * 
+   *
    * Example of use:  if ($c->name_equals("ART 101")) then do this etc.
    *
    * @param string $str
@@ -685,14 +685,14 @@ class _Course
 
   }
 
-  
+
   /**
    * Convienience function.  Simply compare the course_id of
    * another course to $this to see if they are equal.
-   * 
+   *
    * This is also used by CourseList and ObjList to determine
    * matches.
-   * 
+   *
    * Usage:  if ($newCourse.equals($otherCourse)) { ... }
    *
    * @param Course $course_c
@@ -708,8 +708,8 @@ class _Course
     return false;
   }
 
-  
-  
+
+
   /**
    * Load $this as a new course based on the subject_id and course_num,
    * instead of the course_id.  This is a useful function for when you
@@ -745,31 +745,31 @@ class _Course
 
     $catalog_line = "";
     if ($this->catalog_year != "") {
-      $catalog_line = " AND catalog_year = '$this->catalog_year' ";      
+      $catalog_line = " AND catalog_year = '$this->catalog_year' ";
     }
 
-    if ($is_transfer == false) {      
+    if ($is_transfer == false) {
       $this->load_descriptive_data();
     } else {
       // This is a transfer course.  Find out its eqv, if any...
-      
 
-  		
-      
+
+
+
       $res = $this->db->db_query("SELECT * FROM
 										transfer_courses a,
 										transfer_institutions b
-										WHERE 
-									   a.transfer_course_id = '?' 
+										WHERE
+									   a.transfer_course_id = '?'
 									   AND a.institution_id = b.institution_id ", $course_id);
       $cur = $this->db->db_fetch_array($res);
       $this->subject_id = $cur["subject_id"];
-      $this->course_num = $cur["course_num"];      
+      $this->course_num = $cur["course_num"];
       $this->course_id = $course_id;
       $this->bool_transfer = true;
       $this->institution_id = $cur["institution_id"];
       $this->institution_name = $cur["name"];
-      
+
     }
 
     $this->assign_display_status();
@@ -778,11 +778,11 @@ class _Course
 
   /**
    * This function will correct capitalization problems in course titles.
-   * 
+   *
    * @param string $str
-   * 
+   *
    * @return string
-   * 
+   *
    */
   function fix_title($str = "")
   {
@@ -792,7 +792,7 @@ class _Course
       $str = $this->title;
     }
 
-        
+
     // Should we do this at all?  We will look at the "autocapitalize_course_titles" setting.
     $auto = $GLOBALS["fp_system_settings"]["autocapitalize_course_titles"];
     if ($auto == "no") {
@@ -800,10 +800,10 @@ class _Course
       $this->title = $str;
       return $str;
     }
-    
+
     // Otherwise, we may continue with the capitalization scheme:
-    
-    
+
+
     $str = str_replace("/", " / ", $str);
     $str = str_replace("/", " / ", $str);
     $str = str_replace("-", " - ", $str);
@@ -823,7 +823,7 @@ class _Course
 
     // convert to ucwords and fix some problems introduced by that.
     $str = trim(ucwords(strtolower($str)));
-    
+
     $str = str_replace("Iii", "III", $str);
     $str = str_replace("Ii", "II", $str);
     $str = str_replace(" Iv"," IV",$str);
@@ -870,63 +870,63 @@ class _Course
 
     // If this contains the word "formerly" then we need to pull out what's
     // there and make it all uppercase, except for the word Formerly.
-    if (strstr(strtolower($str), strtolower("formerly "))) 
+    if (strstr(strtolower($str), strtolower("formerly ")))
     {
       $formline = preg_replace("/.*\((formerly .*)\).*/i", "$1", $str);
       $str = str_replace($formline, strtoupper($formline), $str);
       $str = str_replace("FORMERLY ", "Formerly ", $str);
     }
-    
+
 
     $this->title = $str;
 
     return $str;
   }
 
-  
+
   /**
    * This function will load $this will all sorts of descriptive data
    * from the database.  For example, hours, title, description, etc.
-   * 
+   *
    * It must be called before any attempts at sorting (by alphabetical order)
    * are made on lists of courses.
-   * 
+   *
    * It will by default try to load this information from cache.  If it cannot
    * find it in the cache, it will query the database, and then add what it finds
    * to the cache.
-   * 
+   *
    *
    * @param bool $bool_load_from_global_cache
    *        - If set to TRUE, this will attempt to load the course data
    *          from the "global cache", that is, the cache which is held in the
    *          GLOBALS array.  This should usually be set to TRUE, since this is
    *          much faster than querying the database.
-   * 
+   *
    * @param bool $bool_ignore_catalog_year_in_cache
    *        - If set to TRUE, we will grab whatever is in the cache for this
    *          course's course_id, regardless of if the catalog years match.
    *          If set to FALSE, we will try to match the course's catalog year
    *          in the cache as well.
-   * 
+   *
    * @param bool $bool_limit_current_catalog_year
    *        - If set to TRUE, then we will only *query* for the course's
    *          catalog_year in the db, and those before it (if we do not find
    *          the exact catalog_year).  We will not look for any catalog years
-   *          after it.  If set to FALSE, we will look through any 
+   *          after it.  If set to FALSE, we will look through any
    *          valid catalog year.
-   * 
+   *
    * @param bool $bool_force_catalog_year
    *        - If set to TRUE, we will only look for the course's catalog
    *          year in the database.
-   * 
+   *
    * @param bool $bool_ignore_exclude
    *        - If set to TRUE, we will ignore courses marked as "exclude" in the
    *          database.
-   * 
+   *
    */
   function load_descriptive_data($bool_load_from_global_cache = true, $bool_ignore_catalog_year_in_cache = true, $bool_limit_current_catalog_year = true, $bool_force_catalog_year = false, $bool_ignore_exclude = false)
   {
-    
+
     if ($this->db == null)
     {
       $this->db = get_global_database_handler();
@@ -943,10 +943,10 @@ class _Course
     if ($this->bool_use_draft) {
       $setting_current_catalog_year = variable_get("current_catalog_draft_year", 2006) * 1;
     }
-    
+
     $earliest_catalog_year = variable_get("earliest_catalog_year", 2006);
-    
-    
+
+
     if ($setting_current_catalog_year < $earliest_catalog_year)
     { // If it has not been set, assume the default.
       $setting_current_catalog_year = $earliest_catalog_year;
@@ -996,23 +996,23 @@ class _Course
       $this->title = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["title"];
       $this->description = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["description"];
       $this->min_hours = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["min_hours"];
-      
+
       // Reset the ghosthours to default.
       $this->bool_ghost_hour = $this->bool_ghost_min_hour = FALSE;
 
       if ($this->min_hours <= 0) {
-        $this->min_hours = 1;        
+        $this->min_hours = 1;
         $this->bool_ghost_min_hour = TRUE;
       }
-      
+
       $this->max_hours = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["max_hours"];
-      
+
       if ($this->max_hours <= 0) {
         $this->max_hours = 1;
         $this->bool_ghost_hour = TRUE;
       }
-      
-      
+
+
       $this->repeat_hours = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["repeat_hours"];
       $this->db_exclude = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["db_exclude"];
       $this->array_valid_names = $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["array_valid_names"];
@@ -1022,18 +1022,18 @@ class _Course
 
     if ($this->course_id != 0)
     {
-      
+
       $exclude_line = " AND exclude = '0' ";
       if ($bool_ignore_exclude) {
         $exclude_line = "";
       }
-      
+
       $table_name = "courses";
       if ($this->bool_use_draft) {$table_name = "draft_$table_name";}
       $res = $this->db->db_query("SELECT * FROM $table_name
-      							WHERE course_id = '?' 
-      							AND catalog_year = '?' 
-      							AND delete_flag = '0' 
+      							WHERE course_id = '?'
+      							AND catalog_year = '?'
+      							AND delete_flag = '0'
       							$exclude_line ", $this->course_id, $this->catalog_year);
       $cur = $this->db->db_fetch_array($res);
 
@@ -1046,9 +1046,9 @@ class _Course
         $table_name = "courses";
         if ($this->bool_use_draft) {$table_name = "draft_$table_name";}
         $res2 = $db->db_query("SELECT * FROM $table_name
-							WHERE course_id = '?' 
-							AND subject_id != '' 
-							AND delete_flag = '0' 
+							WHERE course_id = '?'
+							AND subject_id != ''
+							AND delete_flag = '0'
 							$exclude_line
 							AND catalog_year <= '$setting_current_catalog_year'
 							$cat_line
@@ -1065,8 +1065,8 @@ class _Course
           $table_name = "courses";
           if ($this->bool_use_draft) {$table_name = "draft_$table_name";}
           $res3 = $db->db_query("SELECT * FROM $table_name
-							WHERE course_id = '?' 
-							AND subject_id != '' 
+							WHERE course_id = '?'
+							AND subject_id != ''
 							AND delete_flag = '0'
 							AND catalog_year <= '$setting_current_catalog_year'
 							$cat_line
@@ -1080,14 +1080,14 @@ class _Course
 
       $this->title = $this->fix_title($cur["title"]);
 			//CODE-ADD-START -WATCHDOG CALL TO TEST FOR COURSE1 PULL IN COURSE CLASS LOAD_DESCRIPTIVE_DATA METHOD
-			//watchdog("Course1", $this->title, array(), WATCHDOG_DEBUG);    
+			//watchdog("Course1", $this->title, array(), WATCHDOG_DEBUG);
 			$this->crs_title = $this->title;
-			//watchdog("Course2",  $this->crs_title, array(), WATCHDOG_DEBUG);    
+			//watchdog("Course2",  $this->crs_title, array(), WATCHDOG_DEBUG);
       //CODE-ADD-END
 			$this->description = trim($cur["description"]);
       $this->subject_id = trim(strtoupper($cur["subject_id"]));
       $this->course_num = trim(strtoupper($cur["course_num"]));
-			
+
 
 
       $this->min_hours = $cur["min_hours"] * 1;  //*1 will trim extra zeros from end of decimals
@@ -1095,7 +1095,7 @@ class _Course
 
       // Reset the ghosthours to default.
       $this->bool_ghost_hour = $this->bool_ghost_min_hour = FALSE;
-      
+
       if ($this->min_hours <= 0) {
         $this->min_hours = 1;
         $this->bool_ghost_min_hour = TRUE;
@@ -1104,8 +1104,8 @@ class _Course
         $this->max_hours = 1;
         $this->bool_ghost_hour = TRUE;
       }
-      
-      
+
+
       $this->repeat_hours = $cur["repeat_hours"] * 1;
       if ($this->repeat_hours <= 0)
       {
@@ -1163,8 +1163,8 @@ class _Course
 
 
     if ($this->description == "")
-    {      
-      $this->description = "There is no course description available at this time.";
+    {
+      $this->description = "لا يوجد وصف لهذا المساق في الوقت الحالي";
     }
 
     if ($this->title == "")
@@ -1182,13 +1182,13 @@ class _Course
     $max_hours = $this->max_hours;
     if ($this->bool_ghost_min_hour) $min_hours = 0;
     if ($this->bool_ghost_hour) $max_hours = 0;
-    
-    
+
+
     // Since we may have trouble characters in the description (like smart quotes) let's
     // do our best to try to clean it up a little.
     $this->description = utf8_encode($this->description);
-    
-    
+
+
     $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["subject_id"] = $this->subject_id;
     $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["course_num"] = $this->course_num;
     $GLOBALS["fp_course_inventory"][$this->course_id][$cache_catalog_year]["title"] = $this->title;
@@ -1213,7 +1213,7 @@ class _Course
    *        - If > 0, we will look for the course data which has been
    *          assigned for this particular student.  If it == 0, we will
    *          just use the first bit of data we find.
-   * 
+   *
    */
   function load_descriptive_transfer_data($student_id = 0)
   {
@@ -1228,8 +1228,8 @@ class _Course
       $this->db = get_global_database_handler();
     }
 
-    
-    
+
+
     $res = $this->db->db_query("SELECT * FROM transfer_courses
 									     WHERE transfer_course_id = '?' ", $this->course_id);
     $cur = $this->db->db_fetch_array($res);
@@ -1247,10 +1247,10 @@ class _Course
     {
       // Because transfer credit titles may differ from student
       // to student, let's look up the title in the per-student transfer courses table...
-      
+
       $res = $this->db->db_query("SELECT * FROM student_transfer_courses
 									WHERE student_id = '?'
-									AND transfer_course_id = '?' 
+									AND transfer_course_id = '?'
 									 ", $student_id, $this->course_id);
       $cur = $this->db->db_fetch_array($res);
       if (trim($cur["student_specific_course_title"]) != "") {
@@ -1260,19 +1260,19 @@ class _Course
       $this->hours_awarded = $cur["hours_awarded"] * 1;
       $this->grade = $cur["grade"];
       $this->term_id = $cur["term_id"];
-      
-      
+
+
 
       $already = array();  // to prevent duplicates from showing up, keep up with
                            // eqv's we've already recorded.
-      
-   
+
+
       $res2 = $this->db->db_query("SELECT * FROM transfer_eqv_per_student
-            					WHERE student_id = '?'	
-            					AND transfer_course_id = '?' 
+            					WHERE student_id = '?'
+            					AND transfer_course_id = '?'
             					 ", $student_id, $this->course_id);
       while($cur2 = $this->db->db_fetch_array($res2))
-      {        
+      {
 
         if (!in_array($cur2["local_course_id"], $already)) {
           $c = new Course($cur2["local_course_id"]);
@@ -1287,7 +1287,7 @@ class _Course
 
   }
 
-  
+
   /**
    * Based on $this->term_id, set what catalog year should go with
    * the course.
@@ -1328,8 +1328,8 @@ class _Course
    * @param bool $bool_abbreviate
    *        - If set to TRUE, abbreviations will be used.  For example,
    *          Spring will be "Spr" and 2006 will be '06.
-   * 
-   * 
+   *
+   *
    * @return unknown
    */
   function get_term_description($bool_abbreviate = false)
@@ -1345,21 +1345,21 @@ class _Course
    * necessairily the course that the student took.  Example: if you want
    * to test if MATH 101 is part of a group.  You wouldn't use ==, since
    * all the attributes might not be the same.
-   * 
+   *
    * @param Course $course_c
-   * 
+   *
    * @return bool
    */
   function equals_placeholder(Course $course_c)
   {
 
     // First, see if the courses are identical.
-   
-    if ($this->equals($course_c)) 
+
+    if ($this->equals($course_c))
     {
       return true;
     }
-    
+
     // Okay, now we go through and test for particular attributes
     // to be equal.
     if ($this->subject_id == $course_c->subject_id
@@ -1373,22 +1373,22 @@ class _Course
     return false;
   }
 
-  
+
   /**
    * This is the to_string method for Course.  Because we want to pass it
    * values, we are not using the magic method of "__to_string".  So, to use,
    * invoke this method directly.  Ex:
-   * 
+   *
    * $x = $newCourse->to_string("", true);
    *
    * @param string $pad
    *        - How much padding to use.  Specified in the form of a string
    *          of spaces.  Ex:  "   "
-   * 
+   *
    * @param bool $bool_show_random
    *        - Display the randomly assigned number which goes with
    *          this course.
-   * 
+   *
    * @return string
    */
   function to_string($pad = "      ", $bool_show_random = false)
@@ -1449,12 +1449,12 @@ class _Course
    * This is the magic method __sleep().  PHP will call this method any time
    * this object is being serialized.  It is supposed to return an array of
    * all the variables which need to be serialized.
-   * 
+   *
    * What we are doing in it is skipping
    * any variables which we are not using or which do not need to be
    * serialized.  This will greatly reduce the size of the final serialized
    * string.
-   * 
+   *
    * It may not seem worth it at first, but consider that we may be serializing
    * an entire degree plan, with a dozen groups, each with every course in the
    * catalog.  That could easily be 10,000+ courses which get serialized!
@@ -1499,7 +1499,7 @@ class _Course
       if (isset($this->$var))  // This checks to see if we are using
       {						// the variable or not.
         $rtn[] = $var;
-      } 
+      }
     }
 
     return $rtn;

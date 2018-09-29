@@ -8,7 +8,7 @@ function blank_degrees_menu() {
   $items = array();
 
   $items["tools/blank-degrees"] = array(
-    "title" => "Blank Degree Search",
+    "title" => "بحث درجة فارغة",
     "description" => "Browse through available degree plans as they appear in FlightPath.",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("blank_degrees_select_degree_form"),

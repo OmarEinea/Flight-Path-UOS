@@ -1,6 +1,8 @@
 <html dir="rtl">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 <?php
-header('Content-Type: text/html; charset=utf-8');
 /**
  * @file
  * The primary entry point for FlightPath.

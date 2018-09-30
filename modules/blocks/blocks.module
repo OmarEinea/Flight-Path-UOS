@@ -263,10 +263,18 @@ function blocks_render_block($delta) {
 
 
   if (!strstr($content["title"], "[hide]")) {
-    $block["title"] = $content["title"];
+    //$block["title"] = $content["title"];
+    
+    if($content["title"]=="important notice"){
+      $block["title"]= "ملاحظة مهمة";
+        $block["body"] = "<b> ملاحظة مهمة: </b>يهدف نظام التدقيق هذا لمساعدتكم في تحديد تقدمك نحو الحصول على درجة ، ولكن ليس نسخة رسمية. على الرغم من الجهود المبذولة لضمان دقة هذا النظام ، يجب عليك مراجعته بعناية والإبلاغ عن أي اختلافات لمستشارك. تقع على عاتقك مسؤولية تأكيد حالة المتطلبات الرئيسية من خلال استشارة مستشار إداري. كما تقع على عاتقك مسؤولية التماس معلومات عن جميع متطلبات الكلية والمتطلبات الرئيسية في كتالوج البكالوريوس الذي تم تعيينه لك. يخضع التأكيد النهائي لمتطلبات الشهادة لموافقة الإدارة الرئيسية والعميد";
+    }
   }
-
-  $block["body"] = $content["body"];
+  else if (strstr($content["title"], "[hide]")) {
+    if($content["title"]=="[hide] Top welcome on login page"){
+      $block["body"]= '<p style="text-align: center;"><span style="color: #000000; font-family: Arial; font-size: 18px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff; display: inline !important; float: none;">أهلا بك في<span class="Apple-converted-space">&nbsp;</span></span><span class="flightpath-name" style="color: maroon; font-weight: bold; font-style: italic; font-family: Arial; font-size: 18px; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff;">FlightPath</span><span style="color: #000000; font-family: Arial; font-size: 18px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff; display: inline !important; float: none;"> نظام الإرشاد الأكاديمي!</span></p>';
+      }
+    }
 
 
   // What type of mobile_display_mode has been set?

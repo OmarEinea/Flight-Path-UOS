@@ -679,7 +679,7 @@ function content_render_content($bool_show_delete = FALSE) {
   while ($cur = db_fetch_array($res)) {
     $rtn .= "<div class='content'>
                 <div class='content-text'>" . filter_markup($cur["body"], "full") . "</div>
-                <div class='content-posted'>" . date("D, M jS Y - g:ia", $cur["posted"]) . " " . t("تم النشر")."</div>";
+                <div class='content-posted'>" . " " . t(" تم النشر في"). date("D, M jS Y - g:ia", $cur["posted"]) ."</div>";
     if ($bool_show_delete) {
       $delete_link = "";
       $delete_link = fp_get_js_confirm_link(t("هل أنت متأكد من أنك تريد حذف هذا المحتوى؟"), 'window.location="' . fp_url("content/delete", "aid=" . $cur["aid"]) . '"', t("حذف؟"));

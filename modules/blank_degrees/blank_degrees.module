@@ -9,7 +9,7 @@ function blank_degrees_menu() {
 
   $items["tools/blank-degrees"] = array(
     "title" => "بحث درجة فارغة",
-    "description" => "Browse through available degree plans as they appear in FlightPath.",
+    "description" => "تصفح خطط دراسية متاحة في FlightPath",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("blank_degrees_select_degree_form"),
     "access_callback" => TRUE,

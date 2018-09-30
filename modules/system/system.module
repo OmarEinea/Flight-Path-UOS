@@ -629,7 +629,7 @@ function system_display_install_finished_page() {
 
   fp_show_title(TRUE);
 
-  $rtn .= t(" اكتمل الآن تثبيتك الجديد ل FlightPath <br/><br/><ul> <li>كإجراء احترازي، يجب عليك تغيير الأذونات على custom/settings.php بحيث لا يمكن قراءتها أو كتابتها من قبل مستخدمين غير مصرح لهم</li> <li>يجب عليك أيضًا إعادة تسمية أو إزالة install.php حتى لا يتمكن زائرو الويب من الوصول</li> </ul> If you need to re-install FlightPath, delete custom/settings.php, and drop all of the tables in the database, then re-access install.php.") . "<br><br>";
+  $rtn .= t(" اكتمل الآن تثبيتك الجديد ل FlightPath <br/><br/><ul> <li>كإجراء احترازي، يجب عليك تغيير الأذونات على custom/settings.php بحيث لا يمكن قراءتها أو كتابتها من قبل مستخدمين غير مصرح لهم</li> <li>يجب عليك أيضًا إعادة تسمية أو إزالة install.php حتى لا يتمكن زائرو الويب من الوصول</li> </ul> إذا كنت بحاجة إلى إعادة تثبيت FlightPath ، قم بحذف custom / settings.php ، وقم بإسقاط كافة الجداول في قاعدة البيانات ، ثم أعد الوصول إلى install.php.") . "<br><br>";
 
   $rtn .= l(t("الوصول إلى موقع FlightPath  الجديد الآن"), "<front>");
 

@@ -7,7 +7,7 @@ function student_search_menu() {
 
   $items["admin/config/student-search-settings"] = array(
     "title" => "إعدادات بحث الطالب",
-    "description" => "Configure settings for the Student Search function",
+    "description" => "قم بتكوين الإعدادات الخاصة بوظيفة بحث الطالب",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("student_search_settings_form", "system_settings"),
     "access_arguments" => array("administer_student_search"),

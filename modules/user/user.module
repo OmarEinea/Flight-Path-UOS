@@ -10,7 +10,7 @@ function user_menu() {
   // This one will appear in our admin menu
   $items["admin/config/users"] = array(
     "title" => "المستخدمين",
-    "description" => "Search and manage FlightPath users",
+    "description" => "بحث وإدارة مستخدمي FlightPath",
     "page_callback" => "user_subtab_switchboard",
     "access_arguments" => array("manage_users"),
     "type" => MENU_TYPE_NORMAL_ITEM,
@@ -207,12 +207,9 @@ function user_menu() {
 
 
 
-
-
-
   $items["admin/config/permissions"] = array(
     "title" => "الأذونات",
-    "description" => "Manage permissions for user roles in FlightPath",
+    "description" => "إدارة الأذونات لأدوار المستخدم في FlightPath",
     "page_callback" => "fp_render_form",
     "page_arguments" => array("user_permissions_form"),
     "access_arguments" => array("can_edit_permissions"),

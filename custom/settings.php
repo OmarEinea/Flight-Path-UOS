@@ -106,7 +106,7 @@ $system_settings["load_course_inventory_on_login_number"] = 2000;
 // running cron.php, and is REQUIRED!
 // For example, if the token is "qwss34frwquu" then to run the script you would need
 // to use:   http://url/cron.php?t=CRON_TOKEN  (use wget to access from a system cron job.)
-$system_settings["cron_security_token"] = "63d8297e4766b9e1de33fcc7e4bc2562";
+$system_settings["cron_security_token"] = "1f100b6ba9fc023f070af7e923ae195b";
 
 
 /////////////////////////////////////
@@ -127,7 +127,6 @@ $db_pass = $system_settings["db_pass"];
 $db_name = $system_settings["db_name"];
 $dbc = mysql_connect ($db_host, $db_user, $db_pass) or die("Could not connect to database: " . mysql_error());
 mysql_select_db ($db_name);
-mysql_set_charset('utf8', $dbc);
 
 $res = mysql_query("SELECT * FROM variables");
 while ($cur = mysql_fetch_array($res)) {

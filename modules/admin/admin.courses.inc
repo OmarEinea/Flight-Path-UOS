@@ -44,9 +44,9 @@ function admin_display_courses() {
   $_SESSION["dec_lr"] = $lr;
 
 
-  fp_set_title(t("@year المساقات لعام", array("@year" => $de_catalog_year)));
+  fp_set_title(t("المساقات لعام@year", array("@year" => $de_catalog_year)));
 
-  $rtn .= "<h2 class='title'>" . t("@year المساقات لعام", array("@year" => $de_catalog_year)) . "</h2>";
+  $rtn .= "<h2 class='title'>" . t("المساقات لعام@year", array("@year" => $de_catalog_year)) . "</h2>";
 
 //CODE-DELETE-START -2017XXXX -For removing old clickable headers in the course list     
 /*

@@ -76,6 +76,7 @@ function determine_mobile_device(){
   $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
   $look_for = array(
+	  
     "ipod",
     "iphone",
     "android",
@@ -109,7 +110,7 @@ function determine_mobile_device(){
  * @param bool $bool_start_closed
  * @return String
  */
-function draw_c_fieldset($content, $legend = "Click to expand/collapse", $bool_start_closed = false)
+function draw_c_fieldset($content, $legend = "انقر للتوسيع / إغلاق", $bool_start_closed = false)
 {
 
   // Create a random ID for this fieldset, js, and styles.
@@ -490,10 +491,9 @@ function draw_menu_items($menu_array) {
 			$pC .= "<tr>
 				<td colspan='10'>
 				<div class='tenpt' style='margin-top: 10px; padding: 3px;'>
-				<b>*</b> Courses marked with an asterisk (*) have
-					equivalencies at {$GLOBALS["fp_system_settings"]["school_initials"]}.
-					Click on the course for more
-					details.
+				<b>*</b> الدورات المميزة بعلامة النجمة (*) لها
+				معادلات في{$GLOBALS["fp_system_settings"]["school_initials"]}.
+					انقر على المساق لتفاصيل أكثر
 				</div>
 				</td>
 				</tr>
@@ -2981,7 +2981,7 @@ function draw_menu_items($menu_array) {
 
 		$js_code = "selectCourseFromGroup(\"$group->group_id\", \"$group->assigned_to_semester_num\", \"$remaining_hours\", \"$blank_degree_id\");";
 
-		$row_msg = "<i>Click <font color='red'>&gt;&gt;</font> to select $remaining_hours hour$s.</i>";
+		$row_msg = "<i>انقر <font color='red'>&gt;&gt;</font> لاختيار $remaining_hours ساعات</i>";
 		$hand_class = "hand";
 
 		if ($this->bool_print)
@@ -2990,13 +2990,13 @@ function draw_menu_items($menu_array) {
 			$on_mouse_over = "";
 			$js_code = "";
 			$hand_class = "";
-			$row_msg = "<i>Select $remaining_hours hour$s from $group->title.</i>";
+			$row_msg = "<i>اختر $remaining_hours ساعات من $group->title. </i>";
 		}
 
 
 		if ($group->group_id == -88)
 		{ // This is the Add a Course group.
-			$row_msg = "<i>Click to add an additional course.</i>";
+			$row_msg = "<i>انقر لإضافة مساق إضافي</i>";
 			$select_icon = "<span style='font-size: 16pt; color:blue;'>+</span>";
 			$icon_link = "";
 		}
@@ -4341,7 +4341,7 @@ function draw_menu_items($menu_array) {
 		if ($group_hours_remaining < 100 && $bool_no_courses != true)	{
 		  // Don't show for huge groups (like add-a-course)
 			$pC .= "<div class='elevenpt' style='margin-top:5px;'>
-					" . t("من هذه القائمة hour$s<b>@hrs</b> يمكنك اختيار", array("@hrs" => $group_hours_remaining)) . "$unselectable_notice</div>";
+					" . t("يمكنك اختيار <b>@hrs</b>  ساعات من هذه القائمة", array("@hrs" => $group_hours_remaining)) . "$unselectable_notice</div>";
 		}
 
 		if ($bool_display_submit == true && !$this->bool_blank && $bool_no_courses != true)

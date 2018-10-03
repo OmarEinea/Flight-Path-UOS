@@ -880,7 +880,9 @@ class _DatabaseHandler
     if ($val == "") {
       $val = $default_value;
     }
-
+	if ($val == 's:227:\"r ~ University Comp\r\nl ~ University Elecs\r\nc ~ College Comp\r\nd ~ College Elecs\r\nm ~ Major Comp\r\nf ~ Major Elecs\r\nh ~ Minor Comp\r\ng ~ Minor Elecs\r\ni ~ Supp Comp\r\nj ~ Supp Elecs\r\ny ~ Conc Comp\r\ne ~ Electives\r\nx ~ Ignored From GPA\";'){
+		$val = 's:227:\"r ~ متطلبات جامعية إجبارية\r\nl ~ مساقات اختيارية\r\nc ~ متطلبات الكلية\r\nd ~ مساقات كلية اختيارية\r\nm ~ متطلبات تخصص إجبارية\r\nf ~ مساقات تخصص اختيارية\r\nh ~ Minor Comp\r\ng ~ Minor Elecs\r\ni ~ Supp Comp\r\nj ~ Supp Elecs\r\ny ~ متطلبات إجبارية\r\ne ~ مواد اختيارية\r\nx ~ Ignored From GPA\";';
+	}
 	  return $val;
 	}
 

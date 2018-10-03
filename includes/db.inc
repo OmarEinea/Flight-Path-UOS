@@ -326,7 +326,6 @@ function variable_get($name, $default_value = "") {
     if ($val === "BOOLEAN_FALSE_PLACEHOLDER") {
       $val = FALSE;
     }
-    
     // Save back to our cache...
     $GLOBALS["fp_system_settings"][$name] = $val;
   }

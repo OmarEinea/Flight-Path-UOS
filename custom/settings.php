@@ -7,23 +7,23 @@
  * the permissions to "read-only" to prevent unauthorized users
  * from altering it.
  */
- 
+
 // Set the PHP error reporting level for FlightPath.  In this case,
 // only show us errors and warnings. (Hide "notice" and "strict" messages)
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_WARNING);
- 
+
 // Set the PHP max time limit which any one page is allowed to take up while
 // running.  The default is 30 seconds.  Change this value (or remove it)
 // as needed.
 set_time_limit(300);  // 300 seconds = 5 minutes.
 
- 
+
 /**
  * All system settings will be placed (at the end of this script)
  * into a $GLOBALS variable, but for now will be placed into an
  * array.
  */
- 
+
 $system_settings = array();
 
 ////////////////////////////////////
@@ -55,7 +55,7 @@ $system_settings["base_url"] = "http://localhost/Flight-Path-UOS";
 // your domain name.
 // It MUST begin with a preceeding slash.
 // Ex: If your site is example.com/dev/flightpath, then you should
-// enter  "/dev/flightpath" 
+// enter  "/dev/flightpath"
 $system_settings["base_path"] = "/Flight-Path-UOS";
 
 
@@ -63,8 +63,8 @@ $system_settings["base_path"] = "/Flight-Path-UOS";
 // *** Database-related settings ***
 ////////////////////////////////////
 $system_settings["db_host"] = "localhost:3306"; // domain/ip address of the mysql host. ex: localhost or mysite.com:32145
-$system_settings["db_user"] = "root"; 
-$system_settings["db_pass"] = ""; 
+$system_settings["db_user"] = "root";
+$system_settings["db_pass"] = "";
 $system_settings["db_name"] = "flightpath"; // Name of the actual database where
                                               // flightpath's tables are located.
                                               // Usually just "flightpath"
@@ -75,7 +75,7 @@ $system_settings["db_name"] = "flightpath"; // Name of the actual database where
 /////////////////////////////////////
 // *** Defaults ***                //
 /////////////////////////////////////
-// These default settings are for installation reasons only. 
+// These default settings are for installation reasons only.
 // They will be overwritten in memory
 // once the flightpath_system_settings table is read in at the end of the file.
 // Do not alter them.
@@ -98,7 +98,7 @@ $system_settings["load_course_inventory_on_login_number"] = 2000;
 // If you wish to use cron.php (which will call every module's
 // hook_cron() function), you may set up a cron job like this:
 //      php cron.php security_token_string
- 
+
 // SecurityToken:  This is something which
 // must be the first argument passed to cron.php.  It can be any continuous
 // string of *alpha-numeric* characters.
@@ -106,7 +106,7 @@ $system_settings["load_course_inventory_on_login_number"] = 2000;
 // running cron.php, and is REQUIRED!
 // For example, if the token is "qwss34frwquu" then to run the script you would need
 // to use:   http://url/cron.php?t=CRON_TOKEN  (use wget to access from a system cron job.)
-$system_settings["cron_security_token"] = "1f100b6ba9fc023f070af7e923ae195b";
+$system_settings["cron_security_token"] = "14457b3637d42a188d4262405d117363";
 
 
 /////////////////////////////////////
